@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.FavoriteFragment"
+        android:label="FavoriteFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CartFragment"
+        android:label="CartFragment" />
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.MessageFragment"
+        android:label="MessageFragment" />
+    <fragment
+        android:id="@+id/personFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.PersonFragment"
+        android:label="PersonFragment" />
+</navigation>
