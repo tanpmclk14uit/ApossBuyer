@@ -2,6 +2,8 @@ package com.example.aposs_buyer.uicontroler.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityMainBinding
@@ -25,5 +27,26 @@ class MainActivity : AppCompatActivity() {
             add(MeowBottomNavigation.Model(5, R.drawable.ic_person))
         }
         binding.meowBottomNavigation.show(3, true)
+        binding.meowBottomNavigation.setOnShowListener {
+            val navController = Navigation.findNavController(this, R.id.navHostFragment)
+            navController.navigateUp()
+            when(it.id){
+                1 -> {
+                    navController.navigate(R.id.favoriteFragment)
+                }
+                2->{
+                    navController.navigate(R.id.messageFragment)
+                }
+                3-> {
+                    navController.navigate(R.id.homeFragment)
+                }
+                4->{
+                    navController.navigate(R.id.cartFragment)
+                }
+                else -> {
+                    navController.navigate(R.id.personFragment)
+                }
+            }
+        }
     }
 }

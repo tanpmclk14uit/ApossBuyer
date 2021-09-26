@@ -1,9 +1,9 @@
 package com.example.aposs_buyer.uicontroler.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.example.aposs_buyer.R
 
 class SplashActivity : AppCompatActivity() {
@@ -17,10 +17,11 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(
             {
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish()
             },
             2000
         )
-        
+
     }
 }
