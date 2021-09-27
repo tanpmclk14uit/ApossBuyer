@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/notifications/baseline_notifications_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/search/outline_search_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="c6c6c6" />
-                            <entry key="outputName" value="ic__notifications" />
+                            <entry key="outputName" value="ic_search" />
                             <entry key="sourceFile" value="D:\0. DoAn1\ApossBuyer" />
                           </map>
                         </option>
