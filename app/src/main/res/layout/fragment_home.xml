@@ -21,7 +21,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="512dp"
                 android:paddingBottom="512dp">
-
             </TextView>
         </androidx.core.widget.NestedScrollView>
 
