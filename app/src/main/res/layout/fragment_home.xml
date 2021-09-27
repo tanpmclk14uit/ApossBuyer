@@ -54,8 +54,10 @@
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UseCompoundDrawables">
                         <ImageView
+                            android:contentDescription="@string/image"
                             android:padding="2dp"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
@@ -104,6 +106,7 @@
                         android:paddingBottom="15dp">
 
                         <ImageView
+                            android:contentDescription="@string/image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
@@ -131,11 +134,12 @@
                                     android:background="@drawable/bg_search"
                                     android:editable="false"
                                     android:padding="0dp"
-                                    android:text="@string/seach"
+                                    android:text="@string/search"
                                     android:textColor="@color/disable_pray" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <ImageView
+                                android:contentDescription="@string/image"
                                 android:layout_width="38dp"
                                 android:layout_height="38dp"
                                 android:layout_alignParentEnd="true"
