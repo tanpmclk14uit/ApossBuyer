@@ -11,4 +11,7 @@
     <string name="image">image</string>
     <string name="default_price">50.000đ</string>
     <string name="purchase">1080 purchased</string>
+    <string name="categories">Categories</string>
+    <string name="show_all">Show all</string>
+    <string name="products">1257 products</string>
 </resources>

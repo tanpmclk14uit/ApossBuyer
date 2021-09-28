@@ -14,14 +14,155 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="512dp"
-                android:paddingBottom="512dp">
-            </TextView>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/categories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categories"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_all"
+                    android:textColor="@color/dark_pray"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/categories"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categories">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_marginHorizontal="13dp"
+                        android:shadowColor="@color/white"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                        <!--Put automatic page view here-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/image"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/example_categories" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="3dp"
+                        android:layout_height="135dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="3dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <me.relex.circleindicator.CircleIndicator2
+                                android:id="@+id/indicator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="50dp"
+                                app:ci_drawable="@drawable/bg_cycle_indicator"
+                                app:ci_drawable_unselected="@drawable/bg_cycle_unselected_indicator"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/categoryName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="13dp"
+                                android:text="@string/app_name"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black"
+                                android:textFontWeight="@integer/material_motion_duration_long_2"
+                                android:textSize="25sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/indicator" />
+
+                            <TextView
+                                android:layout_marginTop="3dp"
+                                android:id="@+id/totalPurchase"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="13dp"
+                                android:text="@string/purchase"
+                                android:textColor="@color/dark_pray"
+                                android:textFontWeight="@integer/material_motion_duration_long_2"
+                                android:textSize="13sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+
+                            <TextView
+                                android:layout_marginTop="3dp"
+                                android:id="@+id/totalProduct"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="13dp"
+                                android:text="@string/products"
+                                android:textColor="@color/dark_pray"
+                                android:textFontWeight="@integer/material_motion_duration_long_2"
+                                android:textSize="13sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+
+                            <RatingBar
+                                android:layout_marginTop="4dp"
+
+                                android:layout_marginHorizontal="13dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/categoryName"
+                                android:id="@+id/rating"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:isIndicator="false"
+                                android:numStars="5"
+                                android:progressTint="@color/yellow"
+                                android:rating="4.5"
+                                android:secondaryProgressTint="@color/yellow"
+                                android:stepSize="0.5" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.appbar.AppBarLayout
@@ -44,43 +185,46 @@
                     android:background="@drawable/bg_card"
                     android:gravity="bottom"
                     android:orientation="vertical">
+
                     <LinearLayout
-                        android:gravity="center"
-                        android:layout_marginStart="29dp"
-                        android:layout_marginTop="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_marginStart="29dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="UseCompoundDrawables">
+
                         <ImageView
-                            android:contentDescription="@string/image"
-                            android:padding="2dp"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:contentDescription="@string/image"
+                            android:padding="2dp"
                             android:src="@drawable/ic_home"
                             app:tint="@color/white" />
+
                         <TextView
-                            android:textStyle="normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/about_us"
                             android:textColor="@color/white"
-                            android:textSize="12sp">
+                            android:textSize="12sp"
+                            android:textStyle="normal">
 
                         </TextView>
 
                     </LinearLayout>
 
                     <TextView
-                        android:layout_marginBottom="30dp"
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/home"
                         android:textColor="@color/white"
                         android:textSize="30sp"
@@ -106,10 +250,10 @@
                         android:paddingBottom="15dp">
 
                         <ImageView
-                            android:contentDescription="@string/image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:contentDescription="@string/image"
                             android:src="@drawable/ic_logo" />
 
                         <RelativeLayout
@@ -117,17 +261,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:orientation="horizontal">
+
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                 android:layout_width="match_parent"
                                 android:layout_height="38dp"
                                 android:layout_marginEnd="50dp"
-                                app:boxStrokeWidth="1dp"
                                 app:boxStrokeColor="@color/disable_pray"
+                                app:boxStrokeWidth="1dp"
                                 app:boxStrokeWidthFocused="2dp"
                                 app:hintAnimationEnabled="false"
                                 app:hintEnabled="false"
                                 app:startIconDrawable="@drawable/ic_search">
+
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -139,13 +285,12 @@
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <ImageView
-                                android:contentDescription="@string/image"
                                 android:layout_width="38dp"
                                 android:layout_height="38dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginStart="10dp"
-                                android:src="@drawable/ic__notifications">
-                            </ImageView>
+                                android:contentDescription="@string/image"
+                                android:src="@drawable/ic__notifications" />
                         </RelativeLayout>
 
                     </LinearLayout>

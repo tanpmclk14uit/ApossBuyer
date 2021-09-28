@@ -14,7 +14,13 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.title, 1);
+        sViewsWithIds.put(R.id.categories, 1);
+        sViewsWithIds.put(R.id.indicator, 2);
+        sViewsWithIds.put(R.id.categoryName, 3);
+        sViewsWithIds.put(R.id.totalPurchase, 4);
+        sViewsWithIds.put(R.id.totalProduct, 5);
+        sViewsWithIds.put(R.id.rating, 6);
+        sViewsWithIds.put(R.id.title, 7);
     }
     // views
     @NonNull
@@ -25,11 +31,17 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 2, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (android.widget.TextView) bindings[1]
+            , (android.widget.TextView) bindings[3]
+            , (me.relex.circleindicator.CircleIndicator2) bindings[2]
+            , (android.widget.RatingBar) bindings[6]
+            , (android.widget.TextView) bindings[7]
+            , (android.widget.TextView) bindings[5]
+            , (android.widget.TextView) bindings[4]
             );
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);

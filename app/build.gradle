@@ -90,6 +90,8 @@ dependencies {
     //bottom bar
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //Cycle indicator
+    implementation 'me.relex:circleindicator:2.1.6'
 
 
 }
