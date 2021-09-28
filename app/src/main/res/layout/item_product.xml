@@ -57,7 +57,7 @@
                     android:layout_marginTop="3dp"
                     android:id="@+id/name"
                     android:layout_width="match_parent"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/product_font_size"
                     android:text="@string/app_name"
                     android:layout_height="wrap_content"
                     />
@@ -66,7 +66,7 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/product_font_size"
                     android:textStyle="bold"
                     android:text="@string/default_price"
                     android:textColor="@color/active_button"
@@ -83,7 +83,6 @@
                     android:stepSize="0.5"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:progressTint="@color/yellow"
-
                     />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
