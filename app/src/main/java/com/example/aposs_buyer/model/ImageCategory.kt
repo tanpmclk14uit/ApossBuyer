@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.core.net.toUri
 
 
-data class Image(val imgURL: String){
+data class ImageCategory(val imgURL: String, val priority: Int){
 
     private lateinit var imageUri: Uri;
     fun getImageUri(): Uri{

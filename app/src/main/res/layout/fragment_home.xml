@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.HomeViewModel" />
+    </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,6 +69,7 @@
                         app:layout_constraintTop_toTopOf="parent">
                         <!--Put automatic page view here-->
                         <ImageView
+                            image="@{viewModel.category.mainImage.imageUri}"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:contentDescription="@string/image"
@@ -97,13 +102,12 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
-
                             <TextView
                                 android:id="@+id/categoryName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="13dp"
-                                android:text="@string/app_name"
+                                android:text="@{viewModel.category.name, default=APOSS}"
                                 android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textFontWeight="@integer/material_motion_duration_long_2"
@@ -118,7 +122,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="13dp"
-                                android:text="@string/purchase"
+                                android:text="@{viewModel.displayCategoryPurchase}"
                                 android:textColor="@color/dark_pray"
                                 android:textFontWeight="@integer/material_motion_duration_long_2"
                                 android:textSize="13sp"
@@ -132,7 +136,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="13dp"
-                                android:text="@string/products"
+                                android:text="@{viewModel.displayCategoryProducts}"
                                 android:textColor="@color/dark_pray"
                                 android:textFontWeight="@integer/material_motion_duration_long_2"
                                 android:textSize="13sp"
@@ -141,7 +145,6 @@
 
                             <RatingBar
                                 android:layout_marginTop="4dp"
-
                                 android:layout_marginHorizontal="13dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/categoryName"
@@ -152,7 +155,7 @@
                                 android:isIndicator="false"
                                 android:numStars="5"
                                 android:progressTint="@color/yellow"
-                                android:rating="4.5"
+                                android:rating="@{viewModel.category.rating}"
                                 android:secondaryProgressTint="@color/yellow"
                                 android:stepSize="0.5" />
 
