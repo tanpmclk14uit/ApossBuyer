@@ -154,7 +154,7 @@
                                     style="@style/Widget.AppCompat.RatingBar.Small"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:isIndicator="false"
+                                    android:isIndicator="true"
                                     android:numStars="5"
                                     android:progressTint="@color/yellow"
                                     android:rating="@{viewModel.displayCategory.rating}"
@@ -169,8 +169,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-
-                    android:layout_height="230dp">
+                    android:layout_height="240dp">
                     <TextView
                         android:layout_marginTop="5dp"
                         android:id="@+id/ranking"
@@ -186,14 +185,21 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView2"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="160dp"
                         android:layout_marginHorizontal="3dp"
                         android:layout_marginTop="15dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ranking"/>
+                        app:layout_constraintTop_toBottomOf="@+id/ranking">
+                        <androidx.viewpager2.widget.ViewPager2
+                            rankingData="@{viewModel.rankingProducts}"
+                            android:id="@+id/rankingViewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </androidx.cardview.widget.CardView>
+
 
                     <androidx.cardview.widget.CardView
 
@@ -207,11 +213,14 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
                         <TextView
-
+                            android:maxWidth="140dp"
+                            android:textStyle="bold"
+                            android:ellipsize="end"
                             android:textSize="14sp"
                             android:layout_gravity="center"
                             android:textColor="@color/white"
-                            android:text="@string/app_name"
+                            android:textAllCaps="true"
+                            android:text="@{viewModel.currentProductKind}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -219,6 +228,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <me.relex.circleindicator.CircleIndicator3
+                        indicatorSize="@{viewModel.rankingProducts.size()}"
                         android:layout_marginTop="8dp"
                         android:id="@+id/rankingIndicator"
                         android:layout_width="wrap_content"

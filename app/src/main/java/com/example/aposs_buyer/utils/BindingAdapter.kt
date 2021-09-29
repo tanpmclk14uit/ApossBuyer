@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.model.Category
+import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
+import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
 import me.relex.circleindicator.CircleIndicator3
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,4 +33,10 @@ fun bindCategoriesViewPager(viewPager2: ViewPager2, data: ArrayList<Category>?){
 @BindingAdapter( "indicatorSize")
 fun bindIndicatorSize(indicator: CircleIndicator3, size: Int){
     indicator.createIndicators(size , 0)
+}
+
+@BindingAdapter("rankingData")
+fun bindRankingViewPager(viewPager2: ViewPager2, data: ArrayList<RankingProduct>?){
+    val adapter = viewPager2.adapter as RankingViewPagerAdapter
+    adapter.submitList(data)
 }

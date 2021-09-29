@@ -12,6 +12,7 @@ import com.example.aposs_buyer.databinding.FragmentFavoriteBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentHomeBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentMessageBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentPersonBindingImpl;
+import com.example.aposs_buyer.databinding.ItemRakingBindingImpl;
 import com.example.aposs_buyer.databinding.ItemViewPaperCategoriesBindingImpl;
 import java.lang.IllegalArgumentException;
 import java.lang.Integer;
@@ -36,9 +37,11 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_FRAGMENTPERSON = 6;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 7;
+  private static final int LAYOUT_ITEMRAKING = 7;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(7);
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 8;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(8);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
@@ -47,6 +50,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_home, LAYOUT_FRAGMENTHOME);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_message, LAYOUT_FRAGMENTMESSAGE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_person, LAYOUT_FRAGMENTPERSON);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_raking, LAYOUT_ITEMRAKING);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_view_paper_categories, LAYOUT_ITEMVIEWPAPERCATEGORIES);
   }
 
@@ -94,6 +98,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
             return new FragmentPersonBindingImpl(component, view);
           }
           throw new IllegalArgumentException("The tag for fragment_person is invalid. Received: " + tag);
+        }
+        case  LAYOUT_ITEMRAKING: {
+          if ("layout/item_raking_0".equals(tag)) {
+            return new ItemRakingBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for item_raking is invalid. Received: " + tag);
         }
         case  LAYOUT_ITEMVIEWPAPERCATEGORIES: {
           if ("layout/item_view_paper_categories_0".equals(tag)) {
@@ -146,17 +156,18 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(3);
+    static final SparseArray<String> sKeys = new SparseArray<String>(4);
 
     static {
       sKeys.put(0, "_all");
       sKeys.put(1, "imgCategory");
-      sKeys.put(2, "viewModel");
+      sKeys.put(2, "rankingProduct");
+      sKeys.put(3, "viewModel");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(7);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(8);
 
     static {
       sKeys.put("layout/activity_main_0", com.example.aposs_buyer.R.layout.activity_main);
@@ -165,6 +176,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/fragment_home_0", com.example.aposs_buyer.R.layout.fragment_home);
       sKeys.put("layout/fragment_message_0", com.example.aposs_buyer.R.layout.fragment_message);
       sKeys.put("layout/fragment_person_0", com.example.aposs_buyer.R.layout.fragment_person);
+      sKeys.put("layout/item_raking_0", com.example.aposs_buyer.R.layout.item_raking);
       sKeys.put("layout/item_view_paper_categories_0", com.example.aposs_buyer.R.layout.item_view_paper_categories);
     }
   }

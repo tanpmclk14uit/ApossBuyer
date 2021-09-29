@@ -6,5 +6,5 @@ data class Category(
     val totalPurchase: Int,
     val totalProduct: Int,
     val rating: Float,
-    val mainImage: ImageCategory
+    val mainImage: Image
 )

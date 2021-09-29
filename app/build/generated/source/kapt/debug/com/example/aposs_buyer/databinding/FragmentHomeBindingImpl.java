@@ -14,36 +14,38 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.categories, 7);
-        sViewsWithIds.put(R.id.ranking, 8);
-        sViewsWithIds.put(R.id.cardView2, 9);
-        sViewsWithIds.put(R.id.cardView, 10);
-        sViewsWithIds.put(R.id.rankingIndicator, 11);
-        sViewsWithIds.put(R.id.title, 12);
+        sViewsWithIds.put(R.id.categories, 10);
+        sViewsWithIds.put(R.id.ranking, 11);
+        sViewsWithIds.put(R.id.cardView2, 12);
+        sViewsWithIds.put(R.id.cardView, 13);
+        sViewsWithIds.put(R.id.title, 14);
     }
     // views
     @NonNull
     private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
+    @NonNull
+    private final android.widget.TextView mboundView8;
     // variables
     // values
     // listeners
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 15, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 4
-            , (androidx.cardview.widget.CardView) bindings[10]
-            , (androidx.cardview.widget.CardView) bindings[9]
-            , (android.widget.TextView) bindings[7]
+        super(bindingComponent, root, 6
+            , (androidx.cardview.widget.CardView) bindings[13]
+            , (androidx.cardview.widget.CardView) bindings[12]
+            , (android.widget.TextView) bindings[10]
             , (android.widget.TextView) bindings[3]
             , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
-            , (android.widget.TextView) bindings[8]
-            , (me.relex.circleindicator.CircleIndicator3) bindings[11]
+            , (android.widget.TextView) bindings[11]
+            , (me.relex.circleindicator.CircleIndicator3) bindings[9]
+            , (androidx.viewpager2.widget.ViewPager2) bindings[7]
             , (android.widget.RatingBar) bindings[6]
-            , (android.widget.TextView) bindings[12]
+            , (android.widget.TextView) bindings[14]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]
             );
@@ -52,6 +54,10 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         this.indicator.setTag(null);
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
+        this.mboundView8 = (android.widget.TextView) bindings[8];
+        this.mboundView8.setTag(null);
+        this.rankingIndicator.setTag(null);
+        this.rankingViewPager.setTag(null);
         this.rating.setTag(null);
         this.totalProduct.setTag(null);
         this.totalPurchase.setTag(null);
@@ -63,7 +69,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x20L;
+                mDirtyFlags = 0x80L;
         }
         requestRebind();
     }
@@ -93,7 +99,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     public void setViewModel(@Nullable com.example.aposs_buyer.viewmodel.HomeViewModel ViewModel) {
         this.mViewModel = ViewModel;
         synchronized(this) {
-            mDirtyFlags |= 0x10L;
+            mDirtyFlags |= 0x40L;
         }
         notifyPropertyChanged(BR.viewModel);
         super.requestRebind();
@@ -109,7 +115,11 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             case 2 :
                 return onChangeViewModelDisplayCategoryProducts((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
             case 3 :
+                return onChangeViewModelRankingProducts((androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.RankingProduct>>) object, fieldId);
+            case 4 :
                 return onChangeViewModelDisplayCategoryPurchase((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
+            case 5 :
+                return onChangeViewModelCurrentProductKind((androidx.lifecycle.LiveData<java.lang.String>) object, fieldId);
         }
         return false;
     }
@@ -140,10 +150,28 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         }
         return false;
     }
-    private boolean onChangeViewModelDisplayCategoryPurchase(androidx.lifecycle.MutableLiveData<java.lang.String> ViewModelDisplayCategoryPurchase, int fieldId) {
+    private boolean onChangeViewModelRankingProducts(androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.RankingProduct>> ViewModelRankingProducts, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x8L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeViewModelDisplayCategoryPurchase(androidx.lifecycle.MutableLiveData<java.lang.String> ViewModelDisplayCategoryPurchase, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x10L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeViewModelCurrentProductKind(androidx.lifecycle.LiveData<java.lang.String> ViewModelCurrentProductKind, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x20L;
             }
             return true;
         }
@@ -159,21 +187,26 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         }
         androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.Category>> viewModelCategories = null;
         androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Category> viewModelDisplayCategory = null;
+        java.lang.String viewModelCurrentProductKindGetValue = null;
         com.example.aposs_buyer.model.Category viewModelDisplayCategoryGetValue = null;
         java.util.ArrayList<com.example.aposs_buyer.model.Category> viewModelCategoriesGetValue = null;
+        int viewModelRankingProductsSize = 0;
         java.lang.String viewModelDisplayCategoryPurchaseGetValue = null;
         java.lang.String viewModelDisplayCategoryProductsGetValue = null;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryProducts = null;
         int viewModelCategoriesSize = 0;
+        androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.RankingProduct>> viewModelRankingProducts = null;
         float viewModelDisplayCategoryRating = 0f;
         java.lang.String viewModelDisplayCategoryName = null;
+        java.util.ArrayList<com.example.aposs_buyer.model.RankingProduct> viewModelRankingProductsGetValue = null;
         com.example.aposs_buyer.viewmodel.HomeViewModel viewModel = mViewModel;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryPurchase = null;
+        androidx.lifecycle.LiveData<java.lang.String> viewModelCurrentProductKind = null;
 
-        if ((dirtyFlags & 0x3fL) != 0) {
+        if ((dirtyFlags & 0xffL) != 0) {
 
 
-            if ((dirtyFlags & 0x31L) != 0) {
+            if ((dirtyFlags & 0xc1L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.categories
@@ -193,7 +226,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
                         viewModelCategoriesSize = viewModelCategoriesGetValue.size();
                     }
             }
-            if ((dirtyFlags & 0x32L) != 0) {
+            if ((dirtyFlags & 0xc2L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.displayCategory
@@ -215,7 +248,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
                         viewModelDisplayCategoryName = viewModelDisplayCategoryGetValue.getName();
                     }
             }
-            if ((dirtyFlags & 0x34L) != 0) {
+            if ((dirtyFlags & 0xc4L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.displayCategoryProducts
@@ -229,13 +262,33 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
                         viewModelDisplayCategoryProductsGetValue = viewModelDisplayCategoryProducts.getValue();
                     }
             }
-            if ((dirtyFlags & 0x38L) != 0) {
+            if ((dirtyFlags & 0xc8L) != 0) {
+
+                    if (viewModel != null) {
+                        // read viewModel.rankingProducts
+                        viewModelRankingProducts = viewModel.getRankingProducts();
+                    }
+                    updateLiveDataRegistration(3, viewModelRankingProducts);
+
+
+                    if (viewModelRankingProducts != null) {
+                        // read viewModel.rankingProducts.getValue()
+                        viewModelRankingProductsGetValue = viewModelRankingProducts.getValue();
+                    }
+
+
+                    if (viewModelRankingProductsGetValue != null) {
+                        // read viewModel.rankingProducts.getValue().size()
+                        viewModelRankingProductsSize = viewModelRankingProductsGetValue.size();
+                    }
+            }
+            if ((dirtyFlags & 0xd0L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.displayCategoryPurchase
                         viewModelDisplayCategoryPurchase = viewModel.getDisplayCategoryPurchase();
                     }
-                    updateLiveDataRegistration(3, viewModelDisplayCategoryPurchase);
+                    updateLiveDataRegistration(4, viewModelDisplayCategoryPurchase);
 
 
                     if (viewModelDisplayCategoryPurchase != null) {
@@ -243,26 +296,51 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
                         viewModelDisplayCategoryPurchaseGetValue = viewModelDisplayCategoryPurchase.getValue();
                     }
             }
+            if ((dirtyFlags & 0xe0L) != 0) {
+
+                    if (viewModel != null) {
+                        // read viewModel.currentProductKind
+                        viewModelCurrentProductKind = viewModel.getCurrentProductKind();
+                    }
+                    updateLiveDataRegistration(5, viewModelCurrentProductKind);
+
+
+                    if (viewModelCurrentProductKind != null) {
+                        // read viewModel.currentProductKind.getValue()
+                        viewModelCurrentProductKindGetValue = viewModelCurrentProductKind.getValue();
+                    }
+            }
         }
         // batch finished
-        if ((dirtyFlags & 0x32L) != 0) {
+        if ((dirtyFlags & 0xc2L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.categoryName, viewModelDisplayCategoryName);
             androidx.databinding.adapters.RatingBarBindingAdapter.setRating(this.rating, viewModelDisplayCategoryRating);
         }
-        if ((dirtyFlags & 0x31L) != 0) {
+        if ((dirtyFlags & 0xc1L) != 0) {
             // api target 1
 
             com.example.aposs_buyer.utils.BindingAdapterKt.bindCategoriesViewPager(this.imageViewPager, viewModelCategoriesGetValue);
             com.example.aposs_buyer.utils.BindingAdapterKt.bindIndicatorSize(this.indicator, viewModelCategoriesSize);
         }
-        if ((dirtyFlags & 0x34L) != 0) {
+        if ((dirtyFlags & 0xe0L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView8, viewModelCurrentProductKindGetValue);
+        }
+        if ((dirtyFlags & 0xc8L) != 0) {
+            // api target 1
+
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindIndicatorSize(this.rankingIndicator, viewModelRankingProductsSize);
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindRankingViewPager(this.rankingViewPager, viewModelRankingProductsGetValue);
+        }
+        if ((dirtyFlags & 0xc4L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalProduct, viewModelDisplayCategoryProductsGetValue);
         }
-        if ((dirtyFlags & 0x38L) != 0) {
+        if ((dirtyFlags & 0xd0L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalPurchase, viewModelDisplayCategoryPurchaseGetValue);
@@ -276,9 +354,11 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         flag 0 (0x1L): viewModel.categories
         flag 1 (0x2L): viewModel.displayCategory
         flag 2 (0x3L): viewModel.displayCategoryProducts
-        flag 3 (0x4L): viewModel.displayCategoryPurchase
-        flag 4 (0x5L): viewModel
-        flag 5 (0x6L): null
+        flag 3 (0x4L): viewModel.rankingProducts
+        flag 4 (0x5L): viewModel.displayCategoryPurchase
+        flag 5 (0x6L): viewModel.currentProductKind
+        flag 6 (0x7L): viewModel
+        flag 7 (0x8L): null
     flag mapping end*/
     //end
 }

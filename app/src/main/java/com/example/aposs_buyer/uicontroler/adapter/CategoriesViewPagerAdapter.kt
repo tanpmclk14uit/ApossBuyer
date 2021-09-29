@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemViewPaperCategoriesBinding
 import com.example.aposs_buyer.model.Category
-import com.example.aposs_buyer.model.ImageCategory
+import com.example.aposs_buyer.model.Image
 
 class CategoriesViewPagerAdapter :
     ListAdapter<Category, CategoriesViewPagerAdapter.CategoryViewHolder>(DiffCallBack) {
@@ -28,7 +28,7 @@ class CategoriesViewPagerAdapter :
 
     class CategoryViewHolder(private var binding: ItemViewPaperCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(imgCategory: ImageCategory) {
+        fun bind(imgCategory: Image) {
             binding.imgCategory = imgCategory
             binding.executePendingBindings()
         }
