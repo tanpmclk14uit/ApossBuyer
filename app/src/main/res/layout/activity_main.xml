@@ -28,7 +28,6 @@
 
         <com.etebarian.meowbottomnavigation.MeowBottomNavigation
             android:id="@+id/meowBottomNavigation"
-            android:background="@color/back_ground"
             android:layout_width="match_parent"
             android:layout_height="72dp"
             android:layout_gravity="bottom"

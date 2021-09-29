@@ -1,5 +1,8 @@
 package com.example.aposs_buyer.model
 
+import java.text.DecimalFormat
+import java.text.NumberFormat
+
 data class RankingProduct(
     val id: Long,
     val image: Image,
@@ -11,7 +14,9 @@ data class RankingProduct(
     var kind: String
 ){
     fun priceToString(): String{
-        return "$price VNĐ"
+        val formatter: NumberFormat = DecimalFormat("#,###")
+        val formattedNumber: String = formatter.format(price)
+        return "$formattedNumber VNĐ"
     }
     fun totalPurchaseToString(): String{
         return "$totalPurchase purchased"

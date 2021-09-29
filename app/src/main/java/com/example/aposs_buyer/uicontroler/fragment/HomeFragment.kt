@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
+import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.animation.DepthPageTransformer
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
@@ -69,6 +70,7 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.imageViewPager.adapter = CategoriesViewPagerAdapter()
         binding.rankingViewPager.adapter = RankingViewPagerAdapter()
+        binding.products.adapter = HomeProductAdapter()
         binding.lifecycleOwner = this
         setUpIndicator()
         setUpViewPagerCallBack()
