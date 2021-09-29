@@ -19,7 +19,6 @@ import com.example.aposs_buyer.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
-
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
