@@ -14,15 +14,12 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.categories, 6);
-        sViewsWithIds.put(R.id.indicator, 7);
+        sViewsWithIds.put(R.id.categories, 7);
         sViewsWithIds.put(R.id.title, 8);
     }
     // views
     @NonNull
     private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
-    @NonNull
-    private final android.widget.ImageView mboundView1;
     // variables
     // values
     // listeners
@@ -32,20 +29,21 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 1
-            , (android.widget.TextView) bindings[6]
-            , (android.widget.TextView) bindings[2]
-            , (me.relex.circleindicator.CircleIndicator2) bindings[7]
-            , (android.widget.RatingBar) bindings[5]
-            , (android.widget.TextView) bindings[8]
-            , (android.widget.TextView) bindings[4]
+        super(bindingComponent, root, 4
+            , (android.widget.TextView) bindings[7]
             , (android.widget.TextView) bindings[3]
+            , (androidx.viewpager2.widget.ViewPager2) bindings[1]
+            , (me.relex.circleindicator.CircleIndicator3) bindings[2]
+            , (android.widget.RatingBar) bindings[6]
+            , (android.widget.TextView) bindings[8]
+            , (android.widget.TextView) bindings[5]
+            , (android.widget.TextView) bindings[4]
             );
         this.categoryName.setTag(null);
+        this.imageViewPager.setTag(null);
+        this.indicator.setTag(null);
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.mboundView1 = (android.widget.ImageView) bindings[1];
-        this.mboundView1.setTag(null);
         this.rating.setTag(null);
         this.totalProduct.setTag(null);
         this.totalPurchase.setTag(null);
@@ -57,7 +55,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x4L;
+                mDirtyFlags = 0x20L;
         }
         requestRebind();
     }
@@ -87,7 +85,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     public void setViewModel(@Nullable com.example.aposs_buyer.viewmodel.HomeViewModel ViewModel) {
         this.mViewModel = ViewModel;
         synchronized(this) {
-            mDirtyFlags |= 0x2L;
+            mDirtyFlags |= 0x10L;
         }
         notifyPropertyChanged(BR.viewModel);
         super.requestRebind();
@@ -97,14 +95,47 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
             case 0 :
-                return onChangeViewModelCategory((androidx.lifecycle.MutableLiveData<com.example.aposs_buyer.model.Category>) object, fieldId);
+                return onChangeViewModelCategories((androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.Category>>) object, fieldId);
+            case 1 :
+                return onChangeViewModelDisplayCategory((androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Category>) object, fieldId);
+            case 2 :
+                return onChangeViewModelDisplayCategoryPurchase((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
+            case 3 :
+                return onChangeViewModelDisplayCategoryProducts((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
         }
         return false;
     }
-    private boolean onChangeViewModelCategory(androidx.lifecycle.MutableLiveData<com.example.aposs_buyer.model.Category> ViewModelCategory, int fieldId) {
+    private boolean onChangeViewModelCategories(androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.Category>> ViewModelCategories, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x1L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeViewModelDisplayCategory(androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Category> ViewModelDisplayCategory, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x2L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeViewModelDisplayCategoryPurchase(androidx.lifecycle.MutableLiveData<java.lang.String> ViewModelDisplayCategoryPurchase, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x4L;
+            }
+            return true;
+        }
+        return false;
+    }
+    private boolean onChangeViewModelDisplayCategoryProducts(androidx.lifecycle.MutableLiveData<java.lang.String> ViewModelDisplayCategoryProducts, int fieldId) {
+        if (fieldId == BR._all) {
+            synchronized(this) {
+                    mDirtyFlags |= 0x8L;
             }
             return true;
         }
@@ -118,70 +149,115 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        float viewModelCategoryRating = 0f;
-        java.lang.String viewModelCategoryName = null;
-        android.net.Uri viewModelCategoryMainImageImageUri = null;
-        androidx.lifecycle.MutableLiveData<com.example.aposs_buyer.model.Category> viewModelCategory = null;
-        com.example.aposs_buyer.model.Category viewModelCategoryGetValue = null;
+        androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.Category>> viewModelCategories = null;
+        int viewModelCategoriesSize = 0;
+        androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Category> viewModelDisplayCategory = null;
+        com.example.aposs_buyer.model.Category viewModelDisplayCategoryGetValue = null;
+        java.util.ArrayList<com.example.aposs_buyer.model.Category> viewModelCategoriesGetValue = null;
+        float viewModelDisplayCategoryRating = 0f;
+        java.lang.String viewModelDisplayCategoryName = null;
+        java.lang.String viewModelDisplayCategoryPurchaseGetValue = null;
+        java.lang.String viewModelDisplayCategoryProductsGetValue = null;
         com.example.aposs_buyer.viewmodel.HomeViewModel viewModel = mViewModel;
-        java.lang.String viewModelDisplayCategoryPurchase = null;
-        com.example.aposs_buyer.model.ImageCategory viewModelCategoryMainImage = null;
-        java.lang.String viewModelDisplayCategoryProducts = null;
+        androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryPurchase = null;
+        androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryProducts = null;
 
-        if ((dirtyFlags & 0x7L) != 0) {
-
+        if ((dirtyFlags & 0x3fL) != 0) {
 
 
-                if (viewModel != null) {
-                    // read viewModel.category
-                    viewModelCategory = viewModel.getCategory();
-                }
-                updateLiveDataRegistration(0, viewModelCategory);
+            if ((dirtyFlags & 0x31L) != 0) {
+
+                    if (viewModel != null) {
+                        // read viewModel.categories
+                        viewModelCategories = viewModel.getCategories();
+                    }
+                    updateLiveDataRegistration(0, viewModelCategories);
 
 
-                if (viewModelCategory != null) {
-                    // read viewModel.category.getValue()
-                    viewModelCategoryGetValue = viewModelCategory.getValue();
-                }
+                    if (viewModelCategories != null) {
+                        // read viewModel.categories.getValue()
+                        viewModelCategoriesGetValue = viewModelCategories.getValue();
+                    }
 
 
-                if (viewModelCategoryGetValue != null) {
-                    // read viewModel.category.getValue().rating
-                    viewModelCategoryRating = viewModelCategoryGetValue.getRating();
-                    // read viewModel.category.getValue().name
-                    viewModelCategoryName = viewModelCategoryGetValue.getName();
-                    // read viewModel.category.getValue().mainImage
-                    viewModelCategoryMainImage = viewModelCategoryGetValue.getMainImage();
-                }
+                    if (viewModelCategoriesGetValue != null) {
+                        // read viewModel.categories.getValue().size()
+                        viewModelCategoriesSize = viewModelCategoriesGetValue.size();
+                    }
+            }
+            if ((dirtyFlags & 0x32L) != 0) {
+
+                    if (viewModel != null) {
+                        // read viewModel.displayCategory
+                        viewModelDisplayCategory = viewModel.getDisplayCategory();
+                    }
+                    updateLiveDataRegistration(1, viewModelDisplayCategory);
 
 
-                if (viewModelCategoryMainImage != null) {
-                    // read viewModel.category.getValue().mainImage.imageUri
-                    viewModelCategoryMainImageImageUri = viewModelCategoryMainImage.getImageUri();
-                }
-            if ((dirtyFlags & 0x6L) != 0) {
+                    if (viewModelDisplayCategory != null) {
+                        // read viewModel.displayCategory.getValue()
+                        viewModelDisplayCategoryGetValue = viewModelDisplayCategory.getValue();
+                    }
+
+
+                    if (viewModelDisplayCategoryGetValue != null) {
+                        // read viewModel.displayCategory.getValue().rating
+                        viewModelDisplayCategoryRating = viewModelDisplayCategoryGetValue.getRating();
+                        // read viewModel.displayCategory.getValue().name
+                        viewModelDisplayCategoryName = viewModelDisplayCategoryGetValue.getName();
+                    }
+            }
+            if ((dirtyFlags & 0x34L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.displayCategoryPurchase
                         viewModelDisplayCategoryPurchase = viewModel.getDisplayCategoryPurchase();
+                    }
+                    updateLiveDataRegistration(2, viewModelDisplayCategoryPurchase);
+
+
+                    if (viewModelDisplayCategoryPurchase != null) {
+                        // read viewModel.displayCategoryPurchase.getValue()
+                        viewModelDisplayCategoryPurchaseGetValue = viewModelDisplayCategoryPurchase.getValue();
+                    }
+            }
+            if ((dirtyFlags & 0x38L) != 0) {
+
+                    if (viewModel != null) {
                         // read viewModel.displayCategoryProducts
                         viewModelDisplayCategoryProducts = viewModel.getDisplayCategoryProducts();
+                    }
+                    updateLiveDataRegistration(3, viewModelDisplayCategoryProducts);
+
+
+                    if (viewModelDisplayCategoryProducts != null) {
+                        // read viewModel.displayCategoryProducts.getValue()
+                        viewModelDisplayCategoryProductsGetValue = viewModelDisplayCategoryProducts.getValue();
                     }
             }
         }
         // batch finished
-        if ((dirtyFlags & 0x7L) != 0) {
+        if ((dirtyFlags & 0x32L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.categoryName, viewModelCategoryName);
-            com.example.aposs_buyer.utils.BindingAdapterKt.bindImage(this.mboundView1, viewModelCategoryMainImageImageUri);
-            androidx.databinding.adapters.RatingBarBindingAdapter.setRating(this.rating, viewModelCategoryRating);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.categoryName, viewModelDisplayCategoryName);
+            androidx.databinding.adapters.RatingBarBindingAdapter.setRating(this.rating, viewModelDisplayCategoryRating);
         }
-        if ((dirtyFlags & 0x6L) != 0) {
+        if ((dirtyFlags & 0x31L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalProduct, viewModelDisplayCategoryProducts);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalPurchase, viewModelDisplayCategoryPurchase);
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindCategoriesViewPager(this.imageViewPager, viewModelCategoriesGetValue);
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindIndicatorSize(this.indicator, viewModelCategoriesSize);
+        }
+        if ((dirtyFlags & 0x38L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalProduct, viewModelDisplayCategoryProductsGetValue);
+        }
+        if ((dirtyFlags & 0x34L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalPurchase, viewModelDisplayCategoryPurchaseGetValue);
         }
     }
     // Listener Stub Implementations
@@ -189,9 +265,12 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): viewModel.category
-        flag 1 (0x2L): viewModel
-        flag 2 (0x3L): null
+        flag 0 (0x1L): viewModel.categories
+        flag 1 (0x2L): viewModel.displayCategory
+        flag 2 (0x3L): viewModel.displayCategoryPurchase
+        flag 3 (0x4L): viewModel.displayCategoryProducts
+        flag 4 (0x5L): viewModel
+        flag 5 (0x6L): null
     flag mapping end*/
     //end
 }

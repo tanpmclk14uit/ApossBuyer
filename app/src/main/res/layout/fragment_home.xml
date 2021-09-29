@@ -68,13 +68,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
                         <!--Put automatic page view here-->
-                        <ImageView
-                            image="@{viewModel.category.mainImage.imageUri}"
+                        <androidx.viewpager2.widget.ViewPager2
+                            categoriesData="@{viewModel.categories}"
+                            android:id="@+id/imageViewPager"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@string/image"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/example_categories" />
+                            android:layout_height="match_parent"/>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -92,8 +90,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <me.relex.circleindicator.CircleIndicator2
+                            <me.relex.circleindicator.CircleIndicator3
                                 android:id="@+id/indicator"
+                                indicatorSize="@{viewModel.categories.size()}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="15dp"
                                 android:layout_marginTop="50dp"
@@ -107,7 +106,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="13dp"
-                                android:text="@{viewModel.category.name, default=APOSS}"
+                                android:text="@{viewModel.displayCategory.name, default=APOSS}"
                                 android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textFontWeight="@integer/material_motion_duration_long_2"
@@ -155,7 +154,7 @@
                                 android:isIndicator="false"
                                 android:numStars="5"
                                 android:progressTint="@color/yellow"
-                                android:rating="@{viewModel.category.rating}"
+                                android:rating="@{viewModel.displayCategory.rating}"
                                 android:secondaryProgressTint="@color/yellow"
                                 android:stepSize="0.5" />
 
