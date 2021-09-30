@@ -5,5 +5,7 @@ public class BR {
 
   public static final int imgCategory = 1;
 
-  public static final int viewModel = 2;
+  public static final int messageItem = 2;
+
+  public static final int viewModel = 3;
 }

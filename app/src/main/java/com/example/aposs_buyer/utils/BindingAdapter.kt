@@ -3,13 +3,17 @@ package com.example.aposs_buyer.utils
 import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.model.Category
+import com.example.aposs_buyer.model.MessageItem
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
+import com.example.aposs_buyer.uicontroler.adapter.MessageAdapter
 import me.relex.circleindicator.CircleIndicator3
 import java.util.*
 import kotlin.collections.ArrayList
@@ -32,3 +36,18 @@ fun bindCategoriesViewPager(viewPager2: ViewPager2, data: ArrayList<Category>?){
 fun bindIndicatorSize(indicator: CircleIndicator3, size: Int){
     indicator.createIndicators(size , 0)
 }
+
+@BindingAdapter("listMessage")
+fun bindRecyclerView(recyclerView: RecyclerView,
+                     data: List<MessageItem>?) {
+    val adapter =recyclerView.adapter as MessageAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("message")
+fun bindMessage(textView: TextView, message:String) {
+    textView.text = message
+    Log.i("Binding for Text View", "doneeeeeeeeeeee")
+}
+
+
