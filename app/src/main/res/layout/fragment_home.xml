@@ -320,7 +320,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/about_us"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:textStyle="normal">
 
                         </TextView>
