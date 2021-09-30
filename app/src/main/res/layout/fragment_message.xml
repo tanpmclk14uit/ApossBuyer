@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/back_ground"
             android:text="@string/app_name"
+            app:elevation="0dp"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
-            app:liftOnScroll="true">
+            app:liftOnScroll="false">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -147,19 +148,63 @@
         </com.google.android.material.appbar.AppBarLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="464dp"
+            android:layout_height="474dp"
+            android:orientation="vertical"
             android:layout_marginTop="176dp"
-            android:layout_gravity="center"
             android:layout_marginHorizontal="18dp"
-            android:background="@drawable/bg_message"
-            android:clipChildren="false">
+            android:windowSoftInputMode="adjustResize"
+            android:elevation="8dp">
+        <LinearLayout
+            android:id="@+id/ln_message"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/bg_message">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="10dp"
                 listMessage="@{viewModel.lstMessageItem}"
                 android:layout_marginBottom="35dp"
                 tools:listitem="@layout/item_right_side_message" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:background="@drawable/bg_input_message"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            app:boxBackgroundMode="outline"
+            android:layout_width="276dp"
+            android:paddingTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="50dp"
+            app:boxStrokeColor="@color/disable_pray"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_input_edit_text_message"
+                android:layout_marginVertical="5dp"
+                android:editable="false"
+                android:padding="0dp"
+                android:hint="@string/type_here"
+                android:drawableEnd="@drawable/ic_send_message"
+                android:textColor="@color/disable_pray" />
+        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
         </LinearLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

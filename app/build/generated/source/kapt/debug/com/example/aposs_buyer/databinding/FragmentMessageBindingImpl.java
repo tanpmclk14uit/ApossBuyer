@@ -15,6 +15,7 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding  {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.title, 2);
+        sViewsWithIds.put(R.id.ln_message, 3);
     }
     // views
     @NonNull
@@ -25,10 +26,11 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentMessageBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 3, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
     }
     private FragmentMessageBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
+            , (android.widget.LinearLayout) bindings[3]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (android.widget.TextView) bindings[2]
             );
