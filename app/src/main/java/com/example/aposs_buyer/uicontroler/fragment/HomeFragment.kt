@@ -32,14 +32,10 @@ class HomeFragment : Fragment() {
         kotlin.run {
             if (categoriesLeftToRight) {
                 binding.imageViewPager.currentItem += 1
-                if (binding.imageViewPager.currentItem == viewModel.categories.value!!.size - 1) {
-                    categoriesLeftToRight = false
-                }
+
             } else {
                 binding.imageViewPager.currentItem -= 1
-                if (binding.imageViewPager.currentItem == 0) {
-                    categoriesLeftToRight = true
-                }
+
             }
         }
     }
@@ -50,14 +46,10 @@ class HomeFragment : Fragment() {
         kotlin.run {
             if (rankingLeftToRight) {
                 binding.rankingViewPager.currentItem += 1
-                if (binding.rankingViewPager.currentItem == viewModel.rankingProducts.value!!.size - 1) {
-                    rankingLeftToRight = false
-                }
+
             } else {
                 binding.rankingViewPager.currentItem -= 1
-                if (binding.rankingViewPager.currentItem == 0) {
-                    rankingLeftToRight = true
-                }
+
             }
         }
     }
@@ -89,6 +81,13 @@ class HomeFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 mHandler.removeCallbacks(categoriesRunnable)
+                if (binding.imageViewPager.currentItem == viewModel.categories.value!!.size - 1) {
+                    categoriesLeftToRight = false
+                }else{
+                    if (binding.imageViewPager.currentItem == 0) {
+                        categoriesLeftToRight = true
+                    }
+                }
                 mHandler.postDelayed(categoriesRunnable, 4000)
                 viewModel.setUpDisplayCategory(binding.imageViewPager.currentItem)
             }
@@ -98,6 +97,13 @@ class HomeFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 mHandler.removeCallbacks(rankingRunnable)
+                if (binding.rankingViewPager.currentItem == viewModel.rankingProducts.value!!.size - 1) {
+                    rankingLeftToRight = false
+                }else{
+                    if (binding.rankingViewPager.currentItem == 0) {
+                        rankingLeftToRight = true
+                    }
+                }
                 mHandler.postDelayed(rankingRunnable, 4000)
                 viewModel.setCurrentProductKind(binding.rankingViewPager.currentItem)
             }
