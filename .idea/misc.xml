@@ -19,8 +19,10 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_splash.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/favorite_toggle_selector.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic__notifications.xml" value="0.3310810810810811" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_add_shopping_cart.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_cart.xml" value="0.22135416666666666" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_favorite.xml" value="0.3310810810810811" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/selector_favorite_add_to_cart.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_all_favorite.xml" value="0.3171171171171171" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_available_favorite.xml" value="0.3171171171171171" />
@@ -31,6 +33,7 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_message.xml" value="0.20520833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_persion.xml" value="0.20520833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/item_categories.xml" value="0.3171171171171171" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/item_favorite.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/item_product.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/item_raking.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/item_view_paper_categories.xml" value="0.2" />

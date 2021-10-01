@@ -2,9 +2,11 @@ package com.example.aposs_buyer.viewmodel
 
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.FavoriteProduct
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor() : ViewModel() {
 
-    private var _favoriteProducts = MutableLiveData<ArrayList<HomeProduct>>()
-    val products: LiveData<ArrayList<HomeProduct>> get() = _favoriteProducts
+    private val TAG ="FavoriteViewModel"
+    private var _favoriteProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
+    val products: LiveData<ArrayList<FavoriteProduct>> get() = _favoriteProducts
 
     init {
         if (_favoriteProducts.value == null) {
@@ -23,15 +26,18 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
         _favoriteProducts.value = loadFavoriteProducts()
     }
 
-    fun removeFromFavoriteProduct(product: HomeProduct){
-        var newFavoriteProducts = ArrayList<HomeProduct>()
+    fun removeFromFavoriteProduct(product: FavoriteProduct){
+        var newFavoriteProducts = ArrayList<FavoriteProduct>()
         newFavoriteProducts = _favoriteProducts.value!!
         newFavoriteProducts.remove(product)
         _favoriteProducts.value = newFavoriteProducts
     }
 
-    private fun loadFavoriteProducts(): ArrayList<HomeProduct> {
-        val sampleProducts = ArrayList<HomeProduct>()
+    fun addAvailableProductToCart(product: FavoriteProduct){
+        Log.d(TAG, "Add available product id: ${product.id} to cart")
+    }
+    private fun loadFavoriteProducts(): ArrayList<FavoriteProduct> {
+        val sampleProducts = ArrayList<FavoriteProduct>()
         val imgURl1 =
             "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
         val imgURL2 =
@@ -45,7 +51,7 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
         val imgProduct4 = Image(imgURL4)
         for (i in 0..3) {
             sampleProducts.add(
-                HomeProduct(
+                FavoriteProduct(
                     1,
                     imgProduct1,
                     "Wilson Mens Hurry Professional",
@@ -54,16 +60,16 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
                     true
                 )
             )
-            sampleProducts.add(HomeProduct(2, imgProduct2, "Wilson Mens Shirt", 582000, 4.5f, true))
-            sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, true))
+            sampleProducts.add(FavoriteProduct(2, imgProduct2, "Wilson Mens Shirt", 582000, 4.5f, false))
+            sampleProducts.add(FavoriteProduct(3, imgProduct3, "White broccoli", 46000, 4f, true))
             sampleProducts.add(
-                HomeProduct(
+                FavoriteProduct(
                     4,
                     imgProduct4,
                     "Laptop asus Vivo Book",
                     1958000,
                     5f,
-                    true
+                    false
                 )
             )
         }

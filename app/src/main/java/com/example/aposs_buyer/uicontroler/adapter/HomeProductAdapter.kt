@@ -63,8 +63,6 @@ class HomeProductAdapter(private val favoriteInterface: FavoriteInterface) :
             Toast.makeText(context, "Remove from favorite successfully", Toast.LENGTH_SHORT)
                 .show()
             favoriteInterface.removeFromFavorite(product)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, itemCount);
         }
     }
 }
