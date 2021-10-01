@@ -2,29 +2,36 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
+import com.example.aposs_buyer.model.HomeProduct
+import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.animation.DepthPageTransformer
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
+import com.example.aposs_buyer.viewmodel.FavoriteViewModel
 import com.example.aposs_buyer.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+
+@AndroidEntryPoint
+class HomeFragment :HomeProductAdapter.FavoriteInterface, RankingViewPagerAdapter.FavoriteInterface, Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by lazy {
-        ViewModelProvider(this).get(HomeViewModel::class.java)
-    }
 
+    private val viewModel: HomeViewModel by viewModels()
     //set up auto slide category view pager
     private val mHandler: Handler = Handler()
     private var categoriesLeftToRight: Boolean = true
@@ -35,7 +42,6 @@ class HomeFragment : Fragment() {
 
             } else {
                 binding.imageViewPager.currentItem -= 1
-
             }
         }
     }
@@ -61,8 +67,8 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
         binding.imageViewPager.adapter = CategoriesViewPagerAdapter()
-        binding.rankingViewPager.adapter = RankingViewPagerAdapter()
-        binding.products.adapter = HomeProductAdapter()
+        binding.rankingViewPager.adapter = RankingViewPagerAdapter(this)
+        binding.products.adapter = HomeProductAdapter(this)
         binding.lifecycleOwner = this
         setUpIndicator()
         setUpViewPagerCallBack()
@@ -83,7 +89,7 @@ class HomeFragment : Fragment() {
                 mHandler.removeCallbacks(categoriesRunnable)
                 if (binding.imageViewPager.currentItem == viewModel.categories.value!!.size - 1) {
                     categoriesLeftToRight = false
-                }else{
+                } else {
                     if (binding.imageViewPager.currentItem == 0) {
                         categoriesLeftToRight = true
                     }
@@ -99,7 +105,7 @@ class HomeFragment : Fragment() {
                 mHandler.removeCallbacks(rankingRunnable)
                 if (binding.rankingViewPager.currentItem == viewModel.rankingProducts.value!!.size - 1) {
                     rankingLeftToRight = false
-                }else{
+                } else {
                     if (binding.rankingViewPager.currentItem == 0) {
                         rankingLeftToRight = true
                     }
@@ -119,13 +125,28 @@ class HomeFragment : Fragment() {
         super.onPause()
         mHandler.removeCallbacks(categoriesRunnable)
         mHandler.removeCallbacks(rankingRunnable)
-
     }
 
     override fun onResume() {
         super.onResume()
         mHandler.postDelayed(categoriesRunnable, 4000)
         mHandler.postDelayed(rankingRunnable, 4000)
+    }
+
+    override fun addToFavorite(product: HomeProduct) {
+        viewModel.addNewFavoriteProduct(product.id)
+    }
+
+    override fun removeFromFavorite(product: HomeProduct) {
+        viewModel.removeFavoriteProduct(product.id)
+    }
+
+    override fun addToFavorite(product: RankingProduct) {
+        viewModel.addNewFavoriteProduct(product.id)
+    }
+
+    override fun removeFromFavorite(product: RankingProduct) {
+        viewModel.removeFavoriteProduct(product.id)
     }
 
 }

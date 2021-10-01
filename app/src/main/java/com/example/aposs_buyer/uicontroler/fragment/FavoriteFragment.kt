@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentFavoriteBinding
+import com.example.aposs_buyer.uicontroler.adapter.FavoriteFragmentViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class FavoriteFragment : Fragment() {
@@ -18,7 +22,16 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
+        binding.lifecycleOwner = this
+        binding.viewPager.adapter = FavoriteFragmentViewPagerAdapter(parentFragmentManager, binding.lifecycleOwner!!.lifecycle)
+        TabLayoutMediator(binding.tab, binding.viewPager
+        ) { tab, position ->
+            if(position == 0){
+                tab.text = "All items"
+            }else{
+                tab.text ="Available"
+            }
+        }.attach()
         return binding.root
     }
-
 }

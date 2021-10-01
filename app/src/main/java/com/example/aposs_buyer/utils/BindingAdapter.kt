@@ -13,10 +13,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.model.Category
+import com.example.aposs_buyer.model.FavoriteProduct
 import com.example.aposs_buyer.model.MessageItem
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
+import com.example.aposs_buyer.uicontroler.adapter.FavoriteRecyclerViewAdapter
 import com.example.aposs_buyer.uicontroler.adapter.MessageAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
@@ -86,3 +88,9 @@ fun bindContactCommand(linearLayout: LinearLayout, data: List<MessageItem>?)
 }
 
 
+
+@BindingAdapter("favoriteData")
+fun bindFavoriteRecyclerView(recyclerView: RecyclerView, data: ArrayList<FavoriteProduct>?){
+    val adapter = recyclerView.adapter as FavoriteRecyclerViewAdapter
+    adapter.submitList(data)
+}

@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,8 +8,11 @@ import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RankingProduct
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor()  : ViewModel() {
 
     //category data
     private var _categories = MutableLiveData<ArrayList<Category>>()
@@ -142,5 +146,13 @@ class HomeViewModel : ViewModel() {
     }
     fun setCurrentProductKind(currentPosition: Int){
         _currentProductKind.value = rankingProducts.value!![currentPosition].kind
+    }
+
+    fun addNewFavoriteProduct(productId: Long){
+        // update database and add new favorite product
+    }
+
+    fun removeFavoriteProduct(productId: Long){
+        // update database and remove favorite product
     }
 }
