@@ -16,4 +16,6 @@
     <string name="products">1257 products</string>
     <string name="ranking">Ranking</string>
     <string name="more">More</string>
+    <string name="type_here">Type message here</string>
+    <string name="contact">Feel free to contact us now</string>
 </resources>

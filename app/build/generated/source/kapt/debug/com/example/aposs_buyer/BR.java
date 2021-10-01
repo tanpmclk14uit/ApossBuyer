@@ -5,9 +5,7 @@ public class BR {
 
   public static final int imgCategory = 1;
 
-  public static final int product = 2;
+  public static final int messageItem = 2;
 
-  public static final int rankingProduct = 3;
-
-  public static final int viewModel = 4;
+  public static final int viewModel = 3;
 }

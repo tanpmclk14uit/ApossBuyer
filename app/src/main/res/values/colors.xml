@@ -17,8 +17,7 @@
     <color name="light_green">#28FFBF</color>
     <color name="back_ground">#F3F3FF</color>
     <color name="dark_pray">#707070</color>
-
-
-
-
+    <color name="gray">#ABAFBC</color>
+    <color name="light_gray">#F4F6FF</color>
+    <color name="light_black">#4D5A80</color>
 </resources>

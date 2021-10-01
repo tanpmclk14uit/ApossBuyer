@@ -41,7 +41,6 @@ class CategoriesViewPagerAdapter :
             layoutInflater, R.layout.item_view_paper_categories, parent, false
         )
         return CategoryViewHolder(binding)
-
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
