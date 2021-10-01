@@ -1,12 +1,15 @@
 package com.example.aposs_buyer.utils
 
 import android.net.Uri
+import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
+import androidx.core.widget.doOnTextChanged
+import androidx.databinding.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -70,5 +73,4 @@ fun bindContactCommand(linearLayout: LinearLayout, data: List<MessageItem>?)
         linearLayout.visibility = View.GONE
     }
 }
-
 
