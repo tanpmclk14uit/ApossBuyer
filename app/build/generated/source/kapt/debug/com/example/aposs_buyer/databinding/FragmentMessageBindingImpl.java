@@ -14,28 +14,32 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.title, 2);
-        sViewsWithIds.put(R.id.ln_message, 3);
+        sViewsWithIds.put(R.id.title, 3);
+        sViewsWithIds.put(R.id.ln_message, 4);
     }
     // views
     @NonNull
     private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
+    @NonNull
+    private final android.widget.LinearLayout mboundView2;
     // variables
     // values
     // listeners
     // Inverse Binding Event Handlers
 
     public FragmentMessageBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
     }
     private FragmentMessageBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
-            , (android.widget.LinearLayout) bindings[3]
+            , (android.widget.LinearLayout) bindings[4]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
-            , (android.widget.TextView) bindings[2]
+            , (android.widget.TextView) bindings[3]
             );
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
+        this.mboundView2 = (android.widget.LinearLayout) bindings[2];
+        this.mboundView2.setTag(null);
         this.rcMessage.setTag(null);
         setRootTag(root);
         // listeners
@@ -130,6 +134,7 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding  {
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
 
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindContactCommand(this.mboundView2, viewModelLstMessageItemGetValue);
             com.example.aposs_buyer.utils.BindingAdapterKt.bindRecyclerView(this.rcMessage, viewModelLstMessageItemGetValue);
         }
     }

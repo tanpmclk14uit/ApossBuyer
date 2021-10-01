@@ -158,15 +158,38 @@
             android:id="@+id/ln_message"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:background="@drawable/bg_message">
+            android:background="@drawable/bg_message"
+            android:orientation="horizontal">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="10dp"
+                android:visibility="gone"
                 listMessage="@{viewModel.lstMessageItem}"
                 android:layout_marginBottom="35dp"
                 tools:listitem="@layout/item_right_side_message" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                listMessage="@{viewModel.lstMessageItem}"
+                android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:textFontWeight="@integer/material_motion_duration_medium_2"
+                android:text="@string/contact"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_contact"/>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

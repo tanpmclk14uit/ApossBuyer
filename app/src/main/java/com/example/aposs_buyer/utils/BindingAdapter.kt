@@ -2,7 +2,9 @@ package com.example.aposs_buyer.utils
 
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -40,14 +42,33 @@ fun bindIndicatorSize(indicator: CircleIndicator3, size: Int){
 @BindingAdapter("listMessage")
 fun bindRecyclerView(recyclerView: RecyclerView,
                      data: List<MessageItem>?) {
-    val adapter =recyclerView.adapter as MessageAdapter
-    adapter.submitList(data)
+    if (data!!.isNotEmpty()) {
+        recyclerView.visibility = View.VISIBLE
+        val adapter = recyclerView.adapter as MessageAdapter
+        adapter.submitList(data)
+    } else
+    {
+        recyclerView.visibility = View.GONE
+    }
 }
 
 @BindingAdapter("message")
 fun bindMessage(textView: TextView, message:String) {
     textView.text = message
     Log.i("Binding for Text View", "doneeeeeeeeeeee")
+}
+
+@BindingAdapter("listMessage")
+fun bindContactCommand(linearLayout: LinearLayout, data: List<MessageItem>?)
+{
+    if (data!!.isEmpty())
+    {
+        linearLayout.visibility = View.VISIBLE
+    }
+    else
+    {
+        linearLayout.visibility = View.GONE
+    }
 }
 
 
