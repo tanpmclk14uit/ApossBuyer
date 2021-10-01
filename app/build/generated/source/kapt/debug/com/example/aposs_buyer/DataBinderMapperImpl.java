@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingComponent;
 import androidx.databinding.ViewDataBinding;
 import com.example.aposs_buyer.databinding.ActivityMainBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentAllFavoriteBindingImpl;
+import com.example.aposs_buyer.databinding.FragmentAvailableFavoriteBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentCartBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentFavoriteBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentHomeBindingImpl;
@@ -32,29 +33,32 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_FRAGMENTALLFAVORITE = 2;
 
-  private static final int LAYOUT_FRAGMENTCART = 3;
+  private static final int LAYOUT_FRAGMENTAVAILABLEFAVORITE = 3;
 
-  private static final int LAYOUT_FRAGMENTFAVORITE = 4;
+  private static final int LAYOUT_FRAGMENTCART = 4;
 
-  private static final int LAYOUT_FRAGMENTHOME = 5;
+  private static final int LAYOUT_FRAGMENTFAVORITE = 5;
 
-  private static final int LAYOUT_FRAGMENTMESSAGE = 6;
+  private static final int LAYOUT_FRAGMENTHOME = 6;
 
-  private static final int LAYOUT_FRAGMENTPERSON = 7;
+  private static final int LAYOUT_FRAGMENTMESSAGE = 7;
 
-  private static final int LAYOUT_ITEMFAVORITE = 8;
+  private static final int LAYOUT_FRAGMENTPERSON = 8;
 
-  private static final int LAYOUT_ITEMPRODUCT = 9;
+  private static final int LAYOUT_ITEMFAVORITE = 9;
 
-  private static final int LAYOUT_ITEMRAKING = 10;
+  private static final int LAYOUT_ITEMPRODUCT = 10;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 11;
+  private static final int LAYOUT_ITEMRAKING = 11;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(11);
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 12;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(12);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_all_favorite, LAYOUT_FRAGMENTALLFAVORITE);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_available_favorite, LAYOUT_FRAGMENTAVAILABLEFAVORITE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_cart, LAYOUT_FRAGMENTCART);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_favorite, LAYOUT_FRAGMENTFAVORITE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_home, LAYOUT_FRAGMENTHOME);
@@ -86,6 +90,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
             return new FragmentAllFavoriteBindingImpl(component, view);
           }
           throw new IllegalArgumentException("The tag for fragment_all_favorite is invalid. Received: " + tag);
+        }
+        case  LAYOUT_FRAGMENTAVAILABLEFAVORITE: {
+          if ("layout/fragment_available_favorite_0".equals(tag)) {
+            return new FragmentAvailableFavoriteBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for fragment_available_favorite is invalid. Received: " + tag);
         }
         case  LAYOUT_FRAGMENTCART: {
           if ("layout/fragment_cart_0".equals(tag)) {
@@ -200,11 +210,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(11);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(12);
 
     static {
       sKeys.put("layout/activity_main_0", com.example.aposs_buyer.R.layout.activity_main);
       sKeys.put("layout/fragment_all_favorite_0", com.example.aposs_buyer.R.layout.fragment_all_favorite);
+      sKeys.put("layout/fragment_available_favorite_0", com.example.aposs_buyer.R.layout.fragment_available_favorite);
       sKeys.put("layout/fragment_cart_0", com.example.aposs_buyer.R.layout.fragment_cart);
       sKeys.put("layout/fragment_favorite_0", com.example.aposs_buyer.R.layout.fragment_favorite);
       sKeys.put("layout/fragment_home_0", com.example.aposs_buyer.R.layout.fragment_home);

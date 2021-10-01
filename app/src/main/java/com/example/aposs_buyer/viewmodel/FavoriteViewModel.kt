@@ -1,13 +1,10 @@
 package com.example.aposs_buyer.viewmodel
 
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.FavoriteProduct
-import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,27 +12,42 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor() : ViewModel() {
 
-    private val TAG ="FavoriteViewModel"
+    private val TAG = "FavoriteViewModel"
     private var _favoriteProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     val products: LiveData<ArrayList<FavoriteProduct>> get() = _favoriteProducts
+    private var _availableProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
+    val availableProduct: LiveData<ArrayList<FavoriteProduct>> get() = _availableProducts
 
     init {
         if (_favoriteProducts.value == null) {
             _favoriteProducts.value = ArrayList()
         }
         _favoriteProducts.value = loadFavoriteProducts()
+        setUpAvailableFavorite()
     }
 
-    fun removeFromFavoriteProduct(product: FavoriteProduct){
-        var newFavoriteProducts = ArrayList<FavoriteProduct>()
-        newFavoriteProducts = _favoriteProducts.value!!
-        newFavoriteProducts.remove(product)
-        _favoriteProducts.value = newFavoriteProducts
+    fun removeFromFavoriteProduct(product: FavoriteProduct) {
+        _favoriteProducts.value!!.remove(product)
+        _availableProducts.value!!.remove(product)
     }
 
-    fun addAvailableProductToCart(product: FavoriteProduct){
+    private fun setUpAvailableFavorite(){
+        val sampleAvailableFavorite = ArrayList<FavoriteProduct>()
+        if(_availableProducts.value == null){
+            _availableProducts.value = ArrayList()
+        }
+        for(favorite in _favoriteProducts.value!!){
+            if(favorite.isAvailable){
+                sampleAvailableFavorite.add(favorite)
+            }
+        }
+        _availableProducts.value = sampleAvailableFavorite
+    }
+
+    fun addAvailableProductToCart(product: FavoriteProduct) {
         Log.d(TAG, "Add available product id: ${product.id} to cart")
     }
+
     private fun loadFavoriteProducts(): ArrayList<FavoriteProduct> {
         val sampleProducts = ArrayList<FavoriteProduct>()
         val imgURl1 =
@@ -60,7 +72,16 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
                     true
                 )
             )
-            sampleProducts.add(FavoriteProduct(2, imgProduct2, "Wilson Mens Shirt", 582000, 4.5f, false))
+            sampleProducts.add(
+                FavoriteProduct(
+                    2,
+                    imgProduct2,
+                    "Wilson Mens Shirt",
+                    582000,
+                    4.5f,
+                    false
+                )
+            )
             sampleProducts.add(FavoriteProduct(3, imgProduct3, "White broccoli", 46000, 4f, true))
             sampleProducts.add(
                 FavoriteProduct(

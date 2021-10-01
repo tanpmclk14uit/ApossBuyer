@@ -31,16 +31,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatToggleButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/favorite"
+                    android:scaleType="centerCrop"
+                    android:elevation="1dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
-                    android:background="@drawable/favorite_toggle_selector"
-                    android:checked="true"
-                    android:textOff=""
-                    android:textOn=""
+                    android:background="@drawable/ic_favorite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <androidx.cardview.widget.CardView
@@ -117,7 +116,6 @@
                     </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatImageButton
-                        android:visibility="@{favoriteProduct.available? view.VISIBLE: view.GONE}"
                         android:id="@+id/cardAdder"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -126,7 +124,7 @@
                         android:layout_marginEnd="0dp"
                         android:layout_marginBottom="25dp"
                         android:background="@drawable/ic_add_shopping_cart"
-                       />
+                        android:visibility="@{favoriteProduct.available? view.VISIBLE: view.GONE}" />
                 </RelativeLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

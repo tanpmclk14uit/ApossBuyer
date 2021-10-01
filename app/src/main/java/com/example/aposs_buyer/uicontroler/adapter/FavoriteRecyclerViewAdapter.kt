@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -64,7 +63,7 @@ class FavoriteRecyclerViewAdapter(private val favoriteInterface: FavoriteRecycle
             .show()
         favoriteInterface.removeFromFavorite(product)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, itemCount);
+        notifyItemRangeChanged(position, itemCount)
     }
 
     private fun onAddToCartClick(
