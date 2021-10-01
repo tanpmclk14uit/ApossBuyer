@@ -24,7 +24,6 @@ import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
 import me.relex.circleindicator.CircleIndicator3
 import java.util.*
-import kotlin.collections.ArrayList
 
 @BindingAdapter("image")
 fun bindImage(imageView: ImageView, image: Uri?) {
@@ -58,7 +57,7 @@ fun bindProductRecyclerView(recyclerView: RecyclerView, data: ArrayList<HomeProd
 @BindingAdapter("listMessage")
 fun bindRecyclerView(recyclerView: RecyclerView,
                      data: List<MessageItem>?) {
-    if (data!!.isNotEmpty()) {
+    if (!data!!.isEmpty()) {
         recyclerView.visibility = View.VISIBLE
         val adapter = recyclerView.adapter as MessageAdapter
         adapter.submitList(data)

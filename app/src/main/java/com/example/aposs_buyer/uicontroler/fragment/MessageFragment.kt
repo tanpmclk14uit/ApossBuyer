@@ -12,7 +12,6 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentMessageBinding
 import com.example.aposs_buyer.uicontroler.adapter.MessageAdapter
 import com.example.aposs_buyer.viewmodel.MessageViewModel
-import kotlinx.android.synthetic.main.fragment_message.*
 
 class MessageFragment : Fragment() {
 
