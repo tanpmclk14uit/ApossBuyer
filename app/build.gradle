@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -26,9 +26,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-    androidExtensions{
-        experimental=true
     }
     buildFeatures {
         dataBinding true
@@ -60,6 +57,7 @@ dependencies {
 
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
+    implementation 'androidx.activity:activity-ktx:1.3.1'
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"
@@ -92,6 +90,19 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Cycle indicator
     implementation 'me.relex:circleindicator:2.1.6'
+
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    // Annotation processor
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.1")
+
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
+
+
 
 
 }

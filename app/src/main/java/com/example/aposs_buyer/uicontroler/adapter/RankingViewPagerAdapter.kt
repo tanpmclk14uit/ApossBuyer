@@ -1,7 +1,10 @@
 package com.example.aposs_buyer.uicontroler.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.ToggleButton
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -9,9 +12,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemRakingBinding
+import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
 
-class RankingViewPagerAdapter :
+class RankingViewPagerAdapter(private val favoriteInterface: FavoriteInterface) :
     ListAdapter<RankingProduct, RankingViewPagerAdapter.RankingViewHolder>(DiffCallBack) {
 
     companion object DiffCallBack : DiffUtil.ItemCallback<RankingProduct>() {
@@ -23,14 +27,19 @@ class RankingViewPagerAdapter :
             return oldItem.id == newItem.id
         }
     }
+    interface FavoriteInterface {
+        fun addToFavorite(product: RankingProduct)
+        fun removeFromFavorite(product: RankingProduct)
+    }
 
-    class RankingViewHolder(private var binding: ItemRakingBinding) :
+    class RankingViewHolder(var binding: ItemRakingBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(rankingProduct: RankingProduct) {
             binding.rankingProduct = rankingProduct
             binding.executePendingBindings()
         }
     }
+
 
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
@@ -43,5 +52,25 @@ class RankingViewPagerAdapter :
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
+        holder.binding.favorite.setOnClickListener{
+            onFavoriteIconCLick(position, currentItem, holder.binding.favorite, it.context)
+        }
+    }
+    private fun onFavoriteIconCLick(
+        position: Int,
+        product: RankingProduct,
+        favorite: ToggleButton,
+        context: Context
+    ) {
+        if (favorite.isChecked) {
+            Toast.makeText(context, "Add to favorite successfully", Toast.LENGTH_SHORT).show()
+            favoriteInterface.addToFavorite(product)
+        } else {
+            Toast.makeText(context, "Remove from favorite successfully", Toast.LENGTH_SHORT)
+                .show()
+            favoriteInterface.removeFromFavorite(product)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount);
+        }
     }
 }

@@ -2,7 +2,6 @@
 <layout>
 
     <data>
-
         <variable
             name="product"
             type="com.example.aposs_buyer.model.HomeProduct" />

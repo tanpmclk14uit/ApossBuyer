@@ -13,23 +13,29 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
         sIncludes = null;
-        sViewsWithIds = null;
+        sViewsWithIds = new android.util.SparseIntArray();
+        sViewsWithIds.put(R.id.title, 1);
+        sViewsWithIds.put(R.id.tab, 2);
+        sViewsWithIds.put(R.id.viewPager, 3);
     }
     // views
     @NonNull
-    private final android.widget.FrameLayout mboundView0;
+    private final androidx.coordinatorlayout.widget.CoordinatorLayout mboundView0;
     // variables
     // values
     // listeners
     // Inverse Binding Event Handlers
 
     public FragmentFavoriteBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 1, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
     }
     private FragmentFavoriteBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
+            , (com.google.android.material.tabs.TabLayout) bindings[2]
+            , (android.widget.TextView) bindings[1]
+            , (androidx.viewpager2.widget.ViewPager2) bindings[3]
             );
-        this.mboundView0 = (android.widget.FrameLayout) bindings[0];
+        this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners

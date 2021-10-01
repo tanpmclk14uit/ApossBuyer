@@ -7,7 +7,9 @@ import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
