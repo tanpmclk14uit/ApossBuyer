@@ -20,4 +20,5 @@
     <color name="gray">#ABAFBC</color>
     <color name="light_gray">#F4F6FF</color>
     <color name="light_black">#4D5A80</color>
+    <color name="border_color">#979797</color>
 </resources>
