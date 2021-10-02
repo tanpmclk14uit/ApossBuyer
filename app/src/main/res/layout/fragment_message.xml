@@ -7,6 +7,9 @@
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.MessageViewModel" />
     </data>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -148,11 +151,10 @@
         </com.google.android.material.appbar.AppBarLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="474dp"
+            android:layout_height="494dp"
             android:orientation="vertical"
             android:layout_marginTop="176dp"
             android:layout_marginHorizontal="18dp"
-            android:fitsSystemWindows="true"
             android:elevation="8dp">
         <LinearLayout
             android:id="@+id/ln_message"
@@ -204,30 +206,32 @@
                 android:src="@drawable/ic_camera"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="20dp"/>
-        <com.google.android.material.textfield.TextInputLayout
-            app:boxBackgroundMode="outline"
-            android:layout_width="276dp"
-            android:paddingTop="5dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="50dp"
-            app:boxStrokeColor="@color/disable_pray"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="2dp"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="false">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_input_edit_text_message"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginRight="11dp"
                 android:layout_marginVertical="5dp"
-                android:editable="false"
-                android:padding="0dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/bg_input_edit_text_message">
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
                 android:hint="@string/type_here"
-                android:drawableEnd="@drawable/ic_send_message"
+                app:boxBackgroundMode="none"
+                android:text="@={viewModel.newMessage}"
+                android:background="@null"
                 android:textColor="@color/disable_pray" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addMessage()}"
+                    android:src="@drawable/ic_send_message"/>
+            </LinearLayout>
         </LinearLayout>
         </LinearLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</ScrollView>
 </layout>

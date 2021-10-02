@@ -1,8 +1,10 @@
 package com.example.aposs_buyer.utils
 
 import android.net.Uri
+import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -51,7 +53,7 @@ fun bindProductRecyclerView(recyclerView: RecyclerView, data: ArrayList<HomeProd
 @BindingAdapter("listMessage")
 fun bindRecyclerView(recyclerView: RecyclerView,
                      data: List<MessageItem>?) {
-    if (!data!!.isEmpty()) {
+    if (data!!.isNotEmpty()) {
         recyclerView.visibility = View.VISIBLE
         val adapter = recyclerView.adapter as MessageAdapter
         adapter.submitList(data)
