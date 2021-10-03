@@ -18,17 +18,24 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
     private var _availableProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     val availableProduct: LiveData<ArrayList<FavoriteProduct>> get() = _availableProducts
 
+    var isProductEmpty = MutableLiveData<Boolean>()
+    var isAvailableProductEmpty = MutableLiveData<Boolean>()
+
     init {
         if (_favoriteProducts.value == null) {
             _favoriteProducts.value = ArrayList()
         }
         _favoriteProducts.value = loadFavoriteProducts()
+        isProductEmpty.value = _favoriteProducts.value!!.isEmpty()
         setUpAvailableFavorite()
+        isAvailableProductEmpty.value = _availableProducts.value!!.isEmpty()
     }
 
     fun removeFromFavoriteProduct(product: FavoriteProduct) {
         _favoriteProducts.value!!.remove(product)
+        isProductEmpty.value = _favoriteProducts.value!!.isEmpty()
         _availableProducts.value!!.remove(product)
+        isAvailableProductEmpty.value = _availableProducts.value!!.isEmpty()
     }
 
     private fun setUpAvailableFavorite(){

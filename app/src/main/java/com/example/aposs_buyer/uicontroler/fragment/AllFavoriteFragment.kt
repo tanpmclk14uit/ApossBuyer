@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAllFavoriteBinding
 import com.example.aposs_buyer.model.FavoriteProduct
@@ -32,14 +34,15 @@ class AllFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface, Fragm
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_favorite, container, false)
         binding.lifecycleOwner = this
         binding.allItems.adapter = adapter
-        watchFavoriteItemChange()
         binding.viewModel = viewModel
+        watchFavoriteItemChange()
         return binding.root
     }
 
-
     override fun onResume() {
         super.onResume()
+        binding.allItems.recycledViewPool.clear()
+        watchFavoriteItemChange()
         adapter.notifyDataSetChanged()
     }
 

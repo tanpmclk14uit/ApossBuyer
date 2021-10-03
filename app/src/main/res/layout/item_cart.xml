@@ -12,6 +12,7 @@
     android:background="@drawable/bg_cart_item"
     android:elevation="8dp"
     android:layout_marginTop="5dp"
+    android:layout_marginHorizontal="6dp"
     android:layout_marginBottom="10dp"
     android:orientation="horizontal">
 <ImageView

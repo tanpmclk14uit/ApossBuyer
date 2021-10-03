@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/settings/baseline_settings_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/favorite/baseline_favorite_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="28ffbf" />
-                            <entry key="outputName" value="ic_baseline_settings_24" />
+                            <entry key="color" value="c6c6c6" />
+                            <entry key="outputName" value="ic_favorite_disable" />
                             <entry key="sourceFile" value="D:\Asset Đồ án 1\Component 11 – 1.svg" />
                           </map>
                         </option>

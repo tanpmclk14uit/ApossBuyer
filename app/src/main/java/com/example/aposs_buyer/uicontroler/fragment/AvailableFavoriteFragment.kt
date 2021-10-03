@@ -56,6 +56,8 @@ class AvailableFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface,
     }
     override fun onResume() {
         super.onResume()
+        binding.allItems.recycledViewPool.clear()
+        watchFavoriteItemChange()
         adapter.notifyDataSetChanged()
     }
 

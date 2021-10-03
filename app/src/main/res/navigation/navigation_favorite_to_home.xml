@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_favorite_to_home"
+    app:startDestination="@id/allFavoriteFragment">
+
+    <fragment
+        android:id="@+id/allFavoriteFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.AllFavoriteFragment"
+        android:label="AllFavoriteFragment" >
+        <action
+            android:id="@+id/action_allFavoriteFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/availableFavoriteFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.AvailableFavoriteFragment"
+        android:label="AvailableFavoriteFragment" >
+        <action
+            android:id="@+id/action_availableFavoriteFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.HomeFragment"
+        android:label="HomeFragment" />
+</navigation>
