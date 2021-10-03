@@ -29,9 +29,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 
 
 @AndroidEntryPoint
-class CartFragment : Fragment() {
+class CartFragment : CartAdapter.ChangeAmount, Fragment() {
 
-    private val cartAdapter = CartAdapter()
+    private val cartAdapter = CartAdapter(this)
     private val viewModel: CartViewModel by viewModels()
     private lateinit var binding: FragmentCartBinding
     override fun onCreateView(
@@ -55,11 +55,6 @@ class CartFragment : Fragment() {
                 binding.emptyCart.visibility = View.GONE
                 binding.fullfillCart.visibility = View.VISIBLE
             }
-        })
-
-        CartAdapter.listener.currentListener.observe(viewLifecycleOwner, Observer {
-            viewModel.updateAmount(it.id, it.newAmount)
-            viewModel.reCalculateTotal()
         })
 
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
@@ -86,7 +81,12 @@ class CartFragment : Fragment() {
             val position = viewHolder.adapterPosition
             viewModel.removeItem(position)
             cartAdapter.notifyItemRemoved(position)
+            cartAdapter.notifyItemRangeChanged(position, viewModel.lstCartItem.value!!.size)
             viewModel.reCalculateTotal()
         }
+    }
+
+    override fun onChangeAmount() {
+        viewModel.reCalculateTotal()
     }
 }

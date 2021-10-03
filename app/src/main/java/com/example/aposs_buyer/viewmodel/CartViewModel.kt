@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.AmountChangeListener
 import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.FavoriteProduct
 import com.example.aposs_buyer.model.Image
@@ -17,6 +18,7 @@ class CartViewModel @Inject constructor(): ViewModel(){
     private val _lstCartItem = MutableLiveData<ArrayList<CartItem>>()
     val lstCartItem: LiveData<ArrayList<CartItem>> get() = _lstCartItem
 
+
     val total = MutableLiveData<String>()
     val size = MutableLiveData<Int>()
 
@@ -28,6 +30,7 @@ class CartViewModel @Inject constructor(): ViewModel(){
             size.value = 0
         }
         else size.value = _lstCartItem.value!!.size
+        Log.d("CartViewModel" ,_lstCartItem.value!![0].amount.toString())
     }
 
     private fun calculateTotal(): String
@@ -43,22 +46,10 @@ class CartViewModel @Inject constructor(): ViewModel(){
 
     fun reCalculateTotal()
     {
-        Log.i("000000000000000000000", _lstCartItem.value.toString())
         total.value = calculateTotal()
         size.value = _lstCartItem.value!!.size
     }
 
-    fun updateAmount(id: Int, newAmount: Int)
-    {
-        for (i in 0 until _lstCartItem.value!!.size)
-        {
-            if (id == _lstCartItem.value!![i].id)
-            {
-                _lstCartItem.value!![i].amount = newAmount
-                return
-            }
-        }
-    }
 
     fun removeItem(position: Int)
     {

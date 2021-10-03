@@ -4,6 +4,9 @@
         <variable
             name="cartItem"
             type="com.example.aposs_buyer.model.CartItem" />
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.CartViewModel" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"

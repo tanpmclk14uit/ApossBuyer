@@ -1,31 +1,21 @@
 package com.example.aposs_buyer.uicontroler.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.persistableBundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemCartBinding
-import com.example.aposs_buyer.databinding.ItemRightSideMessageBinding
-import com.example.aposs_buyer.model.AmountChangeListener
 import com.example.aposs_buyer.model.CartItem
-import com.example.aposs_buyer.uicontroler.fragment.CartFragment
-import com.example.aposs_buyer.viewmodel.CartViewModel
-import java.util.zip.Inflater
 
-class CartAdapter: ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
+class CartAdapter(private val changeAmount: ChangeAmount): ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
 
-    object listener {
-        val currentListener = MutableLiveData<AmountChangeListener>()
+
+    interface ChangeAmount{
+        fun onChangeAmount()
     }
-
     class CartViewHolder(val binding: ItemCartBinding): RecyclerView.ViewHolder(binding.root)
     {
         fun bind(cartItem: CartItem) {
@@ -57,12 +47,10 @@ class CartAdapter: ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBac
         holder.bind(currentItem)
         holder.binding.imgPlus.setOnClickListener {
             onAddAmount(position)
-            listener.currentListener.value = AmountChangeListener(currentItem.id,currentItem.amount)
             this.notifyItemChanged(position)
         }
         holder.binding.imgMinus.setOnClickListener {
             onReduceAmount(position)
-            listener.currentListener.value = AmountChangeListener(currentItem.id,currentItem.amount)
             this.notifyItemChanged(position)
         }
     }
@@ -70,12 +58,14 @@ class CartAdapter: ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBac
     private fun onAddAmount(position: Int)
     {
         getItem(position).amount ++
+        changeAmount.onChangeAmount()
     }
 
     private fun onReduceAmount(position: Int)
     {
         if (getItem(position).amount > 1) {
             getItem(position).amount--
+            changeAmount.onChangeAmount()
         }
     }
 
