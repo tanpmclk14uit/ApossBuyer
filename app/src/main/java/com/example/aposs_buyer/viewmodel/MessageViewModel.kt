@@ -36,8 +36,7 @@ class MessageViewModel: ViewModel() {
     fun addMessage() {
         val random = Random.nextLong(1, 3)
         if (newMessage.value != null || newMessage.value != "") {
-            val newListMessage: MutableList<MessageItem>
-            newListMessage = _lstMessageItem.value!!
+            val newListMessage: MutableList<MessageItem> = _lstMessageItem.value!!
             newListMessage.add(0 , MessageItem(random, newMessage.value!!, LocalDateTime.now()))
             _lstMessageItem.value = newListMessage
             Log.i("MessageViewModel", lstMessageItem.value!!.size.toString())
