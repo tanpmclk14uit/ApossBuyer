@@ -4,12 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.aposs_buyer.model.AmountChangeListener
 import com.example.aposs_buyer.model.CartItem
-import com.example.aposs_buyer.model.FavoriteProduct
 import com.example.aposs_buyer.model.Image
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.text.FieldPosition
 import javax.inject.Inject
 
 @HiltViewModel

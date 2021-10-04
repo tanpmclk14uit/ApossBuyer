@@ -6,12 +6,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".uicontroler.activity.DetailProductActivity">
-
-        <EditText
+        <fragment
+            app:defaultNavHost= "true"
+            android:id="@+id/navDetailFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph ="@navigation/navigation_detail_product"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-        </EditText>
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </fragment>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
