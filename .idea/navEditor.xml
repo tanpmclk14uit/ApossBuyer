@@ -13,8 +13,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="40" />
-                            <option name="y" value="40" />
+                            <option name="x" value="-55" />
+                            <option name="y" value="-212" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="homeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-315" />
+                            <option name="y" value="-209" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -106,6 +118,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="detailProductFragment2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="128" />
+                            <option name="y" value="-319" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="favoriteFragment">
                     <value>
                       <LayoutPositions>
@@ -129,7 +153,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_homeFragment_to_favoriteFragment">
+                            <entry key="action_homeFragment_to_detailProductFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>

@@ -12,4 +12,5 @@
         tools:layout="@layout/fragment_detail_product">
 
     </fragment>
+
 </navigation>

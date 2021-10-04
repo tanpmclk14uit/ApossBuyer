@@ -9,7 +9,11 @@
         tools:layout="@layout/fragment_home"
         android:id="@+id/homeFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailProductFragment2"
+            app:destination="@id/detailProductFragment2" />
+    </fragment>
     <fragment
         tools:layout="@layout/fragment_favorite"
         android:id="@+id/favoriteFragment"
@@ -30,4 +34,9 @@
         android:id="@+id/personFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.PersonFragment"
         android:label="PersonFragment" />
+    <fragment
+        tools:layout="@layout/fragment_detail_product"
+        android:id="@+id/detailProductFragment2"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.DetailProductFragment"
+        android:label="DetailProductFragment" />
 </navigation>

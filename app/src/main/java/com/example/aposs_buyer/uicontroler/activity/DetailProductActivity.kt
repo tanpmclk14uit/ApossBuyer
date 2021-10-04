@@ -24,4 +24,9 @@ class DetailProductActivity : AppCompatActivity() {
         navController.navigateUp()
         navController.navigate(R.id.detailProductFragment, bundle)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

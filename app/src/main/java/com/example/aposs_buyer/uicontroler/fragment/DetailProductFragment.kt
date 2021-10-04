@@ -31,8 +31,9 @@ class DetailProductFragment : Fragment() {
             viewModel.setSelectedProductId(selectedProductId)
         }
         binding.lifecycleOwner = this
-
-        // Inflate the layout for this fragment
+        binding.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return binding.root
     }
 
