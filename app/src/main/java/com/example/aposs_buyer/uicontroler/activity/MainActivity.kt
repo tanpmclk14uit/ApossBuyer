@@ -1,7 +1,12 @@
 package com.example.aposs_buyer.uicontroler.activity
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
@@ -18,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpNav()
     }
-
+    
     private fun setUpNav(){
         binding.meowBottomNavigation.apply {
             add(MeowBottomNavigation.Model(1, R.drawable.ic_love))
@@ -28,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             add(MeowBottomNavigation.Model(5, R.drawable.ic_person))
         }
         binding.meowBottomNavigation.show(3, true)
-        binding.meowBottomNavigation.setOnShowListener {
+        binding.meowBottomNavigation.setOnClickMenuListener {
             val navController = Navigation.findNavController(this, R.id.navHostFragment)
             navController.navigateUp()
             when(it.id){

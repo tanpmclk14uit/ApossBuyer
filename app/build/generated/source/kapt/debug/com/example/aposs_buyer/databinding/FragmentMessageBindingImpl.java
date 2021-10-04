@@ -16,16 +16,15 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.title, 5);
         sViewsWithIds.put(R.id.ln_message, 6);
+        sViewsWithIds.put(R.id.messageBox, 7);
     }
     // views
     @NonNull
-    private final android.widget.ScrollView mboundView0;
+    private final android.widget.LinearLayout mboundView0;
     @NonNull
     private final android.widget.LinearLayout mboundView2;
     @NonNull
     private final android.widget.EditText mboundView3;
-    @NonNull
-    private final android.widget.ImageView mboundView4;
     // variables
     @Nullable
     private final android.view.View.OnClickListener mCallback1;
@@ -71,23 +70,24 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
     };
 
     public FragmentMessageBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private FragmentMessageBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
             , (android.widget.LinearLayout) bindings[6]
+            , (android.widget.LinearLayout) bindings[7]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
+            , (android.widget.ImageView) bindings[4]
             , (android.widget.TextView) bindings[5]
             );
-        this.mboundView0 = (android.widget.ScrollView) bindings[0];
+        this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);
         this.mboundView2 = (android.widget.LinearLayout) bindings[2];
         this.mboundView2.setTag(null);
         this.mboundView3 = (android.widget.EditText) bindings[3];
         this.mboundView3.setTag(null);
-        this.mboundView4 = (android.widget.ImageView) bindings[4];
-        this.mboundView4.setTag(null);
         this.rcMessage.setTag(null);
+        this.sentMessange.setTag(null);
         setRootTag(root);
         // listeners
         mCallback1 = new com.example.aposs_buyer.generated.callback.OnClickListener(this, 1);
@@ -169,10 +169,10 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
+        java.lang.String viewModelNewMessageGetValue = null;
         androidx.lifecycle.LiveData<java.util.List<com.example.aposs_buyer.model.MessageItem>> viewModelLstMessageItem = null;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelNewMessage = null;
         com.example.aposs_buyer.viewmodel.MessageViewModel viewModel = mViewModel;
-        java.lang.String viewModelNewMessageGetValue = null;
         java.util.List<com.example.aposs_buyer.model.MessageItem> viewModelLstMessageItemGetValue = null;
 
         if ((dirtyFlags & 0xfL) != 0) {
@@ -223,7 +223,7 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView3, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView3androidTextAttrChanged);
-            this.mboundView4.setOnClickListener(mCallback1);
+            this.sentMessange.setOnClickListener(mCallback1);
         }
     }
     // Listener Stub Implementations

@@ -12,8 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemProductBinding
 import com.example.aposs_buyer.model.HomeProduct
 
-class HomeProductAdapter(private val favoriteInterface: FavoriteInterface) :
+class HomeProductAdapter(
+    private val favoriteInterface: FavoriteInterface,
+    private val onClickListener: OnClickListener
+) :
     ListAdapter<HomeProduct, HomeProductAdapter.HomeProductViewHolder>(DiffCallBack) {
+
+    class OnClickListener(val clickListener: (id: Long) -> Unit) {
+        fun onClick(id: Long) = clickListener(id)
+    }
 
     object DiffCallBack : DiffUtil.ItemCallback<HomeProduct>() {
         override fun areItemsTheSame(oldItem: HomeProduct, newItem: HomeProduct): Boolean {
@@ -44,12 +51,14 @@ class HomeProductAdapter(private val favoriteInterface: FavoriteInterface) :
 
     override fun onBindViewHolder(holder: HomeProductViewHolder, position: Int) {
         val currentProduct = getItem(position)
+        holder.bind(currentProduct)
         holder.binding.favorite.setOnClickListener {
             onFavoriteIconCLick(position, currentProduct, holder.binding.favorite, it.context)
         }
-        holder.bind(currentProduct)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(currentProduct.id)
+        }
     }
-
     private fun onFavoriteIconCLick(
         position: Int,
         product: HomeProduct,
@@ -65,4 +74,5 @@ class HomeProductAdapter(private val favoriteInterface: FavoriteInterface) :
             favoriteInterface.removeFromFavorite(product)
         }
     }
+
 }

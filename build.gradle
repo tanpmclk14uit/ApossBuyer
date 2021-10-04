@@ -2,9 +2,6 @@
 buildscript {
 
     ext {
-        // Versions for all the dependencies we plan to use. It's particularly useful for kotlin and
-        // navigation where the versions of the plugin needs to be the same as the version of the
-        // library defined in the app Gradle file
         version_android_gradle_plugin = '7.0.2'
         version_core = "1.6.0"
         version_constraint_layout = "2.1.0"

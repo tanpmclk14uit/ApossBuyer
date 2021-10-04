@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -10,11 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
+import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
@@ -23,6 +27,7 @@ import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.viewmodel.FavoriteViewModel
 import com.example.aposs_buyer.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import hilt_aggregated_deps._com_example_aposs_buyer_uicontroler_fragment_HomeFragment_GeneratedInjector
 import javax.inject.Inject
 
 
@@ -68,7 +73,9 @@ class HomeFragment :HomeProductAdapter.FavoriteInterface, RankingViewPagerAdapte
         binding.viewModel = viewModel
         binding.imageViewPager.adapter = CategoriesViewPagerAdapter()
         binding.rankingViewPager.adapter = RankingViewPagerAdapter(this)
-        binding.products.adapter = HomeProductAdapter(this)
+        binding.products.adapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener{
+            startActivity(Intent(this.context, DetailProductActivity::class.java))
+        })
         binding.lifecycleOwner = this
         setUpIndicator()
         setUpViewPagerCallBack()
