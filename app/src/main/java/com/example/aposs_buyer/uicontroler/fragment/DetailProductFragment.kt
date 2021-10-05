@@ -10,11 +10,10 @@ import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
 import com.example.aposs_buyer.uicontroler.adapter.DetailProductImageViewPagerAdapter
-import com.example.aposs_buyer.uicontroler.animation.DepthPageTransformer
+import com.example.aposs_buyer.uicontroler.adapter.StringPropertyAdapter
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class DetailProductFragment : Fragment() {
@@ -23,10 +22,13 @@ class DetailProductFragment : Fragment() {
     private val viewModel: DetailProductViewModel by activityViewModels()
 
     private val imagesAdapter = DetailProductImageViewPagerAdapter()
+
+    private val stringPropertyAdapter = StringPropertyAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_detail_product, container, false)
         val selectedProductId: Long? = arguments?.getLong("productID")
@@ -40,6 +42,7 @@ class DetailProductFragment : Fragment() {
         setUpViewPager()
         setUpIndicator()
         setUpLeftRightController()
+        binding.stringProperty.adapter = stringPropertyAdapter
         return binding.root
     }
     private fun setUpViewPager(){

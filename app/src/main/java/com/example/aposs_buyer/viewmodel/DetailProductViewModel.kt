@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.aposs_buyer.model.HomeProduct
-import com.example.aposs_buyer.model.Image
-import com.example.aposs_buyer.model.ProductDetail
+import com.example.aposs_buyer.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,6 +16,9 @@ class DetailProductViewModel @Inject constructor(
     val selectedProduct: LiveData<ProductDetail> get() = _selectedProduct
     private var _selectedProductImages = MutableLiveData<List<Image>>()
     val selectedProductImages: LiveData<List<Image>> get() = _selectedProductImages
+
+    private var _selectedProductStringProperty = MutableLiveData<ArrayList<ProductDetailProperty>>()
+    val selectedProductStringProperty: LiveData<ArrayList<ProductDetailProperty>> get() = _selectedProductStringProperty
     private val TAG = "DetailProductViewModel"
 
     fun setSelectedProductId(id: Long) {
@@ -25,10 +26,23 @@ class DetailProductViewModel @Inject constructor(
         if (selectedProductId != (-1).toLong()) {
             _selectedProduct.value = loadSelectedProductById(selectedProductId)
             _selectedProductImages.value = loadListImageByID(selectedProductId)
+            _selectedProductStringProperty.value = loadSelectedProductStringPropertyById(selectedProductId)
             Log.d(TAG, selectedProductId.toString())
         }
     }
-
+    private fun loadSelectedProductStringPropertyById(id: Long): ArrayList<ProductDetailProperty>{
+        val sampleProductProperty: ArrayList<ProductDetailProperty> = ArrayList()
+        val sampleDetailPropertyValue1: ArrayList<PropertyValue> = ArrayList()
+        val sampleDetailPropertyValue2: ArrayList<PropertyValue> = ArrayList()
+        sampleDetailPropertyValue1.add(PropertyValue("38", 0, 0))
+        sampleDetailPropertyValue1.add(PropertyValue("39", 0, 0))
+        sampleDetailPropertyValue1.add(PropertyValue("40", 0, 0))
+        sampleDetailPropertyValue2.add(PropertyValue("1m", 0, 0))
+        sampleDetailPropertyValue2.add(PropertyValue("2m", 0, 0))
+        sampleProductProperty.add(ProductDetailProperty("Size", sampleDetailPropertyValue1, false))
+        sampleProductProperty.add(ProductDetailProperty("Shoestring", sampleDetailPropertyValue2, false))
+        return sampleProductProperty
+    }
     private fun loadSelectedProductById(id: Long): ProductDetail {
         //Load basic information of product by id
         return ProductDetail(

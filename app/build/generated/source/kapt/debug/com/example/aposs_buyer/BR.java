@@ -15,9 +15,11 @@ public class BR {
 
   public static final int product = 6;
 
-  public static final int rankingProduct = 7;
+  public static final int property = 7;
 
-  public static final int view = 8;
+  public static final int rankingProduct = 8;
 
-  public static final int viewModel = 9;
+  public static final int view = 9;
+
+  public static final int viewModel = 10;
 }

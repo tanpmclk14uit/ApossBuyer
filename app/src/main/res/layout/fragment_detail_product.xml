@@ -262,7 +262,13 @@
                         android:padding="20dp">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/productsDetailProperty"
+                            app:fastScrollEnabled="false"
+                            stringProperty="@{viewModel.selectedProductStringProperty}"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_product_string_property"
+                            android:id="@+id/stringProperty"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp" />
@@ -329,8 +335,8 @@
                             android:textColor="@color/black"
                             android:textStyle="normal" />
                     </LinearLayout>
-                </LinearLayout>
 
+                </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
             <LinearLayout

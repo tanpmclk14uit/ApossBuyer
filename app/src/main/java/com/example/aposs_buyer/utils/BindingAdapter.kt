@@ -92,7 +92,16 @@ fun bindFavoriteRecyclerView(recyclerView: RecyclerView, data: ArrayList<Favorit
     val adapter = recyclerView.adapter as FavoriteRecyclerViewAdapter
     adapter.submitList(data)
 }
-
+@BindingAdapter("stringPropertyValue")
+fun bindStringPropertyValue(recyclerView: RecyclerView, data: List<PropertyValue>?){
+    val adapter = recyclerView.adapter as StringDetailPropertyAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("stringProperty")
+fun bindStringProperty(recyclerView: RecyclerView, data: List<ProductDetailProperty>?){
+    val adapter = recyclerView.adapter as StringPropertyAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter("listCart")
 fun bindRecycleView(recyclerView: RecyclerView, lstCart: ArrayList<CartItem>)
 {
