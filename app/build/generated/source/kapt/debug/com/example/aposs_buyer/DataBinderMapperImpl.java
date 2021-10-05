@@ -17,6 +17,7 @@ import com.example.aposs_buyer.databinding.FragmentHomeBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentMessageBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentPersonBindingImpl;
 import com.example.aposs_buyer.databinding.ItemCartBindingImpl;
+import com.example.aposs_buyer.databinding.ItemDetailProductImageViewPagerBindingImpl;
 import com.example.aposs_buyer.databinding.ItemFavoriteBindingImpl;
 import com.example.aposs_buyer.databinding.ItemLeftSideMessageBindingImpl;
 import com.example.aposs_buyer.databinding.ItemProductBindingImpl;
@@ -56,19 +57,21 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMCART = 11;
 
-  private static final int LAYOUT_ITEMFAVORITE = 12;
+  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 12;
 
-  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 13;
+  private static final int LAYOUT_ITEMFAVORITE = 13;
 
-  private static final int LAYOUT_ITEMPRODUCT = 14;
+  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 14;
 
-  private static final int LAYOUT_ITEMRAKING = 15;
+  private static final int LAYOUT_ITEMPRODUCT = 15;
 
-  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 16;
+  private static final int LAYOUT_ITEMRAKING = 16;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 17;
+  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 17;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(17);
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 18;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(18);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_detail_product, LAYOUT_ACTIVITYDETAILPRODUCT);
@@ -82,6 +85,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_message, LAYOUT_FRAGMENTMESSAGE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_person, LAYOUT_FRAGMENTPERSON);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_cart, LAYOUT_ITEMCART);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_detail_product_image_view_pager, LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_favorite, LAYOUT_ITEMFAVORITE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_left_side_message, LAYOUT_ITEMLEFTSIDEMESSAGE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_product, LAYOUT_ITEMPRODUCT);
@@ -165,6 +169,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
           }
           throw new IllegalArgumentException("The tag for item_cart is invalid. Received: " + tag);
         }
+        case  LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER: {
+          if ("layout/item_detail_product_image_view_pager_0".equals(tag)) {
+            return new ItemDetailProductImageViewPagerBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for item_detail_product_image_view_pager is invalid. Received: " + tag);
+        }
         case  LAYOUT_ITEMFAVORITE: {
           if ("layout/item_favorite_0".equals(tag)) {
             return new ItemFavoriteBindingImpl(component, view);
@@ -246,23 +256,24 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(9);
+    static final SparseArray<String> sKeys = new SparseArray<String>(10);
 
     static {
       sKeys.put(0, "_all");
       sKeys.put(1, "cartItem");
       sKeys.put(2, "favoriteProduct");
-      sKeys.put(3, "imgCategory");
-      sKeys.put(4, "messageItem");
-      sKeys.put(5, "product");
-      sKeys.put(6, "rankingProduct");
-      sKeys.put(7, "view");
-      sKeys.put(8, "viewModel");
+      sKeys.put(3, "image");
+      sKeys.put(4, "imgCategory");
+      sKeys.put(5, "messageItem");
+      sKeys.put(6, "product");
+      sKeys.put(7, "rankingProduct");
+      sKeys.put(8, "view");
+      sKeys.put(9, "viewModel");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(17);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(18);
 
     static {
       sKeys.put("layout/activity_detail_product_0", com.example.aposs_buyer.R.layout.activity_detail_product);
@@ -276,6 +287,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/fragment_message_0", com.example.aposs_buyer.R.layout.fragment_message);
       sKeys.put("layout/fragment_person_0", com.example.aposs_buyer.R.layout.fragment_person);
       sKeys.put("layout/item_cart_0", com.example.aposs_buyer.R.layout.item_cart);
+      sKeys.put("layout/item_detail_product_image_view_pager_0", com.example.aposs_buyer.R.layout.item_detail_product_image_view_pager);
       sKeys.put("layout/item_favorite_0", com.example.aposs_buyer.R.layout.item_favorite);
       sKeys.put("layout/item_left_side_message_0", com.example.aposs_buyer.R.layout.item_left_side_message);
       sKeys.put("layout/item_product_0", com.example.aposs_buyer.R.layout.item_product);

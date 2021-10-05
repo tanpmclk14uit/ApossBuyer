@@ -8,7 +8,6 @@ data class ProductDetail(
     val purchase: Int,
     val rating: Float,
     var isFavorite: Boolean,
-    val listImage: List<Image>,
     val description: String,
     val availableQuantities: Int,
     val kind: String
@@ -17,5 +16,8 @@ data class ProductDetail(
         val formatter = DecimalFormat("#,###")
         val formattedNumber: String = formatter.format(price)
         return "$formattedNumber VNĐ"
+    }
+    fun totalPurchaseToString(): String{
+        return "$purchase purchased"
     }
 }

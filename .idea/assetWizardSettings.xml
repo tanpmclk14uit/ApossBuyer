@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/arrow_back/baseline_arrow_back_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/expand_more/baseline_expand_more_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_arrow_back_24" />
-                            <entry key="sourceFile" value="D:\Asset Đồ án 1\Component 11 – 1.svg" />
+                            <entry key="color" value="c6c6c6" />
+                            <entry key="outputName" value="ic_expand_more" />
+                            <entry key="sourceFile" value="D:\Asset Đồ án 1\right_cycle.svg" />
                           </map>
                         </option>
                       </PersistentState>

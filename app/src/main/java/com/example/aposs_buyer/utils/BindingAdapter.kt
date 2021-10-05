@@ -35,6 +35,11 @@ fun bindCategoriesViewPager(viewPager2: ViewPager2, data: ArrayList<Category>?){
     val adapter =viewPager2.adapter as CategoriesViewPagerAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("imagesData")
+fun bindDetailProductImageViewPager(viewPager2: ViewPager2, data: List<Image>?){
+    val adapter = viewPager2.adapter as DetailProductImageViewPagerAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter( "indicatorSize")
 fun bindIndicatorSize(indicator: CircleIndicator3, size: Int){
     indicator.createIndicators(size , 0)
