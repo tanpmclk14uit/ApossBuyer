@@ -12,6 +12,9 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_main"
         tools:context=".uicontroler.fragment.UserDetailFragment">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -111,7 +114,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <LinearLayout
                     android:id="@+id/ln_havingAccount"
                     android:layout_width="match_parent"
@@ -155,13 +157,15 @@
                     </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/relativeLayout"
+                    android:id="@+id/ln_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
+                    android:layout_marginTop="190dp"
+                    android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ln_havingAccount"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:orientation="vertical">
                     <TextView
@@ -172,10 +176,13 @@
                         android:textSize="14dp"
                         android:layout_marginBottom="10dp"/>
                     <EditText
+                        android:id="@+id/et_firstName"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
+                        android:text="@{viewModel.currentUser.firstName}"
                         android:textSize="16dp"
                         android:paddingStart="15dp"
+                        android:maxLines="1"
                         android:background="@drawable/bg_edit_user_detail"
                         android:layout_marginBottom="15dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
@@ -183,13 +190,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Last Name"
+                        android:inputType="text"
                         android:textColor="@color/edit_user_detail_color"
                         android:textSize="14dp"
                         android:layout_marginBottom="10dp"/>
                     <EditText
+                        android:id="@+id/et_lastName"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:textSize="16dp"
+                        android:text="@{viewModel.currentUser.lastName}"
+                        android:maxLines="1"
+                        android:inputType="text"
                         android:paddingStart="15dp"
                         android:background="@drawable/bg_edit_user_detail"
                         android:layout_marginBottom="15dp"
@@ -202,10 +214,14 @@
                         android:textSize="14dp"
                         android:layout_marginBottom="10dp"/>
                     <EditText
+                        android:id="@+id/et_email"
+                        android:inputType="textEmailAddress"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:textSize="16dp"
+                        android:text="@{viewModel.currentUser.email}"
                         android:paddingStart="15dp"
+                        android:maxLines="1"
                         android:background="@drawable/bg_edit_user_detail"
                         android:layout_marginBottom="15dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
@@ -219,8 +235,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:textSize="16dp"
+                         android:editable="false"
+                         android:id="@+id/et_birthday"
                         android:paddingStart="15dp"
                          android:paddingEnd="15dp"
+                         android:text="@{viewModel.currentUser.birthdayByString}"
+                         android:maxLines="1"
                          android:drawableEnd="@drawable/ic_drop"
                         android:background="@drawable/bg_edit_user_detail"
                         android:layout_marginBottom="15dp"
@@ -235,21 +255,47 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
-                        android:paddingStart="15dp"
+                        android:paddingStart="10dp"
                         android:textSize="16dp"
                         android:background="@drawable/bg_edit_user_detail"
                         android:layout_marginBottom="15dp"
                         app:endIconDrawable="@drawable/ic_drop"
+                        app:boxStrokeColor="#9D9EA3"
+                        app:endIconTint="#8F5F43"
+                        app:boxStrokeWidthFocused="0dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
                         <AutoCompleteTextView
+                            android:id="@+id/actv_gender"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingTop="2dp"
+                            android:text="@{viewModel.currentUser.genderString}"
                             android:inputType="none"
                             android:backgroundTint="#00000000"
                             android:textSize="16dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_saveChanges"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Save changes"
+                    android:layout_marginBottom="20dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:enabled="false"
+                    android:textStyle="bold"
+                    android:background="@drawable/select_bg_button"
+                    android:layout_marginHorizontal="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ln_info"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </ScrollView>
 </FrameLayout>
 </layout>

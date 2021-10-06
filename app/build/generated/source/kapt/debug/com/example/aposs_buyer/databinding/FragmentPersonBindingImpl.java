@@ -127,8 +127,8 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         java.lang.String viewModelPersonEmail = null;
         androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Person> viewModelPerson = null;
         android.net.Uri viewModelPersonImageImageUri = null;
-        java.lang.String viewModelPersonName = null;
         com.example.aposs_buyer.viewmodel.PersonViewModel viewModel = mViewModel;
+        java.lang.String viewModelPersonFullName = null;
 
         if ((dirtyFlags & 0x7L) != 0) {
 
@@ -152,8 +152,8 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
                     viewModelPersonImage = viewModelPersonGetValue.getImage();
                     // read viewModel.person.getValue().email
                     viewModelPersonEmail = viewModelPersonGetValue.getEmail();
-                    // read viewModel.person.getValue().name
-                    viewModelPersonName = viewModelPersonGetValue.getName();
+                    // read viewModel.person.getValue().fullName
+                    viewModelPersonFullName = viewModelPersonGetValue.getFullName();
                 }
 
 
@@ -166,7 +166,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, viewModelPersonName);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, viewModelPersonFullName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, viewModelPersonEmail);
             com.example.aposs_buyer.utils.BindingAdapterKt.bindImage(this.mboundView3, viewModelPersonImageImageUri);
         }

@@ -111,7 +111,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.person.name}"
+                        android:text="@{viewModel.person.fullName}"
                         android:textSize="16dp"
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
