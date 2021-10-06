@@ -289,7 +289,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
-                                android:text="@{String.valueOf(viewModel.selectedProduct.availableQuantities)}"
+                                android:text="@{String.valueOf(viewModel.selectedProductQuantities)}"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
                         </LinearLayout>

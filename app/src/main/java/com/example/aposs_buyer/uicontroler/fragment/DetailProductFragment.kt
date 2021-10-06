@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,20 +11,21 @@ import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
 import com.example.aposs_buyer.uicontroler.adapter.DetailProductImageViewPagerAdapter
+import com.example.aposs_buyer.uicontroler.adapter.StringDetailPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.StringPropertyAdapter
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailProductFragment : Fragment() {
+class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyValueSelect {
 
     private lateinit var binding: FragmentDetailProductBinding
     private val viewModel: DetailProductViewModel by activityViewModels()
 
     private val imagesAdapter = DetailProductImageViewPagerAdapter()
 
-    private val stringPropertyAdapter = StringPropertyAdapter()
+    private val stringPropertyAdapter = StringPropertyAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +47,8 @@ class DetailProductFragment : Fragment() {
         binding.stringProperty.adapter = stringPropertyAdapter
         return binding.root
     }
-    private fun setUpViewPager(){
+
+    private fun setUpViewPager() {
         binding.images.setPageTransformer(ZoomOutPageTransformer())
         binding.images.adapter = imagesAdapter
     }
@@ -55,33 +58,44 @@ class DetailProductFragment : Fragment() {
             requireActivity().onBackPressed()
         }
     }
-    private fun setUpLeftRightController(){
+
+    private fun setUpLeftRightController() {
         binding.goToLeftImage.setOnClickListener {
-            if(binding.images.currentItem != 0){
-                binding.images.currentItem -=1
-            }else{
-                binding.images.currentItem = viewModel.selectedProductImages.value!!.size-1
+            if (binding.images.currentItem != 0) {
+                binding.images.currentItem -= 1
+            } else {
+                binding.images.currentItem = viewModel.selectedProductImages.value!!.size - 1
             }
         }
         binding.goToRightImage.setOnClickListener {
-            if(binding.images.currentItem != viewModel.selectedProductImages.value!!.size-1){
-                binding.images.currentItem +=1
-            }else{
+            if (binding.images.currentItem != viewModel.selectedProductImages.value!!.size - 1) {
+                binding.images.currentItem += 1
+            } else {
                 binding.images.currentItem = 0
             }
         }
     }
+
     private fun setUpIndicator() {
         binding.indicator.setViewPager(binding.images)
     }
+
     private fun setShowAll() {
         binding.showAll.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.description.maxLines = 1000
-            }else{
-                binding.description.maxLines= 10
+            } else {
+                binding.description.maxLines = 10
             }
         }
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun notifySelectedValueChange(valueId: Long, propertyId: Long) {
+        viewModel.notifySelectedChange(valueId, propertyId)
+        stringPropertyAdapter.notifyDataSetChanged()
+    }
+
+
 }
 

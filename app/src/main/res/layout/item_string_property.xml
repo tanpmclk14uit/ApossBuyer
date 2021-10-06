@@ -11,15 +11,23 @@
         android:paddingVertical="5dp"
         android:paddingRight="5dp"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-        <TextView
-            android:background="@drawable/bg_property_outline"
-            android:paddingVertical="5dp"
+        <ToggleButton
+            android:id="@+id/propertyValue"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
             android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:alpha="@{property.count==0? 0.5f: 1f}"
+            android:enabled="@{property.count==0? Boolean.FALSE: Boolean.TRUE}"
+            android:checked="@={property.chosen}"
+            android:text="@{property.value}"
+            android:textOn="@{property.value}"
+            android:textOff="@{property.value}"
+            android:background="@drawable/selector_string_property_value"
             android:gravity="center"
-            android:text="@{property.value , default=Name}"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </TextView>
+        </ToggleButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

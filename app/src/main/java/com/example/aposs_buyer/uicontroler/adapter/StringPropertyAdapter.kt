@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemProductStringPropertyBinding
 import com.example.aposs_buyer.model.ProductDetailProperty
 
-class StringPropertyAdapter :
+class StringPropertyAdapter(private val propertySelect: StringDetailPropertyAdapter.PropertyValueSelect) :
     ListAdapter<ProductDetailProperty, StringPropertyAdapter.StringPropertyViewHolder>(DiffCallBack) {
 
     object DiffCallBack : DiffUtil.ItemCallback<ProductDetailProperty>() {
@@ -27,10 +27,13 @@ class StringPropertyAdapter :
         }
     }
 
-    class StringPropertyViewHolder(private val binding: ItemProductStringPropertyBinding) :
+    class StringPropertyViewHolder(
+        private val binding: ItemProductStringPropertyBinding,
+        private val propertySelect: StringDetailPropertyAdapter.PropertyValueSelect
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(currentProperty: ProductDetailProperty) {
-            binding.stringProperty.adapter = StringDetailPropertyAdapter()
+            binding.stringProperty.adapter = StringDetailPropertyAdapter(propertySelect)
             binding.property = currentProperty
             binding.executePendingBindings()
         }
@@ -42,12 +45,16 @@ class StringPropertyAdapter :
                 LayoutInflater.from(
                     parent.context
                 )
-            )
+            ),
+            propertySelect
         )
     }
-
+    private var currentId: Long = -1
     override fun onBindViewHolder(holder: StringPropertyViewHolder, position: Int) {
         val currentProperty = getItem(position)
         holder.bind(currentProperty)
+        currentId = getItem(position).id
     }
+
+
 }

@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemStringPropertyBinding
 import com.example.aposs_buyer.model.PropertyValue
 
-class StringDetailPropertyAdapter :
+class StringDetailPropertyAdapter (private val propertySelect: PropertyValueSelect) :
     ListAdapter<PropertyValue, StringDetailPropertyAdapter.StringDetailPropertyViewHolder>(
         DiffCallBack
     ) {
+    interface PropertyValueSelect{
+        fun notifySelectedValueChange(valueId: Long, propertyId: Long)
+    }
 
     object DiffCallBack : DiffUtil.ItemCallback<PropertyValue>() {
         override fun areItemsTheSame(oldItem: PropertyValue, newItem: PropertyValue): Boolean {
@@ -19,11 +22,11 @@ class StringDetailPropertyAdapter :
         }
 
         override fun areContentsTheSame(oldItem: PropertyValue, newItem: PropertyValue): Boolean {
-            return oldItem.value == newItem.value
+            return oldItem.id == newItem.id
         }
     }
 
-    class StringDetailPropertyViewHolder(private val binding: ItemStringPropertyBinding) :
+    class StringDetailPropertyViewHolder(val binding: ItemStringPropertyBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(currentPropertyValue: PropertyValue) {
             binding.property = currentPropertyValue
@@ -47,5 +50,9 @@ class StringDetailPropertyAdapter :
     override fun onBindViewHolder(holder: StringDetailPropertyViewHolder, position: Int) {
         val currentPropertyValue = getItem(position)
         holder.bind(currentPropertyValue)
+        holder.binding.propertyValue.setOnClickListener {
+            propertySelect.notifySelectedValueChange(currentPropertyValue.id, currentPropertyValue.propertyId)
+            notifyItemChanged(position)
+        }
     }
 }
