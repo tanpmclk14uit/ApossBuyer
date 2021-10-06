@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemProductStringPropertyBinding
 import com.example.aposs_buyer.model.ProductDetailProperty
 
-class StringPropertyAdapter(private val propertySelect: StringDetailPropertyAdapter.PropertyValueSelect) :
+class StringPropertyAdapter(private val propertySelect: StringDetailPropertyAdapter.PropertyStringValueSelected) :
     ListAdapter<ProductDetailProperty, StringPropertyAdapter.StringPropertyViewHolder>(DiffCallBack) {
 
     object DiffCallBack : DiffUtil.ItemCallback<ProductDetailProperty>() {
@@ -29,7 +29,7 @@ class StringPropertyAdapter(private val propertySelect: StringDetailPropertyAdap
 
     class StringPropertyViewHolder(
         private val binding: ItemProductStringPropertyBinding,
-        private val propertySelect: StringDetailPropertyAdapter.PropertyValueSelect
+        private val propertySelect: StringDetailPropertyAdapter.PropertyStringValueSelected
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(currentProperty: ProductDetailProperty) {
@@ -49,11 +49,9 @@ class StringPropertyAdapter(private val propertySelect: StringDetailPropertyAdap
             propertySelect
         )
     }
-    private var currentId: Long = -1
     override fun onBindViewHolder(holder: StringPropertyViewHolder, position: Int) {
         val currentProperty = getItem(position)
         holder.bind(currentProperty)
-        currentId = getItem(position).id
     }
 
 

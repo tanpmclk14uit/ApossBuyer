@@ -260,9 +260,19 @@
                         android:background="@drawable/bg_detail_component"
                         android:orientation="vertical"
                         android:padding="20dp">
-
                         <androidx.recyclerview.widget.RecyclerView
-                            app:fastScrollEnabled="false"
+                            android:nestedScrollingEnabled="false"
+                            colorProperty="@{viewModel.selectedProductColorProperty}"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_product_color_property"
+                            android:id="@+id/colorProperty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:nestedScrollingEnabled="false"
                             stringProperty="@{viewModel.selectedProductStringProperty}"
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

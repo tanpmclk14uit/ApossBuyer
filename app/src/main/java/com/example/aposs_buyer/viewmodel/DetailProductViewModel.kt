@@ -23,8 +23,12 @@ class DetailProductViewModel @Inject constructor(
     private var _selectedProductStringProperty = MutableLiveData<ArrayList<ProductDetailProperty>>()
     val selectedProductStringProperty: LiveData<ArrayList<ProductDetailProperty>> get() = _selectedProductStringProperty
 
+    private var _selectedProductColorProperty = MutableLiveData<ArrayList<ProductDetailProperty>>()
+    val selectedProductColorProperty: LiveData<ArrayList<ProductDetailProperty>> get() = _selectedProductColorProperty
+
     private val _selectedProductQuantities = MutableLiveData<Int>()
     val selectedProductQuantities: MutableLiveData<Int> get() = _selectedProductQuantities
+
 
     private val TAG = "DetailProductViewModel"
 
@@ -36,21 +40,29 @@ class DetailProductViewModel @Inject constructor(
             _selectedProductImages.value = loadListImageByID(selectedProductId)
             _selectedProductStringProperty.value =
                 loadSelectedProductStringPropertyById(selectedProductId)
+            _selectedProductColorProperty.value =
+                loadSelectedProductColorPropertyById(selectedProductId)
             Log.d(TAG, selectedProductId.toString())
         }
     }
-    private fun setSelectedProductMinValue(){
+
+    private fun setSelectedProductMinValue() {
         var minSelect = selectedProductStringProperty.value!![0].valueCountSummarize
         for (property in _selectedProductStringProperty.value!!) {
-            if(property.valueCountSummarize < minSelect){
+            if (property.valueCountSummarize < minSelect) {
                 minSelect = property.valueCountSummarize
             }
         }
+        for (property in _selectedProductColorProperty.value!!) {
+            if (property.valueCountSummarize < minSelect) {
+                minSelect = property.valueCountSummarize
+            }
+        }
+
         _selectedProductQuantities.value = minSelect
     }
 
-
-    fun notifySelectedChange(valueId: Long, propertyId: Long) {
+    fun notifySelectedStringPropertyChange(propertyId: Long) {
         var newQuantities = 0
         for (property in _selectedProductStringProperty.value!!) {
             if (property.id == propertyId) {
@@ -68,6 +80,54 @@ class DetailProductViewModel @Inject constructor(
         }
         setSelectedProductMinValue()
     }
+    fun notifySelectedColorPropertyChange(propertyId: Long) {
+        var newQuantities = 0
+        for (property in _selectedProductColorProperty.value!!) {
+            if (property.id == propertyId) {
+                for (value in property.values) {
+                    if (value.isChosen) {
+                        newQuantities += value.count
+                    }
+                }
+                if (newQuantities == 0) {
+                    property.valueCountSummarize = 11
+                } else {
+                    property.valueCountSummarize = newQuantities
+                }
+            }
+        }
+        setSelectedProductMinValue()
+    }
+
+
+    private fun loadSelectedProductColorPropertyById(id: Long): ArrayList<ProductDetailProperty> {
+        val sampleProductProperty: ArrayList<ProductDetailProperty> = ArrayList()
+        val sampleDetailPropertyValue1: ArrayList<PropertyValue> = ArrayList()
+        val sampleDetailPropertyValue2: ArrayList<PropertyValue> = ArrayList()
+        sampleDetailPropertyValue1.add(PropertyValue(1, 3, "#FFC420", 0, 2, false))
+        sampleDetailPropertyValue1.add(PropertyValue(2, 3, "#F20850", 0, 9, false))
+        sampleDetailPropertyValue1.add(PropertyValue(3, 3, "#060DD9", 0, 0, false))
+        sampleDetailPropertyValue2.add(PropertyValue(4, 4, "#FFFFFF", 0, 0, false))
+        sampleDetailPropertyValue2.add(PropertyValue(5, 4, "#262626", 0, 4, false))
+        sampleDetailPropertyValue2.add(PropertyValue(6, 4, "#F7E6AD", 0, 7, false))
+        sampleProductProperty.add(
+            ProductDetailProperty(
+                3,
+                "Color",
+                sampleDetailPropertyValue1,
+                11
+            )
+        )
+        sampleProductProperty.add(
+            ProductDetailProperty(
+                4,
+                "Boot Color",
+                sampleDetailPropertyValue2,
+                11
+            )
+        )
+        return sampleProductProperty
+    }
 
     private fun loadSelectedProductStringPropertyById(id: Long): ArrayList<ProductDetailProperty> {
         val sampleProductProperty: ArrayList<ProductDetailProperty> = ArrayList()
@@ -84,7 +144,6 @@ class DetailProductViewModel @Inject constructor(
                 1,
                 "Size",
                 sampleDetailPropertyValue1,
-                false,
                 11
             )
         )
@@ -93,7 +152,6 @@ class DetailProductViewModel @Inject constructor(
                 2,
                 "Shoestring",
                 sampleDetailPropertyValue2,
-                false,
                 11
             )
         )

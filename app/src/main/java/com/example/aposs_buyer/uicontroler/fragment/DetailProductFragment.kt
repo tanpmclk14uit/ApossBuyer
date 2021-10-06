@@ -10,15 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
-import com.example.aposs_buyer.uicontroler.adapter.DetailProductImageViewPagerAdapter
-import com.example.aposs_buyer.uicontroler.adapter.StringDetailPropertyAdapter
-import com.example.aposs_buyer.uicontroler.adapter.StringPropertyAdapter
+import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyValueSelect {
+class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyStringValueSelected, ColorDetailPropertyAdapter.PropertyColorValueSelected{
 
     private lateinit var binding: FragmentDetailProductBinding
     private val viewModel: DetailProductViewModel by activityViewModels()
@@ -26,6 +24,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyVa
     private val imagesAdapter = DetailProductImageViewPagerAdapter()
 
     private val stringPropertyAdapter = StringPropertyAdapter(this)
+    private val colorPropertyAdapter = ColorPropertyAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +44,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyVa
         setUpIndicator()
         setUpLeftRightController()
         binding.stringProperty.adapter = stringPropertyAdapter
+        binding.colorProperty.adapter = colorPropertyAdapter
         return binding.root
     }
 
@@ -90,10 +90,12 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyVa
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun notifySelectedValueChange(valueId: Long, propertyId: Long) {
-        viewModel.notifySelectedChange(valueId, propertyId)
-        stringPropertyAdapter.notifyDataSetChanged()
+    override fun notifySelectedStringValueChange(propertyId: Long) {
+        viewModel.notifySelectedStringPropertyChange(propertyId)
+    }
+
+    override fun notifySelectedColorValueChange(propertyId: Long) {
+        viewModel.notifySelectedColorPropertyChange(propertyId)
     }
 
 

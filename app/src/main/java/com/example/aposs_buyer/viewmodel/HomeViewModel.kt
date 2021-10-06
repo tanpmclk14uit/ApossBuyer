@@ -31,6 +31,7 @@ class HomeViewModel @Inject constructor()  : ViewModel() {
     private var _products = MutableLiveData<ArrayList<HomeProduct>>()
     val products: LiveData<ArrayList<HomeProduct>> get() = _products
 
+
     init {
         _categories.value = loadCategoriesData()
         setUpDisplayCategory(0)

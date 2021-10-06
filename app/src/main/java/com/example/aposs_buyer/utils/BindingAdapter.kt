@@ -1,13 +1,11 @@
 package com.example.aposs_buyer.utils
 
+import android.graphics.Color
 import android.net.Uri
 import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -97,9 +95,19 @@ fun bindStringPropertyValue(recyclerView: RecyclerView, data: List<PropertyValue
     val adapter = recyclerView.adapter as StringDetailPropertyAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("colorPropertyValue")
+fun bindColorPropertyValue(recyclerView: RecyclerView, data: List<PropertyValue>?){
+    val adapter = recyclerView.adapter as ColorDetailPropertyAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter("stringProperty")
 fun bindStringProperty(recyclerView: RecyclerView, data: List<ProductDetailProperty>?){
     val adapter = recyclerView.adapter as StringPropertyAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("colorProperty")
+fun bindColorProperty(recyclerView: RecyclerView, data: List<ProductDetailProperty>?){
+    val adapter = recyclerView.adapter as ColorPropertyAdapter
     adapter.submitList(data)
 }
 @BindingAdapter("listCart")
@@ -107,5 +115,10 @@ fun bindRecycleView(recyclerView: RecyclerView, lstCart: ArrayList<CartItem>)
 {
     val adapter = recyclerView.adapter as CartAdapter
     adapter.submitList(lstCart)
+}
+@BindingAdapter("setToggleColor")
+fun bindColorToImageBackground(toggleButton: ToggleButton, data: String?){
+    val myColor: Int = Color.parseColor(data)
+    toggleButton.setBackgroundColor(myColor)
 }
 

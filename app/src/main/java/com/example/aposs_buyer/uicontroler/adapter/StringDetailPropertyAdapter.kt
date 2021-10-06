@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemStringPropertyBinding
 import com.example.aposs_buyer.model.PropertyValue
 
-class StringDetailPropertyAdapter (private val propertySelect: PropertyValueSelect) :
+class StringDetailPropertyAdapter (private val propertySelect: PropertyStringValueSelected) :
     ListAdapter<PropertyValue, StringDetailPropertyAdapter.StringDetailPropertyViewHolder>(
         DiffCallBack
     ) {
-    interface PropertyValueSelect{
-        fun notifySelectedValueChange(valueId: Long, propertyId: Long)
+    interface PropertyStringValueSelected{
+        fun notifySelectedStringValueChange(propertyId: Long)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<PropertyValue>() {
@@ -51,7 +51,7 @@ class StringDetailPropertyAdapter (private val propertySelect: PropertyValueSele
         val currentPropertyValue = getItem(position)
         holder.bind(currentPropertyValue)
         holder.binding.propertyValue.setOnClickListener {
-            propertySelect.notifySelectedValueChange(currentPropertyValue.id, currentPropertyValue.propertyId)
+            propertySelect.notifySelectedStringValueChange(currentPropertyValue.propertyId)
             notifyItemChanged(position)
         }
     }
