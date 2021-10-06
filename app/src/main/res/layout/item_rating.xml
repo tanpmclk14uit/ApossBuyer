@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="rating"
+            type="com.example.aposs_buyer.model.ProductRating" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                image="@{rating.avatar.imageUri}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_green"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/cardAvatar"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@{rating.name}"
+                android:textAllCaps="true"
+                app:layout_constraintStart_toEndOf="@+id/cardAvatar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:progressTint="@color/yellow"
+                    android:rating="@{rating.rate}"
+                    android:secondaryProgressTint="@color/yellow"
+                    android:stepSize="0.5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@{rating.time}"
+                    android:textAllCaps="true"
+                    app:layout_constraintStart_toEndOf="@+id/cardAvatar"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:justificationMode="inter_word"
+                android:maxLines="5"
+                android:text="@{rating.content}"
+                app:layout_constraintStart_toEndOf="@+id/cardAvatar"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/images"
+                imagesRating="@{rating.images}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_rating_image" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="10dp"
+            android:background="@color/disable_pray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/content"
+            />
+    </RelativeLayout>
+</layout>

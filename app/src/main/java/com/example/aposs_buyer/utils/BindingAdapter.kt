@@ -38,6 +38,11 @@ fun bindDetailProductImageViewPager(viewPager2: ViewPager2, data: List<Image>?){
     val adapter = viewPager2.adapter as DetailProductImageViewPagerAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("imagesRating")
+fun bindDetailProductImageRating(recyclerView: RecyclerView, data: List<Image>?){
+    val adapter = recyclerView.adapter as RatingImageAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter( "indicatorSize")
 fun bindIndicatorSize(indicator: CircleIndicator3, size: Int){
     indicator.createIndicators(size , 0)
@@ -120,5 +125,10 @@ fun bindRecycleView(recyclerView: RecyclerView, lstCart: ArrayList<CartItem>)
 fun bindColorToImageBackground(toggleButton: ToggleButton, data: String?){
     val myColor: Int = Color.parseColor(data)
     toggleButton.setBackgroundColor(myColor)
+}
+@BindingAdapter("ratings")
+fun bindRating(recyclerView: RecyclerView, data: List<ProductRating>?){
+    val adapter = recyclerView.adapter as RatingAdapter
+    adapter.submitList(data)
 }
 

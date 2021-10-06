@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.aposs_buyer.model.Image
-import com.example.aposs_buyer.model.ProductDetail
-import com.example.aposs_buyer.model.ProductDetailProperty
-import com.example.aposs_buyer.model.PropertyValue
+import com.example.aposs_buyer.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -29,6 +26,12 @@ class DetailProductViewModel @Inject constructor(
     private val _selectedProductQuantities = MutableLiveData<Int>()
     val selectedProductQuantities: MutableLiveData<Int> get() = _selectedProductQuantities
 
+    private val _selectedProductRating = MutableLiveData<ArrayList<ProductRating>>()
+    val selectedProductRating: MutableLiveData<ArrayList<ProductRating>> get() = _selectedProductRating
+
+    private var _sameKindProducts = MutableLiveData<ArrayList<HomeProduct>>()
+    val sameKindProducts: LiveData<ArrayList<HomeProduct>> get() = _sameKindProducts
+
 
     private val TAG = "DetailProductViewModel"
 
@@ -42,6 +45,8 @@ class DetailProductViewModel @Inject constructor(
                 loadSelectedProductStringPropertyById(selectedProductId)
             _selectedProductColorProperty.value =
                 loadSelectedProductColorPropertyById(selectedProductId)
+            _sameKindProducts.value = loadProductsByKind(_selectedProduct.value!!.kind)
+            _selectedProductRating.value = loadProductRatingById(selectedProductId)
             Log.d(TAG, selectedProductId.toString())
         }
     }
@@ -80,6 +85,7 @@ class DetailProductViewModel @Inject constructor(
         }
         setSelectedProductMinValue()
     }
+
     fun notifySelectedColorPropertyChange(propertyId: Long) {
         var newQuantities = 0
         for (property in _selectedProductColorProperty.value!!) {
@@ -99,6 +105,109 @@ class DetailProductViewModel @Inject constructor(
         setSelectedProductMinValue()
     }
 
+    private fun loadProductRatingById(id: Long): ArrayList<ProductRating> {
+        val sampleProductRating = ArrayList<ProductRating>()
+        val imgURl1 =
+            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
+        val imgURL2 =
+            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
+        val imgURL3 =
+            "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
+        val imgProduct1 = Image(imgURl1)
+        val imgProduct2 = Image(imgURL2)
+        val imgProduct3 = Image(imgURL3)
+        val avatar =
+            Image("https://www.logolynx.com/images/logolynx/6b/6b72dfcff9c3a70b632dd47c88e842d9.png")
+        val sampleImageRating = ArrayList<Image>()
+        val sampleImageRating1 = ArrayList<Image>()
+        sampleImageRating.add(imgProduct1)
+        sampleImageRating.add(imgProduct2)
+        sampleImageRating.add(imgProduct3)
+        sampleImageRating1.add(imgProduct1)
+        sampleProductRating.add(
+            ProductRating(
+                1,
+                "Peter Vu",
+                4.1f,
+                "13:12",
+                "Good, fast delivery",
+                sampleImageRating,
+                avatar
+            )
+        )
+        sampleProductRating.add(
+            ProductRating(
+                2,
+                "Peter Pham",
+                3f,
+                "07:12",
+                "Normal, good delivery",
+                ArrayList<Image>(),
+                avatar
+            )
+        )
+        sampleProductRating.add(
+            ProductRating(
+                3,
+                "Tomy Teo",
+                5f,
+                "15:12",
+                "Wilson's Pro Staff Classic has been tearing up the courts since 1986. Its thickly cushioned upper and anti-shock pad-enhanced heel and forefoot bring the comfort while the midfoot wrap offers extra stability. An all-court Duralast Supreme outsole adds to the life of the shoe.",
+                sampleImageRating1,
+                avatar
+            )
+        )
+        return sampleProductRating
+    }
+
+    private fun loadProductsByKind(kind: String): ArrayList<HomeProduct> {
+        val sampleProducts = ArrayList<HomeProduct>()
+        val imgURl1 =
+            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
+        val imgURL2 =
+            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
+        val imgURL3 =
+            "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
+        val imgURL4 = "https://api.duniagames.co.id/api/content/upload/file/9607962621588584775.JPG"
+        val imgProduct1 = Image(imgURl1)
+        val imgProduct2 = Image(imgURL2)
+        val imgProduct3 = Image(imgURL3)
+        val imgProduct4 = Image(imgURL4)
+        for (i in 0..10) {
+            sampleProducts.add(
+                HomeProduct(
+                    1,
+                    imgProduct1,
+                    "Wilson Mens Hurry Professional",
+                    958000,
+                    4f,
+                    true
+                )
+            )
+            sampleProducts.add(
+                HomeProduct(
+                    2,
+                    imgProduct2,
+                    "Wilson Mens Shirt",
+                    582000,
+                    4.5f,
+                    false
+                )
+            )
+            sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, false))
+            sampleProducts.add(
+                HomeProduct(
+                    4,
+                    imgProduct4,
+                    "Laptop asus Vivo Book",
+                    1958000,
+                    5f,
+                    true
+                )
+            )
+        }
+        return sampleProducts
+    }
 
     private fun loadSelectedProductColorPropertyById(id: Long): ArrayList<ProductDetailProperty> {
         val sampleProductProperty: ArrayList<ProductDetailProperty> = ArrayList()

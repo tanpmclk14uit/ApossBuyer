@@ -209,7 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_person_button"
-                        android:drawableStart="@drawable/ic_rate"
+                        android:drawableStart="@drawable/ic_yellow_rate"
                         android:textAllCaps="false"
                         android:drawableEnd="@drawable/ic_back"
                         android:textAlignment="textStart"

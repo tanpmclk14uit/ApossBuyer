@@ -1,6 +1,5 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
+import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyStringValueSelected, ColorDetailPropertyAdapter.PropertyColorValueSelected{
+class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyStringValueSelected,
+    ColorDetailPropertyAdapter.PropertyColorValueSelected,
+        HomeProductAdapter.FavoriteInterface
+{
 
     private lateinit var binding: FragmentDetailProductBinding
     private val viewModel: DetailProductViewModel by activityViewModels()
@@ -25,6 +28,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
 
     private val stringPropertyAdapter = StringPropertyAdapter(this)
     private val colorPropertyAdapter = ColorPropertyAdapter(this)
+    private val ratingAdapter = RatingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +49,10 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpLeftRightController()
         binding.stringProperty.adapter = stringPropertyAdapter
         binding.colorProperty.adapter = colorPropertyAdapter
+        val productAdapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener{
+        })
+        binding.sameKindProduct.adapter = productAdapter
+        binding.ratings.adapter = ratingAdapter
         return binding.root
     }
 
@@ -96,6 +104,14 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
 
     override fun notifySelectedColorValueChange(propertyId: Long) {
         viewModel.notifySelectedColorPropertyChange(propertyId)
+    }
+
+    override fun addToFavorite(product: HomeProduct) {
+        //add to favorite
+    }
+
+    override fun removeFromFavorite(product: HomeProduct) {
+        //remove from favorite
     }
 
 

@@ -19,7 +19,9 @@ public class BR {
 
   public static final int rankingProduct = 8;
 
-  public static final int view = 9;
+  public static final int rating = 9;
 
-  public static final int viewModel = 10;
+  public static final int view = 10;
+
+  public static final int viewModel = 11;
 }
