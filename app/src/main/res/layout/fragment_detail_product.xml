@@ -57,6 +57,7 @@
                         android:layout_centerVertical="true">
 
                         <ImageView
+                            android:id="@+id/cart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -161,7 +162,6 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
-
                             <ImageView
                                 android:id="@+id/goToRightImage"
                                 android:layout_width="30dp"
@@ -398,6 +398,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="280dp"/>
                         <LinearLayout
+                            android:id="@+id/showAllRating"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:layout_marginTop="10dp"

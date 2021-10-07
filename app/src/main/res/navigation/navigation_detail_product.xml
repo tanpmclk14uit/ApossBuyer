@@ -10,7 +10,51 @@
         android:name="com.example.aposs_buyer.uicontroler.fragment.DetailProductFragment"
         android:label="DetailProductFragment"
         tools:layout="@layout/fragment_detail_product">
-
+        <action
+            android:id="@+id/action_detailProductFragment_to_fullScreenImageFragment"
+            app:destination="@id/fullScreenImageFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_productRatingFragment"
+            app:destination="@id/productRatingFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_detailProductFragment_self"
+            app:destination="@id/detailProductFragment"
+            app:enterAnim="@android:anim/fade_in" />
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_cartFragment2"
+            app:destination="@id/cartFragment2" />
     </fragment>
-
+    <fragment
+        android:id="@+id/fullScreenImageFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.FullScreenImageFragment"
+        android:label="FullScreenImageFragment"
+        tools:layout="@layout/fragment_full_screen_image" >
+        <action
+            android:id="@+id/action_fullScreenImageFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_product_rating"
+        android:id="@+id/productRatingFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.ProductRatingFragment"
+        android:label="ProductRatingFragment" >
+        <action
+            android:id="@+id/action_productRatingFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_cart"
+        android:id="@+id/cartFragment2"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CartFragment"
+        android:label="CartFragment" />
 </navigation>

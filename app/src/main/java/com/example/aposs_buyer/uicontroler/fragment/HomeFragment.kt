@@ -3,7 +3,6 @@ package com.example.aposs_buyer.uicontroler.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +65,7 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
         binding.imageViewPager.adapter = CategoriesViewPagerAdapter()
@@ -75,7 +74,6 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)
             startActivity(intent)
-
         })
         binding.lifecycleOwner = this
         setUpIndicator()

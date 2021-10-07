@@ -2,9 +2,10 @@ package com.example.aposs_buyer.uicontroler.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityDetailProductBinding
+import com.example.aposs_buyer.uicontroler.fragment.DetailProductFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -17,16 +18,12 @@ class DetailProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val selectedProductId: Long = intent.getLongExtra("productID", -1)
-        val bundle: Bundle = Bundle()
-        bundle.putLong("productID", selectedProductId)
-        val navController = Navigation.findNavController(this, R.id.navDetailFragment)
-        navController.navigateUp()
-        navController.navigate(R.id.detailProductFragment, bundle)
-    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+        val selectedProductId: Long = intent.getLongExtra("productID", -1)
+        findNavController(R.id.fragmentContainerView)
+            .setGraph(
+                R.navigation.navigation_detail_product,
+                DetailProductFragmentArgs(selectedProductId).toBundle()
+            )
     }
 }

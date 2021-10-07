@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.DetailProductViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/black"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".uicontroler.fragment.FullScreenImageFragment">
+        <ImageView
+            android:contentDescription="@string/image"
+            android:id="@+id/back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_back_left"
+            android:elevation="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <androidx.viewpager2.widget.ViewPager2
+            imagesData="@{viewModel.selectedProductImages}"
+            android:id="@+id/images"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            />
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/indicator"
+            indicatorSize="@{viewModel.selectedProductImages.size()}"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginTop="15dp"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/images" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -22,6 +22,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpNav()
+        setUpStatusBar()
+    }
+    private fun setUpStatusBar(){
+        run {
+            window.statusBarColor = this.resources.getColor(R.color.light_green)
+        }
     }
     
     private fun setUpNav(){

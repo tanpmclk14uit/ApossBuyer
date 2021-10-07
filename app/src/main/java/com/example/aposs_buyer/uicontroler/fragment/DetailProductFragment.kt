@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
 import com.example.aposs_buyer.model.HomeProduct
@@ -20,15 +22,10 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
     ColorDetailPropertyAdapter.PropertyColorValueSelected,
         HomeProductAdapter.FavoriteInterface
 {
-
+    private val args: DetailProductFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailProductBinding
     private val viewModel: DetailProductViewModel by activityViewModels()
 
-    private val imagesAdapter = DetailProductImageViewPagerAdapter()
-
-    private val stringPropertyAdapter = StringPropertyAdapter(this)
-    private val colorPropertyAdapter = ColorPropertyAdapter(this)
-    private val ratingAdapter = RatingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,27 +33,52 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_detail_product, container, false)
-        val selectedProductId: Long? = arguments?.getLong("productID")
+        val selectedProductId: Long = args.id
         binding.viewModel = viewModel
-        if (selectedProductId != null) {
+        binding.lifecycleOwner = this
+        if (selectedProductId != -1L) {
             viewModel.setSelectedProductId(selectedProductId)
         }
-        binding.lifecycleOwner = this
         setBackButton()
+        setUpProductProperty()
+        setUpSameKindProduct()
+        setUpRatingComponent()
+        setUpToNavigateCart()
+        return binding.root
+    }
+    private fun setUpToNavigateCart(){
+        binding.cart.setOnClickListener {
+            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToCartFragment2())
+        }
+    }
+    private fun setUpRatingComponent(){
+        val ratingAdapter = RatingAdapter()
+        binding.ratings.adapter = ratingAdapter
+        binding.showAllRating.setOnClickListener {
+            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductRatingFragment())
+        }
+    }
+    private fun setUpProductProperty(){
         setShowAll()
         setUpViewPager()
         setUpIndicator()
         setUpLeftRightController()
+        val stringPropertyAdapter = StringPropertyAdapter(this)
+        val colorPropertyAdapter = ColorPropertyAdapter(this)
         binding.stringProperty.adapter = stringPropertyAdapter
         binding.colorProperty.adapter = colorPropertyAdapter
+    }
+    private fun setUpSameKindProduct(){
         val productAdapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener{
+            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentSelf(it))
         })
         binding.sameKindProduct.adapter = productAdapter
-        binding.ratings.adapter = ratingAdapter
-        return binding.root
     }
 
     private fun setUpViewPager() {
+        val imagesAdapter = DetailProductImageViewPagerAdapter(DetailProductImageViewPagerAdapter.OnClickListener{
+            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToFullScreenImageFragment(it))
+        })
         binding.images.setPageTransformer(ZoomOutPageTransformer())
         binding.images.adapter = imagesAdapter
     }
