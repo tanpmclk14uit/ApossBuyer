@@ -137,7 +137,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:text="@{viewModel.selectedProductTotalReview}"
+                            android:text="@{viewModel.selectedProduct.toTalReviewToString()}"
                             android:textColor="@color/dark_pray" />
                     </LinearLayout>
 
@@ -194,6 +194,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"

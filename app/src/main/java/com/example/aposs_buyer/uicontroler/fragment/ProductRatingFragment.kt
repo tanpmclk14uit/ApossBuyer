@@ -58,7 +58,6 @@ class ProductRatingFragment : Fragment() {
         binding.filter.setAdapter(arrayAdapter)
         binding.filter.setText(statusValue[0], false)
         viewModel.selectedProductRatingFilter.value = viewModel.selectedProductRating.value
-        viewModel.selectedProductTotalReviewFilter.value = viewModel.selectedProductTotalReview.value
         filter()
     }
 

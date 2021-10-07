@@ -10,7 +10,8 @@ data class ProductDetail(
     var isFavorite: Boolean,
     val description: String,
     val availableQuantities: Int,
-    val kind: String
+    val kind: String,
+    val totalReview: Int
 ){
     fun priceToString(): String{
         val formatter = DecimalFormat("#,###")
@@ -19,5 +20,8 @@ data class ProductDetail(
     }
     fun totalPurchaseToString(): String{
         return "$purchase purchased"
+    }
+    fun toTalReviewToString(): String{
+        return "($totalReview reviews)"
     }
 }

@@ -14,7 +14,6 @@ class DetailProductViewModel @Inject constructor(
     private var selectedProductId: Long = 0
     private var _selectedProduct = MutableLiveData<ProductDetail>()
 
-    val selectedProductTotalReview= MutableLiveData<String>()
     val selectedProductTotalReviewFilter = MutableLiveData<String>()
 
     val selectedProduct: LiveData<ProductDetail> get() = _selectedProduct
@@ -55,7 +54,7 @@ class DetailProductViewModel @Inject constructor(
             _sameKindProducts.value = loadProductsByKind(_selectedProduct.value!!.kind)
             _selectedProductRating.value = loadProductRatingById(selectedProductId)
             //total will get in database not get by value.size
-            selectedProductTotalReview.value = "("+ _selectedProductRating.value!!.size.toString() + " reviews)"
+            selectedProductTotalReviewFilter.value = "Total: "+ selectedProduct.value!!.totalReview + " reviews"
             Log.d(TAG, selectedProductId.toString())
         }
     }
@@ -288,7 +287,8 @@ class DetailProductViewModel @Inject constructor(
                     "\n" +
                     "Wilson tennis footwear is designed to meet the demands of different athletes and player profiles. The line is divided into collections that serve specific purposes. The Tour Collection is super lightweight, breathable and fits like a glove. The Trance Collection is renowned for supreme durability and unrivaled stability. Finally, the Pro Staff Collection provides all-around comfort and all-court performance.",
             11,
-            "shoe"
+            "shoe",
+            3
         )
     }
 
