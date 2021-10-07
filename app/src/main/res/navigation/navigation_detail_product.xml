@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_productRatingFragment_to_detailProductFragment"
             app:destination="@id/detailProductFragment" />
+        <action
+            android:id="@+id/action_productRatingFragment_to_cartFragment2"
+            app:destination="@id/cartFragment2" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_cart"

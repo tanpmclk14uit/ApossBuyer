@@ -37,6 +37,7 @@ class FullScreenImageFragment : Fragment() {
         setUpViewPager(currentPosition)
         setUpIndicator()
         setUpBackButton()
+        setUpLeftRightController()
         return binding.root
     }
 
@@ -56,6 +57,22 @@ class FullScreenImageFragment : Fragment() {
     private fun setUpBackButton(){
         binding.back.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+    private fun setUpLeftRightController() {
+        binding.goToLeftImage.setOnClickListener {
+            if (binding.images.currentItem != 0) {
+                binding.images.currentItem -= 1
+            } else {
+                binding.images.currentItem = viewModel.selectedProductImages.value!!.size - 1
+            }
+        }
+        binding.goToRightImage.setOnClickListener {
+            if (binding.images.currentItem != viewModel.selectedProductImages.value!!.size - 1) {
+                binding.images.currentItem += 1
+            } else {
+                binding.images.currentItem = 0
+            }
         }
     }
 }

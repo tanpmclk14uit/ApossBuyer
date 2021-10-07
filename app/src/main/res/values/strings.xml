@@ -32,7 +32,18 @@
     <string name="show_less">Show less</string>
     <string name="rating">Rating</string>
     <string name="rating_sample">4.2</string>
-    <string name="reviews">(1084 reviews)</string>
+    <string name="reviews">1084 reviews</string>
     <string name="the_same_kind">THE SAME KIND</string>
     <string name="time_sample">13:12</string>
+    <string name="all">All</string>
+
+    <string-array name="filter">
+        <item>ALL</item>
+        <item>Image</item>
+        <item>5 star</item>
+        <item>4 star</item>
+        <item>3 star</item>
+        <item>2 star</item>
+        <item>1 star</item>
+    </string-array>
 </resources>

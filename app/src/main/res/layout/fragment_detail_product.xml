@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.DetailProductViewModel" />
@@ -44,8 +45,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
+                        android:layout_centerInParent="true"
                         android:contentDescription="@string/image"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_logo_green" />
@@ -103,11 +103,11 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.core.widget.NestedScrollView
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/bottomTools"
-                android:layout_alignParentTop="true">
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -139,12 +139,12 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <androidx.viewpager2.widget.ViewPager2
-                                imagesData="@{viewModel.selectedProductImages}"
-                                android:background="@color/white"
                                 android:id="@+id/images"
+                                imagesData="@{viewModel.selectedProductImages}"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_margin="10dp"
+                                android:background="@color/white"
                                 android:contentDescription="@string/image"
                                 android:scaleType="centerCrop"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -162,6 +162,7 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
+
                             <ImageView
                                 android:id="@+id/goToRightImage"
                                 android:layout_width="30dp"
@@ -185,10 +186,11 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                         <LinearLayout
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -229,10 +231,10 @@
                         </LinearLayout>
 
                         <TextView
-                            android:layout_marginTop="5dp"
                             android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
@@ -260,28 +262,30 @@
                         android:background="@drawable/bg_detail_component"
                         android:orientation="vertical"
                         android:padding="20dp">
+
                         <androidx.recyclerview.widget.RecyclerView
-                            android:nestedScrollingEnabled="false"
-                            colorProperty="@{viewModel.selectedProductColorProperty}"
-                            android:orientation="vertical"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:itemCount="1"
-                            tools:listitem="@layout/item_product_color_property"
                             android:id="@+id/colorProperty"
+                            colorProperty="@{viewModel.selectedProductColorProperty}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp" />
-                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginBottom="5dp"
                             android:nestedScrollingEnabled="false"
-                            stringProperty="@{viewModel.selectedProductStringProperty}"
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:itemCount="1"
-                            tools:listitem="@layout/item_product_string_property"
+                            tools:listitem="@layout/item_product_color_property" />
+
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/stringProperty"
+                            stringProperty="@{viewModel.selectedProductStringProperty}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"
+                            android:nestedScrollingEnabled="false"
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_product_string_property" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -305,10 +309,10 @@
                         </LinearLayout>
 
                         <RelativeLayout
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -336,114 +340,127 @@
 
                         <TextView
                             android:id="@+id/description"
-                            android:justificationMode="inter_word"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:justificationMode="inter_word"
                             android:maxLines="10"
                             android:text="@{viewModel.selectedProduct.description}"
                             android:textColor="@color/black"
                             android:textStyle="normal" />
                     </LinearLayout>
+
                     <LinearLayout
-                        android:elevation="2dp"
-                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginTop="-10dp"
                         android:background="@color/light_green"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp">
+                        android:elevation="2dp"
+                        android:gravity="center_vertical">
+
                         <TextView
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
-                            android:textAllCaps="true"
                             android:text="@string/rating"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:textColor="@color/dark_pray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="@string/rating_sample"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:text="@{String.valueOf(viewModel.selectedProduct.rating)}"
+                            android:textColor="@color/dark_pray" />
+
                         <ImageView
-                            android:contentDescription="@string/app_name"
-                            android:layout_marginStart="4dp"
-                            android:src="@drawable/ic_yellow_rate"
                             android:layout_width="16sp"
-                            android:layout_height="16sp"/>
+                            android:layout_height="16sp"
+                            android:layout_marginStart="4dp"
+                            android:contentDescription="@string/image"
+                            android:src="@drawable/ic_yellow_rate" />
+
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
                             android:layout_marginEnd="20dp"
-                            android:textColor="@color/dark_pray"
-                            android:text="@string/reviews"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:text="@{viewModel.selectedProductTotalReview}"
+                            android:textColor="@color/dark_pray" />
                     </LinearLayout>
+
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:background="@drawable/bg_detail_component"
-                        android:layout_marginTop="-13dp"
                         android:layout_width="match_parent"
-                        android:layout_height="360dp">
+                        android:layout_height="360dp"
+                        android:layout_marginTop="-13dp"
+                        android:background="@drawable/bg_detail_component"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/ratings"
                             ratings="@{viewModel.selectedProductRating}"
+                            android:layout_width="match_parent"
+                            android:layout_height="280dp"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="20dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:itemCount="3"
-                            tools:listitem="@layout/item_rating"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="280dp"/>
+                            tools:listitem="@layout/item_rating" />
+
                         <LinearLayout
                             android:id="@+id/showAllRating"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginBottom="1dp"
-                                android:textColor="@color/red"
                                 android:text="@string/show_all"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:textColor="@color/red" />
+
                             <ImageView
-                                android:src="@drawable/ic_red_right"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_red_right" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:elevation="2dp"
-                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginTop="-15dp"
                         android:background="@color/light_green"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp">
+                        android:elevation="2dp"
+                        android:gravity="center_vertical">
+
                         <TextView
-                            android:layout_marginEnd="50dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:layout_marginStart="20dp"
-                            android:textAllCaps="true"
-                            android:text="@string/the_same_kind"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="50dp"
+                            android:text="@string/the_same_kind"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
                     </LinearLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sameKindProduct"
                         productData="@{viewModel.sameKindProducts}"
-                        tools:itemCount="2"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal"
-                        tools:listitem="@layout/item_product"
-                        android:layout_marginVertical="10dp"
-                        android:layout_marginHorizontal="20dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_product" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

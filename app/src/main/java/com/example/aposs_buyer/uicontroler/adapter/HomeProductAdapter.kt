@@ -59,6 +59,7 @@ class HomeProductAdapter(
             onClickListener.onClick(currentProduct.id)
         }
     }
+
     private fun onFavoriteIconCLick(
         position: Int,
         product: HomeProduct,

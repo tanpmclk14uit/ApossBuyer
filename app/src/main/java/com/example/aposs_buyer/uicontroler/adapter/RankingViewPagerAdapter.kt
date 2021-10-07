@@ -12,11 +12,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemRakingBinding
-import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
 
-class RankingViewPagerAdapter(private val favoriteInterface: FavoriteInterface) :
+class RankingViewPagerAdapter(
+    private val favoriteInterface: FavoriteInterface,
+    private val onClickListener: OnClickListener
+) :
     ListAdapter<RankingProduct, RankingViewPagerAdapter.RankingViewHolder>(DiffCallBack) {
+
+    class OnClickListener(val clickListener: (id: Long) -> Unit) {
+        fun onClick(id: Long) = clickListener(id)
+    }
 
     companion object DiffCallBack : DiffUtil.ItemCallback<RankingProduct>() {
         override fun areItemsTheSame(oldItem: RankingProduct, newItem: RankingProduct): Boolean {
@@ -27,6 +33,7 @@ class RankingViewPagerAdapter(private val favoriteInterface: FavoriteInterface) 
             return oldItem.id == newItem.id
         }
     }
+
     interface FavoriteInterface {
         fun addToFavorite(product: RankingProduct)
         fun removeFromFavorite(product: RankingProduct)
@@ -40,7 +47,6 @@ class RankingViewPagerAdapter(private val favoriteInterface: FavoriteInterface) 
         }
     }
 
-
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -52,10 +58,14 @@ class RankingViewPagerAdapter(private val favoriteInterface: FavoriteInterface) 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
-        holder.binding.favorite.setOnClickListener{
+        holder.binding.favorite.setOnClickListener {
             onFavoriteIconCLick(position, currentItem, holder.binding.favorite, it.context)
         }
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(currentItem.id)
+        }
     }
+
     private fun onFavoriteIconCLick(
         position: Int,
         product: RankingProduct,

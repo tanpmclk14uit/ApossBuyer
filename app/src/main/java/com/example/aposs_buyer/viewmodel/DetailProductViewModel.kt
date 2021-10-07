@@ -13,7 +13,12 @@ class DetailProductViewModel @Inject constructor(
 ) : ViewModel() {
     private var selectedProductId: Long = 0
     private var _selectedProduct = MutableLiveData<ProductDetail>()
+
+    val selectedProductTotalReview= MutableLiveData<String>()
+    val selectedProductTotalReviewFilter = MutableLiveData<String>()
+
     val selectedProduct: LiveData<ProductDetail> get() = _selectedProduct
+
     private var _selectedProductImages = MutableLiveData<List<Image>>()
     val selectedProductImages: LiveData<List<Image>> get() = _selectedProductImages
 
@@ -29,9 +34,11 @@ class DetailProductViewModel @Inject constructor(
     private val _selectedProductRating = MutableLiveData<ArrayList<ProductRating>>()
     val selectedProductRating: MutableLiveData<ArrayList<ProductRating>> get() = _selectedProductRating
 
+    val selectedProductRatingFilter = MutableLiveData<ArrayList<ProductRating>>()
+
+
     private var _sameKindProducts = MutableLiveData<ArrayList<HomeProduct>>()
     val sameKindProducts: LiveData<ArrayList<HomeProduct>> get() = _sameKindProducts
-
 
     private val TAG = "DetailProductViewModel"
 
@@ -47,6 +54,8 @@ class DetailProductViewModel @Inject constructor(
                 loadSelectedProductColorPropertyById(selectedProductId)
             _sameKindProducts.value = loadProductsByKind(_selectedProduct.value!!.kind)
             _selectedProductRating.value = loadProductRatingById(selectedProductId)
+            //total will get in database not get by value.size
+            selectedProductTotalReview.value = "("+ _selectedProductRating.value!!.size.toString() + " reviews)"
             Log.d(TAG, selectedProductId.toString())
         }
     }

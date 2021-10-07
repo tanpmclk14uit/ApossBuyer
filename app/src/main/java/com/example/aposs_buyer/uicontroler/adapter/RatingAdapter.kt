@@ -19,7 +19,7 @@ class RatingAdapter: ListAdapter<ProductRating, RatingAdapter.RatingViewHolder>(
         }
     }
 
-    class RatingViewHolder(private val binding: ItemRatingBinding): RecyclerView.ViewHolder(binding.root){
+    class RatingViewHolder(val binding: ItemRatingBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(currentRating: ProductRating){
             binding.rating = currentRating
             binding.images.adapter = RatingImageAdapter()
@@ -33,6 +33,13 @@ class RatingAdapter: ListAdapter<ProductRating, RatingAdapter.RatingViewHolder>(
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
         val currentRating = getItem(position)
         holder.bind(currentRating)
+        holder.binding.showAll.setOnCheckedChangeListener { _, checked ->
+            if(checked){
+                holder.binding.text.maxLines = 10
+            }else{
+                holder.binding.text.maxLines = 5
+            }
+        }
     }
 
 }

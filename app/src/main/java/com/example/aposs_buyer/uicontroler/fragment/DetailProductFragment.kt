@@ -46,6 +46,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpToNavigateCart()
         return binding.root
     }
+
     private fun setUpToNavigateCart(){
         binding.cart.setOnClickListener {
             this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToCartFragment2())

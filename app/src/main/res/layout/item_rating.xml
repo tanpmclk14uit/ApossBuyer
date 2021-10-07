@@ -18,7 +18,7 @@
             android:id="@+id/cardAvatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="30dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
@@ -54,7 +53,7 @@
                 app:layout_constraintStart_toEndOf="@+id/cardAvatar"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -73,16 +72,32 @@
                     android:stepSize="0.5" />
 
                 <TextView
+                    android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/ratingBar"
                     android:text="@{rating.time}"
                     android:textAllCaps="true"
-                    app:layout_constraintStart_toEndOf="@+id/cardAvatar"
                     app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/showAll"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:background="@drawable/selector_exspand_toggle"
+                    android:elevation="0dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/disable_pray"
+                    android:textOff=""
+                    android:textOn=""
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
 
             <TextView
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -104,12 +119,12 @@
                 tools:itemCount="3"
                 tools:listitem="@layout/item_rating_image" />
         </LinearLayout>
+
         <View
-            android:layout_marginTop="10dp"
-            android:background="@color/disable_pray"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/content"
-            />
+            android:layout_marginTop="10dp"
+            android:background="@color/disable_pray" />
     </RelativeLayout>
 </layout>

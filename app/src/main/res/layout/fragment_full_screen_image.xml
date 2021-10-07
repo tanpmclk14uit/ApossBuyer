@@ -45,6 +45,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/images" />
+        <ImageView
+            android:alpha="0.7"
+            android:id="@+id/goToLeftImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/ic_left_cycle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:alpha="0.7"
+            android:id="@+id/goToRightImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/ic_right_cycle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

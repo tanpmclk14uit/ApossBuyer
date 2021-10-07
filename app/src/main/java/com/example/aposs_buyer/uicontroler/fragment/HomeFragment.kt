@@ -69,7 +69,12 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
         binding.imageViewPager.adapter = CategoriesViewPagerAdapter()
-        binding.rankingViewPager.adapter = RankingViewPagerAdapter(this)
+        binding.rankingViewPager.adapter =
+            RankingViewPagerAdapter(this, RankingViewPagerAdapter.OnClickListener {
+                val intent = Intent(this.context, DetailProductActivity::class.java)
+                intent.putExtra("productID", it)
+                startActivity(intent)
+            })
         binding.products.adapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener {
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)
