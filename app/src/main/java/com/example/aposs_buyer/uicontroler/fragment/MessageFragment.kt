@@ -36,9 +36,9 @@ class MessageFragment : Fragment() {
         binding.lifecycleOwner =this
         binding.rcMessage.adapter =  messageAdapter
         binding.rcMessage.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, true);
-        viewModel.lstMessageItem.observe(viewLifecycleOwner, Observer { it ->
-            messageAdapter.submitList(it)
-            messageAdapter.notifyItemInserted(viewModel.lstMessageItem.value!!.size)
+        viewModel.size.observe(viewLifecycleOwner, Observer { it ->
+            messageAdapter.notifyItemInserted(0)
+            binding.rcMessage.scrollToPosition(0)
             Log.d(TAG, "data change call")
         })
         return binding.root
