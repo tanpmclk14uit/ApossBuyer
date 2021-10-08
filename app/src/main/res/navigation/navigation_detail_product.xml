@@ -13,7 +13,7 @@
         <action
             android:id="@+id/action_detailProductFragment_to_fullScreenImageFragment"
             app:destination="@id/fullScreenImageFragment"
-            app:enterAnim="@android:anim/slide_in_left" />
+            app:enterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_detailProductFragment_to_productRatingFragment"
             app:destination="@id/productRatingFragment"

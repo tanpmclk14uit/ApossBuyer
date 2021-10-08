@@ -47,7 +47,6 @@ class ProductRatingFragment : Fragment() {
         binding.ratings.adapter = ratingAdapter
     }
 
-
     private fun setUpFilter() {
         val statusValue = resources.getStringArray(R.array.filter)
         val arrayAdapter = ArrayAdapter(
@@ -56,13 +55,15 @@ class ProductRatingFragment : Fragment() {
             statusValue
         )
         binding.filter.setAdapter(arrayAdapter)
-        binding.filter.setText(statusValue[0], false)
-        viewModel.selectedProductRatingFilter.value = viewModel.selectedProductRating.value
         filter()
+        binding.filter.setText(statusValue[0], false)
     }
 
     private fun filter() {
-        //filter database to
+       binding.filter.doOnTextChanged { text, _, _, _ ->
+           viewModel.loadFilterProductRating(text.toString())
+           viewModel.loadFilterProductTotalReviews(text.toString())
+       }
     }
 
     private fun setBackButton() {

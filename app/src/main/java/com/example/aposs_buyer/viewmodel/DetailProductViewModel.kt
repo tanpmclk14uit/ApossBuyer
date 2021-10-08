@@ -11,11 +11,11 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
 ) : ViewModel() {
+
+
     private var selectedProductId: Long = 0
+
     private var _selectedProduct = MutableLiveData<ProductDetail>()
-
-    val selectedProductTotalReviewFilter = MutableLiveData<String>()
-
     val selectedProduct: LiveData<ProductDetail> get() = _selectedProduct
 
     private var _selectedProductImages = MutableLiveData<List<Image>>()
@@ -33,13 +33,15 @@ class DetailProductViewModel @Inject constructor(
     private val _selectedProductRating = MutableLiveData<ArrayList<ProductRating>>()
     val selectedProductRating: MutableLiveData<ArrayList<ProductRating>> get() = _selectedProductRating
 
-    val selectedProductRatingFilter = MutableLiveData<ArrayList<ProductRating>>()
-
-
     private var _sameKindProducts = MutableLiveData<ArrayList<HomeProduct>>()
     val sameKindProducts: LiveData<ArrayList<HomeProduct>> get() = _sameKindProducts
 
+    // USE IN RATING
+    val selectedProductRatingFilter = MutableLiveData<ArrayList<ProductRating>>()
+    val selectedProductTotalReviewFilter = MutableLiveData<String>()
+
     private val TAG = "DetailProductViewModel"
+
 
     fun setSelectedProductId(id: Long) {
         selectedProductId = id
@@ -53,8 +55,6 @@ class DetailProductViewModel @Inject constructor(
                 loadSelectedProductColorPropertyById(selectedProductId)
             _sameKindProducts.value = loadProductsByKind(_selectedProduct.value!!.kind)
             _selectedProductRating.value = loadProductRatingById(selectedProductId)
-            //total will get in database not get by value.size
-            selectedProductTotalReviewFilter.value = "Total: "+ selectedProduct.value!!.totalReview + " reviews"
             Log.d(TAG, selectedProductId.toString())
         }
     }
@@ -113,6 +113,21 @@ class DetailProductViewModel @Inject constructor(
         setSelectedProductMinValue()
     }
 
+    fun loadFilterProductRating(filter: String) {
+        //fake load case "All" to see data
+        selectedProductRatingFilter.value = selectedProductRating.value
+        Log.d("ViewModel", "Filter case $filter")
+    }
+
+    fun loadFilterProductTotalReviews(filter: String) {
+        //fake load case "All" to see data
+        selectedProductTotalReviewFilter.value =
+            "Total: " + selectedProduct.value!!.totalReview + " reviews"
+        Log.d("ViewModel", "Filter total case $filter")
+
+    }
+
+
     private fun loadProductRatingById(id: Long): ArrayList<ProductRating> {
         val sampleProductRating = ArrayList<ProductRating>()
         val imgURl1 =
@@ -150,7 +165,7 @@ class DetailProductViewModel @Inject constructor(
                 3f,
                 "07:12",
                 "Normal, good delivery",
-                ArrayList<Image>(),
+                ArrayList(),
                 avatar
             )
         )
@@ -221,12 +236,12 @@ class DetailProductViewModel @Inject constructor(
         val sampleProductProperty: ArrayList<ProductDetailProperty> = ArrayList()
         val sampleDetailPropertyValue1: ArrayList<PropertyValue> = ArrayList()
         val sampleDetailPropertyValue2: ArrayList<PropertyValue> = ArrayList()
-        sampleDetailPropertyValue1.add(PropertyValue(1, 3, "#FFC420", 0, 2, false))
-        sampleDetailPropertyValue1.add(PropertyValue(2, 3, "#F20850", 0, 9, false))
-        sampleDetailPropertyValue1.add(PropertyValue(3, 3, "#060DD9", 0, 0, false))
-        sampleDetailPropertyValue2.add(PropertyValue(4, 4, "#FFFFFF", 0, 0, false))
-        sampleDetailPropertyValue2.add(PropertyValue(5, 4, "#262626", 0, 4, false))
-        sampleDetailPropertyValue2.add(PropertyValue(6, 4, "#F7E6AD", 0, 7, false))
+        sampleDetailPropertyValue1.add(PropertyValue(1, "Yellow", 3, "#FFC420", 0, 2, false))
+        sampleDetailPropertyValue1.add(PropertyValue(2, "Red blood", 3, "#F20850", 0, 9, false))
+        sampleDetailPropertyValue1.add(PropertyValue(3, "Deep blue", 3, "#060DD9", 0, 0, false))
+        sampleDetailPropertyValue2.add(PropertyValue(4, "White", 4, "#FFFFFF", 0, 0, false))
+        sampleDetailPropertyValue2.add(PropertyValue(5, "Black", 4, "#262626", 0, 4, false))
+        sampleDetailPropertyValue2.add(PropertyValue(6, "Milk", 4, "#F7E6AD", 0, 7, false))
         sampleProductProperty.add(
             ProductDetailProperty(
                 3,
@@ -250,12 +265,12 @@ class DetailProductViewModel @Inject constructor(
         val sampleProductProperty: ArrayList<ProductDetailProperty> = ArrayList()
         val sampleDetailPropertyValue1: ArrayList<PropertyValue> = ArrayList()
         val sampleDetailPropertyValue2: ArrayList<PropertyValue> = ArrayList()
-        sampleDetailPropertyValue1.add(PropertyValue(1, 1, "38", 1000, 5, false))
-        sampleDetailPropertyValue1.add(PropertyValue(2, 1, "39", 2000, 6, false))
-        sampleDetailPropertyValue1.add(PropertyValue(3, 1, "40", 0, 0, false))
-        sampleDetailPropertyValue2.add(PropertyValue(4, 2, "1m", 5000, 5, false))
-        sampleDetailPropertyValue2.add(PropertyValue(5, 2, "2m", 0, 0, false))
-        sampleDetailPropertyValue2.add(PropertyValue(6, 2, "3m", 0, 6, false))
+        sampleDetailPropertyValue1.add(PropertyValue(1, "38", 1, "38", 1000, 5, false))
+        sampleDetailPropertyValue1.add(PropertyValue(2, "39", 1, "39", 2000, 6, false))
+        sampleDetailPropertyValue1.add(PropertyValue(3, "40", 1, "40", 0, 0, false))
+        sampleDetailPropertyValue2.add(PropertyValue(4, "1m", 2, "1m", 5000, 5, false))
+        sampleDetailPropertyValue2.add(PropertyValue(5, "2m", 2, "2m", 0, 0, false))
+        sampleDetailPropertyValue2.add(PropertyValue(6, "3m", 2, "3m", 0, 6, false))
         sampleProductProperty.add(
             ProductDetailProperty(
                 1,

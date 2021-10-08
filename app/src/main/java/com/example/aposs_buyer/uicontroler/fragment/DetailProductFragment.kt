@@ -14,6 +14,7 @@ import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
+import com.example.aposs_buyer.utils.DialogType
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +45,24 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpSameKindProduct()
         setUpRatingComponent()
         setUpToNavigateCart()
+        setUpBottomSheetDialog()
+
         return binding.root
+    }
+    private fun setUpBottomSheetDialog(){
+        callBottomSheet()
+    }
+    private fun callBottomSheet(){
+        binding.addToCart.setOnClickListener {
+            val productDetailDialogFragment = ProductDetailDialogFragment.newInstance(DialogType.CartDialog)
+            productDetailDialogFragment.show(parentFragmentManager, productDetailDialogFragment.tag )
+
+
+        }
+        binding.buyNow.setOnClickListener{
+            val productDetailDialogFragment = ProductDetailDialogFragment.newInstance(DialogType.CheckOutDialog)
+            productDetailDialogFragment.show(parentFragmentManager, productDetailDialogFragment.tag )
+        }
     }
 
     private fun setUpToNavigateCart(){

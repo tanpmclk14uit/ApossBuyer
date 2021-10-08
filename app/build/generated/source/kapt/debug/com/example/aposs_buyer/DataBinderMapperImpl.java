@@ -17,6 +17,7 @@ import com.example.aposs_buyer.databinding.FragmentFullScreenImageBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentHomeBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentMessageBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentPersonBindingImpl;
+import com.example.aposs_buyer.databinding.FragmentProductDetailDialogListDialogBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentProductRatingBindingImpl;
 import com.example.aposs_buyer.databinding.ItemCartBindingImpl;
 import com.example.aposs_buyer.databinding.ItemColorPropertyBindingImpl;
@@ -65,37 +66,39 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_FRAGMENTPERSON = 11;
 
-  private static final int LAYOUT_FRAGMENTPRODUCTRATING = 12;
+  private static final int LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG = 12;
 
-  private static final int LAYOUT_ITEMCART = 13;
+  private static final int LAYOUT_FRAGMENTPRODUCTRATING = 13;
 
-  private static final int LAYOUT_ITEMCOLORPROPERTY = 14;
+  private static final int LAYOUT_ITEMCART = 14;
 
-  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 15;
+  private static final int LAYOUT_ITEMCOLORPROPERTY = 15;
 
-  private static final int LAYOUT_ITEMFAVORITE = 16;
+  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 16;
 
-  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 17;
+  private static final int LAYOUT_ITEMFAVORITE = 17;
 
-  private static final int LAYOUT_ITEMPRODUCT = 18;
+  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 18;
 
-  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 19;
+  private static final int LAYOUT_ITEMPRODUCT = 19;
 
-  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 20;
+  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 20;
 
-  private static final int LAYOUT_ITEMRAKING = 21;
+  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 21;
 
-  private static final int LAYOUT_ITEMRATING = 22;
+  private static final int LAYOUT_ITEMRAKING = 22;
 
-  private static final int LAYOUT_ITEMRATINGIMAGE = 23;
+  private static final int LAYOUT_ITEMRATING = 23;
 
-  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 24;
+  private static final int LAYOUT_ITEMRATINGIMAGE = 24;
 
-  private static final int LAYOUT_ITEMSTRINGPROPERTY = 25;
+  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 25;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 26;
+  private static final int LAYOUT_ITEMSTRINGPROPERTY = 26;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(26);
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 27;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(27);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_detail_product, LAYOUT_ACTIVITYDETAILPRODUCT);
@@ -109,6 +112,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_home, LAYOUT_FRAGMENTHOME);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_message, LAYOUT_FRAGMENTMESSAGE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_person, LAYOUT_FRAGMENTPERSON);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_product_detail_dialog_list_dialog, LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_product_rating, LAYOUT_FRAGMENTPRODUCTRATING);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_cart, LAYOUT_ITEMCART);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_color_property, LAYOUT_ITEMCOLORPROPERTY);
@@ -200,6 +204,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
             return new FragmentPersonBindingImpl(component, view);
           }
           throw new IllegalArgumentException("The tag for fragment_person is invalid. Received: " + tag);
+        }
+        case  LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG: {
+          if ("layout/fragment_product_detail_dialog_list_dialog_0".equals(tag)) {
+            return new FragmentProductDetailDialogListDialogBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for fragment_product_detail_dialog_list_dialog is invalid. Received: " + tag);
         }
         case  LAYOUT_FRAGMENTPRODUCTRATING: {
           if ("layout/fragment_product_rating_0".equals(tag)) {
@@ -336,26 +346,27 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(12);
+    static final SparseArray<String> sKeys = new SparseArray<String>(13);
 
     static {
       sKeys.put(0, "_all");
       sKeys.put(1, "cartItem");
-      sKeys.put(2, "favoriteProduct");
-      sKeys.put(3, "image");
-      sKeys.put(4, "imgCategory");
-      sKeys.put(5, "messageItem");
-      sKeys.put(6, "product");
-      sKeys.put(7, "property");
-      sKeys.put(8, "rankingProduct");
-      sKeys.put(9, "rating");
-      sKeys.put(10, "view");
-      sKeys.put(11, "viewModel");
+      sKeys.put(2, "color");
+      sKeys.put(3, "favoriteProduct");
+      sKeys.put(4, "image");
+      sKeys.put(5, "imgCategory");
+      sKeys.put(6, "messageItem");
+      sKeys.put(7, "product");
+      sKeys.put(8, "property");
+      sKeys.put(9, "rankingProduct");
+      sKeys.put(10, "rating");
+      sKeys.put(11, "view");
+      sKeys.put(12, "viewModel");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(26);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(27);
 
     static {
       sKeys.put("layout/activity_detail_product_0", com.example.aposs_buyer.R.layout.activity_detail_product);
@@ -369,6 +380,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/fragment_home_0", com.example.aposs_buyer.R.layout.fragment_home);
       sKeys.put("layout/fragment_message_0", com.example.aposs_buyer.R.layout.fragment_message);
       sKeys.put("layout/fragment_person_0", com.example.aposs_buyer.R.layout.fragment_person);
+      sKeys.put("layout/fragment_product_detail_dialog_list_dialog_0", com.example.aposs_buyer.R.layout.fragment_product_detail_dialog_list_dialog);
       sKeys.put("layout/fragment_product_rating_0", com.example.aposs_buyer.R.layout.fragment_product_rating);
       sKeys.put("layout/item_cart_0", com.example.aposs_buyer.R.layout.item_cart);
       sKeys.put("layout/item_color_property_0", com.example.aposs_buyer.R.layout.item_color_property);

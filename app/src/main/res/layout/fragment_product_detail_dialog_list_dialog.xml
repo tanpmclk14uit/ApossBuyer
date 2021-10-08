@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.DetailProductDiaLogViewModel" />
+        <variable
+            name="color"
+            type="android.graphics.Color" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_pray"
+        tools:context=".uicontroler.fragment.ProductDetailDialogFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_detail_component"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_cart_item"
+                android:elevation="4dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    image="@{viewModel.selectedProductImages.imageUri}"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:contentDescription="@string/image" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.selectedProduct.name}"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:textColor="@{viewModel.isPropertyValueError()? color.RED: color.BLACK}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.propertyValue}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@{viewModel.selectedProduct.priceToString()}"
+                        android:textColor="@color/active_button"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/amount"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_marginStart="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@{String.valueOf(viewModel.productTypeCartAmount)}"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/available_quantities"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@{String.valueOf(viewModel.selectedProductQuantitiesDiaLog)}"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/colorProperty"
+                colorProperty="@{viewModel.selectedProductColorPropertyDiaLog}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_product_color_property" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stringProperty"
+                stringProperty="@{viewModel.selectedProductStringPropertyDiaLog}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_product_string_property" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/amount"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_adding_amount"
+                        android:orientation="horizontal"
+                        android:paddingVertical="4dp"
+                        tools:ignore="RtlHardcoded">
+
+                        <ImageView
+                            android:id="@+id/img_minus"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:text="@{String.valueOf(viewModel.productTypeCartAmount)}"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/img_plus"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bottomTools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:padding="5dp">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:columnCount="2"
+                    android:rowCount="1">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/cancelButton"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/bg_disable_button"
+                        android:backgroundTint="@color/back_ground"
+                        android:text="@string/cancel"
+                        android:textColor="@color/black"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/dialogButton"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/bg_active_button"
+                        android:text="@string/buy_now"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </GridLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

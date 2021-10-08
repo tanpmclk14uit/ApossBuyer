@@ -36,6 +36,8 @@
     <string name="the_same_kind">THE SAME KIND</string>
     <string name="time_sample">13:12</string>
     <string name="all">All</string>
+    <string name="cancel">Cancel</string>
+    <string name="amount">Amount:</string>
 
     <string-array name="filter">
         <item>ALL</item>
