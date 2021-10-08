@@ -56,8 +56,18 @@ class UserDetailFragment : Fragment() {
         binding.etBirthday.setOnClickListener {
             openDatePicker()
         }
+
+        binding.imgBack.setOnClickListener {
+
+        }
+
+        binding.imgCart.setOnClickListener {
+
+        }
         return binding.root
     }
+
+
     private fun getTodayDate(): String? {
         val calendar = Calendar.getInstance()
         val year = calendar[Calendar.YEAR]
@@ -158,19 +168,15 @@ class UserDetailFragment : Fragment() {
         }
         binding.etBirthday.addTextChangedListener {
             legalToClick(viewModel.isChangeBirthday(it.toString()))
-            Log.d("fuckkkkk", "immmmmmmmmmmmmmmmmmm1")
         }
         binding.etLastName.addTextChangedListener {
             legalToClick(viewModel.isChangeLastName(it.toString()))
-            Log.d("fuckkkkk", "immmmmmmmmmmmmmmmmmm11")
         }
         binding.etFirstName.addTextChangedListener {
             legalToClick(viewModel.isChangeFirstName(it.toString()))
-            Log.d("fuckkkkk", "immmmmmmmmmmmmmmmmmm111")
         }
         binding.actvGender.addTextChangedListener {
             legalToClick(viewModel.isChangeGender(it.toString()))
-            Log.d("fuckkkkk", "immmmmmmmmmmmmmmmmmm1111")
         }
     }
 }
