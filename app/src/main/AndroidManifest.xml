@@ -15,11 +15,7 @@
         <activity
             android:name=".uicontroler.activity.CategoryActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".uicontroler.activity.DetailProductActivity"
@@ -30,7 +26,11 @@
         <activity
             android:name=".uicontroler.activity.SplashActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

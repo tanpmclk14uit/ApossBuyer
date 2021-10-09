@@ -32,10 +32,12 @@ class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
         binding.viewModel = viewModel
         binding.rcCategory.adapter= categoryAdapter
         binding.rcCategory.layoutManager = LinearLayoutManager(binding.rcCategory.context, LinearLayoutManager.VERTICAL, false)
+        binding.imgBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return binding.root
     }
-
     override fun onClick(id: Long, name: String ) {
-        findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToKindFragment(id))
+        findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToKindFragment(id, name))
     }
 }

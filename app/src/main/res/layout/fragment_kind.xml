@@ -63,21 +63,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:orientation="horizontal">
+
                                 <ImageView
+                                    android:id="@+id/img_back"
                                     android:layout_width="25dp"
-                                    android:layout_marginTop="10dp"
                                     android:layout_height="25dp"
                                     android:layout_alignParentStart="true"
-                                    android:src="@drawable/ic_back_categories"/>
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_back_categories" />
 
                                 <TextView
                                     android:id="@+id/title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="50dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_centerHorizontal="true"
-                                    android:text="@string/categories"
+                                    android:layout_marginEnd="50dp"
+                                    android:text="@{viewModel.selectedCategoryName}"
                                     android:textColor="@color/white"
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
@@ -173,13 +175,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="190dp"
                     android:layout_marginHorizontal="18dp">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rc_kind"
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_height="wrap_content"
+                        listKind="@{viewModel.listKind}"
                         tools:listitem="@layout/item_kind"/>
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -14,6 +14,7 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
+import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
 import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
@@ -80,6 +81,10 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
             intent.putExtra("productID", it)
             startActivity(intent)
         })
+        binding.tvShowAllCategory.setOnClickListener {
+            val intent = Intent(this.context, CategoryActivity::class.java)
+            startActivity(intent)
+        }
         binding.lifecycleOwner = this
         setUpIndicator()
         setUpViewPagerCallBack()

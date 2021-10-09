@@ -15,17 +15,19 @@ public class BR {
 
   public static final int imgCategory = 6;
 
-  public static final int messageItem = 7;
+  public static final int kind = 7;
 
-  public static final int product = 8;
+  public static final int messageItem = 8;
 
-  public static final int property = 9;
+  public static final int product = 9;
 
-  public static final int rankingProduct = 10;
+  public static final int property = 10;
 
-  public static final int rating = 11;
+  public static final int rankingProduct = 11;
 
-  public static final int view = 12;
+  public static final int rating = 12;
 
-  public static final int viewModel = 13;
+  public static final int view = 13;
+
+  public static final int viewModel = 14;
 }

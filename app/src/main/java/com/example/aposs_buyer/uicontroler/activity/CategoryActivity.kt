@@ -19,8 +19,5 @@ class CategoryActivity : AppCompatActivity() {
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navController = Navigation.findNavController(this, R.id.fragmentCategories)
-        navController.navigateUp()
-        navController.navigate(R.id.categoriesFragment)
     }
 }

@@ -17,6 +17,8 @@ class KindViewModel @Inject constructor(): ViewModel() {
     private val _listKind = MutableLiveData<MutableList<Kind>>()
     val listKind : LiveData<MutableList<Kind>> get() = _listKind
 
+    val selectedCategoryName = MutableLiveData<String>()
+
     fun setSelectedCategory()
     {
         _listKind.value = loadProduct(selectedCategoryId.value!!)
@@ -27,9 +29,10 @@ class KindViewModel @Inject constructor(): ViewModel() {
         return _listKind.value!!
     }
 
-    fun setSelectedKindID(selectedKindId: Long)
+    fun setSelectedKindIdAndName(selectedKindId: Long, selectedName: String)
     {
         selectedCategoryId.value = selectedKindId
+        selectedCategoryName.value = selectedName
     }
 
     private fun loadProduct(selectedKindId: Long): MutableList<Kind>
@@ -141,5 +144,13 @@ class KindViewModel @Inject constructor(): ViewModel() {
                 sampleKinds
             }
         }
+    }
+
+    fun addToFavorite(product: HomeProduct) {
+        // push to db
+    }
+
+    fun removeFromFavorite(product: HomeProduct) {
+        // delete from db
     }
 }
