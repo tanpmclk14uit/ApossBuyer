@@ -370,6 +370,7 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/search_bar"
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                 android:layout_width="match_parent"
                                 android:layout_height="38dp"
@@ -382,6 +383,7 @@
                                 app:startIconDrawable="@drawable/ic_search">
 
                                 <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tiet_search_bar"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/bg_search"

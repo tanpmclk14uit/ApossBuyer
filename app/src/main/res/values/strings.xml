@@ -6,7 +6,6 @@
     <string name="cart">Cart</string>
     <string name="message">Message</string>
     <string name="person">Person</string>
-    <string name="search">Search</string>
     <string name="about_us">About us</string>
     <string name="image">image</string>
     <string name="default_price">50.000đ</string>
@@ -39,6 +38,7 @@
     <string name="cancel">Cancel</string>
     <string name="amount">Amount:</string>
     <string name="categories">Categories</string>
+    <string name="search">Search</string>
 
     <string-array name="filter">
         <item>ALL</item>

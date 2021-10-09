@@ -21,6 +21,8 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         sViewsWithIds.put(R.id.cardView, 15);
         sViewsWithIds.put(R.id.more, 16);
         sViewsWithIds.put(R.id.title, 17);
+        sViewsWithIds.put(R.id.search_bar, 18);
+        sViewsWithIds.put(R.id.tiet_search_bar, 19);
     }
     // views
     @NonNull
@@ -33,7 +35,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 18, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 20, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 7
@@ -49,6 +51,8 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (me.relex.circleindicator.CircleIndicator3) bindings[9]
             , (androidx.viewpager2.widget.ViewPager2) bindings[7]
             , (android.widget.RatingBar) bindings[6]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[18]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[19]
             , (android.widget.TextView) bindings[17]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]

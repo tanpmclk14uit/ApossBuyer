@@ -155,4 +155,25 @@ fun bindRating(recyclerView: RecyclerView, data: List<ProductRating>?){
     val adapter = recyclerView.adapter as RatingAdapter
     adapter.submitList(data)
 }
-
+@BindingAdapter("listSearchFullFill")
+fun bindCategoriesViewPager(linearLayout: LinearLayout, data: List<HomeProduct>?){
+    if (data!!.isEmpty())
+    {
+        linearLayout.visibility = View.GONE
+    }
+    else
+    {
+        linearLayout.visibility = View.VISIBLE
+    }
+}
+@BindingAdapter("listSearchEmpty")
+fun bindCategoriesViewPager(relativeLayout: RelativeLayout, data: List<HomeProduct>?){
+    if (data!!.isEmpty())
+    {
+        relativeLayout.visibility = View.VISIBLE
+    }
+    else
+    {
+        relativeLayout.visibility = View.GONE
+    }
+}

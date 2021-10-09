@@ -16,6 +16,7 @@ import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
 import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
@@ -83,6 +84,14 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         })
         binding.tvShowAllCategory.setOnClickListener {
             val intent = Intent(this.context, CategoryActivity::class.java)
+            startActivity(intent)
+        }
+        binding.searchBar.setOnClickListener {
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tietSearchBar.setOnClickListener {
+            val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }
         binding.lifecycleOwner = this
