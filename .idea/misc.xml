@@ -44,18 +44,24 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_detail_product.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_favorite.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_home.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_kind.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_message.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_person.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_product_detail_dialog_list_dialog.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_user_detail.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/gender_list_item.xml" value="0.17864583333333334" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_cart.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_categories.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_category.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_detail_product_image_view_pager.xml" value="0.1703125" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_favorite.xml" value="0.1703125" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_kind.xml" value="0.1703125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_left_side_message.xml" value="0.4200848656294201" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_mesage_right_side.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_product.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_raking.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_right_side_message.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_view_pager_detail_category.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_view_paper_categories.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/kind_item.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/splash_main.xml" value="0.20520833333333333" />

@@ -9,5 +9,18 @@
         android:id="@+id/categoriesFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.CategoriesFragment"
         android:label="fragment_categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_kindFragment"
+            app:destination="@id/kindFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kindFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.KindFragment"
+        android:label="KindFragment" >
+        <argument
+            android:name="category_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
 </navigation>

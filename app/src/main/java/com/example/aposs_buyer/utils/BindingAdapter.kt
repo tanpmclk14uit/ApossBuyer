@@ -33,6 +33,18 @@ fun bindCategoriesViewPager(viewPager2: ViewPager2, data: ArrayList<Category>?){
     val adapter =viewPager2.adapter as CategoriesViewPagerAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("detailCategories")
+fun bindDetailCategoriesRecyclerView(recyclerView: RecyclerView, data:List<DetailCategory>?)
+{
+    val adapter = recyclerView.adapter as DetailCategoryAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("detailCategoryImages")
+fun bindDetailCategoriesViewPager(viewPager2: ViewPager2, data: List<Image>?)
+{
+    val adapter = viewPager2.adapter as DetailCategoryViewPagerAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter("imagesData")
 fun bindDetailProductImageViewPager(viewPager2: ViewPager2, data: List<Image>?){
     val adapter = viewPager2.adapter as DetailProductImageViewPagerAdapter

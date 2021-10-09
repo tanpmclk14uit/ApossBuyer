@@ -39,6 +39,7 @@ class HomeViewModel @Inject constructor()  : ViewModel() {
         _products.value = loadProducts()
     }
     private fun loadProducts(): ArrayList<HomeProduct>{
+
         val sampleProducts = ArrayList<HomeProduct>()
         val imgURl1 =
             "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"

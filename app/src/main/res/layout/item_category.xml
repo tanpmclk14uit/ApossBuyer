@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="category"
+            type="com.example.aposs_buyer.model.DetailCategory"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="260dp"
@@ -24,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
             <!--Put automatic page view here-->
             <androidx.viewpager2.widget.ViewPager2
+                detailCategoryImages="@{category.images}"
                 android:id="@+id/imageViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -48,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:layout_marginTop="50dp"
+                    indicatorSize="@{category.images.size()}"
                     app:ci_drawable="@drawable/bg_cycle_indicator"
                     app:ci_drawable_unselected="@drawable/bg_cycle_unselected_indicator"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +65,7 @@
                     android:layout_marginHorizontal="13dp"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
+                    android:text="@{category.name}"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
                     android:textColor="@color/dark_pray"
+                    android:text="@{category.displayToTalPurchase()}"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -86,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
                     android:textColor="@color/dark_pray"
+                    android:text="@{category.displayToTalProduct()}"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +105,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/categoryName"
                     android:id="@+id/rating"
+                    android:rating="@{category.rating}"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
