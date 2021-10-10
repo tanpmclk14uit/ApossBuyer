@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="kind"
+            type="com.example.aposs_buyer.model.Kind" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="312dp"
+    android:background="@drawable/bg_kind_item"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="10dp">
+    <LinearLayout
+        android:id="@+id/ln_top_left"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@drawable/bg_apart_of_kind_item">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="14dp"
+            android:text="@{kind.name}"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ln_bottom_right"
+        android:layout_width="wrap_content"
+        android:paddingStart="40dp"
+        android:layout_height="57dp"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:background="@drawable/bg_apart_of_kind_item_2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+        <LinearLayout
+            android:gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textAllCaps="false"
+            android:text="@{kind.displayToTalProduct()}"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="@{kind.displayToTalPurchase()}"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <RatingBar
+            android:layout_gravity="right"
+            android:id="@+id/rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="@{kind.rating}"
+            android:progressTint="@color/yellow"
+            android:secondaryProgressTint="@color/yellow"
+            android:stepSize="0.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/light_green"
+        android:layout_below="@+id/ln_top_left"
+        android:layout_above="@+id/ln_bottom_right">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            listProduct="@{kind.products}"
+            android:background="@color/light_green"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_product" />
+    </LinearLayout>
+</RelativeLayout>
+</layout>

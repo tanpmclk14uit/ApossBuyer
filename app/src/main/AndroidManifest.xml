@@ -13,15 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apossbuyer">
         <activity
-            android:name=".uicontroler.activity.UserDetailActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".uicontroler.activity.SearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".uicontroler.activity.CategoryActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".uicontroler.activity.DetailProductActivity"
             android:exported="true" >
@@ -33,7 +29,11 @@
         <activity
             android:name=".uicontroler.activity.SplashActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -5,25 +5,29 @@ public class BR {
 
   public static final int cartItem = 1;
 
-  public static final int color = 2;
+  public static final int category = 2;
 
-  public static final int favoriteProduct = 3;
+  public static final int color = 3;
 
-  public static final int image = 4;
+  public static final int favoriteProduct = 4;
 
-  public static final int imgCategory = 5;
+  public static final int image = 5;
 
-  public static final int messageItem = 6;
+  public static final int imgCategory = 6;
 
-  public static final int product = 7;
+  public static final int kind = 7;
 
-  public static final int property = 8;
+  public static final int messageItem = 8;
 
-  public static final int rankingProduct = 9;
+  public static final int product = 9;
 
-  public static final int rating = 10;
+  public static final int property = 10;
 
-  public static final int view = 11;
+  public static final int rankingProduct = 11;
 
-  public static final int viewModel = 12;
+  public static final int rating = 12;
+
+  public static final int view = 13;
+
+  public static final int viewModel = 14;
 }

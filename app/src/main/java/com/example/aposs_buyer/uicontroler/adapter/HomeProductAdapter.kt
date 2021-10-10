@@ -18,7 +18,7 @@ class HomeProductAdapter(
 ) :
     ListAdapter<HomeProduct, HomeProductAdapter.HomeProductViewHolder>(DiffCallBack) {
 
-    class OnClickListener(val clickListener: (id: Long) -> Unit) {
+    open class OnClickListener(val clickListener: (id: Long) -> Unit) {
         fun onClick(id: Long) = clickListener(id)
     }
 

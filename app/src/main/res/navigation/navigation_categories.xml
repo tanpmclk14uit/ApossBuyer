@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_categories"
+    app:startDestination="@id/categoriesFragment">
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CategoriesFragment"
+        android:label="fragment_categories"
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_kindFragment"
+            app:destination="@id/kindFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kindFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.KindFragment"
+        android:label="KindFragment" >
+        <argument
+            android:name="category_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="category_name"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_kindFragment_to_productOfKindFragment"
+            app:destination="@id/productOfKindFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productOfKindFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.ProductOfKindFragment"
+        android:label="fragment_product_of_kind"
+        tools:layout="@layout/fragment_product_of_kind" >
+        <argument
+            android:name="kind_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="kind_name"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -16,8 +16,10 @@ class MessageViewModel: ViewModel() {
 
     val newMessage = MutableLiveData<String>()
 
+    val size= MutableLiveData<Int>()
     init {
         loadMessageList()
+        size.value = _lstMessageItem.value!!.size
     }
     fun loadMessageList()
     {
@@ -36,10 +38,9 @@ class MessageViewModel: ViewModel() {
     fun addMessage() {
         val random = Random.nextLong(1, 3)
         if (newMessage.value != null || newMessage.value != "") {
-            val newListMessage: MutableList<MessageItem> = _lstMessageItem.value!!
-            newListMessage.add(0 , MessageItem(random, newMessage.value!!, LocalDateTime.now()))
-            _lstMessageItem.value = newListMessage
-            Log.i("MessageViewModel", lstMessageItem.value!!.size.toString())
+            _lstMessageItem.value!!.add(0 , MessageItem(random, newMessage.value!!, LocalDateTime.now()))
+            size.value = _lstMessageItem.value!!.size
+            Log.i("MessageViewModel", lstMessageItem.value!!.toString())
         }
     }
 

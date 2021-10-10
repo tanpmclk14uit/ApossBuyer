@@ -33,6 +33,30 @@ fun bindCategoriesViewPager(viewPager2: ViewPager2, data: ArrayList<Category>?){
     val adapter =viewPager2.adapter as CategoriesViewPagerAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("listKind")
+fun bindCategoryRecyclerView(recyclerView: RecyclerView, data: List<Kind>?)
+{
+    val adapter = recyclerView.adapter as KindAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("listProduct")
+fun bindKindRecyclerView(recyclerView: RecyclerView, data: List<HomeProduct>?)
+{
+    val adapter = recyclerView.adapter as HomeProductAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("detailCategories")
+fun bindDetailCategoriesRecyclerView(recyclerView: RecyclerView, data:List<DetailCategory>?)
+{
+    val adapter = recyclerView.adapter as DetailCategoryAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("detailCategoryImages")
+fun bindDetailCategoriesViewPager(viewPager2: ViewPager2, data: List<Image>?)
+{
+    val adapter = viewPager2.adapter as DetailCategoryViewPagerAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter("imagesData")
 fun bindDetailProductImageViewPager(viewPager2: ViewPager2, data: List<Image>?){
     val adapter = viewPager2.adapter as DetailProductImageViewPagerAdapter
@@ -131,4 +155,25 @@ fun bindRating(recyclerView: RecyclerView, data: List<ProductRating>?){
     val adapter = recyclerView.adapter as RatingAdapter
     adapter.submitList(data)
 }
-
+@BindingAdapter("listSearchFullFill")
+fun bindCategoriesViewPager(linearLayout: LinearLayout, data: List<HomeProduct>?){
+    if (data!!.isEmpty())
+    {
+        linearLayout.visibility = View.GONE
+    }
+    else
+    {
+        linearLayout.visibility = View.VISIBLE
+    }
+}
+@BindingAdapter("listSearchEmpty")
+fun bindCategoriesViewPager(relativeLayout: RelativeLayout, data: List<HomeProduct>?){
+    if (data!!.isEmpty())
+    {
+        relativeLayout.visibility = View.VISIBLE
+    }
+    else
+    {
+        relativeLayout.visibility = View.GONE
+    }
+}
