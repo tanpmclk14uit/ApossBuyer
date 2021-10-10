@@ -1,14 +1,8 @@
 package com.example.aposs_buyer.uicontroler.activity
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityMainBinding
@@ -35,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             add(MeowBottomNavigation.Model(1, R.drawable.ic_love))
             add(MeowBottomNavigation.Model(2, R.drawable.ic_message))
             add(MeowBottomNavigation.Model(3, R.drawable.ic_home))
-            add(MeowBottomNavigation.Model(4, R.drawable.ic_cart))
+            add(MeowBottomNavigation.Model(4, R.drawable.ic_cart_user_detail))
             add(MeowBottomNavigation.Model(5, R.drawable.ic_person))
         }
         binding.meowBottomNavigation.show(3, true)

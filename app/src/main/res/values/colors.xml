@@ -22,4 +22,5 @@
     <color name="light_black">#4D5A80</color>
     <color name="border_color">#979797</color>
     <color name="person_color">#272422</color>
+    <color name="edit_user_detail_color">#9D9EA3</color>
 </resources>

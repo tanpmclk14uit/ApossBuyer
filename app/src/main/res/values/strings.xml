@@ -48,4 +48,5 @@
         <item>2 star</item>
         <item>1 star</item>
     </string-array>
+    <string name="my_details">My details</string>
 </resources>
