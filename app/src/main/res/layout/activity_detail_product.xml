@@ -8,7 +8,6 @@
         android:layout_height="match_parent"
         tools:context=".uicontroler.activity.DetailProductActivity">
 
-
         <fragment
             android:id="@+id/fragmentContainerView"
             android:name="androidx.navigation.fragment.NavHostFragment"
