@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -21,6 +22,10 @@ class AddressAdapter(val onClickListener: OnAddressCLickListener): ListAdapter<A
         fun bind(address: Address)
         {
             binding.address = address
+
+//            if (address.isDefault) binding.lnItemAddress.setBackgroundResource(R.drawable.bg_item_address_is_selected)
+//            else binding.lnItemAddress.setBackgroundResource(R.drawable.bg_address_item)
+
             binding.executePendingBindings()
         }
     }
@@ -43,8 +48,11 @@ class AddressAdapter(val onClickListener: OnAddressCLickListener): ListAdapter<A
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         holder.bind(getItem(position))
+        if (holder.binding.address!!.isDefault) holder.binding.lnItemAddress.setBackgroundResource(R.drawable.bg_item_address_is_selected)
+        else holder.binding.lnItemAddress.setBackgroundResource(R.drawable.bg_address_item)
         holder.itemView.setOnClickListener {
-            holder.binding.address.isDefault = true
+            holder.binding.address!!.isDefault = true
+            holder.binding.lnItemAddress.setBackgroundResource(R.drawable.bg_address_item)
             onClickListener.onClick(position)
         }
     }

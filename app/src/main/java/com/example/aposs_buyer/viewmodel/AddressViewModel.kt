@@ -35,4 +35,17 @@ class AddressViewModel @Inject constructor(): ViewModel() {
         _listAddress.value!![position].isDefault = true
     }
 
+    fun getCurrentDefaultAddress(): Address {
+        for (i in 0 until _listAddress.value!!.size)
+        {
+            if (_listAddress.value!![i].isDefault)
+                return _listAddress.value!![i]
+        }
+        return Address(0, "None", true, "none", "none", "none", "none", "none", false)
+    }
+
+    fun getCreateAddress():Address{
+        return Address(0, "", true, "", "", "", "", "", false)
+    }
+
 }

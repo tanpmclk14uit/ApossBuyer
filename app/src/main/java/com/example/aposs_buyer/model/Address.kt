@@ -1,5 +1,11 @@
 package com.example.aposs_buyer.model
 
+import android.os.Parcelable
+import androidx.versionedparcelable.VersionedParcelize
+import kotlinx.android.parcel.Parcelize
+
+
+@Parcelize
 data class Address(
     val id: Long,
     val name: String,
@@ -10,7 +16,7 @@ data class Address(
     val ward: String,
     val addressLane: String,
     var isDefault: Boolean
-)
+): Parcelable
 {
     fun getNameString(): String
     {
@@ -23,6 +29,12 @@ data class Address(
         return "Gender: Female"
     }
 
+    fun getGenderSmallString(): String
+    {
+        if (gender) return "Male"
+        return "Female"
+    }
+
     fun getPhoneNumberString(): String
     {
         return "Phone: $phoneNumber"
@@ -30,7 +42,7 @@ data class Address(
 
     fun getCityString(): String
     {
-        return "District: $city"
+        return "City: $city"
     }
 
     fun getDistrictString(): String
@@ -40,11 +52,11 @@ data class Address(
 
     fun getWardString(): String
     {
-        return "District: $ward"
+        return "Ward: $ward"
     }
 
     fun getAddressLaneString(): String
     {
-        return "District: $addressLane"
+        return "Address lane: $addressLane"
     }
 }

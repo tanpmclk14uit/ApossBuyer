@@ -18,7 +18,8 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         sViewsWithIds.put(R.id.ln_havingAccount, 5);
         sViewsWithIds.put(R.id.linearLayout, 6);
         sViewsWithIds.put(R.id.linearLayout2, 7);
-        sViewsWithIds.put(R.id.ln_noAccount, 8);
+        sViewsWithIds.put(R.id.btn_Address, 8);
+        sViewsWithIds.put(R.id.ln_noAccount, 9);
     }
     // views
     @NonNull
@@ -35,14 +36,15 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentPersonBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 10, sIncludes, sViewsWithIds));
     }
     private FragmentPersonBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
+            , (androidx.appcompat.widget.AppCompatButton) bindings[8]
             , (android.widget.LinearLayout) bindings[6]
             , (android.widget.LinearLayout) bindings[7]
             , (android.widget.LinearLayout) bindings[5]
-            , (android.widget.LinearLayout) bindings[8]
+            , (android.widget.LinearLayout) bindings[9]
             , (android.widget.TextView) bindings[4]
             );
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];

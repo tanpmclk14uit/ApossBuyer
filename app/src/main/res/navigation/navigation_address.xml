@@ -7,5 +7,20 @@
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.AddressFragment"
-        android:label="AddressFragment" />
+        android:label="AddressFragment" >
+        <action
+            android:id="@+id/action_addressFragment_to_addressDialogFragment2"
+            app:destination="@id/addressDialogFragment2" />
+    </fragment>
+    <dialog
+        android:id="@+id/addressDialogFragment2"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.AddressDialogFragment"
+        android:label="AddressDialogFragment" >
+        <argument
+            android:name="default_address"
+            app:argType="com.example.aposs_buyer.model.Address" />
+        <action
+            android:id="@+id/action_addressDialogFragment2_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </dialog>
 </navigation>

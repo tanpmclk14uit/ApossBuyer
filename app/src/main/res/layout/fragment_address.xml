@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:expandedTitleGravity="top"
-                app:layout_scrollFlags="noScroll">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -128,14 +128,58 @@
         </com.google.android.material.appbar.AppBarLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="390dp"
-            android:paddingHorizontal="20dp">
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_address"
                 listAddress="@{viewModel.listAddress}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="390dp"
                 tools:listitem="@layout/item_address"/>
+            <TextView
+                android:id="@+id/tv_add_new_address"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to add new address"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="#060DD9"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ln_bottom_address"
+            android:layout_gravity="bottom"
+            android:paddingTop="13dp"
+            android:gravity="center"
+            android:paddingBottom="18dp">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="157dp"
+                android:layout_height="45dp"
+                android:text="Delete"
+                android:textSize="14dp"
+                android:layout_marginRight="8dp"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_delete_address"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_editDefault"
+                android:layout_width="157dp"
+                android:layout_height="45dp"
+                android:text="Edit"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="8dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_edit_address"/>
+        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>
