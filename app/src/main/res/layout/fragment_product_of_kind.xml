@@ -84,13 +84,47 @@
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
 
-                                <ImageView
-                                    android:layout_width="38dp"
-                                    android:layout_height="38dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_marginStart="10dp"
-                                    android:contentDescription="@string/image"
-                                    android:src="@drawable/ic__notifications" />
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="27dp"
+                                    android:layout_height="27dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_alignParentEnd="true">
+
+                                    <ImageView
+                                        android:id="@+id/cart"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="20dp"
+                                        android:contentDescription="@string/image"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_shopping_cart"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:background="@color/red"
+                                        android:backgroundTint="@color/red"
+                                        app:cardCornerRadius="10dp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:autoSizeMinTextSize="7sp"
+                                            android:gravity="center"
+                                            android:text="@string/defaultCartNumber"
+                                            android:textColor="@color/white"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp,SpUsage" />
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/search_bar"

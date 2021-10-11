@@ -84,13 +84,30 @@
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
 
-                                <ImageView
-                                    android:layout_width="38dp"
-                                    android:layout_height="38dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_marginStart="10dp"
-                                    android:contentDescription="@string/image"
-                                    android:src="@drawable/ic__notifications" />
+                                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                                    android:layout_width="33dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_alignParentEnd="true">
+                                    <ImageView
+                                        android:layout_width="26dp"
+                                        android:layout_height="26dp"
+                                        android:layout_gravity="bottom|left"
+                                        android:contentDescription="@string/image"
+                                        android:src="@drawable/ic_cart_user_detail"
+                                        android:id="@+id/img_cart"
+                                        tools:ignore="RtlHardcoded" />
+                                    <TextView
+                                        android:layout_gravity="right|top"
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:background="@drawable/bg_quantity_in_cart"
+                                        android:textSize="10dp"
+                                        android:text="1"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/white"
+                                        tools:ignore="RtlCompat" />
+                                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/search_bar"

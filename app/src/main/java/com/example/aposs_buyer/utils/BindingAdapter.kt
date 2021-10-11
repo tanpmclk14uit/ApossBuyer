@@ -177,3 +177,9 @@ fun bindCategoriesViewPager(relativeLayout: RelativeLayout, data: List<HomeProdu
         relativeLayout.visibility = View.GONE
     }
 }
+@BindingAdapter("listAddress")
+fun bindAddressRecyclerView(recyclerView: RecyclerView, data: List<Address>?)
+{
+    val adapter = recyclerView.adapter as AddressAdapter
+    adapter.submitList(data)
+}
