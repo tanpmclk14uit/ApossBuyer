@@ -15,8 +15,10 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_apart_of_kind_item.xml" value="0.3828125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_apart_of_kind_item_2.xml" value="0.3828125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_btn_filter.xml" value="0.22135416666666666" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_cancel_delete_address.xml" value="0.234375" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_card.xml" value="0.2140625" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_delete_address.xml" value="0.2375" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_delete_dialog.xml" value="0.234375" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_edit_address.xml" value="0.2375" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_edit_info.xml" value="0.2375" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_edit_user_detail.xml" value="0.21770833333333334" />
@@ -26,6 +28,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_left_side_message.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_ln_bottom_address.xml" value="1.6285714285714286" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_message.xml" value="0.22135416666666666" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_person_button.xml" value="0.3828125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_quantity_in_cart.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_right_side_message.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_rounded_img.xml" value="0.3828125" />
@@ -49,6 +52,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.12817028985507245" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_search.xml" value="0.21041666666666667" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_user_detail.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/delete_permission_dialog.xml" value="0.21822916666666667" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_address.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_address_dialog.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_address_dialog_list_dialog_item.xml" value="0.36666666666666664" />

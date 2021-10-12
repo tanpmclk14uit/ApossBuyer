@@ -88,6 +88,7 @@
                                     android:layout_width="33dp"
                                     android:layout_height="30dp"
                                     android:layout_marginTop="5dp"
+                                    android:id="@+id/cl_cart"
                                     android:layout_alignParentEnd="true">
                                     <ImageView
                                         android:layout_width="26dp"
@@ -165,6 +166,7 @@
                 android:layout_height="45dp"
                 android:text="Delete"
                 android:textSize="14dp"
+                android:id="@+id/btn_delete"
                 android:layout_marginRight="8dp"
                 android:textAllCaps="false"
                 android:background="@drawable/bg_delete_address"/>

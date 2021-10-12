@@ -48,4 +48,8 @@ class AddressViewModel @Inject constructor(): ViewModel() {
         return Address(0, "", true, "", "", "", "", "", false)
     }
 
+    fun deleteDefaultAddress() {
+        // delete default and choose newest to default
+    }
+
 }

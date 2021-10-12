@@ -14,7 +14,8 @@
         android:theme="@style/Theme.Apossbuyer">
         <activity
             android:name=".uicontroler.activity.AddressActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".uicontroler.activity.SearchActivity"
             android:exported="true" />

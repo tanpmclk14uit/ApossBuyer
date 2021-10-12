@@ -170,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:paddingBottom="60dp"
+                    android:paddingBottom="20dp"
                     android:paddingHorizontal="20dp"
                     android:paddingTop="30dp"
                     android:orientation="vertical"

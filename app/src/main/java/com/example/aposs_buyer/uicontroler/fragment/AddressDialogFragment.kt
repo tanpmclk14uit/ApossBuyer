@@ -64,8 +64,10 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             viewModel.onAddNewAddress(newAddress)
             findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
         }
-        else
-           Log.d("fuuckkkkkkkkkkkkkkkkk", "fuckkkkkkkkkkkkkkkkkkkkk")
+        else {
+            Log.d("fuuckkkkkkkkkkkkkkkkk", "fuckkkkkkkkkkkkkkkkkkkkk")
+            Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun onClickEditOrAdd()
