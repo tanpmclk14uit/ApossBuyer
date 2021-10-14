@@ -13,9 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apossbuyer">
         <activity
+            android:name=".uicontroler.activity.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".uicontroler.activity.AddressActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".uicontroler.activity.SearchActivity"
             android:exported="true" />
@@ -24,7 +27,7 @@
             android:exported="true" />
         <activity
             android:name=".uicontroler.activity.DetailProductActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".uicontroler.activity.MainActivity"
             android:exported="true" />

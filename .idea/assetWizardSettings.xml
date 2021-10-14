@@ -318,9 +318,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_filter_white" />
-                            <entry key="sourceFile" value="D:\Asset Đồ án 1\right_cycle.svg" />
+                            <entry key="outputName" value="ic_google_login" />
+                            <entry key="sourceFile" value="D:\Asset Đồ án 1\google_login.svg" />
                           </map>
                         </option>
                       </PersistentState>

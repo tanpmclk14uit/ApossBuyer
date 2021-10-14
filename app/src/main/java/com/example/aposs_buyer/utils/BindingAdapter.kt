@@ -99,7 +99,7 @@ fun bindRecyclerView(recyclerView: RecyclerView,
 @BindingAdapter("message")
 fun bindMessage(textView: TextView, message:String) {
     textView.text = message
-    Log.i("Binding for Text View", "doneeeeeeeeeeee")
+    //Log.i("Binding for Text View", "doneeeeeeeeeeee")
 }
 
 @BindingAdapter("listMessage")
