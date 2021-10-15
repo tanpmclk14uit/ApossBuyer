@@ -3,6 +3,7 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.utils.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -18,20 +19,27 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
 
     var toastMessage: MutableLiveData<String> = MutableLiveData()
 
+    var signUpState: MutableLiveData<SignUpState> = MutableLiveData()
+
+    var verifyString: MutableLiveData<ArrayList<String>> = MutableLiveData()
     var emailErrorMessage: String? = ""
     var passwordErrorMessage: String? = ""
     var nameErrorMessage: String? = ""
     var confirmErrorMessage: String? = ""
     var cellNumberErrorMessage: String? = ""
 
+    init {
+        verifyString.value = arrayListOf("","","","")
+    }
+
     fun onSignUpClick() {
         if (email.value != null && password.value != null && name.value != null && confirmPassword.value != null && cellNumber.value != null) {
             if (isValidName() && isValidEmail() && isValidPassword() && isValidConfirmPassword() && isValidPhoneNumber()) {
-                
                 Log.d(
                     "SignInViewModel",
                     "Name:" + name.value!! + "; Email:" + email.value!! + "; Password:" + password.value!! + "; Confirm password:" + confirmPassword.value!! + "; Cell phone:" + cellNumber.value!!
                 )
+                signUpState.value = SignUpState.Verify
             } else {
                 toastMessage.value = "One ore more filed is invalid!"
             }
@@ -39,6 +47,37 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
             toastMessage.value = "One ore more filed is blank!"
         }
     }
+    fun notifyVerifyChange(){
+        verifyString.value = verifyString.value
+    }
+
+    private fun isVerifyStringEmpty(): Boolean{
+        for(verify in verifyString.value!!){
+            if(verify.isBlank()){
+                return true
+            }
+        }
+        return false
+    }
+    private fun verifyArrayToString(): String{
+        var verifyArrayString: String =""
+        for (value in verifyString.value!!){
+            verifyArrayString += value
+        }
+        return verifyArrayString
+    }
+
+    fun isVerifyRight(): Boolean{
+        if(!isVerifyStringEmpty()){
+            if(verifyArrayToString() == "1234"){
+                return true
+            }else{
+                toastMessage.value = "Verify number is wrong"
+            }
+        }
+        return false
+    }
+
 
     private fun isEmailRightFormat(email: String): Boolean {
         return Pattern.compile(

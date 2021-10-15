@@ -7,3 +7,7 @@ enum class DialogType{
 enum class LoginState{
     Loading, Wait, Success
 }
+
+enum class SignUpState{
+    Loading, Wait, Success, Verify
+}

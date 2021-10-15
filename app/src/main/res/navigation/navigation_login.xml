@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_verifyFragment_to_successFragment"
             app:destination="@id/successFragment" />
+        <action
+            android:id="@+id/action_verifyFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/successFragment"

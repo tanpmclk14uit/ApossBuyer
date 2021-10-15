@@ -61,6 +61,22 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="or_sign_up_with">Or Sign Up with</string>
     <string name="full_name">Full name</string>
-    <string name="cell_number">Cell Number</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="your_account_has_been_verified_successfully">Your Account \nHas Been Verified Successfully</string>
+    <string name="please_verify">Please verify</string>
+    <string name="your">your</string>
+    <string name="cell_number">Cell Number</string>
+    <string name="verify_content_text">Please enter the 4 digit verification\nCode sent to your cell number</string>
+    <string name="via_sms_message">via SMS message or</string>
+    <string name="change">
+        <u>
+            Change
+        </u>
+    </string>
+    <string name="your_number">your number.</string>
+    <string name="resend_otp">
+        <u>
+            Resend OTP
+        </u>
+    </string>
 </resources>

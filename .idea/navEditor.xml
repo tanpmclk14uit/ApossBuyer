@@ -241,8 +241,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="224" />
-                            <option name="y" value="35" />
+                            <option name="x" value="-244" />
+                            <option name="y" value="6" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -278,12 +278,17 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="226" />
-                            <option name="y" value="340" />
+                            <option name="x" value="-544" />
+                            <option name="y" value="134" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_verifyFragment_to_signUpFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_verifyFragment_to_successFragment">
                               <value>
                                 <LayoutPositions />

@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentSignUpBinding
+import com.example.aposs_buyer.utils.SignUpState
 import com.example.aposs_buyer.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +21,7 @@ class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
 
-    private val viewModel: SignUpViewModel by viewModels()
+    private val viewModel: SignUpViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,16 @@ class SignUpFragment : Fragment() {
         setCheckingPassword()
         setCheckingConfirmPassword()
         setCheckingCellPhone()
+        setOnStateChange()
         return binding.root
+    }
+
+    private fun setOnStateChange(){
+        viewModel.signUpState.observe(this.viewLifecycleOwner,{
+            if(it == SignUpState.Verify){
+                findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToVerifyFragment())
+            }
+        })
     }
 
     private fun setCheckingEmail(){
