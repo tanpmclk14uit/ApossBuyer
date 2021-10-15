@@ -17,8 +17,10 @@ import com.example.aposs_buyer.uicontroler.activity.MainActivity
 import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
 import com.example.aposs_buyer.utils.LoginState
 import com.example.aposs_buyer.viewmodel.SignInViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding

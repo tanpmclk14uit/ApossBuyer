@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.utils.LoginState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.regex.Pattern
+import javax.inject.Inject
 
-class SignInViewModel : ViewModel() {
+@HiltViewModel
+class SignInViewModel @Inject constructor() : ViewModel() {
 
     var email: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
@@ -16,7 +19,6 @@ class SignInViewModel : ViewModel() {
     var passwordErrorMessage: String? = ""
 
     var loginState: MutableLiveData<LoginState> = MutableLiveData()
-
 
     fun onLoginClick() {
         if (email.value != null && password.value != null) {
@@ -95,47 +97,4 @@ class SignInViewModel : ViewModel() {
             }
         }
     }
-
-    private fun isNameContainNumberOrSpecialCharacter(name: String): Boolean {
-        var hasNumber: Boolean = Pattern.compile(
-            "[0-9]"
-        ).matcher(name).find()
-        var hasSpecialCharacter: Boolean = Pattern.compile(
-            "[!@#$%&.,\"':;?*()_+=|<>?{}\\[\\]~-]"
-        ).matcher(name).find()
-        return hasNumber || hasSpecialCharacter
-    }
-
-//    private fun isValidName(): Boolean {
-//        return if (edtName.text.isEmpty()) {
-//            edtNameLayout.error = "Name can not empty"
-//            false
-//        } else {
-//            return if (isNameContainNumberOrSpecialCharacter(edtName.text.toString())) {
-//                edtNameLayout.error = "Name can not contain number of special character"
-//                false
-//            } else {
-//                edtNameLayout.error = null
-//                true
-//            }
-//        }
-//    }
-
-//    private fun isValidConfirmPassword(): Boolean {
-//
-//        return if (edtPasswordConfirm.text.isEmpty()) {
-//            edtConfirmPasswordLayout.error = "Confirm password can not empty"
-//            false
-//        } else {
-//            return if (edtPassword.text.toString() != edtPasswordConfirm.text.toString()) {
-//                edtConfirmPasswordLayout.error = "Password and Confirm Password must be one"
-//                false
-//            } else {
-//                edtConfirmPasswordLayout.error = null
-//                true
-//            }
-//        }
-//    }
-
-
 }

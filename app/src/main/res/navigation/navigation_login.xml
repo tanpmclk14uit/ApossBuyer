@@ -18,5 +18,26 @@
         android:id="@+id/signUpFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_verifyFragment"
+            app:destination="@id/verifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.VerifyFragment"
+        android:label="fragment_verify"
+        tools:layout="@layout/fragment_verify" >
+        <action
+            android:id="@+id/action_verifyFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.SuccessFragment"
+        android:label="fragment_success"
+        tools:layout="@layout/fragment_success" />
 </navigation>
