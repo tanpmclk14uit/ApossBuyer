@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.widget.Toast
 
 import android.app.ListActivity
+import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 
@@ -32,7 +33,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose {
 
     private val cartAdapter = CartAdapter(this, this)
-    private val viewModel: CartViewModel by viewModels()
+    private val viewModel: CartViewModel by activityViewModels()
     private lateinit var binding: FragmentCartBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +45,9 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         binding.viewModel = viewModel
         binding.rcCart.adapter = cartAdapter
         binding.rcCart.layoutManager = LinearLayoutManager(binding.rcCart.context, LinearLayoutManager.VERTICAL, false)
-
+        binding.btnGoToCheckOut.setOnClickListener {
+            findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckOutFragment())
+        }
         viewModel.size.observe(viewLifecycleOwner, Observer {
             if (it==0) {
                 binding.emptyCart.visibility = View.VISIBLE
@@ -92,6 +95,9 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
 
     override fun onChose(position: Int) {
         Log.i("viewModel", viewModel.lstCartItem.value!![position].isChoose.toString())
+        viewModel.setNewChose()
+        viewModel.reCalculateTotal()
         cartAdapter.notifyItemChanged(position)
     }
+
 }

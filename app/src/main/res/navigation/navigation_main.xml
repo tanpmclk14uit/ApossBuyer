@@ -23,7 +23,11 @@
         tools:layout="@layout/fragment_cart"
         android:id="@+id/cartFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment" >
+        <action
+            android:id="@+id/action_cartFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </fragment>
     <fragment
         tools:layout="@layout/fragment_message"
         android:id="@+id/messageFragment"
@@ -39,4 +43,17 @@
         android:id="@+id/detailProductFragment2"
         android:name="com.example.aposs_buyer.uicontroler.fragment.DetailProductFragment"
         android:label="DetailProductFragment" />
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutFragment"
+        android:label="CheckOutFragment" >
+        <action
+            android:id="@+id/action_checkOutFragment_to_checkOutDialogFragment"
+            app:destination="@id/checkOutDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/checkOutDialogFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutDialogFragment"
+        android:label="fragment_check_out_dialog"
+        tools:layout="@layout/fragment_check_out_dialog" />
 </navigation>

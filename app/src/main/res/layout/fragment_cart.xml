@@ -218,6 +218,7 @@
                     android:layout_height="400dp"
                     android:paddingTop="10dp"
                     listCart="@{viewModel.lstCartItem}"
+                    isCheckOut="@{2}"
                     android:layout_marginBottom="35dp"
                     tools:listitem="@layout/item_cart" />
                 <LinearLayout
@@ -250,6 +251,7 @@
                         </LinearLayout>
                     </LinearLayout>
                     <Button
+                        android:id="@+id/btn_go_to_check_out"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:text="Check out"

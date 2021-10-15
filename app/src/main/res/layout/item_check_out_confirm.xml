@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="cartItem"
+            type="com.example.aposs_buyer.model.CartItem" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_alignParentLeft="true"
+        android:maxWidth="150dp"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#262626"
+        android:text="@{cartItem.name}"
+        android:textSize="14dp"/>
+    <TextView
+        android:id="@+id/tv_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#262626"
+        android:text="@{cartItem.amountShortFormat}"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textSize="14dp"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#262626"
+        android:text="@{cartItem.priceFormat}"
+        android:textSize="14dp"/>
+</RelativeLayout>
+</layout>

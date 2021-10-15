@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/check_out_dialog"
+    tools:context=".uicontroler.fragment.CheckOutDialogFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.CartViewModel" />
+    </data>
+    <LinearLayout
+        android:paddingHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ORDER"
+            android:textSize="30dp"
+            android:textColor="#060DD9"
+            android:gravity="center"/>
+        <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:textSize="16dp"
+                android:textColor="#060DD9"/>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7:17 10/10/2021"
+                android:textSize="14dp"
+                android:textColor="#022C43"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:textSize="16dp"
+                android:textColor="#060DD9"/>
+            <TextView
+                android:id="@+id/tv_address_detail"
+                android:layout_alignParentRight="true"
+                android:gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Miss. Jessi Pham, 0123 456 789 Los Angeles, Califonia , USA"
+                android:layout_toRightOf="@+id/tv_address"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="14dp"
+                android:textColor="#022C43"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Products: "
+            android:textSize="16dp"
+            android:textColor="#060DD9"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_check_out_confirm"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            isCheckOut="@{3}"
+            listCart="@{viewModel.choseList}"
+            tools:itemCount="3"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F2F2F2"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: "
+                android:textSize="16dp"
+                android:textColor="#060DD9"/>
+
+            <TextView
+                android:id="@+id/tv_total_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="2"
+                android:text="@{viewModel.total}"
+                android:textColor="#272422"
+                android:textSize="18dp" />
+        </RelativeLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_confirm_check_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:text="Place order"
+            android:textAllCaps="false"
+            android:paddingHorizontal="20dp" />
+        <TextView
+            android:id="@+id/tv_policy"
+            android:layout_marginTop="15dp"
+            android:textColor="#9D9EA3"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:lineSpacingExtra="6dp"
+            android:text="@string/check_out_policy"/>
+    </LinearLayout>
+</layout>

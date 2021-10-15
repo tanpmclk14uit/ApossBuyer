@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.CartViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".uicontroler.fragment.CheckOutFragment">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/back_ground"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".uicontroler.fragment.CheckOutFragment">
+        android:background="@color/back_ground">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -222,18 +229,23 @@
                  android:layout_width="match_parent"
                  android:layout_height="1dp"/>
              <androidx.recyclerview.widget.RecyclerView
+                 android:id="@+id/rc_check_out"
                  android:layout_width="match_parent"
                  tools:itemCount="3"
+                 listCart="@{viewModel.choseList}"
+                 isCheckOut="@{1}"
                  android:layout_height="wrap_content"
-                 />
+                 android:layout_marginBottom="10dp"
+                 tools:listitem="@layout/item_check_out"/>
              <LinearLayout
                  android:background="#F2F2F2"
                  android:layout_width="match_parent"
                  android:layout_height="1dp"/>
              <RelativeLayout
                  android:layout_width="match_parent"
-                 android:layout_marginTop="15dp"
-                 android:layout_marginBottom="20dp"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginBottom="10dp"
+                 android:paddingHorizontal="20dp"
                  android:layout_height="wrap_content">
                  <TextView
                      android:layout_width="wrap_content"
@@ -241,17 +253,20 @@
                      android:text="Total: "
                      android:textColor="#9D9EA3"
                      android:textSize="16dp"/>
+
                  <TextView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:textSize="18dp"
+                     android:layout_alignParentRight="true"
+                     android:layout_centerVertical="true"
+                     android:text="@{viewModel.total}"
                      android:textColor="#272422"
-                     android:text="$125"
-                     android:layout_alignParentRight="true"/>
+                     android:textSize="18dp" />
              </RelativeLayout>
          </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_marginTop="25dp"
+            android:id="@+id/btn_confirm"
+            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/bg_confirm_check_out"
             android:layout_width="match_parent"
@@ -265,4 +280,5 @@
             android:paddingHorizontal="20dp"
             android:drawableEnd="@drawable/ic_arrow_right"/>
     </LinearLayout>
+    </ScrollView>
 </layout>

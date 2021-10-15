@@ -15,6 +15,8 @@ class CartViewModel @Inject constructor(): ViewModel(){
     private val _lstCartItem = MutableLiveData<ArrayList<CartItem>>()
     val lstCartItem: LiveData<ArrayList<CartItem>> get() = _lstCartItem
 
+    private val _choseList= MutableLiveData<ArrayList<CartItem>>()
+    val choseList: LiveData<ArrayList<CartItem>> get() = _choseList
 
     val total = MutableLiveData<String>()
     val size = MutableLiveData<Int>()
@@ -27,6 +29,7 @@ class CartViewModel @Inject constructor(): ViewModel(){
             size.value = 0
         }
         else size.value = _lstCartItem.value!!.size
+        _choseList.value = getChose()
         Log.d("CartViewModel" ,_lstCartItem.value!![0].amount.toString())
     }
 
@@ -35,7 +38,9 @@ class CartViewModel @Inject constructor(): ViewModel(){
         return if (_lstCartItem.value != null) {
             var sum = 0
             for (i in 0 until _lstCartItem.value!!.size) {
-                sum += _lstCartItem.value!![i].price * _lstCartItem.value!![i].amount
+                if (_lstCartItem.value!![i].isChoose) {
+                    sum += _lstCartItem.value!![i].price * _lstCartItem.value!![i].amount
+                }
             }
             "$$sum"
         } else "$0"
@@ -51,6 +56,20 @@ class CartViewModel @Inject constructor(): ViewModel(){
     fun removeItem(position: Int)
     {
         _lstCartItem.value!!.removeAt(position)
+    }
+
+    fun setNewChose()
+    {
+        _choseList.value = getChose()
+    }
+
+    private fun getChose(): ArrayList<CartItem> {
+        val choseList: ArrayList<CartItem> = arrayListOf()
+        for (i in 0 until _lstCartItem.value!!.size) {
+            if (_lstCartItem.value!![i].isChoose)
+                choseList.add(_lstCartItem.value!![i])
+        }
+        return choseList
     }
 
     private fun loadCartList(): ArrayList<CartItem>

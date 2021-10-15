@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.model
 
+import android.os.Parcel
 import android.os.Parcelable
 import androidx.versionedparcelable.VersionedParcelize
 import kotlinx.android.parcel.Parcelize
@@ -59,4 +60,5 @@ data class Address(
     {
         return "Address lane: $addressLane"
     }
+
 }

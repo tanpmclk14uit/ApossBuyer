@@ -65,6 +65,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_cart.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_categories.xml" value="0.41041666666666665" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_check_out.xml" value="0.25" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_check_out_dialog.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_detail_product.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_favorite.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_home.xml" value="0.20520833333333333" />
@@ -80,6 +81,8 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_cart.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_categories.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_category.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_check_out.xml" value="0.2453125" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_check_out_confirm.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_detail_product_image_view_pager.xml" value="0.1703125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_favorite.xml" value="0.1703125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_kind.xml" value="0.25" />

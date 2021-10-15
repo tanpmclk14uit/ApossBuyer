@@ -1,10 +1,12 @@
 package com.example.aposs_buyer.model
 
 import android.net.Uri
+import android.os.Parcelable
 import androidx.core.net.toUri
+import kotlinx.android.parcel.Parcelize
 
-
-data class Image(val imgURL: String){
+@Parcelize
+data class Image(val imgURL: String): Parcelable{
 
     private lateinit var imageUri: Uri;
     fun getImageUri(): Uri{

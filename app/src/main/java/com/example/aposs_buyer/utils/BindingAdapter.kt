@@ -140,11 +140,22 @@ fun bindColorProperty(recyclerView: RecyclerView, data: List<ProductDetailProper
     val adapter = recyclerView.adapter as ColorPropertyAdapter
     adapter.submitList(data)
 }
-@BindingAdapter("listCart")
-fun bindRecycleView(recyclerView: RecyclerView, lstCart: ArrayList<CartItem>)
+@BindingAdapter("listCart", "isCheckOut")
+fun bindRecycleView(recyclerView: RecyclerView, lstCart: ArrayList<CartItem>, isCheckOut:Int)
 {
-    val adapter = recyclerView.adapter as CartAdapter
-    adapter.submitList(lstCart)
+    if(isCheckOut==1)
+    {
+        val adapter = recyclerView.adapter as CheckOutAdapter
+        adapter.submitList(lstCart)
+    }
+    else if (isCheckOut == 2) {
+        val adapter = recyclerView.adapter as CartAdapter
+        adapter.submitList(lstCart)
+    }
+    else {
+        val adapter = recyclerView.adapter as CheckOutDialogAdapter
+        adapter.submitList(lstCart)
+    }
 }
 @BindingAdapter("setToggleColor")
 fun bindColorToImageBackground(toggleButton: ToggleButton, data: String?){

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="cartItem"
+            type="com.example.aposs_buyer.model.CartItem" />
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="10dp">
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        image="@{cartItem.image.imageUri}"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cartItem.name}"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:textColor="#272422"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{cartItem.property}"
+            android:textSize="12dp"
+            android:textColor="#262626"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{cartItem.amountFormat}"
+                android:textSize="12dp"
+                android:textColor="#262626"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="#022C43"
+                android:text="@{cartItem.priceFormat}"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
+</layout>
