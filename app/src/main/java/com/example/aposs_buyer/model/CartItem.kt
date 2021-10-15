@@ -6,7 +6,8 @@ data class CartItem(
     val name: String,
     val price: Int,
     var amount: Int,
-    val property: String
+    val property: String,
+    var isChoose: Boolean
 )
 {
     fun getPriceFormat(): String{

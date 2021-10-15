@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,16 +12,25 @@
             type="com.example.aposs_buyer.viewmodel.CartViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:id="@+id/card_cart_item"
         android:layout_height="124dp"
         android:layout_marginHorizontal="6dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
+        android:checkable="true"
+        android:focusable="true"
+        app:cardCornerRadius="5dp"
+        android:checked="@{cartItem.choose}"
         android:background="@drawable/bg_cart_item"
         android:elevation="8dp"
-        android:orientation="horizontal">
+        app:strokeColor="#A4858C94">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
         <ImageView
             image="@{cartItem.image.imageUri}"
@@ -29,20 +38,18 @@
             android:layout_height="100dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp" />
-
         <LinearLayout
+            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{cartItem.name}"
                 android:textSize="12dp"
                 android:textStyle="bold" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,5 +117,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

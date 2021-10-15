@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,11 +11,15 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemCartBinding
 import com.example.aposs_buyer.model.CartItem
 
-class CartAdapter(private val changeAmount: ChangeAmount): ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
+class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: OnChoose): ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
 
 
     interface ChangeAmount{
         fun onChangeAmount()
+    }
+
+    interface OnChoose{
+        fun onChose(position: Int)
     }
     class CartViewHolder(val binding: ItemCartBinding): RecyclerView.ViewHolder(binding.root)
     {
@@ -53,12 +58,22 @@ class CartAdapter(private val changeAmount: ChangeAmount): ListAdapter<CartItem,
             onReduceAmount(position)
             this.notifyItemChanged(position)
         }
+        holder.binding.cardCartItem.setOnClickListener {
+            OnChoose(position)
+            Log.i("testing", getItem(position).toString())
+        }
     }
 
     private fun onAddAmount(position: Int)
     {
         getItem(position).amount ++
         changeAmount.onChangeAmount()
+    }
+
+    private fun OnChoose(position: Int)
+    {
+        getItem(position).isChoose = !getItem(position).isChoose
+        onChoose.onChose(position)
     }
 
     private fun onReduceAmount(position: Int)

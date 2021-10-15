@@ -71,7 +71,8 @@ class CartViewModel @Inject constructor(): ViewModel(){
                     "Wilson Mens Hurry Professional",
                     1,
                     1,
-                    "Color: red, size: 30"
+                    "Color: red, size: 30",
+                    false
                 )
             )
             sampleProducts.add(
@@ -81,7 +82,8 @@ class CartViewModel @Inject constructor(): ViewModel(){
                     "Wilson Mens Shirt",
                     2,
                     1,
-                    "Color: red, size: 30"
+                    "Color: red, size: 30",
+                    false
                 )
             )
             sampleProducts.add(
@@ -91,7 +93,8 @@ class CartViewModel @Inject constructor(): ViewModel(){
                     "Laptop asus Vivo Book",
                     2,
                     1,
-                    "Color: red, size: 30"
+                    "Color: red, size: 30",
+                    false
                 )
             )
         return sampleProducts
