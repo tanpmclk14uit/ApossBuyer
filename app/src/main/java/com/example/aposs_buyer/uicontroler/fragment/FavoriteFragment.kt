@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentFavoriteBinding
+import com.example.aposs_buyer.model.Notification
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.uicontroler.adapter.FavoriteFragmentViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,7 +23,7 @@ class FavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
         binding.lifecycleOwner = this
         binding.viewPager.adapter = FavoriteFragmentViewPagerAdapter(parentFragmentManager, binding.lifecycleOwner!!.lifecycle)
@@ -32,6 +35,14 @@ class FavoriteFragment : Fragment() {
                 tab.text ="Available"
             }
         }.attach()
+        setUpNotification()
         return binding.root
+    }
+
+    private fun setUpNotification(){
+        binding.notification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apossbuyer">
         <activity
+            android:name=".uicontroler.activity.NotificationActivity"
+            android:exported="true" />
+        <activity
             android:name=".uicontroler.activity.LoginActivity"
             android:exported="true" />
         <activity

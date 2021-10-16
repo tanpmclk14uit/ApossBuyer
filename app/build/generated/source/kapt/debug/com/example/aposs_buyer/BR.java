@@ -21,15 +21,17 @@ public class BR {
 
   public static final int messageItem = 9;
 
-  public static final int product = 10;
+  public static final int notification = 10;
 
-  public static final int property = 11;
+  public static final int product = 11;
 
-  public static final int rankingProduct = 12;
+  public static final int property = 12;
 
-  public static final int rating = 13;
+  public static final int rankingProduct = 13;
 
-  public static final int view = 14;
+  public static final int rating = 14;
 
-  public static final int viewModel = 15;
+  public static final int view = 15;
+
+  public static final int viewModel = 16;
 }

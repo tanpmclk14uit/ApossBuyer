@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentPersonBinding
+import com.example.aposs_buyer.model.Notification
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
 import com.example.aposs_buyer.uicontroler.activity.LoginActivity
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.viewmodel.PersonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,6 +50,14 @@ class PersonFragment : Fragment() {
         binding.signOut.setOnClickListener {
             startActivity(Intent(this.context, LoginActivity::class.java));
         }
+        setUpNotification()
         return binding.root
+    }
+
+    private fun setUpNotification(){
+        binding.notification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -184,3 +184,8 @@ fun bindAddressRecyclerView(recyclerView: RecyclerView, data: List<Address>?)
     val adapter = recyclerView.adapter as AddressAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("notificationData")
+fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notification>?){
+    val adapter = recyclerView.adapter as NotificationAdapter
+    adapter.submitList(data)
+}

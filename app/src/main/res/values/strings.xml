@@ -79,4 +79,7 @@
             Resend OTP
         </u>
     </string>
+    <string name="notify_time">7:17 10/10/2021</string>
+    <string name="see_now">See now</string>
+    <string name="notification">Notification</string>
 </resources>

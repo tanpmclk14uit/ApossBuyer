@@ -75,7 +75,9 @@
                                 android:textColor="@color/white"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
+
                             <ImageView
+                                android:id="@+id/notification"
                                 android:layout_width="38dp"
                                 android:layout_height="38dp"
                                 android:layout_alignParentEnd="true"
