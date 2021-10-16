@@ -59,6 +59,9 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
                 binding.fullfillCart.visibility = View.VISIBLE
             }
         })
+        viewModel.choseSize.observe(viewLifecycleOwner, Observer {
+            binding.btnGoToCheckOut.isEnabled = it != 0
+        })
 
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         itemTouchHelper.attachToRecyclerView(binding.rcCart)
@@ -97,7 +100,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         Log.i("viewModel", viewModel.lstCartItem.value!![position].isChoose.toString())
         viewModel.setNewChose()
         viewModel.reCalculateTotal()
+        viewModel.setChoseSize()
         cartAdapter.notifyItemChanged(position)
     }
-
 }

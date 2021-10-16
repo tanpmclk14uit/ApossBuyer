@@ -55,5 +55,18 @@
         android:id="@+id/checkOutDialogFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutDialogFragment"
         android:label="fragment_check_out_dialog"
-        tools:layout="@layout/fragment_check_out_dialog" />
+        tools:layout="@layout/fragment_check_out_dialog" >
+        <action
+            android:id="@+id/action_checkOutDialogFragment_to_finishCheckOutFragment"
+            app:destination="@id/finishCheckOutFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/finishCheckOutFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.FinishCheckOutFragment"
+        android:label="fragment_finish_check_out"
+        tools:layout="@layout/fragment_finish_check_out" >
+        <action
+            android:id="@+id/action_finishCheckOutFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

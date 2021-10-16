@@ -19,6 +19,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.SpannableStringBuilder
 import androidx.core.content.ContextCompat
 import androidx.core.text.set
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.uicontroler.adapter.CheckOutDialogAdapter
 
@@ -41,6 +42,9 @@ class CheckOutDialogFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewModel
         binding.rcCheckOutConfirm.adapter = checkOutAdapter
         binding.rcCheckOutConfirm.layoutManager = LinearLayoutManager(binding.rcCheckOutConfirm.context, LinearLayoutManager.VERTICAL, false)
+        binding.btnPlaceOrder.setOnClickListener {
+            findNavController().navigate(CheckOutDialogFragmentDirections.actionCheckOutDialogFragmentToFinishCheckOutFragment())
+        }
         setTextColor()
         return binding.root
     }

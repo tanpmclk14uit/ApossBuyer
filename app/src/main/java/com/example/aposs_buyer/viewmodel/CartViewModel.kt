@@ -20,6 +20,7 @@ class CartViewModel @Inject constructor(): ViewModel(){
 
     val total = MutableLiveData<String>()
     val size = MutableLiveData<Int>()
+    val choseSize = MutableLiveData<Int>()
 
     init {
         _lstCartItem.value = loadCartList()
@@ -30,6 +31,7 @@ class CartViewModel @Inject constructor(): ViewModel(){
         }
         else size.value = _lstCartItem.value!!.size
         _choseList.value = getChose()
+        choseSize.value = _choseList.value!!.size
         Log.d("CartViewModel" ,_lstCartItem.value!![0].amount.toString())
     }
 
@@ -52,6 +54,10 @@ class CartViewModel @Inject constructor(): ViewModel(){
         size.value = _lstCartItem.value!!.size
     }
 
+    fun setChoseSize()
+    {
+        choseSize.value = _choseList.value!!.size
+    }
 
     fun removeItem(position: Int)
     {

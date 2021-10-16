@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".uicontroler.fragment.FinishCheckOutFragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="704dp"
+            android:layout_height="307dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/ic_bg_above"/>
+        <ImageView
+            android:layout_width="604dp"
+            android:layout_height="201dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="125dp"
+            android:src="@drawable/ic_bg_below"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/aposs_name"
+            android:layout_gravity="right"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="30dp">
+            <ImageView
+                android:id="@+id/img_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_checkout_success"/>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your order placed"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your order has been placed successfully. You can visit"
+                android:textColor="@color/white"
+                android:textSize="14dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="my order to check the delivery process"
+                android:textColor="@color/white"
+                android:textSize="14dp"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue shopping"
+            android:textSize="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="bottom"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_confirm_check_out"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

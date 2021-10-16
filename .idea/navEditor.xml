@@ -321,6 +321,15 @@
                             <option name="y" value="286" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_checkOutFragment_to_checkOutDialogFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -343,6 +352,18 @@
                           <Point>
                             <option name="x" value="289" />
                             <option name="y" value="22" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="finishCheckOutFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1852" />
+                            <option name="y" value="821" />
                           </Point>
                         </option>
                       </LayoutPositions>
