@@ -189,3 +189,35 @@ fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notifica
     val adapter = recyclerView.adapter as NotificationAdapter
     adapter.submitList(data)
 }
+@BindingAdapter("billingItemData")
+fun bindBillingItemRecyclerView(recyclerView: RecyclerView, data: List<OrderBillingItem>?){
+    val adapter = recyclerView.adapter as BillingItemsAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter ("orderData")
+fun bindOrderRecyclerView(recyclerView: RecyclerView, data: List<Order>?){
+    val adapter = recyclerView.adapter as OrderAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("statusIconData")
+fun bindStatusIcon(imageView: ImageView, data: OrderStatus?){
+    if(data!=null){
+        when(data){
+            OrderStatus.Success ->{
+                imageView.setImageResource(R.drawable.ic_order_pass)
+            }
+            OrderStatus.Pending ->{
+                imageView.setImageResource(R.drawable.ic_order_pending)
+            }
+            OrderStatus.Cancel ->{
+                imageView.setImageResource(R.drawable.ic_order_cancel)
+            }
+            OrderStatus.Confirmed ->{
+                imageView.setImageResource(R.drawable.ic_order_confirm)
+            }
+            OrderStatus.Delivering ->{
+                imageView.setImageResource(R.drawable.ic_order_delivering)
+            }
+        }
+    }
+}

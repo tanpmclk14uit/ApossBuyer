@@ -20,8 +20,9 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         sViewsWithIds.put(R.id.linearLayout, 7);
         sViewsWithIds.put(R.id.linearLayout2, 8);
         sViewsWithIds.put(R.id.btn_Address, 9);
-        sViewsWithIds.put(R.id.signOut, 10);
-        sViewsWithIds.put(R.id.ln_noAccount, 11);
+        sViewsWithIds.put(R.id.order, 10);
+        sViewsWithIds.put(R.id.signOut, 11);
+        sViewsWithIds.put(R.id.ln_noAccount, 12);
     }
     // views
     @NonNull
@@ -38,7 +39,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentPersonBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 12, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
     }
     private FragmentPersonBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
@@ -46,9 +47,10 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
             , (android.widget.LinearLayout) bindings[7]
             , (android.widget.LinearLayout) bindings[8]
             , (android.widget.LinearLayout) bindings[6]
-            , (android.widget.LinearLayout) bindings[11]
+            , (android.widget.LinearLayout) bindings[12]
             , (android.widget.ImageView) bindings[5]
             , (androidx.appcompat.widget.AppCompatButton) bindings[10]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[11]
             , (android.widget.TextView) bindings[4]
             );
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];

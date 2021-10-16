@@ -14,6 +14,7 @@ import com.example.aposs_buyer.model.Notification
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
 import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
+import com.example.aposs_buyer.uicontroler.activity.OrderActivity
 import com.example.aposs_buyer.viewmodel.PersonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,11 +48,21 @@ class PersonFragment : Fragment() {
             val intent = Intent(this.context, AddressActivity::class.java)
             startActivity(intent)
         }
+        setUpLogOut()
+        setUpOrder()
+        setUpNotification()
+        return binding.root
+    }
+    private fun setUpLogOut(){
         binding.signOut.setOnClickListener {
             startActivity(Intent(this.context, LoginActivity::class.java));
         }
-        setUpNotification()
-        return binding.root
+    }
+    private fun setUpOrder(){
+        binding.order.setOnClickListener {
+            val intent = Intent(this.context, OrderActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setUpNotification(){

@@ -83,4 +83,16 @@
     <string name="see_now">See now</string>
     <string name="notification">Notification</string>
     <string name="my_orders">My orders</string>
+    <string name="pending">Pending</string>
+    <string name="delivering">Delivering</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="pass_order">Success</string>
+    <string name="tap_to_view_detail">Tap to view detail</string>
+    <string name="cancel_order">Cancel</string>
+    <string name="order_time">Order time:</string>
+    <string name="status">Status:</string>
+    <string name="address">Address</string>
+    <string name="billing_items">Billing items</string>
+    <string name="total">Total:</string>
+    <string name="rating_now">Rating now</string>
 </resources>
