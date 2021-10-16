@@ -15,8 +15,9 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.title, 3);
-        sViewsWithIds.put(R.id.empty_cart, 4);
-        sViewsWithIds.put(R.id.fullfill_cart, 5);
+        sViewsWithIds.put(R.id.notification, 4);
+        sViewsWithIds.put(R.id.empty_cart, 5);
+        sViewsWithIds.put(R.id.fullfill_cart, 6);
     }
     // views
     @NonNull
@@ -66,12 +67,13 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     };
 
     public FragmentCartBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
     }
     private FragmentCartBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
-            , (androidx.core.widget.NestedScrollView) bindings[4]
             , (androidx.core.widget.NestedScrollView) bindings[5]
+            , (androidx.core.widget.NestedScrollView) bindings[6]
+            , (android.widget.ImageView) bindings[4]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (android.widget.TextView) bindings[3]
             );
@@ -160,11 +162,11 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        java.lang.String viewModelTotalGetValue = null;
-        com.example.aposs_buyer.viewmodel.CartViewModel viewModel = mViewModel;
         androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.CartItem>> viewModelLstCartItem = null;
         java.util.ArrayList<com.example.aposs_buyer.model.CartItem> viewModelLstCartItemGetValue = null;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelTotal = null;
+        java.lang.String viewModelTotalGetValue = null;
+        com.example.aposs_buyer.viewmodel.CartViewModel viewModel = mViewModel;
 
         if ((dirtyFlags & 0xfL) != 0) {
 

@@ -99,7 +99,7 @@ fun bindRecyclerView(recyclerView: RecyclerView,
 @BindingAdapter("message")
 fun bindMessage(textView: TextView, message:String) {
     textView.text = message
-    Log.i("Binding for Text View", "doneeeeeeeeeeee")
+    //Log.i("Binding for Text View", "doneeeeeeeeeeee")
 }
 
 @BindingAdapter("listMessage")
@@ -182,5 +182,10 @@ fun bindCategoriesViewPager(relativeLayout: RelativeLayout, data: List<HomeProdu
 fun bindAddressRecyclerView(recyclerView: RecyclerView, data: List<Address>?)
 {
     val adapter = recyclerView.adapter as AddressAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("notificationData")
+fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notification>?){
+    val adapter = recyclerView.adapter as NotificationAdapter
     adapter.submitList(data)
 }

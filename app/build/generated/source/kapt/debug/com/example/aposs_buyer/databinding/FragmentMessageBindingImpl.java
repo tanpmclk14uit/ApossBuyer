@@ -14,9 +14,10 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.title, 5);
-        sViewsWithIds.put(R.id.ln_message, 6);
-        sViewsWithIds.put(R.id.messageBox, 7);
+        sViewsWithIds.put(R.id.notification, 5);
+        sViewsWithIds.put(R.id.title, 6);
+        sViewsWithIds.put(R.id.ln_message, 7);
+        sViewsWithIds.put(R.id.messageBox, 8);
     }
     // views
     @NonNull
@@ -70,15 +71,16 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
     };
 
     public FragmentMessageBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
     }
     private FragmentMessageBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
-            , (android.widget.LinearLayout) bindings[6]
             , (android.widget.LinearLayout) bindings[7]
+            , (android.widget.LinearLayout) bindings[8]
+            , (android.widget.ImageView) bindings[5]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (android.widget.ImageView) bindings[4]
-            , (android.widget.TextView) bindings[5]
+            , (android.widget.TextView) bindings[6]
             );
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);

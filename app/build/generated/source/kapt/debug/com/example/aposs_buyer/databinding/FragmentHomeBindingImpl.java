@@ -23,6 +23,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         sViewsWithIds.put(R.id.title, 17);
         sViewsWithIds.put(R.id.search_bar, 18);
         sViewsWithIds.put(R.id.tiet_search_bar, 19);
+        sViewsWithIds.put(R.id.notification, 20);
     }
     // views
     @NonNull
@@ -35,7 +36,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 20, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 21, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 7
@@ -46,6 +47,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
             , (android.widget.TextView) bindings[16]
+            , (android.widget.ImageView) bindings[20]
             , (androidx.recyclerview.widget.RecyclerView) bindings[10]
             , (android.widget.TextView) bindings[13]
             , (me.relex.circleindicator.CircleIndicator3) bindings[9]

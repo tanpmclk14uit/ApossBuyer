@@ -1,6 +1,7 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentMessageBinding
+import com.example.aposs_buyer.model.Notification
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.uicontroler.adapter.MessageAdapter
 import com.example.aposs_buyer.viewmodel.MessageViewModel
 
@@ -29,7 +32,7 @@ class MessageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_message, container, false)
         binding.viewModel= viewModel
@@ -41,7 +44,14 @@ class MessageFragment : Fragment() {
             binding.rcMessage.scrollToPosition(0)
             Log.d(TAG, "data change call")
         })
+        setUpNotification()
         return binding.root
+    }
+    private fun setUpNotification(){
+        binding.notification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

@@ -20,12 +20,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.widget.Toast
 
 import android.app.ListActivity
+import android.content.Intent
 
 import androidx.recyclerview.widget.RecyclerView
 
 import androidx.recyclerview.widget.ItemTouchHelper
-
-
+import com.example.aposs_buyer.model.Notification
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 
 
 @AndroidEntryPoint
@@ -37,7 +38,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
         binding.lifecycleOwner = this
@@ -59,7 +60,15 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
 
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         itemTouchHelper.attachToRecyclerView(binding.rcCart)
+        setUpNotification()
         return binding.root
+    }
+
+    private fun setUpNotification(){
+        binding.notification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

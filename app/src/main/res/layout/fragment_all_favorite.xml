@@ -57,6 +57,7 @@
                 android:src="@drawable/ic_favorite_disable" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginHorizontal="20dp"
             android:id="@+id/allItems"
             tools:listitem="@layout/item_favorite"
             favoriteData="@{viewModel.products}"
