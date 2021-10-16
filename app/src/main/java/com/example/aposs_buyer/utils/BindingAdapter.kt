@@ -221,3 +221,8 @@ fun bindStatusIcon(imageView: ImageView, data: OrderStatus?){
         }
     }
 }
+@BindingAdapter("deliveringStateData")
+fun bindDeliveringStateRecyclerView(recyclerView: RecyclerView, data: List<OrderDeliveringState>?){
+    val adapter = recyclerView.adapter as OrderDeliveringStateAdapter
+    adapter.submitList(data)
+}

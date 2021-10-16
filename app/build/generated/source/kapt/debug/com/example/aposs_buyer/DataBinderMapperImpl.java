@@ -47,6 +47,7 @@ import com.example.aposs_buyer.databinding.ItemLeftSideMessageBindingImpl;
 import com.example.aposs_buyer.databinding.ItemNotificationBindingImpl;
 import com.example.aposs_buyer.databinding.ItemOrderBilingBindingImpl;
 import com.example.aposs_buyer.databinding.ItemOrderBindingImpl;
+import com.example.aposs_buyer.databinding.ItemOrderDeliveringStateBindingImpl;
 import com.example.aposs_buyer.databinding.ItemProductBindingImpl;
 import com.example.aposs_buyer.databinding.ItemProductColorPropertyBindingImpl;
 import com.example.aposs_buyer.databinding.ItemProductStringPropertyBindingImpl;
@@ -150,27 +151,29 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMORDERBILING = 41;
 
-  private static final int LAYOUT_ITEMPRODUCT = 42;
+  private static final int LAYOUT_ITEMORDERDELIVERINGSTATE = 42;
 
-  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 43;
+  private static final int LAYOUT_ITEMPRODUCT = 43;
 
-  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 44;
+  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 44;
 
-  private static final int LAYOUT_ITEMRAKING = 45;
+  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 45;
 
-  private static final int LAYOUT_ITEMRATING = 46;
+  private static final int LAYOUT_ITEMRAKING = 46;
 
-  private static final int LAYOUT_ITEMRATINGIMAGE = 47;
+  private static final int LAYOUT_ITEMRATING = 47;
 
-  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 48;
+  private static final int LAYOUT_ITEMRATINGIMAGE = 48;
 
-  private static final int LAYOUT_ITEMSTRINGPROPERTY = 49;
+  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 49;
 
-  private static final int LAYOUT_ITEMVIEWPAGERDETAILCATEGORY = 50;
+  private static final int LAYOUT_ITEMSTRINGPROPERTY = 50;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 51;
+  private static final int LAYOUT_ITEMVIEWPAGERDETAILCATEGORY = 51;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(51);
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 52;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(52);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_category, LAYOUT_ACTIVITYCATEGORY);
@@ -214,6 +217,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_notification, LAYOUT_ITEMNOTIFICATION);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_order, LAYOUT_ITEMORDER);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_order_biling, LAYOUT_ITEMORDERBILING);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_order_delivering_state, LAYOUT_ITEMORDERDELIVERINGSTATE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_product, LAYOUT_ITEMPRODUCT);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_product_color_property, LAYOUT_ITEMPRODUCTCOLORPROPERTY);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_product_string_property, LAYOUT_ITEMPRODUCTSTRINGPROPERTY);
@@ -475,6 +479,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_order_biling is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMORDERDELIVERINGSTATE: {
+        if ("layout/item_order_delivering_state_0".equals(tag)) {
+          return new ItemOrderDeliveringStateBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_order_delivering_state is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMPRODUCT: {
         if ("layout/item_product_0".equals(tag)) {
           return new ItemProductBindingImpl(component, view);
@@ -523,12 +533,6 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_string_property is invalid. Received: " + tag);
       }
-      case  LAYOUT_ITEMVIEWPAGERDETAILCATEGORY: {
-        if ("layout/item_view_pager_detail_category_0".equals(tag)) {
-          return new ItemViewPagerDetailCategoryBindingImpl(component, view);
-        }
-        throw new IllegalArgumentException("The tag for item_view_pager_detail_category is invalid. Received: " + tag);
-      }
     }
     return null;
   }
@@ -536,6 +540,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   private final ViewDataBinding internalGetViewDataBinding1(DataBindingComponent component,
       View view, int internalId, Object tag) {
     switch(internalId) {
+      case  LAYOUT_ITEMVIEWPAGERDETAILCATEGORY: {
+        if ("layout/item_view_pager_detail_category_0".equals(tag)) {
+          return new ItemViewPagerDetailCategoryBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_view_pager_detail_category is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMVIEWPAPERCATEGORIES: {
         if ("layout/item_view_paper_categories_0".equals(tag)) {
           return new ItemViewPaperCategoriesBindingImpl(component, view);
@@ -608,7 +618,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(19);
+    static final SparseArray<String> sKeys = new SparseArray<String>(20);
 
     static {
       sKeys.put(0, "_all");
@@ -624,17 +634,18 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put(10, "messageItem");
       sKeys.put(11, "notification");
       sKeys.put(12, "order");
-      sKeys.put(13, "product");
-      sKeys.put(14, "property");
-      sKeys.put(15, "rankingProduct");
-      sKeys.put(16, "rating");
-      sKeys.put(17, "view");
-      sKeys.put(18, "viewModel");
+      sKeys.put(13, "orderDeliveringState");
+      sKeys.put(14, "product");
+      sKeys.put(15, "property");
+      sKeys.put(16, "rankingProduct");
+      sKeys.put(17, "rating");
+      sKeys.put(18, "view");
+      sKeys.put(19, "viewModel");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(51);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(52);
 
     static {
       sKeys.put("layout/activity_category_0", com.example.aposs_buyer.R.layout.activity_category);
@@ -678,6 +689,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_notification_0", com.example.aposs_buyer.R.layout.item_notification);
       sKeys.put("layout/item_order_0", com.example.aposs_buyer.R.layout.item_order);
       sKeys.put("layout/item_order_biling_0", com.example.aposs_buyer.R.layout.item_order_biling);
+      sKeys.put("layout/item_order_delivering_state_0", com.example.aposs_buyer.R.layout.item_order_delivering_state);
       sKeys.put("layout/item_product_0", com.example.aposs_buyer.R.layout.item_product);
       sKeys.put("layout/item_product_color_property_0", com.example.aposs_buyer.R.layout.item_product_color_property);
       sKeys.put("layout/item_product_string_property_0", com.example.aposs_buyer.R.layout.item_product_string_property);

@@ -14,6 +14,7 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailOrderBinding
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
 import com.example.aposs_buyer.uicontroler.adapter.BillingItemsAdapter
+import com.example.aposs_buyer.uicontroler.adapter.OrderDeliveringStateAdapter
 import com.example.aposs_buyer.utils.OrderStatus
 import com.example.aposs_buyer.viewmodel.OrderDetailViewModel
 import com.example.aposs_buyer.viewmodel.OrderViewModel
@@ -27,6 +28,8 @@ class DetailOrderFragment : Fragment() {
     private val viewModel: OrderDetailViewModel by viewModels()
     private lateinit var orderDetailBillingItem: BillingItemsAdapter
 
+    private lateinit var orderDeliveringStateAdapter: OrderDeliveringStateAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +42,8 @@ class DetailOrderFragment : Fragment() {
         binding.billingItems.visibility = View.GONE
         orderDetailBillingItem = BillingItemsAdapter()
         binding.billingItems.adapter = orderDetailBillingItem
+        orderDeliveringStateAdapter = OrderDeliveringStateAdapter()
+        binding.deliveringState.adapter = orderDeliveringStateAdapter
         setShowALlAddress()
         setShowAllBillingItems()
         setShowButton()
