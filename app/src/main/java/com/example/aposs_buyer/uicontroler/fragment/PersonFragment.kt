@@ -13,6 +13,7 @@ import androidx.lifecycle.observe
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentPersonBinding
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
+import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.viewmodel.PersonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.zip.Inflater
@@ -45,6 +46,10 @@ class PersonFragment : Fragment() {
         })
         binding.btnAddress.setOnClickListener {
             val intent = Intent(this.context, AddressActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnRating.setOnClickListener {
+            val intent = Intent(this.context, RatingActivity::class.java)
             startActivity(intent)
         }
         return binding.root

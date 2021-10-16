@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="rateNowItem"
+            type="com.example.aposs_buyer.model.RateNowItem" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rated_item"
+        android:layout_marginBottom="10dp"
+        android:paddingHorizontal="20dp">
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            image="@{rateNowItem.image.imageUri}"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{rateNowItem.name}"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#272422"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{rateNowItem.property}"
+                android:textSize="12dp"
+                android:textColor="#262626"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="#060DD9"
+                android:textStyle="bold"
+                android:text="@{rateNowItem.priceFormat}" />
+                <TextView
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{rateNowItem.amountFormat}"
+                    android:textSize="12dp"
+                    android:textColor="#262626"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

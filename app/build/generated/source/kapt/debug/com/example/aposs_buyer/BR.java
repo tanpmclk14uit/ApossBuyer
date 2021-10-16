@@ -27,9 +27,15 @@ public class BR {
 
   public static final int rankingProduct = 12;
 
-  public static final int rating = 13;
+  public static final int rateImage = 13;
 
-  public static final int view = 14;
+  public static final int rateNowItem = 14;
 
-  public static final int viewModel = 15;
+  public static final int ratedItem = 15;
+
+  public static final int rating = 16;
+
+  public static final int view = 17;
+
+  public static final int viewModel = 18;
 }

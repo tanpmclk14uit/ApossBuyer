@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_rating"
+    app:startDestination="@id/ratedFragment">
+
+    <fragment
+        android:id="@+id/ratedFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.RatedFragment"
+        android:label="fragment_rated"
+        tools:layout="@layout/fragment_rated" />
+    <fragment
+        android:id="@+id/rateNowFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.RateNowFragment"
+        android:label="RateNowFragment"
+        tools:layout="@layout/fragment_rate_now">
+        <action
+            android:id="@+id/action_rateNowFragment_to_ratingFragment"
+            app:destination="@id/ratingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ratingFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.RatingFragment"
+        android:label="fragment_rating"
+        tools:layout="@layout/fragment_rating" >
+        <argument
+            android:name="currentRateItem"
+            app:argType="com.example.aposs_buyer.model.RateNowItem" />
+        <action
+            android:id="@+id/action_ratingFragment_to_ratedFragment"
+            app:destination="@id/ratedFragment" />
+    </fragment>
+</navigation>

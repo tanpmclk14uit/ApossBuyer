@@ -1,13 +1,10 @@
 package com.example.aposs_buyer.utils
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -17,8 +14,12 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.uicontroler.adapter.*
 import me.relex.circleindicator.CircleIndicator3
-import java.util.*
 import kotlin.collections.ArrayList
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+
 
 @BindingAdapter("image")
 fun bindImage(imageView: ImageView, image: Uri?) {
@@ -27,6 +28,18 @@ fun bindImage(imageView: ImageView, image: Uri?) {
         .apply(
             RequestOptions().placeholder(R.drawable.animation_loading)
         )
+        .into(imageView)
+}
+@BindingAdapter("imagesPath")
+fun bindImagePath(imageView: ImageView, image: Uri?)
+{
+    Glide.with(imageView.context)
+        .asBitmap()
+        .load(image)
+        .apply(
+            RequestOptions().placeholder(R.drawable.animation_loading)
+        )
+        .transition(BitmapTransitionOptions.withCrossFade())
         .into(imageView)
 }
 @BindingAdapter("categoriesData")
@@ -114,10 +127,32 @@ fun bindContactCommand(linearLayout: LinearLayout, data: List<MessageItem>?)
         linearLayout.visibility = View.GONE
     }
 }
-
+@BindingAdapter("listRated")
+fun bindRatedRecyclerView(recyclerView: RecyclerView, data: List<RateItem>?){
+    val adapter = recyclerView.adapter as RatedAdapter
+    adapter.submitList(data)
+}
 @BindingAdapter("favoriteData")
 fun bindFavoriteRecyclerView(recyclerView: RecyclerView, data: ArrayList<FavoriteProduct>?){
     val adapter = recyclerView.adapter as FavoriteRecyclerViewAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("listRatedImage")
+fun bindRateImageRecyclerView(recyclerView: RecyclerView, data: List<RateImage>?)
+{
+    val adapter = recyclerView.adapter as RateImageAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("listOnRatingImage")
+fun bindOnRatingImageRecyclerView(recyclerView: RecyclerView, data: List<RateImage>?)
+{
+    val adapter = recyclerView.adapter as AddingRatingImageAdapter
+    adapter.submitList(data)
+}
+@BindingAdapter("listRateNow")
+fun bindRateNowRecyclerView(recyclerView: RecyclerView, data: List<RateNowItem>?)
+{
+    val adapter = recyclerView.adapter as RateNowAdapter
     adapter.submitList(data)
 }
 @BindingAdapter("stringPropertyValue")

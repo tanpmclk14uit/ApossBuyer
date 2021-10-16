@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="rateImage"
+            type="com.example.aposs_buyer.model.RateImage" />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp">
+        <ImageView
+            imagesPath="@{rateImage.rateImage.uriRoot}"
+            android:layout_width="99dp"
+            android:scaleType="fitXY"
+            android:layout_height="99dp"/>
+    </LinearLayout>
+</layout>

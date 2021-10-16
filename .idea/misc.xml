@@ -11,6 +11,7 @@
         <entry key="..\:/0. DoAn1/ApossBuyer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
         <entry key="..\:/0. DoAn1/ApossBuyer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22135416666666666" />
         <entry key="..\:/0. DoAn1/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_add_rate_image.xml" value="0.21458333333333332" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_address_in_checkout.xml" value="0.2640625" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_address_item.xml" value="0.3828125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_apart_of_kind_item.xml" value="0.3828125" />
@@ -33,6 +34,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_message.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_person_button.xml" value="0.3828125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_quantity_in_cart.xml" value="0.22135416666666666" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_rated_item.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_right_side_message.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_rounded_img.xml" value="0.3828125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/bg_transparent.xml" value="0.22135416666666666" />
@@ -45,6 +47,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/ic_person.xml" value="0.30277777777777776" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/ic_search.xml" value="0.30277777777777776" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/ic_unfavorite.xml" value="0.30277777777777776" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/drawable/item_need_rating.xml" value="0.25885416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/select_bg_button.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/selector_bg_item_address.xml" value="0.22135416666666666" />
         <entry key="..\:/ApossBuyer/app/src/main/res/drawable/selector_exspand_toggle.xml" value="0.22135416666666666" />
@@ -53,6 +56,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_category.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_detail_product.xml" value="0.12817028985507245" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.12817028985507245" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_rating.xml" value="0.24270833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_search.xml" value="0.21041666666666667" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_user_detail.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/delete_permission_dialog.xml" value="0.21822916666666667" />
@@ -75,6 +79,9 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_person.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_product_detail_dialog_list_dialog.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_product_of_kind.xml" value="0.36666666666666664" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_rate_now.xml" value="0.36666666666666664" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_rated.xml" value="0.24010416666666667" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_rating.xml" value="0.33" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_search.xml" value="0.22447916666666667" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_user_detail.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/gender_list_item.xml" value="0.17864583333333334" />
@@ -86,16 +93,23 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_check_out_confirm.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_detail_product_image_view_pager.xml" value="0.1703125" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_favorite.xml" value="0.1703125" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_img_add_rating.xml" value="0.1984375" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_img_rating.xml" value="0.24270833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_kind.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_left_side_message.xml" value="0.4200848656294201" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_mesage_right_side.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_need_rating.xml" value="0.24270833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_product.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_raking.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_rated.xml" value="0.25" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_rating.xml" value="0.24270833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_rating_image.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_right_side_message.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_view_pager_detail_category.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_view_paper_categories.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/kind_item.xml" value="0.36666666666666664" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/splash_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/menu/menu_rating_bottom_navigateion.xml" value="0.24270833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_favorite_disable.xml" value="0.30180180180180183" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_detail_product.xml" value="0.16801801801801802" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
