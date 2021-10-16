@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentOrderBinding
 import com.example.aposs_buyer.uicontroler.adapter.OrderAdapter
@@ -20,7 +22,7 @@ class OrderFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderBinding
 
-    private val viewModel: OrderViewModel by viewModels()
+    private val viewModel: OrderViewModel by activityViewModels()
 
     private lateinit var orderAdapter: OrderAdapter
     override fun onCreateView(
@@ -30,13 +32,38 @@ class OrderFragment : Fragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_order, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        orderAdapter = OrderAdapter()
+        orderAdapter = OrderAdapter(OrderAdapter.OnClickListener{
+            toOrderDetail(it.id)
+            viewModel.setCurrentOrder(it)
+        })
         binding.orders.adapter = orderAdapter
         setBottomBar()
+        onCurrentOrderChange()
+        setBackPress()
         return binding.root
+    }
+    private fun setBackPress(){
+        binding.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+    }
+    private fun toOrderDetail(orderId: Long){
+        findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToDetailOrderFragment(orderId))
     }
 
     @SuppressLint("NotifyDataSetChanged")
+    private fun onCurrentOrderChange(){
+        viewModel.currentListOrder.observe(this.viewLifecycleOwner, {
+            orderAdapter.submitList(viewModel.currentListOrder.value)
+            binding.orders.adapter!!.notifyDataSetChanged()
+            if(viewModel.currentListOrder.value!!.isEmpty()){
+                binding.emptyOrder.visibility = View.VISIBLE
+            }else{
+                binding.emptyOrder.visibility = View.GONE
+            }
+        })
+    }
+
     private fun setBottomBar(){
         binding.bottomBar.setOnItemSelectedListener {
             when(it.title.toString()){
@@ -56,8 +83,7 @@ class OrderFragment : Fragment() {
                     viewModel.setCurrentOrders(viewModel.loadCancelOrder())
                 }
             }
-            orderAdapter.submitList(viewModel.currentListOrder.value)
-            binding.orders.adapter!!.notifyDataSetChanged()
+
             return@setOnItemSelectedListener true
         }
     }

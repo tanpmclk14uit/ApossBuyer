@@ -14,8 +14,11 @@ import com.example.aposs_buyer.databinding.FragmentAddressBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentAddressDialogBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentAllFavoriteBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentAvailableFavoriteBindingImpl;
+import com.example.aposs_buyer.databinding.FragmentCancelOrderBindingImpl;
+import com.example.aposs_buyer.databinding.FragmentCancelOrderConfirmBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentCartBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentCategoriesBindingImpl;
+import com.example.aposs_buyer.databinding.FragmentDetailOrderBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentDetailProductBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentFavoriteBindingImpl;
 import com.example.aposs_buyer.databinding.FragmentFullScreenImageBindingImpl;
@@ -81,87 +84,93 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_FRAGMENTAVAILABLEFAVORITE = 8;
 
-  private static final int LAYOUT_FRAGMENTCART = 9;
+  private static final int LAYOUT_FRAGMENTCANCELORDER = 9;
 
-  private static final int LAYOUT_FRAGMENTCATEGORIES = 10;
+  private static final int LAYOUT_FRAGMENTCANCELORDERCONFIRM = 10;
 
-  private static final int LAYOUT_FRAGMENTDETAILPRODUCT = 11;
+  private static final int LAYOUT_FRAGMENTCART = 11;
 
-  private static final int LAYOUT_FRAGMENTFAVORITE = 12;
+  private static final int LAYOUT_FRAGMENTCATEGORIES = 12;
 
-  private static final int LAYOUT_FRAGMENTFULLSCREENIMAGE = 13;
+  private static final int LAYOUT_FRAGMENTDETAILORDER = 13;
 
-  private static final int LAYOUT_FRAGMENTHOME = 14;
+  private static final int LAYOUT_FRAGMENTDETAILPRODUCT = 14;
 
-  private static final int LAYOUT_FRAGMENTKIND = 15;
+  private static final int LAYOUT_FRAGMENTFAVORITE = 15;
 
-  private static final int LAYOUT_FRAGMENTLOGIN = 16;
+  private static final int LAYOUT_FRAGMENTFULLSCREENIMAGE = 16;
 
-  private static final int LAYOUT_FRAGMENTMESSAGE = 17;
+  private static final int LAYOUT_FRAGMENTHOME = 17;
 
-  private static final int LAYOUT_FRAGMENTNOTIFICATION = 18;
+  private static final int LAYOUT_FRAGMENTKIND = 18;
 
-  private static final int LAYOUT_FRAGMENTORDER = 19;
+  private static final int LAYOUT_FRAGMENTLOGIN = 19;
 
-  private static final int LAYOUT_FRAGMENTPERSON = 20;
+  private static final int LAYOUT_FRAGMENTMESSAGE = 20;
 
-  private static final int LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG = 21;
+  private static final int LAYOUT_FRAGMENTNOTIFICATION = 21;
 
-  private static final int LAYOUT_FRAGMENTPRODUCTOFKIND = 22;
+  private static final int LAYOUT_FRAGMENTORDER = 22;
 
-  private static final int LAYOUT_FRAGMENTPRODUCTRATING = 23;
+  private static final int LAYOUT_FRAGMENTPERSON = 23;
 
-  private static final int LAYOUT_FRAGMENTSEARCH = 24;
+  private static final int LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG = 24;
 
-  private static final int LAYOUT_FRAGMENTSIGNUP = 25;
+  private static final int LAYOUT_FRAGMENTPRODUCTOFKIND = 25;
 
-  private static final int LAYOUT_FRAGMENTUSERDETAIL = 26;
+  private static final int LAYOUT_FRAGMENTPRODUCTRATING = 26;
 
-  private static final int LAYOUT_FRAGMENTVERIFY = 27;
+  private static final int LAYOUT_FRAGMENTSEARCH = 27;
 
-  private static final int LAYOUT_ITEMADDRESS = 28;
+  private static final int LAYOUT_FRAGMENTSIGNUP = 28;
 
-  private static final int LAYOUT_ITEMCART = 29;
+  private static final int LAYOUT_FRAGMENTUSERDETAIL = 29;
 
-  private static final int LAYOUT_ITEMCATEGORY = 30;
+  private static final int LAYOUT_FRAGMENTVERIFY = 30;
 
-  private static final int LAYOUT_ITEMCOLORPROPERTY = 31;
+  private static final int LAYOUT_ITEMADDRESS = 31;
 
-  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 32;
+  private static final int LAYOUT_ITEMCART = 32;
 
-  private static final int LAYOUT_ITEMFAVORITE = 33;
+  private static final int LAYOUT_ITEMCATEGORY = 33;
 
-  private static final int LAYOUT_ITEMKIND = 34;
+  private static final int LAYOUT_ITEMCOLORPROPERTY = 34;
 
-  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 35;
+  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 35;
 
-  private static final int LAYOUT_ITEMNOTIFICATION = 36;
+  private static final int LAYOUT_ITEMFAVORITE = 36;
 
-  private static final int LAYOUT_ITEMORDER = 37;
+  private static final int LAYOUT_ITEMKIND = 37;
 
-  private static final int LAYOUT_ITEMORDERBILING = 38;
+  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 38;
 
-  private static final int LAYOUT_ITEMPRODUCT = 39;
+  private static final int LAYOUT_ITEMNOTIFICATION = 39;
 
-  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 40;
+  private static final int LAYOUT_ITEMORDER = 40;
 
-  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 41;
+  private static final int LAYOUT_ITEMORDERBILING = 41;
 
-  private static final int LAYOUT_ITEMRAKING = 42;
+  private static final int LAYOUT_ITEMPRODUCT = 42;
 
-  private static final int LAYOUT_ITEMRATING = 43;
+  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 43;
 
-  private static final int LAYOUT_ITEMRATINGIMAGE = 44;
+  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 44;
 
-  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 45;
+  private static final int LAYOUT_ITEMRAKING = 45;
 
-  private static final int LAYOUT_ITEMSTRINGPROPERTY = 46;
+  private static final int LAYOUT_ITEMRATING = 46;
 
-  private static final int LAYOUT_ITEMVIEWPAGERDETAILCATEGORY = 47;
+  private static final int LAYOUT_ITEMRATINGIMAGE = 47;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 48;
+  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 48;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(48);
+  private static final int LAYOUT_ITEMSTRINGPROPERTY = 49;
+
+  private static final int LAYOUT_ITEMVIEWPAGERDETAILCATEGORY = 50;
+
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 51;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(51);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_category, LAYOUT_ACTIVITYCATEGORY);
@@ -172,8 +181,11 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_address_dialog, LAYOUT_FRAGMENTADDRESSDIALOG);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_all_favorite, LAYOUT_FRAGMENTALLFAVORITE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_available_favorite, LAYOUT_FRAGMENTAVAILABLEFAVORITE);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_cancel_order, LAYOUT_FRAGMENTCANCELORDER);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_cancel_order_confirm, LAYOUT_FRAGMENTCANCELORDERCONFIRM);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_cart, LAYOUT_FRAGMENTCART);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_categories, LAYOUT_FRAGMENTCATEGORIES);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_detail_order, LAYOUT_FRAGMENTDETAILORDER);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_detail_product, LAYOUT_FRAGMENTDETAILPRODUCT);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_favorite, LAYOUT_FRAGMENTFAVORITE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.fragment_full_screen_image, LAYOUT_FRAGMENTFULLSCREENIMAGE);
@@ -214,6 +226,326 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_view_paper_categories, LAYOUT_ITEMVIEWPAPERCATEGORIES);
   }
 
+  private final ViewDataBinding internalGetViewDataBinding0(DataBindingComponent component,
+      View view, int internalId, Object tag) {
+    switch(internalId) {
+      case  LAYOUT_ACTIVITYCATEGORY: {
+        if ("layout/activity_category_0".equals(tag)) {
+          return new ActivityCategoryBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for activity_category is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ACTIVITYDETAILPRODUCT: {
+        if ("layout/activity_detail_product_0".equals(tag)) {
+          return new ActivityDetailProductBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for activity_detail_product is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ACTIVITYMAIN: {
+        if ("layout/activity_main_0".equals(tag)) {
+          return new ActivityMainBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for activity_main is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ACTIVITYUSERDETAIL: {
+        if ("layout/activity_user_detail_0".equals(tag)) {
+          return new ActivityUserDetailBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for activity_user_detail is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTADDRESS: {
+        if ("layout/fragment_address_0".equals(tag)) {
+          return new FragmentAddressBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_address is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTADDRESSDIALOG: {
+        if ("layout/fragment_address_dialog_0".equals(tag)) {
+          return new FragmentAddressDialogBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_address_dialog is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTALLFAVORITE: {
+        if ("layout/fragment_all_favorite_0".equals(tag)) {
+          return new FragmentAllFavoriteBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_all_favorite is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTAVAILABLEFAVORITE: {
+        if ("layout/fragment_available_favorite_0".equals(tag)) {
+          return new FragmentAvailableFavoriteBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_available_favorite is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTCANCELORDER: {
+        if ("layout/fragment_cancel_order_0".equals(tag)) {
+          return new FragmentCancelOrderBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_cancel_order is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTCANCELORDERCONFIRM: {
+        if ("layout/fragment_cancel_order_confirm_0".equals(tag)) {
+          return new FragmentCancelOrderConfirmBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_cancel_order_confirm is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTCART: {
+        if ("layout/fragment_cart_0".equals(tag)) {
+          return new FragmentCartBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_cart is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTCATEGORIES: {
+        if ("layout/fragment_categories_0".equals(tag)) {
+          return new FragmentCategoriesBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_categories is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTDETAILORDER: {
+        if ("layout/fragment_detail_order_0".equals(tag)) {
+          return new FragmentDetailOrderBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_detail_order is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTDETAILPRODUCT: {
+        if ("layout/fragment_detail_product_0".equals(tag)) {
+          return new FragmentDetailProductBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_detail_product is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTFAVORITE: {
+        if ("layout/fragment_favorite_0".equals(tag)) {
+          return new FragmentFavoriteBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_favorite is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTFULLSCREENIMAGE: {
+        if ("layout/fragment_full_screen_image_0".equals(tag)) {
+          return new FragmentFullScreenImageBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_full_screen_image is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTHOME: {
+        if ("layout/fragment_home_0".equals(tag)) {
+          return new FragmentHomeBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_home is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTKIND: {
+        if ("layout/fragment_kind_0".equals(tag)) {
+          return new FragmentKindBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_kind is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTLOGIN: {
+        if ("layout/fragment_login_0".equals(tag)) {
+          return new FragmentLoginBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_login is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTMESSAGE: {
+        if ("layout/fragment_message_0".equals(tag)) {
+          return new FragmentMessageBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_message is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTNOTIFICATION: {
+        if ("layout/fragment_notification_0".equals(tag)) {
+          return new FragmentNotificationBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_notification is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTORDER: {
+        if ("layout/fragment_order_0".equals(tag)) {
+          return new FragmentOrderBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_order is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTPERSON: {
+        if ("layout/fragment_person_0".equals(tag)) {
+          return new FragmentPersonBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_person is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG: {
+        if ("layout/fragment_product_detail_dialog_list_dialog_0".equals(tag)) {
+          return new FragmentProductDetailDialogListDialogBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_product_detail_dialog_list_dialog is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTPRODUCTOFKIND: {
+        if ("layout/fragment_product_of_kind_0".equals(tag)) {
+          return new FragmentProductOfKindBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_product_of_kind is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTPRODUCTRATING: {
+        if ("layout/fragment_product_rating_0".equals(tag)) {
+          return new FragmentProductRatingBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_product_rating is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTSEARCH: {
+        if ("layout/fragment_search_0".equals(tag)) {
+          return new FragmentSearchBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_search is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTSIGNUP: {
+        if ("layout/fragment_sign_up_0".equals(tag)) {
+          return new FragmentSignUpBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_sign_up is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTUSERDETAIL: {
+        if ("layout/fragment_user_detail_0".equals(tag)) {
+          return new FragmentUserDetailBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_user_detail is invalid. Received: " + tag);
+      }
+      case  LAYOUT_FRAGMENTVERIFY: {
+        if ("layout/fragment_verify_0".equals(tag)) {
+          return new FragmentVerifyBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for fragment_verify is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMADDRESS: {
+        if ("layout/item_address_0".equals(tag)) {
+          return new ItemAddressBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_address is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMCART: {
+        if ("layout/item_cart_0".equals(tag)) {
+          return new ItemCartBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_cart is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMCATEGORY: {
+        if ("layout/item_category_0".equals(tag)) {
+          return new ItemCategoryBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_category is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMCOLORPROPERTY: {
+        if ("layout/item_color_property_0".equals(tag)) {
+          return new ItemColorPropertyBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_color_property is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER: {
+        if ("layout/item_detail_product_image_view_pager_0".equals(tag)) {
+          return new ItemDetailProductImageViewPagerBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_detail_product_image_view_pager is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMFAVORITE: {
+        if ("layout/item_favorite_0".equals(tag)) {
+          return new ItemFavoriteBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_favorite is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMKIND: {
+        if ("layout/item_kind_0".equals(tag)) {
+          return new ItemKindBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_kind is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMLEFTSIDEMESSAGE: {
+        if ("layout/item_left_side_message_0".equals(tag)) {
+          return new ItemLeftSideMessageBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_left_side_message is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMNOTIFICATION: {
+        if ("layout/item_notification_0".equals(tag)) {
+          return new ItemNotificationBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_notification is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMORDER: {
+        if ("layout/item_order_0".equals(tag)) {
+          return new ItemOrderBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_order is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMORDERBILING: {
+        if ("layout/item_order_biling_0".equals(tag)) {
+          return new ItemOrderBilingBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_order_biling is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMPRODUCT: {
+        if ("layout/item_product_0".equals(tag)) {
+          return new ItemProductBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_product is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMPRODUCTCOLORPROPERTY: {
+        if ("layout/item_product_color_property_0".equals(tag)) {
+          return new ItemProductColorPropertyBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_product_color_property is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMPRODUCTSTRINGPROPERTY: {
+        if ("layout/item_product_string_property_0".equals(tag)) {
+          return new ItemProductStringPropertyBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_product_string_property is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMRAKING: {
+        if ("layout/item_raking_0".equals(tag)) {
+          return new ItemRakingBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_raking is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMRATING: {
+        if ("layout/item_rating_0".equals(tag)) {
+          return new ItemRatingBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_rating is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMRATINGIMAGE: {
+        if ("layout/item_rating_image_0".equals(tag)) {
+          return new ItemRatingImageBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_rating_image is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMRIGHTSIDEMESSAGE: {
+        if ("layout/item_right_side_message_0".equals(tag)) {
+          return new ItemRightSideMessageBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_right_side_message is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMSTRINGPROPERTY: {
+        if ("layout/item_string_property_0".equals(tag)) {
+          return new ItemStringPropertyBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_string_property is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMVIEWPAGERDETAILCATEGORY: {
+        if ("layout/item_view_pager_detail_category_0".equals(tag)) {
+          return new ItemViewPagerDetailCategoryBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_view_pager_detail_category is invalid. Received: " + tag);
+      }
+    }
+    return null;
+  }
+
+  private final ViewDataBinding internalGetViewDataBinding1(DataBindingComponent component,
+      View view, int internalId, Object tag) {
+    switch(internalId) {
+      case  LAYOUT_ITEMVIEWPAPERCATEGORIES: {
+        if ("layout/item_view_paper_categories_0".equals(tag)) {
+          return new ItemViewPaperCategoriesBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_view_paper_categories is invalid. Received: " + tag);
+      }
+    }
+    return null;
+  }
+
   @Override
   public ViewDataBinding getDataBinder(DataBindingComponent component, View view, int layoutId) {
     int localizedLayoutId = INTERNAL_LAYOUT_ID_LOOKUP.get(layoutId);
@@ -222,294 +554,14 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       if(tag == null) {
         throw new RuntimeException("view must have a tag");
       }
-      switch(localizedLayoutId) {
-        case  LAYOUT_ACTIVITYCATEGORY: {
-          if ("layout/activity_category_0".equals(tag)) {
-            return new ActivityCategoryBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for activity_category is invalid. Received: " + tag);
+      // find which method will have it. -1 is necessary becausefirst id starts with 1;
+      int methodIndex = (localizedLayoutId - 1) / 50;
+      switch(methodIndex) {
+        case 0: {
+          return internalGetViewDataBinding0(component, view, localizedLayoutId, tag);
         }
-        case  LAYOUT_ACTIVITYDETAILPRODUCT: {
-          if ("layout/activity_detail_product_0".equals(tag)) {
-            return new ActivityDetailProductBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for activity_detail_product is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ACTIVITYMAIN: {
-          if ("layout/activity_main_0".equals(tag)) {
-            return new ActivityMainBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for activity_main is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ACTIVITYUSERDETAIL: {
-          if ("layout/activity_user_detail_0".equals(tag)) {
-            return new ActivityUserDetailBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for activity_user_detail is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTADDRESS: {
-          if ("layout/fragment_address_0".equals(tag)) {
-            return new FragmentAddressBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_address is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTADDRESSDIALOG: {
-          if ("layout/fragment_address_dialog_0".equals(tag)) {
-            return new FragmentAddressDialogBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_address_dialog is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTALLFAVORITE: {
-          if ("layout/fragment_all_favorite_0".equals(tag)) {
-            return new FragmentAllFavoriteBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_all_favorite is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTAVAILABLEFAVORITE: {
-          if ("layout/fragment_available_favorite_0".equals(tag)) {
-            return new FragmentAvailableFavoriteBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_available_favorite is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTCART: {
-          if ("layout/fragment_cart_0".equals(tag)) {
-            return new FragmentCartBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_cart is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTCATEGORIES: {
-          if ("layout/fragment_categories_0".equals(tag)) {
-            return new FragmentCategoriesBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_categories is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTDETAILPRODUCT: {
-          if ("layout/fragment_detail_product_0".equals(tag)) {
-            return new FragmentDetailProductBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_detail_product is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTFAVORITE: {
-          if ("layout/fragment_favorite_0".equals(tag)) {
-            return new FragmentFavoriteBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_favorite is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTFULLSCREENIMAGE: {
-          if ("layout/fragment_full_screen_image_0".equals(tag)) {
-            return new FragmentFullScreenImageBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_full_screen_image is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTHOME: {
-          if ("layout/fragment_home_0".equals(tag)) {
-            return new FragmentHomeBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_home is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTKIND: {
-          if ("layout/fragment_kind_0".equals(tag)) {
-            return new FragmentKindBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_kind is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTLOGIN: {
-          if ("layout/fragment_login_0".equals(tag)) {
-            return new FragmentLoginBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_login is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTMESSAGE: {
-          if ("layout/fragment_message_0".equals(tag)) {
-            return new FragmentMessageBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_message is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTNOTIFICATION: {
-          if ("layout/fragment_notification_0".equals(tag)) {
-            return new FragmentNotificationBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_notification is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTORDER: {
-          if ("layout/fragment_order_0".equals(tag)) {
-            return new FragmentOrderBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_order is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTPERSON: {
-          if ("layout/fragment_person_0".equals(tag)) {
-            return new FragmentPersonBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_person is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG: {
-          if ("layout/fragment_product_detail_dialog_list_dialog_0".equals(tag)) {
-            return new FragmentProductDetailDialogListDialogBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_product_detail_dialog_list_dialog is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTPRODUCTOFKIND: {
-          if ("layout/fragment_product_of_kind_0".equals(tag)) {
-            return new FragmentProductOfKindBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_product_of_kind is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTPRODUCTRATING: {
-          if ("layout/fragment_product_rating_0".equals(tag)) {
-            return new FragmentProductRatingBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_product_rating is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTSEARCH: {
-          if ("layout/fragment_search_0".equals(tag)) {
-            return new FragmentSearchBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_search is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTSIGNUP: {
-          if ("layout/fragment_sign_up_0".equals(tag)) {
-            return new FragmentSignUpBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_sign_up is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTUSERDETAIL: {
-          if ("layout/fragment_user_detail_0".equals(tag)) {
-            return new FragmentUserDetailBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_user_detail is invalid. Received: " + tag);
-        }
-        case  LAYOUT_FRAGMENTVERIFY: {
-          if ("layout/fragment_verify_0".equals(tag)) {
-            return new FragmentVerifyBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for fragment_verify is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMADDRESS: {
-          if ("layout/item_address_0".equals(tag)) {
-            return new ItemAddressBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_address is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMCART: {
-          if ("layout/item_cart_0".equals(tag)) {
-            return new ItemCartBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_cart is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMCATEGORY: {
-          if ("layout/item_category_0".equals(tag)) {
-            return new ItemCategoryBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_category is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMCOLORPROPERTY: {
-          if ("layout/item_color_property_0".equals(tag)) {
-            return new ItemColorPropertyBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_color_property is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER: {
-          if ("layout/item_detail_product_image_view_pager_0".equals(tag)) {
-            return new ItemDetailProductImageViewPagerBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_detail_product_image_view_pager is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMFAVORITE: {
-          if ("layout/item_favorite_0".equals(tag)) {
-            return new ItemFavoriteBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_favorite is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMKIND: {
-          if ("layout/item_kind_0".equals(tag)) {
-            return new ItemKindBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_kind is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMLEFTSIDEMESSAGE: {
-          if ("layout/item_left_side_message_0".equals(tag)) {
-            return new ItemLeftSideMessageBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_left_side_message is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMNOTIFICATION: {
-          if ("layout/item_notification_0".equals(tag)) {
-            return new ItemNotificationBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_notification is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMORDER: {
-          if ("layout/item_order_0".equals(tag)) {
-            return new ItemOrderBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_order is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMORDERBILING: {
-          if ("layout/item_order_biling_0".equals(tag)) {
-            return new ItemOrderBilingBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_order_biling is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMPRODUCT: {
-          if ("layout/item_product_0".equals(tag)) {
-            return new ItemProductBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_product is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMPRODUCTCOLORPROPERTY: {
-          if ("layout/item_product_color_property_0".equals(tag)) {
-            return new ItemProductColorPropertyBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_product_color_property is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMPRODUCTSTRINGPROPERTY: {
-          if ("layout/item_product_string_property_0".equals(tag)) {
-            return new ItemProductStringPropertyBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_product_string_property is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMRAKING: {
-          if ("layout/item_raking_0".equals(tag)) {
-            return new ItemRakingBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_raking is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMRATING: {
-          if ("layout/item_rating_0".equals(tag)) {
-            return new ItemRatingBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_rating is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMRATINGIMAGE: {
-          if ("layout/item_rating_image_0".equals(tag)) {
-            return new ItemRatingImageBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_rating_image is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMRIGHTSIDEMESSAGE: {
-          if ("layout/item_right_side_message_0".equals(tag)) {
-            return new ItemRightSideMessageBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_right_side_message is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMSTRINGPROPERTY: {
-          if ("layout/item_string_property_0".equals(tag)) {
-            return new ItemStringPropertyBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_string_property is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMVIEWPAGERDETAILCATEGORY: {
-          if ("layout/item_view_pager_detail_category_0".equals(tag)) {
-            return new ItemViewPagerDetailCategoryBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_view_pager_detail_category is invalid. Received: " + tag);
-        }
-        case  LAYOUT_ITEMVIEWPAPERCATEGORIES: {
-          if ("layout/item_view_paper_categories_0".equals(tag)) {
-            return new ItemViewPaperCategoriesBindingImpl(component, view);
-          }
-          throw new IllegalArgumentException("The tag for item_view_paper_categories is invalid. Received: " + tag);
+        case 1: {
+          return internalGetViewDataBinding1(component, view, localizedLayoutId, tag);
         }
       }
     }
@@ -582,7 +634,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(48);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(51);
 
     static {
       sKeys.put("layout/activity_category_0", com.example.aposs_buyer.R.layout.activity_category);
@@ -593,8 +645,11 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/fragment_address_dialog_0", com.example.aposs_buyer.R.layout.fragment_address_dialog);
       sKeys.put("layout/fragment_all_favorite_0", com.example.aposs_buyer.R.layout.fragment_all_favorite);
       sKeys.put("layout/fragment_available_favorite_0", com.example.aposs_buyer.R.layout.fragment_available_favorite);
+      sKeys.put("layout/fragment_cancel_order_0", com.example.aposs_buyer.R.layout.fragment_cancel_order);
+      sKeys.put("layout/fragment_cancel_order_confirm_0", com.example.aposs_buyer.R.layout.fragment_cancel_order_confirm);
       sKeys.put("layout/fragment_cart_0", com.example.aposs_buyer.R.layout.fragment_cart);
       sKeys.put("layout/fragment_categories_0", com.example.aposs_buyer.R.layout.fragment_categories);
+      sKeys.put("layout/fragment_detail_order_0", com.example.aposs_buyer.R.layout.fragment_detail_order);
       sKeys.put("layout/fragment_detail_product_0", com.example.aposs_buyer.R.layout.fragment_detail_product);
       sKeys.put("layout/fragment_favorite_0", com.example.aposs_buyer.R.layout.fragment_favorite);
       sKeys.put("layout/fragment_full_screen_image_0", com.example.aposs_buyer.R.layout.fragment_full_screen_image);

@@ -49,12 +49,14 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_login_asset.xml" value="0.19675925925925927" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_login_button_light_green.xml" value="0.19675925925925927" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_login_image.xml" value="0.19675925925925927" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_order_cancel_button.xml" value="0.16574074074074074" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_ouline_login_button.xml" value="0.19675925925925927" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_property_outline.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_rating_now_button.xml" value="0.19675925925925927" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_rounded_button_forward.xml" value="0.19675925925925927" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_selected_property_outline.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/bg_white_border.xml" value="0.19675925925925927" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_address_edit.xml" value="0.16574074074074074" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_back.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_expand_circle_down.xml" value="0.3310810810810811" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/drawable/ic_favorite_disable.xml" value="0.30180180180180183" />
@@ -83,8 +85,11 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_all_favorite.xml" value="0.3171171171171171" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_available_favorite.xml" value="0.25" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_blank.xml" value="0.36666666666666664" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_cancel_order.xml" value="0.25" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_cancel_order_confirm.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_cart.xml" value="0.22" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_categories.xml" value="0.1824074074074074" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_detail_order.xml" value="0.25" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_detail_product.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_favorite.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_full_screen_image.xml" value="0.33" />
@@ -94,7 +99,7 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_message.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_notification.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_notificaton.xml" value="0.32592592592592595" />
-        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_order.xml" value="0.1824074074074074" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_order.xml" value="0.25" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_persion.xml" value="0.20520833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_person.xml" value="0.3171171171171171" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_product_detail_dialog_list_dialog.xml" value="0.32592592592592595" />

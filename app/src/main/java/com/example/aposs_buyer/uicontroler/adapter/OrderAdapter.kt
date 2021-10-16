@@ -10,7 +10,11 @@ import com.example.aposs_buyer.databinding.ItemOrderBinding
 import com.example.aposs_buyer.model.Order
 import com.example.aposs_buyer.utils.OrderStatus
 
-class OrderAdapter: ListAdapter<Order, OrderAdapter.OrderViewHolder>(DiffCallBack) {
+class OrderAdapter( private val onClickListener: OnClickListener): ListAdapter<Order, OrderAdapter.OrderViewHolder>(DiffCallBack) {
+
+    open class OnClickListener(val clickListener: (order: Order) -> Unit) {
+        fun onClick(order: Order) = clickListener(order)
+    }
     class OrderViewHolder(val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(order: Order) {
             binding.order = order
@@ -21,7 +25,6 @@ class OrderAdapter: ListAdapter<Order, OrderAdapter.OrderViewHolder>(DiffCallBac
             setShowAllAddress()
             setShowAllBillingItems()
             setUpRatingButton(order)
-
         }
         private fun setShowAllAddress(){
             binding.showAll.setOnCheckedChangeListener { _, check ->
@@ -67,5 +70,8 @@ class OrderAdapter: ListAdapter<Order, OrderAdapter.OrderViewHolder>(DiffCallBac
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val currentOrder = getItem(position)
         holder.bind(currentOrder)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(currentOrder)
+        }
     }
 }

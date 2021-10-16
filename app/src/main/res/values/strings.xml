@@ -88,11 +88,22 @@
     <string name="confirmed">Confirmed</string>
     <string name="pass_order">Success</string>
     <string name="tap_to_view_detail">Tap to view detail</string>
-    <string name="cancel_order">Cancel</string>
+    <string name="cancel_order">Cancel order</string>
     <string name="order_time">Order time:</string>
     <string name="status">Status:</string>
     <string name="address">Address</string>
     <string name="billing_items">Billing items</string>
     <string name="total">Total:</string>
     <string name="rating_now">Rating now</string>
+    <string name="order_detail">Order detail</string>
+    <string name="your_order_is_empty">Your order is empty</string>
+    <string name="go_to_buy_now">go to buy now!</string>
+    <string name="items">Items</string>
+    <string name="you_want_to">You want to</string>
+    <string name="order">order :(</string>
+    <string name="order_cancel_text">Please let us know reason\nto make future shopping experiences\nbetter for you.</string>
+    <string name="your_reason_here">Your reason here</string>
+    <string name="your_order_cancel_successfully">Your order cancel successfully</string>
+    <string name="order_confirm_text">We apologize for any\ninconvenience may was caused\nfor your experience</string>
+    <string name="continue_shopping">Continue shopping</string>
 </resources>
