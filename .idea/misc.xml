@@ -70,6 +70,7 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_notification.xml" value="0.32592592592592595" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_order.xml" value="0.1550925925925926" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/dialog_loading.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_address.xml" value="0.1824074074074074" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_address_dialog.xml" value="0.1824074074074074" />
@@ -87,6 +88,7 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_message.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_notification.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_notificaton.xml" value="0.32592592592592595" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_order.xml" value="0.25" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_persion.xml" value="0.20520833333333333" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_person.xml" value="0.3171171171171171" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_product_detail_dialog_list_dialog.xml" value="0.32592592592592595" />

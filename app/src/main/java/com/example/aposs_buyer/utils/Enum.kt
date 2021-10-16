@@ -11,3 +11,7 @@ enum class LoginState{
 enum class SignUpState{
     Loading, Wait, Success, Verify
 }
+
+enum class OrderStatus{
+    Pending, Confirmed, Delivering, Success, Cancel
+}

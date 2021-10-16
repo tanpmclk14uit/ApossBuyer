@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         tools:context=".uicontroler.fragment.NotificationFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
