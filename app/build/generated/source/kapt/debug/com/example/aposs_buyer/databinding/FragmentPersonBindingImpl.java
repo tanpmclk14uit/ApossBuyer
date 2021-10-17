@@ -15,12 +15,15 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.title, 4);
-        sViewsWithIds.put(R.id.ln_havingAccount, 5);
-        sViewsWithIds.put(R.id.linearLayout, 6);
-        sViewsWithIds.put(R.id.linearLayout2, 7);
-        sViewsWithIds.put(R.id.btn_Address, 8);
-        sViewsWithIds.put(R.id.btn_rating, 9);
-        sViewsWithIds.put(R.id.ln_noAccount, 10);
+        sViewsWithIds.put(R.id.notification, 5);
+        sViewsWithIds.put(R.id.ln_havingAccount, 6);
+        sViewsWithIds.put(R.id.linearLayout, 7);
+        sViewsWithIds.put(R.id.linearLayout2, 8);
+        sViewsWithIds.put(R.id.btn_Address, 9);
+        sViewsWithIds.put(R.id.order, 10);
+        sViewsWithIds.put(R.id.btn_rating, 11);
+        sViewsWithIds.put(R.id.signOut, 12);
+        sViewsWithIds.put(R.id.ln_noAccount, 13);
     }
     // views
     @NonNull
@@ -37,16 +40,19 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentPersonBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 11, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 14, sIncludes, sViewsWithIds));
     }
     private FragmentPersonBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
-            , (androidx.appcompat.widget.AppCompatButton) bindings[8]
             , (androidx.appcompat.widget.AppCompatButton) bindings[9]
-            , (android.widget.LinearLayout) bindings[6]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[11]
             , (android.widget.LinearLayout) bindings[7]
-            , (android.widget.LinearLayout) bindings[5]
-            , (android.widget.LinearLayout) bindings[10]
+            , (android.widget.LinearLayout) bindings[8]
+            , (android.widget.LinearLayout) bindings[6]
+            , (android.widget.LinearLayout) bindings[13]
+            , (android.widget.ImageView) bindings[5]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[10]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[12]
             , (android.widget.TextView) bindings[4]
             );
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];

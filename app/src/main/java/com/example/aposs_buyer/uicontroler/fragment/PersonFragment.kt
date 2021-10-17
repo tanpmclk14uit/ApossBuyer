@@ -13,6 +13,8 @@ import androidx.lifecycle.observe
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentPersonBinding
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
+import com.example.aposs_buyer.uicontroler.activity.OrderActivity
 import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.viewmodel.PersonViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,6 +54,14 @@ class PersonFragment : Fragment() {
             val intent = Intent(this.context, RatingActivity::class.java)
             startActivity(intent)
         }
+        binding.order.setOnClickListener {
+            startActivity(Intent(this.context, OrderActivity::class.java))
+        }
+        binding.signOut.setOnClickListener {
+            startActivity(Intent(this.context, LoginActivity::class.java))
+        }
         return binding.root
     }
+
+
 }

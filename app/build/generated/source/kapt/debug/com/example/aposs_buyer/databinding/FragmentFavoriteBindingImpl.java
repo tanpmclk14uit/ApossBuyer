@@ -16,8 +16,9 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.ln_about_us, 1);
         sViewsWithIds.put(R.id.title, 2);
-        sViewsWithIds.put(R.id.tab, 3);
-        sViewsWithIds.put(R.id.viewPager, 4);
+        sViewsWithIds.put(R.id.notification, 3);
+        sViewsWithIds.put(R.id.tab, 4);
+        sViewsWithIds.put(R.id.viewPager, 5);
     }
     // views
     @NonNull
@@ -28,14 +29,15 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentFavoriteBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds));
     }
     private FragmentFavoriteBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
             , (android.widget.LinearLayout) bindings[1]
-            , (com.google.android.material.tabs.TabLayout) bindings[3]
+            , (android.widget.ImageView) bindings[3]
+            , (com.google.android.material.tabs.TabLayout) bindings[4]
             , (android.widget.TextView) bindings[2]
-            , (androidx.viewpager2.widget.ViewPager2) bindings[4]
+            , (androidx.viewpager2.widget.ViewPager2) bindings[5]
             );
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
