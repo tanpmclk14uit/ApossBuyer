@@ -27,32 +27,10 @@ class RatingActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIte
         setContentView(binding.root)
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
-//        binding.bottomNavigation.selectedItemId = R.id.page_1
-
-//        binding.bottomNavigation.setOnNavigationItemReselectedListener {
-//            val navController = Navigation.findNavController(this, R.id.fragmentContainerView4)
-//                navController.setGraph(
-//                    R.navigation.navigation_rating
-//                )
-//            when(it.itemId) {
-//                com.example.aposs_buyer.R.id.item1 -> {
-//                    navController.navigate(R.id.ratedFragment)
-//                    true
-//                }
-//                com.example.aposs_buyer.R.id.item2 -> {
-//                    navController.navigate(R.id.rateNowFragment)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
 
-    private var ratedFragment =com.example.aposs_buyer.uicontroler.fragment.RatedFragment()
-    private var rateNowFragment = com.example.aposs_buyer.uicontroler.fragment.RateNowFragment()
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.fragmentContainerView4)
-        Toast.makeText(this, "ooooooooooooooooooooooooo", Toast.LENGTH_LONG).show()
         return when(item.itemId) {
                 com.example.aposs_buyer.R.id.page_1 -> {
                     navController.navigate(R.id.ratedFragment)

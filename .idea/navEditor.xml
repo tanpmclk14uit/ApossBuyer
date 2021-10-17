@@ -84,7 +84,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_cartSecondFragment_to_checkOutFragment2">
+                            <entry key="action_cartSecondFragment_to_checkOutFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -94,18 +94,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="checkOutDialogFragment2">
+                  <entry key="checkOutDialogFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-436" />
-                            <option name="y" value="225" />
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_checkOutDialogFragment2_to_finishCheckOutFragment2">
+                            <entry key="action_checkOutDialogFragment_to_finishCheckOutFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -115,18 +115,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="checkOutFragment2">
+                  <entry key="checkOutFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-201" />
-                            <option name="y" value="-88" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_checkOutFragment2_to_checkOutDialogFragment2">
+                            <entry key="action_checkOutFragment_to_checkOutDialogFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -136,13 +136,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="finishCheckOutFragment2">
+                  <entry key="finishCheckOutFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-696" />
-                            <option name="y" value="19" />
+                            <option name="x" value="500" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
