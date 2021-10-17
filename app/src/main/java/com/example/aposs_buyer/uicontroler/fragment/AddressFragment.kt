@@ -14,7 +14,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
-import com.example.aposs_buyer.databinding.DeletePermissionDialogBinding
 import com.example.aposs_buyer.databinding.FragmentAddressBinding
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
 import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity

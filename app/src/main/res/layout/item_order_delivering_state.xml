@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="orderDeliveringState"
+            type="com.example.aposs_buyer.model.OrderDeliveringState" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/start"
+            android:layout_marginStart="29dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/light_green"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="1dp"
+            android:layout_height="10dp"/>
+
+        <ImageView
+            android:id="@+id/stateIcon"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/bg_delivering_state"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:ellipsize="end"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toEndOf="@+id/stateIcon"
+            android:layout_alignParentEnd="true"
+            android:maxLines="2"
+            android:text="@{orderDeliveringState.title}"
+            android:textColor="@color/light_green"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toEndOf="@+id/stateIcon"
+            android:layout_below="@+id/title"
+            android:text="@{orderDeliveringState.timeString}"
+            android:textColor="@color/dark_pray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+        <View
+            android:id="@+id/stop"
+            android:layout_marginTop="41dp"
+            android:layout_marginStart="29dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/light_green"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+    </RelativeLayout>
+</layout>

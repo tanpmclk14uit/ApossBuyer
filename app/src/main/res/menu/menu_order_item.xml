@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/pending" android:id="@+id/pending" android:icon="@drawable/ic_order_pending" />
+    <item android:title="@string/confirmed" android:id="@+id/confirmed" android:icon="@drawable/ic_order_confirm" />
+    <item android:title="@string/delivering" android:id="@+id/delivering" android:icon="@drawable/ic_order_delivering" />
+    <item android:title="@string/pass_order" android:id="@+id/success" android:icon="@drawable/ic_order_pass" />
+    <item android:title="@string/cancel" android:id="@+id/cancel" android:icon="@drawable/ic_order_cancel"/>
+</menu>

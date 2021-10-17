@@ -23,6 +23,15 @@
             android:name=".uicontroler.activity.RatingActivity"
             android:exported="true" />
         <activity
+            android:name=".uicontroler.activity.OrderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".uicontroler.activity.NotificationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".uicontroler.activity.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".uicontroler.activity.AddressActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />

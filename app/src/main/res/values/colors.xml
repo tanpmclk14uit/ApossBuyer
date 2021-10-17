@@ -22,4 +22,5 @@
     <color name="border_color">#979797</color>
     <color name="person_color">#272422</color>
     <color name="edit_user_detail_color">#9D9EA3</color>
+    <color name="dark_blue">#022C43</color>
 </resources>

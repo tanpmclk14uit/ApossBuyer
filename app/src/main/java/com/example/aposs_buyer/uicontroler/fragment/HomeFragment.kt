@@ -14,10 +14,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
 import com.example.aposs_buyer.model.HomeProduct
+import com.example.aposs_buyer.model.Notification
 import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
 import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
 import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
@@ -104,7 +106,14 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         setUpIndicator()
         setUpViewPagerCallBack()
         setUpViewPagerAnimation()
+        setUpNotification()
         return binding.root
+    }
+    private fun setUpNotification(){
+        binding.notification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setUpIndicator() {

@@ -50,5 +50,61 @@
         <item>1 star</item>
     </string-array>
     <string name="my_details">My details</string>
+    <string name="slogan">Shopping for free</string>
+    <string name="do_not_have_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="or_sign_in_with">Or Sign In with</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="or_sign_up_with">Or Sign Up with</string>
+    <string name="full_name">Full name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="your_account_has_been_verified_successfully">Your Account \nHas Been Verified Successfully</string>
+    <string name="please_verify">Please verify</string>
+    <string name="your">your</string>
+    <string name="cell_number">Cell Number</string>
+    <string name="verify_content_text">Please enter the 4 digit verification\nCode sent to your cell number</string>
+    <string name="via_sms_message">via SMS message or</string>
+    <string name="change">
+        <u>
+            Change
+        </u>
+    </string>
+    <string name="your_number">your number.</string>
+    <string name="resend_otp">
+        <u>
+            Resend OTP
+        </u>
+    </string>
+    <string name="notify_time">7:17 10/10/2021</string>
+    <string name="see_now">See now</string>
+    <string name="notification">Notification</string>
+    <string name="my_orders">My orders</string>
+    <string name="pending">Pending</string>
+    <string name="delivering">Delivering</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="pass_order">Success</string>
+    <string name="tap_to_view_detail">Tap to view detail</string>
+    <string name="cancel_order">Cancel order</string>
+    <string name="order_time">Order time:</string>
+    <string name="status">Status:</string>
+    <string name="address">Address</string>
+    <string name="billing_items">Billing items</string>
+    <string name="total">Total:</string>
+    <string name="rating_now">Rating now</string>
+    <string name="order_detail">Order detail</string>
+    <string name="your_order_is_empty">Your order is empty</string>
+    <string name="go_to_buy_now">go to buy now!</string>
+    <string name="items">Items</string>
+    <string name="you_want_to">You want to</string>
+    <string name="order">order :(</string>
+    <string name="order_cancel_text">Please let us know reason\nto make future shopping experiences\nbetter for you.</string>
+    <string name="your_reason_here">Your reason here</string>
+    <string name="your_order_cancel_successfully">Your order cancel successfully</string>
+    <string name="order_confirm_text">We apologize for any\ninconvenience may was caused\nfor your experience</string>
+    <string name="continue_shopping">Continue shopping</string>
     <string name="check_out_policy">By placing your order you agree to our terms and conditions, privacy and returns policies and consent to some of your data being stored by Aposs which may be used to make future shopping experiences better for you.</string>
 </resources>
