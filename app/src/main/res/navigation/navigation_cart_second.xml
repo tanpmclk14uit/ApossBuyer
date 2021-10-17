@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_cart_second"
+    app:startDestination="@id/cartSecondFragment">
+
+    <fragment
+        android:id="@+id/cartSecondFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CartSecondFragment"
+        android:label="fragment_cart_second"
+        tools:layout="@layout/fragment_cart_second" >
+        <action
+            android:id="@+id/action_cartSecondFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutFragment"
+        android:label="CheckOutFragment" >
+        <action
+            android:id="@+id/action_checkOutFragment_to_checkOutDialogFragment"
+            app:destination="@id/checkOutDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/checkOutDialogFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutDialogFragment"
+        android:label="fragment_check_out_dialog"
+        tools:layout="@layout/fragment_check_out_dialog" >
+        <action
+            android:id="@+id/action_checkOutDialogFragment_to_finishCheckOutFragment"
+            app:destination="@id/finishCheckOutFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/finishCheckOutFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.FinishCheckOutFragment"
+        android:label="fragment_finish_check_out"
+        tools:layout="@layout/fragment_finish_check_out" >
+    </fragment>
+</navigation>

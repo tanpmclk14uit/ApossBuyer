@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.RankingProduct
+import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
 import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
 import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
 import com.example.aposs_buyer.uicontroler.activity.SearchActivity
@@ -92,6 +94,10 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         }
         binding.tietSearchBar.setOnClickListener {
             val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.lnAboutUs.setOnClickListener {
+            val intent = Intent(this.context, AboutUsActivity::class.java)
             startActivity(intent)
         }
         binding.lifecycleOwner = this

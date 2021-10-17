@@ -2,6 +2,8 @@ package com.example.aposs_buyer.uicontroler.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.aposs_buyer.R
@@ -35,7 +37,16 @@ class MainActivity : AppCompatActivity() {
         binding.meowBottomNavigation.show(3, true)
         binding.meowBottomNavigation.setOnClickMenuListener {
             val navController = Navigation.findNavController(this, R.id.navHostFragment)
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if(destination.id == R.id.checkOutFragment || destination.id == R.id.finishCheckOutFragment|| destination.id == R.id.checkOutDialogFragment) {
+                    binding.meowBottomNavigation.visibility = View.GONE
+                } else {
+
+                    binding.meowBottomNavigation.visibility = View.VISIBLE
+                }
+            }
             navController.navigateUp()
+
             when(it.id){
                 1 -> {
                     navController.navigate(R.id.favoriteFragment)
@@ -54,5 +65,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 }

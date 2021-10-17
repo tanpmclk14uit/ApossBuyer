@@ -17,6 +17,7 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.DeletePermissionDialogBinding
 import com.example.aposs_buyer.databinding.FragmentAddressBinding
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
+import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.AddressAdapter
 import com.example.aposs_buyer.viewmodel.AddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,7 +65,7 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
             requireActivity().onBackPressed()
         }
         binding.clCart.setOnClickListener {
-            val intent = Intent(this.context, AddressActivity::class.java)
+            val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)
         }
     }

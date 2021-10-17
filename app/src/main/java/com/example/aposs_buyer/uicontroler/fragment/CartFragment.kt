@@ -20,13 +20,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.widget.Toast
 
 import android.app.ListActivity
+import android.content.Intent
 import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 
 import androidx.recyclerview.widget.ItemTouchHelper
-
-
+import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
 
 
 @AndroidEntryPoint
@@ -47,6 +47,10 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         binding.rcCart.layoutManager = LinearLayoutManager(binding.rcCart.context, LinearLayoutManager.VERTICAL, false)
         binding.btnGoToCheckOut.setOnClickListener {
             findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckOutFragment())
+        }
+        binding.lnAboutUs.setOnClickListener {
+            val intent = Intent(this.context, AboutUsActivity::class.java)
+            startActivity(intent)
         }
         viewModel.size.observe(viewLifecycleOwner, Observer {
             if (it==0) {

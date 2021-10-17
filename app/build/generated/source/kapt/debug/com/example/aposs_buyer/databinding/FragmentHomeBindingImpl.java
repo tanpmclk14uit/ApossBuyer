@@ -20,9 +20,10 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         sViewsWithIds.put(R.id.cardView2, 14);
         sViewsWithIds.put(R.id.cardView, 15);
         sViewsWithIds.put(R.id.more, 16);
-        sViewsWithIds.put(R.id.title, 17);
-        sViewsWithIds.put(R.id.search_bar, 18);
-        sViewsWithIds.put(R.id.tiet_search_bar, 19);
+        sViewsWithIds.put(R.id.ln_about_us, 17);
+        sViewsWithIds.put(R.id.title, 18);
+        sViewsWithIds.put(R.id.search_bar, 19);
+        sViewsWithIds.put(R.id.tiet_search_bar, 20);
     }
     // views
     @NonNull
@@ -35,7 +36,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 20, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 21, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 7
@@ -45,15 +46,16 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (android.widget.TextView) bindings[3]
             , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
+            , (android.widget.LinearLayout) bindings[17]
             , (android.widget.TextView) bindings[16]
             , (androidx.recyclerview.widget.RecyclerView) bindings[10]
             , (android.widget.TextView) bindings[13]
             , (me.relex.circleindicator.CircleIndicator3) bindings[9]
             , (androidx.viewpager2.widget.ViewPager2) bindings[7]
             , (android.widget.RatingBar) bindings[6]
-            , (com.google.android.material.textfield.TextInputLayout) bindings[18]
-            , (com.google.android.material.textfield.TextInputEditText) bindings[19]
-            , (android.widget.TextView) bindings[17]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[19]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[20]
+            , (android.widget.TextView) bindings[18]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]
             , (android.widget.TextView) bindings[12]

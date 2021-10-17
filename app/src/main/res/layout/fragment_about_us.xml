@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aposs_buyer.viewmodel.AboutUsViewModel" />
+    </data>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:background="@drawable/bg_about_us"
+    tools:context=".uicontroler.fragment.AboutUsFragment">
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/aposs_name"
+        android:layout_gravity="top|left"/>
+    <LinearLayout
+        android:layout_marginTop="115dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="196dp"
+        android:shadowColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+        <!--Put automatic page view here-->
+        <androidx.viewpager2.widget.ViewPager2
+            detailCategoryImages="@{viewModel.listImage}"
+            android:id="@+id/imageViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            indicatorSize="@{viewModel.listImage.size()}"
+            app:ci_drawable="@drawable/bg_cycle_indicator"
+            app:ci_drawable_unselected="@drawable/bg_cycle_unselected_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_marginTop="240dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="35dp"
+        android:elevation="12dp"
+        android:background="@drawable/bg_information_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Application provide online"
+            android:textColor="#5D5E60"
+            android:textSize="21dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="shopping service"
+            android:textColor="#5D5E60"
+            android:textSize="21dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address:"
+            android:textStyle="bold"
+            android:textColor="#5D5E60"
+            android:textSize="14dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C1: 128/2 LA galaxy, Ben Luc, Long An"
+            android:textColor="#5D5E60"
+            android:textSize="14dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C2: 111/8 Cau Giay, Dong Anh, Ha Noi "
+            android:textColor="#5D5E60"
+            android:textSize="14dp"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:textStyle="bold"
+                android:textColor="#5D5E60"
+                android:textSize="14dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email@gmail.com"
+                android:textColor="#5D5E60"
+                android:textSize="14dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone number: "
+                android:textStyle="bold"
+                android:textColor="#5D5E60"
+                android:textSize="14dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 0123 456 789"
+                android:textColor="#5D5E60"
+                android:textSize="14dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facebook: "
+                android:textStyle="bold"
+                android:textColor="#5D5E60"
+                android:textSize="14dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="facebook.com/aposs"
+                android:textColor="#5D5E60"
+                android:textSize="14dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_back_to_before"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/bg_btn_back_about_us">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_about_us"/>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

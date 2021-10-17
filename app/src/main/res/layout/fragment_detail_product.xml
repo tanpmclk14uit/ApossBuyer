@@ -51,6 +51,7 @@
                         android:src="@drawable/ic_logo_green" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_cart"
                         android:layout_width="27dp"
                         android:layout_height="27dp"
                         android:layout_alignParentEnd="true"

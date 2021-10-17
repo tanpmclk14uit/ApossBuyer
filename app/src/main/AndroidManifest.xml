@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apossbuyer">
         <activity
+            android:name=".uicontroler.activity.CartSecondActivity"
+            android:exported="true" />
+        <activity
+            android:name=".uicontroler.activity.AboutUsActivity"
+            android:exported="true" />
+        <activity
             android:name=".uicontroler.activity.RatingActivity"
             android:exported="true" />
         <activity

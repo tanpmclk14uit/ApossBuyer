@@ -14,10 +14,11 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.title, 3);
-        sViewsWithIds.put(R.id.empty_cart, 4);
-        sViewsWithIds.put(R.id.fullfill_cart, 5);
-        sViewsWithIds.put(R.id.btn_go_to_check_out, 6);
+        sViewsWithIds.put(R.id.ln_about_us, 3);
+        sViewsWithIds.put(R.id.title, 4);
+        sViewsWithIds.put(R.id.empty_cart, 5);
+        sViewsWithIds.put(R.id.fullfill_cart, 6);
+        sViewsWithIds.put(R.id.btn_go_to_check_out, 7);
     }
     // views
     @NonNull
@@ -67,15 +68,16 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     };
 
     public FragmentCartBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds));
     }
     private FragmentCartBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
-            , (android.widget.Button) bindings[6]
-            , (androidx.core.widget.NestedScrollView) bindings[4]
+            , (android.widget.Button) bindings[7]
             , (androidx.core.widget.NestedScrollView) bindings[5]
+            , (androidx.core.widget.NestedScrollView) bindings[6]
+            , (android.widget.LinearLayout) bindings[3]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
-            , (android.widget.TextView) bindings[3]
+            , (android.widget.TextView) bindings[4]
             );
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];
         this.mboundView0.setTag(null);
