@@ -3,6 +3,7 @@ package com.example.aposs_buyer.model
 import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.text.DecimalFormat
 
 @Parcelize
 data class CartItem(
@@ -16,7 +17,9 @@ data class CartItem(
 ):Parcelable
 {
     fun getPriceFormat(): String{
-        return "$$price"
+        val formatter = DecimalFormat("#,###")
+        val formattedNumber: String = formatter.format(price)
+        return "$formattedNumber VNĐ"
     }
 
     fun getAmountFormat():String{

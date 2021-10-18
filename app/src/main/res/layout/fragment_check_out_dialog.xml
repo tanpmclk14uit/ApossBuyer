@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/check_out_dialog"
-    tools:context=".uicontroler.fragment.CheckOutDialogFragment">
+    android:id="@+id/check_out_dialog">
     <data>
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.CartViewModel" />
     </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_pray"
+        tools:context=".uicontroler.fragment.CheckOutDialogFragment">
     <LinearLayout
         android:paddingHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_ln_bottom_address"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
@@ -129,4 +134,5 @@
             android:lineSpacingExtra="6dp"
             android:text="@string/check_out_policy"/>
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

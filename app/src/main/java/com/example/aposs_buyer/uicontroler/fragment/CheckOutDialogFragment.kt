@@ -31,7 +31,7 @@ class CheckOutDialogFragment : BottomSheetDialogFragment() {
     private val viewModel: CartViewModel by activityViewModels()
     private val checkOutAdapter=  CheckOutDialogAdapter()
 
-    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+//    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -27,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 
 
 @AndroidEntryPoint
@@ -50,6 +52,18 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         }
         binding.lnAboutUs.setOnClickListener {
             val intent = Intent(this.context, AboutUsActivity::class.java)
+            startActivity(intent)
+        }
+        binding.imgNotification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+        binding.searchBar.setOnClickListener {
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tietSearchBar.setOnClickListener {
+            val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }
         viewModel.size.observe(viewLifecycleOwner, Observer {

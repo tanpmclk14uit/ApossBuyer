@@ -19,7 +19,7 @@ class SearchViewModel @Inject constructor(): ViewModel() {
 
     init {
         _listForTestSearch.value = loadListTestSearch()
-        listForDisplay.value = mutableListOf()
+        listForDisplay.value = _listForTestSearch.value
     }
 
     fun addToFavorite(product: HomeProduct) {
@@ -30,7 +30,7 @@ class SearchViewModel @Inject constructor(): ViewModel() {
         //remove from favorite in db
     }
 
-    fun changeListDispaly()
+    fun changeListDisplay()
     {
         listForDisplay.value = mutableListOf<HomeProduct>()
         for (i in 0 until _listForTestSearch.value!!.size)

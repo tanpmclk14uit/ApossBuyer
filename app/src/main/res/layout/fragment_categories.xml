@@ -66,11 +66,13 @@
 
                         <ImageView
                             android:id="@+id/img_back"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
                             android:layout_alignParentStart="true"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_back_categories" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/image"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_back_white"/>
 
                         <TextView
                             android:id="@+id/title"
@@ -85,6 +87,7 @@
                             android:textStyle="bold" />
 
                         <androidx.coordinatorlayout.widget.CoordinatorLayout
+                            android:id="@+id/cl_cart"
                             android:layout_width="33dp"
                             android:layout_height="30dp"
                             android:layout_marginTop="5dp"
@@ -110,6 +113,7 @@
                         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:layout_marginTop="9dp"
                             android:id="@+id/search_bar"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
@@ -152,38 +156,37 @@
                                 android:layout_marginEnd="10dp"
                                 android:text="Sort by:"
                                 android:textColor="@color/white"
-                                android:textSize="15dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
                             <androidx.appcompat.widget.AppCompatButton
-                                android:layout_width="55dp"
+                                android:layout_width="46dp"
                                 android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
+                                android:layout_marginEnd="8dp"
                                 android:background="@drawable/bg_btn_filter"
                                 android:text="Rating"
                                 android:textAllCaps="false"
                                 android:textColor="@color/white"
-                                android:textSize="15dp" />
+                                android:textSize="13dp" />
 
                             <androidx.appcompat.widget.AppCompatButton
-                                android:layout_width="79dp"
+                                android:layout_width="69dp"
                                 android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
+                                android:layout_marginEnd="8dp"
                                 android:background="@drawable/bg_btn_filter"
                                 android:text="Purchased"
                                 android:textAllCaps="false"
                                 android:textColor="@color/white"
-                                android:textSize="15dp" />
+                                android:textSize="13dp" />
 
                             <androidx.appcompat.widget.AppCompatButton
-                                android:layout_width="60dp"
+                                android:layout_width="55dp"
                                 android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
                                 android:background="@drawable/bg_btn_filter"
                                 android:text="Product"
                                 android:textAllCaps="false"
                                 android:textColor="@color/white"
-                                android:textSize="15dp" />
+                                android:textSize="13dp" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -195,7 +198,6 @@
                 android:layout_marginTop="200dp"
                 android:paddingHorizontal="20dp">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginHorizontal="20dp"
                     android:id="@+id/rc_category"
                     android:layout_width="match_parent"
                     detailCategories="@{viewModel.lstCategory}"

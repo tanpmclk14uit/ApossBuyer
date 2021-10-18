@@ -32,6 +32,7 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RateImage
+import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 
 
 @AndroidEntryPoint
@@ -63,6 +64,10 @@ class RatingFragment : Fragment() {
         }
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+        binding.clCart.setOnClickListener {
+            val intent = Intent(this.context, CartSecondActivity::class.java)
+            startActivity(intent)
         }
         return binding.root
     }

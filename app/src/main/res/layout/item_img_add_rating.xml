@@ -6,8 +6,8 @@
             type="com.example.aposs_buyer.model.RateImage" />
     </data>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="99dp"
+        android:layout_height="99dp"
         android:layout_marginRight="8dp">
         <ImageView
             imagesPath="@{rateImage.rateImage.uriRoot}"

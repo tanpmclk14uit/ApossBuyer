@@ -8,14 +8,17 @@
             type="com.example.aposs_buyer.viewmodel.AddressDialogViewModel" />
     </data>
 
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_pray"
+        tools:context=".uicontroler.fragment.ActivityDialogFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/bg_ln_bottom_address"
-        android:paddingHorizontal="18dp"
-        tools:context=".uicontroler.fragment.ActivityDialogFragment">
+        android:paddingHorizontal="18dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_marginTop="25dp"
@@ -28,7 +31,7 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="@{viewModel.address.name}"
+            android:text="@={viewModel.name}"
             android:textSize="16dp"
             android:paddingStart="15dp"
             android:maxLines="1"
@@ -53,7 +56,7 @@
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="@{viewModel.address.phoneNumber}"
+            android:text="@={viewModel.cellNumber}"
             android:textSize="16dp"
             android:paddingStart="15dp"
             android:maxLines="1"
@@ -222,4 +225,5 @@
             android:textAllCaps="false"
             android:textStyle="bold"/>
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
