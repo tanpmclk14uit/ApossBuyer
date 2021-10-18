@@ -1,54 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="rateNowItem"
             type="com.example.aposs_buyer.model.RateNowItem" />
     </data>
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_rated_item"
-        android:layout_marginBottom="10dp"
-        android:paddingHorizontal="20dp">
-        <ImageView
-            android:layout_width="63dp"
-            android:layout_height="63dp"
-            image="@{rateNowItem.image.imageUri}"
-            android:layout_gravity="center" />
-        <LinearLayout
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp">
-            <TextView
-                android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="7dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{rateNowItem.name}"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:textColor="#272422"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{rateNowItem.property}"
-                android:textSize="12dp"
-                android:textColor="#262626"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:textColor="#060DD9"
-                android:textStyle="bold"
-                android:text="@{rateNowItem.priceFormat}" />
-                <TextView
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="wrap_content"
+                android:paddingHorizontal="20dp">
+
+                <ImageView
+                    image="@{rateNowItem.image.imageUri}"
+                    android:layout_width="63dp"
+                    android:layout_height="63dp"
+                    android:layout_gravity="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{rateNowItem.amountFormat}"
-                    android:textSize="12dp"
-                    android:textColor="#262626"/>
-        </LinearLayout>
-    </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{rateNowItem.name}"
+                        android:textColor="#272422"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{rateNowItem.property}"
+                        android:textColor="#262626"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{rateNowItem.priceFormat}"
+                        android:textColor="#060DD9"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{rateNowItem.amountFormat}"
+                        android:textColor="#262626"
+                        android:textSize="12dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -18,6 +18,8 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCartBinding
 import com.example.aposs_buyer.databinding.FragmentCartSecondBinding
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
+import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +42,13 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
         binding.rcCart.layoutManager = LinearLayoutManager(binding.rcCart.context, LinearLayoutManager.VERTICAL, false)
         binding.btnGoToCheckOut.setOnClickListener {
             findNavController().navigate(CartSecondFragmentDirections.actionCartSecondFragmentToCheckOutFragment())
+        }
+        binding.imgBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.imgNotification.setOnClickListener {
+                val intent = Intent(this.context, NotificationActivity::class.java)
+                startActivity(intent)
         }
         viewModel.size.observe(viewLifecycleOwner, Observer {
             if (it==0) {

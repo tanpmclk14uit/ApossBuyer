@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -30,7 +31,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private val viewModel: AddressDialogViewModel by viewModels()
     private val args: AddressDialogFragmentArgs by navArgs()
 
-    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    //override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,16 +40,33 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
         viewModel.address.value = args.defaultAddress
+
+        setOnChange()
+        checkButtonMatchDialog()
+
+        binding.btnEditAddAddress.setOnClickListener {
+            onClickEditOrAdd()
+        }
+        onAddNewAddress()
+        setCheckingCellPhone()
+        setCheckingName()
+        return binding.root
+    }
+
+    private fun checkButtonMatchDialog()
+    {
         if( args.defaultAddress.id == 0L) {
             binding.btnEditAddAddress.text = "Add new address"
         }
         else binding.btnEditAddAddress.text = "Edit"
-        setOnChange()
         if (binding.btnEditAddAddress.text == "Edit") binding.btnEditAddAddress.isEnabled = false
-        binding.btnEditAddAddress.setOnClickListener {
-            onClickEditOrAdd()
-        }
-        return binding.root
+    }
+
+    private fun addGenderList()
+    {
+        val genderList = listOf("Male", "Female")
+        val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
+        binding.actvGender.setAdapter(genderAdapter)
     }
 
     private fun onAddNewAddress()
@@ -92,6 +110,20 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun havingLegalToClick(isLegal: Boolean)
     {
         binding.btnEditAddAddress.isEnabled =  isLegal
+    }
+
+    private fun setCheckingName(){
+        viewModel.name.observe(this.viewLifecycleOwner,{
+            viewModel.isValidName()
+            binding.etName.error = viewModel.nameErrorMessage
+        })
+    }
+
+    private fun setCheckingCellPhone(){
+        viewModel.cellNumber.observe(this.viewLifecycleOwner,{
+            viewModel.isValidPhoneNumber()
+            binding.etPhone.error = viewModel.cellNumberErrorMessage
+        })
     }
 
     fun setOnChange() {

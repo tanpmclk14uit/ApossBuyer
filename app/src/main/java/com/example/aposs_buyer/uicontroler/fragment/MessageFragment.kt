@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentMessageBinding
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
+import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.MessageAdapter
 import com.example.aposs_buyer.viewmodel.MessageViewModel
 
@@ -48,8 +50,18 @@ class MessageFragment : Fragment() {
             val intent = Intent(this.context, AboutUsActivity::class.java)
             startActivity(intent)
         }
+        binding.imgNotification.setOnClickListener {
+            val intent = Intent(this.context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+        binding.searchBar.setOnClickListener {
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tietSearchBar.setOnClickListener {
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+        }
         return binding.root
     }
-
-
 }

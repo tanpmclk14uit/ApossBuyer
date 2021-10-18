@@ -14,11 +14,13 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.notification, 5);
-        sViewsWithIds.put(R.id.ln_about_us, 6);
-        sViewsWithIds.put(R.id.title, 7);
-        sViewsWithIds.put(R.id.ln_message, 8);
-        sViewsWithIds.put(R.id.messageBox, 9);
+        sViewsWithIds.put(R.id.search_bar, 5);
+        sViewsWithIds.put(R.id.tiet_search_bar, 6);
+        sViewsWithIds.put(R.id.img_notification, 7);
+        sViewsWithIds.put(R.id.ln_about_us, 8);
+        sViewsWithIds.put(R.id.title, 9);
+        sViewsWithIds.put(R.id.ln_message, 10);
+        sViewsWithIds.put(R.id.messageBox, 11);
     }
     // views
     @NonNull
@@ -72,17 +74,19 @@ public class FragmentMessageBindingImpl extends FragmentMessageBinding implement
     };
 
     public FragmentMessageBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 10, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 12, sIncludes, sViewsWithIds));
     }
     private FragmentMessageBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
-            , (android.widget.LinearLayout) bindings[6]
+            , (android.widget.ImageView) bindings[7]
             , (android.widget.LinearLayout) bindings[8]
-            , (android.widget.LinearLayout) bindings[9]
-            , (android.widget.ImageView) bindings[5]
+            , (android.widget.LinearLayout) bindings[10]
+            , (android.widget.LinearLayout) bindings[11]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[5]
             , (android.widget.ImageView) bindings[4]
-            , (android.widget.TextView) bindings[7]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[6]
+            , (android.widget.TextView) bindings[9]
             );
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);

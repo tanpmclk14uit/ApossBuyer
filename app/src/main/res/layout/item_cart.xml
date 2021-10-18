@@ -94,27 +94,33 @@
                         android:orientation="horizontal"
                         android:paddingVertical="4dp"
                         tools:ignore="RtlHardcoded">
-
-                        <ImageView
+                        <LinearLayout
                             android:id="@+id/img_minus"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="15dp"
-                            android:src="@drawable/ic_minus" />
+                            android:layout_height="wrap_content">
+                        <ImageView
 
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:src="@drawable/ic_minus" />
+                        </LinearLayout>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
                             android:text="@{String.valueOf(cartItem.amount)}"
                             android:textSize="16dp" />
-
-                        <ImageView
+                        <LinearLayout
                             android:id="@+id/img_plus"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginHorizontal="10dp"
                             android:src="@drawable/ic_plus" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
