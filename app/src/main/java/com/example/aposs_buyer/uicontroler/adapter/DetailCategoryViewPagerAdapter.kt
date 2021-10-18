@@ -8,9 +8,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemViewPagerDetailCategoryBinding
+import com.example.aposs_buyer.model.DetailCategory
 import com.example.aposs_buyer.model.Image
 
-class DetailCategoryViewPagerAdapter: ListAdapter<Image, DetailCategoryViewPagerAdapter.DetailCategoryViewPagerViewHolder>(DiffCallBack) {
+class DetailCategoryViewPagerAdapter(var clickListener: DetailCategoryAdapter.ClickListener): ListAdapter<Image, DetailCategoryViewPagerAdapter.DetailCategoryViewPagerViewHolder>(DiffCallBack) {
+
+    var detailCategory =  DetailCategory(0, "", 0, 0,0f, mutableListOf())
+
+    interface ImageClickListener{
+        fun onImageClick()
+    }
 
     class DetailCategoryViewPagerViewHolder(val binding: ItemViewPagerDetailCategoryBinding): RecyclerView.ViewHolder(binding.root)
     {
@@ -43,5 +50,8 @@ class DetailCategoryViewPagerAdapter: ListAdapter<Image, DetailCategoryViewPager
 
     override fun onBindViewHolder(holder: DetailCategoryViewPagerViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(detailCategory.id, detailCategory.name)
+        }
     }
 }
