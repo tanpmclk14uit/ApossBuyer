@@ -11,11 +11,14 @@
         android:name="com.example.aposs_buyer.uicontroler.fragment.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_detailProductFragment2"
-            app:destination="@id/detailProductFragment2" />
+            android:id="@+id/action_homeFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
         <action
             android:id="@+id/action_homeFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_kindFragment"
+            app:destination="@id/kindFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_favorite"
@@ -84,4 +87,32 @@
         android:id="@+id/aboutUsFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.AboutUsFragment"
         android:label="AboutUsFragment" />
+    <fragment
+        android:id="@+id/kindFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.KindFragment"
+        android:label="KindFragment" >
+        <argument
+            android:name="category_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="category_name"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_kindFragment_to_productOfKindFragment"
+            app:destination="@id/productOfKindFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productOfKindFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.ProductOfKindFragment"
+        android:label="ProductOfKindFragment" >
+        <argument
+            android:name="kind_id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="kind_name"
+            app:argType="string" />
+    </fragment>
 </navigation>

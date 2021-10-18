@@ -16,15 +16,16 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.categories, 11);
         sViewsWithIds.put(R.id.tv_showAllCategory, 12);
-        sViewsWithIds.put(R.id.ranking, 13);
-        sViewsWithIds.put(R.id.cardView2, 14);
-        sViewsWithIds.put(R.id.cardView, 15);
-        sViewsWithIds.put(R.id.more, 16);
-        sViewsWithIds.put(R.id.ln_about_us, 17);
-        sViewsWithIds.put(R.id.title, 18);
-        sViewsWithIds.put(R.id.search_bar, 19);
-        sViewsWithIds.put(R.id.tiet_search_bar, 20);
-        sViewsWithIds.put(R.id.notification, 21);
+        sViewsWithIds.put(R.id.cl_category, 13);
+        sViewsWithIds.put(R.id.ranking, 14);
+        sViewsWithIds.put(R.id.cardView2, 15);
+        sViewsWithIds.put(R.id.cardView, 16);
+        sViewsWithIds.put(R.id.more, 17);
+        sViewsWithIds.put(R.id.ln_about_us, 18);
+        sViewsWithIds.put(R.id.title, 19);
+        sViewsWithIds.put(R.id.search_bar, 20);
+        sViewsWithIds.put(R.id.tiet_search_bar, 21);
+        sViewsWithIds.put(R.id.notification, 22);
     }
     // views
     @NonNull
@@ -37,27 +38,28 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 22, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 23, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 7
+            , (androidx.cardview.widget.CardView) bindings[16]
             , (androidx.cardview.widget.CardView) bindings[15]
-            , (androidx.cardview.widget.CardView) bindings[14]
             , (android.widget.TextView) bindings[11]
             , (android.widget.TextView) bindings[3]
+            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[13]
             , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
-            , (android.widget.LinearLayout) bindings[17]
-            , (android.widget.TextView) bindings[16]
-            , (android.widget.ImageView) bindings[21]
+            , (android.widget.LinearLayout) bindings[18]
+            , (android.widget.TextView) bindings[17]
+            , (android.widget.ImageView) bindings[22]
             , (androidx.recyclerview.widget.RecyclerView) bindings[10]
-            , (android.widget.TextView) bindings[13]
+            , (android.widget.TextView) bindings[14]
             , (me.relex.circleindicator.CircleIndicator3) bindings[9]
             , (androidx.viewpager2.widget.ViewPager2) bindings[7]
             , (android.widget.RatingBar) bindings[6]
-            , (com.google.android.material.textfield.TextInputLayout) bindings[19]
-            , (com.google.android.material.textfield.TextInputEditText) bindings[20]
-            , (android.widget.TextView) bindings[18]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[20]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[21]
+            , (android.widget.TextView) bindings[19]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]
             , (android.widget.TextView) bindings[12]

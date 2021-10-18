@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
+import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Notification
 import com.example.aposs_buyer.model.RankingProduct
@@ -32,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : HomeProductAdapter.FavoriteInterface,
-    RankingViewPagerAdapter.FavoriteInterface, Fragment() {
+    RankingViewPagerAdapter.FavoriteInterface, Fragment(), CategoriesViewPagerAdapter.OnClickListener {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -74,7 +75,7 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
-        binding.imageViewPager.adapter = CategoriesViewPagerAdapter()
+        binding.imageViewPager.adapter = CategoriesViewPagerAdapter(this)
         binding.rankingViewPager.adapter =
             RankingViewPagerAdapter(this, RankingViewPagerAdapter.OnClickListener {
                 val intent = Intent(this.context, DetailProductActivity::class.java)
@@ -101,6 +102,9 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         binding.lnAboutUs.setOnClickListener {
             val intent = Intent(this.context, AboutUsActivity::class.java)
             startActivity(intent)
+        }
+        binding.clCategory.setOnClickListener {
+            onNavigateToKind()
         }
         binding.lifecycleOwner = this
         setUpIndicator()
@@ -187,6 +191,15 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
 
     override fun removeFromFavorite(product: RankingProduct) {
         viewModel.removeFavoriteProduct(product.id)
+    }
+
+    fun onNavigateToKind()
+    {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToKindFragment(viewModel.displayCategory.value!!.id, viewModel.displayCategory.value!!.name))
+    }
+
+    override fun onClick() {
+        onNavigateToKind()
     }
 
 }

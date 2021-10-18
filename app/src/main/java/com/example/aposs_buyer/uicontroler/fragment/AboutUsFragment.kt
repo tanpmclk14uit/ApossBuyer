@@ -11,16 +11,17 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAboutUsBinding
+import com.example.aposs_buyer.uicontroler.adapter.DetailCategoryAdapter
 import com.example.aposs_buyer.uicontroler.adapter.DetailCategoryViewPagerAdapter
 import com.example.aposs_buyer.viewmodel.AboutUsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AboutUsFragment : Fragment() {
+class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
 
     private val viewModel: AboutUsViewModel by viewModels()
     private lateinit var binding: FragmentAboutUsBinding
-    private val detailCategoryViewPagerAdapter = DetailCategoryViewPagerAdapter()
+    private val detailCategoryViewPagerAdapter = DetailCategoryViewPagerAdapter(this)
     private var categoriesLeftToRight: Boolean = true
     private val mHandler: Handler = Handler()
     private val categoriesRunnable: Runnable = Runnable() {
@@ -69,5 +70,9 @@ class AboutUsFragment : Fragment() {
                 mHandler.postDelayed(categoriesRunnable, 4000)
             }
         })
+    }
+
+    override fun onClick(id: Long, name: String) {
+
     }
 }

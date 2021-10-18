@@ -12,9 +12,12 @@ import com.example.aposs_buyer.databinding.ItemViewPaperCategoriesBinding
 import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.Image
 
-class CategoriesViewPagerAdapter :
+class CategoriesViewPagerAdapter(val onClickListener: OnClickListener) :
     ListAdapter<Category, CategoriesViewPagerAdapter.CategoryViewHolder>(DiffCallBack) {
 
+    interface OnClickListener{
+        fun onClick()
+    }
 
     companion object DiffCallBack : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
@@ -46,5 +49,8 @@ class CategoriesViewPagerAdapter :
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val currentCategory = getItem(position)
         holder.bind(currentCategory.mainImage)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick()
+        }
     }
 }
