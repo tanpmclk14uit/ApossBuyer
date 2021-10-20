@@ -7,7 +7,7 @@
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.UserDetailViewModel" />
     </data>
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_main"
@@ -70,12 +70,13 @@
                             >
 
                             <ImageView
+                                android:layout_centerVertical="true"
                                 android:id="@+id/img_back"
-                                android:layout_width="38dp"
-                                android:layout_height="38dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:contentDescription="@string/image"
-                                android:src="@drawable/ic_back_detail" />
+                                android:src="@drawable/ic_back_white" />
                             <TextView
                                 android:id="@+id/title"
                                 android:layout_width="wrap_content"
@@ -301,5 +302,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </ScrollView>
-</FrameLayout>
+</RelativeLayout>
 </layout>

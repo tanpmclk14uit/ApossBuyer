@@ -3,6 +3,7 @@ package com.example.aposs_buyer.uicontroler.fragment
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Person
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,7 @@ import com.example.aposs_buyer.viewmodel.UserDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import com.example.aposs_buyer.model.Person.convert
+import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
@@ -35,7 +37,7 @@ class UserDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_user_detail, container, false)
@@ -58,11 +60,11 @@ class UserDetailFragment : Fragment() {
         }
 
         binding.imgBack.setOnClickListener {
-
+            this.requireActivity().onBackPressed()
         }
 
         binding.imgCart.setOnClickListener {
-
+            startActivity(Intent(this.context, CartSecondActivity::class.java))
         }
         return binding.root
     }
@@ -73,7 +75,7 @@ class UserDetailFragment : Fragment() {
         val year = calendar[Calendar.YEAR]
         var month = calendar[Calendar.MONTH]
         val day = calendar[Calendar.DAY_OF_MONTH]
-        month = month +1
+        month += 1
         return makeStringDate(year, month, day)
     }
     fun initDatePicker()

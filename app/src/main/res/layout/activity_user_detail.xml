@@ -7,15 +7,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".uicontroler.activity.UserDetailActivity">
-    <fragment
-        app:defaultNavHost= "true"
-        android:id="@+id/navUserDetail"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView7"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph ="@navigation/navigation_user_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_user_detail"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,9 +16,6 @@ class UserDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val navController = Navigation.findNavController(this, R.id.navUserDetail)
-        navController.navigateUp()
-        navController.navigate(R.id.userDetailFragment)
     }
 
     override fun onBackPressed() {

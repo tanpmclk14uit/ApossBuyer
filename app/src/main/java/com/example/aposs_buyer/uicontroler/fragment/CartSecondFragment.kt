@@ -97,7 +97,6 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
     }
 
     override fun onChose(position: Int) {
-        Log.i("viewModel", viewModel.lstCartItem.value!![position].isChoose.toString())
         viewModel.setNewChose()
         viewModel.reCalculateTotal()
         viewModel.setChoseSize()

@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_w"
         android:supportsRtl="true"
         android:theme="@style/Theme.Apossbuyer">
+        <activity android:name=".uicontroler.activity.UserDetailActivity"/>
         <activity
             android:name=".uicontroler.activity.CartSecondActivity"
             android:exported="true" />
