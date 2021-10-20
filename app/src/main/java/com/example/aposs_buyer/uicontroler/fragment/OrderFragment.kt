@@ -15,12 +15,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentOrderBinding
 import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
+import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.uicontroler.adapter.OrderAdapter
 import com.example.aposs_buyer.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderFragment : Fragment() {
+class OrderFragment  : Fragment(), OrderAdapter.OrderInterface {
 
     private lateinit var binding: FragmentOrderBinding
 
@@ -37,7 +38,7 @@ class OrderFragment : Fragment() {
         orderAdapter = OrderAdapter(OrderAdapter.OnClickListener{
             toOrderDetail(it.id)
             viewModel.setCurrentOrder(it)
-        })
+        }, this)
         binding.orders.adapter = orderAdapter
         setBottomBar()
         onCurrentOrderChange()
@@ -95,6 +96,10 @@ class OrderFragment : Fragment() {
 
             return@setOnItemSelectedListener true
         }
+    }
+
+    override fun onRatingNowClick() {
+        startActivity(Intent(this.context, RatingActivity::class.java))
     }
 
 }

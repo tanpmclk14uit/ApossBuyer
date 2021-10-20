@@ -20,10 +20,10 @@ class NotificationViewModel @Inject constructor(): ViewModel() {
     }
     private fun loadNotifications(): ArrayList<Notification>{
         val sampleNotification: ArrayList<Notification> = ArrayList()
-        sampleNotification.add(Notification("Your order is delivering", "Delivering line text string with two actions. One to two lines is preferable on mobile.", Date()))
-        sampleNotification.add(Notification("Your order is confirmed", "Confirmed line text string with two actions. One to two lines is preferable on mobile.", Date()))
-        sampleNotification.add(Notification("Your order is finish", "Finish line text string with two actions. One to two lines is preferable on mobile.", Date()))
-        sampleNotification.add(Notification("Your order is delivering", "Second Delivering line text string with two actions. One to two lines is preferable on mobile.", Date()))
+        sampleNotification.add(Notification(1,"Your order is delivering", "Delivering line text string with two actions. One to two lines is preferable on mobile.", Date()))
+        sampleNotification.add(Notification(2,"Your order is confirmed", "Confirmed line text string with two actions. One to two lines is preferable on mobile.", Date()))
+        sampleNotification.add(Notification(3,"Your order is finish", "Finish line text string with two actions. One to two lines is preferable on mobile.", Date()))
+        sampleNotification.add(Notification(4, "Your order is delivering", "Second Delivering line text string with two actions. One to two lines is preferable on mobile.", Date()))
         return sampleNotification
     }
 }

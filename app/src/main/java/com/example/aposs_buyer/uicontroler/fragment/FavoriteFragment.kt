@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentFavoriteBinding
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.FavoriteFragmentViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -39,6 +40,9 @@ class FavoriteFragment : Fragment() {
                 tab.text ="Available"
             }
         }.attach()
+        binding.search.setOnClickListener {
+            startActivity(Intent(this.context, SearchActivity::class.java))
+        }
         return binding.root
     }
 }

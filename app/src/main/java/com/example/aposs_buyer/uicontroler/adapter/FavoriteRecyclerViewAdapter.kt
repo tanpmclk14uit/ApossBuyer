@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemFavoriteBinding
 import com.example.aposs_buyer.model.FavoriteProduct
 
-class FavoriteRecyclerViewAdapter(private val favoriteInterface: FavoriteRecyclerViewAdapter.FavoriteInterface) :
+class FavoriteRecyclerViewAdapter(private val favoriteInterface: FavoriteInterface, private val onClickListener: OnClickListener) :
     ListAdapter<FavoriteProduct, FavoriteRecyclerViewAdapter.FavoriteViewHolder>(DiffCallBack) {
+
 
     interface FavoriteInterface {
         fun removeFromFavorite(product: FavoriteProduct)
@@ -24,6 +25,10 @@ class FavoriteRecyclerViewAdapter(private val favoriteInterface: FavoriteRecycle
             binding.favoriteProduct = favoriteItem
             binding.executePendingBindings()
         }
+    }
+
+    open class OnClickListener(val clickListener: (id: Long) -> Unit) {
+        fun onClick(id: Long) = clickListener(id)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<FavoriteProduct>() {
@@ -51,6 +56,9 @@ class FavoriteRecyclerViewAdapter(private val favoriteInterface: FavoriteRecycle
         }
         holder.binding.cardAdder.setOnClickListener {
             onAddToCartClick(currentItem)
+        }
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(currentItem.id)
         }
     }
 

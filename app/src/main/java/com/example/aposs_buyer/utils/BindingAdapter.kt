@@ -29,6 +29,7 @@ fun bindImage(imageView: ImageView, image: Uri?) {
             RequestOptions().placeholder(R.drawable.animation_loading)
         )
         .into(imageView)
+    imageView.scaleType = ImageView.ScaleType.CENTER_CROP
 }
 @BindingAdapter("imagesPath")
 fun bindImagePath(imageView: ImageView, image: Uri?)

@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAvailableFavoriteBinding
 import com.example.aposs_buyer.model.FavoriteProduct
+import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
 import com.example.aposs_buyer.uicontroler.adapter.FavoriteRecyclerViewAdapter
 import com.example.aposs_buyer.viewmodel.FavoriteViewModel
 
@@ -21,7 +23,7 @@ class AvailableFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface,
 
     private val viewModel: FavoriteViewModel by activityViewModels()
 
-    private val adapter: FavoriteRecyclerViewAdapter = FavoriteRecyclerViewAdapter(this)
+    private lateinit var adapter: FavoriteRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +36,11 @@ class AvailableFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface,
             false
         )
         binding.lifecycleOwner = this
+        adapter = FavoriteRecyclerViewAdapter(this, FavoriteRecyclerViewAdapter.OnClickListener{
+            val intent = Intent(this.context, DetailProductActivity::class.java)
+            intent.putExtra("productID", it)
+            startActivity(intent)
+        })
         binding.allItems.adapter = adapter
         watchFavoriteItemChange()
         binding.viewModel = viewModel

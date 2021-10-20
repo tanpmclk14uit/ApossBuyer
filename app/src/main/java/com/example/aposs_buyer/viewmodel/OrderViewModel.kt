@@ -18,8 +18,8 @@ class OrderViewModel @Inject constructor() : ViewModel() {
     private var _currentListOrder: MutableLiveData<ArrayList<Order>> = MutableLiveData()
     val currentListOrder: LiveData<ArrayList<Order>> get() = _currentListOrder
 
-    private lateinit var _currentOrder: Order
-    val currentOrder: Order get() = _currentOrder
+    private var _currentOrder: Order? = null
+    val currentOrder: Order? get() = _currentOrder
 
     init {
         setCurrentOrders(loadPendingOrder())

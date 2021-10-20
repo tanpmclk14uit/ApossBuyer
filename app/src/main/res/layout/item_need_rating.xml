@@ -27,6 +27,7 @@
                 android:paddingHorizontal="20dp">
 
                 <ImageView
+                    android:scaleType="centerCrop"
                     image="@{rateNowItem.image.imageUri}"
                     android:layout_width="63dp"
                     android:layout_height="63dp"

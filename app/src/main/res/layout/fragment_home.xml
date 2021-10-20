@@ -13,8 +13,6 @@
         android:background="@color/back_ground"
         tools:context=".uicontroler.fragment.HomeFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

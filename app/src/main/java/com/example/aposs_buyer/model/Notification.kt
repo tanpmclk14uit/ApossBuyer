@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class Notification(
+    val orderId: Long,
     val title:String,
     val content: String,
     val time: Date,

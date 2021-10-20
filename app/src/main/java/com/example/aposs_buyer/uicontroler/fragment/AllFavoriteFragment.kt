@@ -1,5 +1,7 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAllFavoriteBinding
 import com.example.aposs_buyer.model.FavoriteProduct
+import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
 import com.example.aposs_buyer.uicontroler.adapter.FavoriteRecyclerViewAdapter
 import com.example.aposs_buyer.viewmodel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,21 +27,27 @@ class AllFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface, Fragm
 
     private val viewModel: FavoriteViewModel by activityViewModels()
 
-    private val adapter: FavoriteRecyclerViewAdapter = FavoriteRecyclerViewAdapter(this)
+    private lateinit var adapter: FavoriteRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_favorite, container, false)
         binding.lifecycleOwner = this
+        adapter = FavoriteRecyclerViewAdapter(this, FavoriteRecyclerViewAdapter.OnClickListener{
+            val intent = Intent(this.context, DetailProductActivity::class.java)
+            intent.putExtra("productID", it)
+            startActivity(intent)
+        })
         binding.allItems.adapter = adapter
         binding.viewModel = viewModel
         watchFavoriteItemChange()
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
         binding.allItems.recycledViewPool.clear()
