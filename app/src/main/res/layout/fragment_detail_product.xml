@@ -507,7 +507,6 @@
                         android:textColor="@color/white"
                         android:textStyle="bold" />
                 </GridLayout>
-
             </LinearLayout>
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

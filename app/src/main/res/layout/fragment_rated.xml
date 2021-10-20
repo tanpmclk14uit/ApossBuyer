@@ -97,7 +97,8 @@
                                     android:layout_height="26dp"
                                     android:layout_gravity="bottom|left"
                                     android:contentDescription="@string/image"
-                                    android:src="@drawable/ic_cart_user_detail"
+                                    app:tint="@color/white"
+                                    android:src="@drawable/ic_cart"
                                     android:id="@+id/img_cart"
                                     tools:ignore="RtlHardcoded" />
                                 <TextView

@@ -19,6 +19,7 @@
         android:background="@drawable/bg_ln_bottom_address"
         android:orientation="vertical">
         <TextView
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ORDER"
@@ -80,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             isCheckOut="@{3}"
+            tools:listitem="@layout/item_check_out_confirm"
             listCart="@{viewModel.choseList}"
             tools:itemCount="3"/>
         <LinearLayout
@@ -124,6 +126,7 @@
             android:textAllCaps="false"
             android:paddingHorizontal="20dp" />
         <TextView
+            android:justificationMode="inter_word"
             android:id="@+id/tv_policy"
             android:layout_marginTop="15dp"
             android:textColor="#9D9EA3"

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             add(MeowBottomNavigation.Model(1, R.drawable.ic_love))
             add(MeowBottomNavigation.Model(2, R.drawable.ic_message))
             add(MeowBottomNavigation.Model(3, R.drawable.ic_home))
-            add(MeowBottomNavigation.Model(4, R.drawable.ic_cart_user_detail))
+            add(MeowBottomNavigation.Model(4, R.drawable.ic_cart))
             add(MeowBottomNavigation.Model(5, R.drawable.ic_person))
         }
         binding.meowBottomNavigation.show(3, true)

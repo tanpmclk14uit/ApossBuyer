@@ -2,6 +2,7 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,8 @@ class CheckOutFragment : Fragment() {
     private lateinit var binding: FragmentCheckOutBinding
     private val viewModel: CartViewModel by activityViewModels()
     private val checkOutAdapter = CheckOutAdapter()
+
+    private val args: CheckOutFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +39,11 @@ class CheckOutFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_check_out, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        if(args.item != null){
+            viewModel.lstCartItem.value!!.add(args.item!!)
+            viewModel.choseList.value!!.add(args.item!!)
+            viewModel.reCalculateTotal()
+        }
         binding.rcCheckOut.adapter = checkOutAdapter
         binding.rcCheckOut.layoutManager = LinearLayoutManager(binding.rcCheckOut.context, LinearLayoutManager.VERTICAL, false)
         binding.imgBack.setOnClickListener {
@@ -49,11 +57,11 @@ class CheckOutFragment : Fragment() {
             startActivity(intent)
         }
         binding.imgCart2.setOnClickListener {
-            val intent = Intent(this.context, AddressActivity::class.java)
+            val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)
         }
         binding.imgEditAddress.setOnClickListener {
-            val intent = Intent(this.context, CartSecondActivity::class.java)
+            val intent = Intent(this.context, AddressActivity::class.java)
             startActivity(intent)
         }
         return binding.root

@@ -10,4 +10,5 @@
         android:name="com.example.aposs_buyer.uicontroler.fragment.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
+
 </navigation>

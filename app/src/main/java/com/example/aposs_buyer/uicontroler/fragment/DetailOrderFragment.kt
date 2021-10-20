@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailOrderBinding
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
+import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.BillingItemsAdapter
 import com.example.aposs_buyer.uicontroler.adapter.OrderDeliveringStateAdapter
 import com.example.aposs_buyer.utils.OrderStatus
@@ -50,8 +51,16 @@ class DetailOrderFragment : Fragment() {
         setBackPress()
         setEditAddress()
         setCancelOrder()
+        setCartPress()
         return binding.root
     }
+    private fun setCartPress(){
+        binding.cart.setOnClickListener {
+            startActivity(Intent(this.context, CartSecondActivity::class.java))
+        }
+    }
+
+
     private fun setBackPress(){
         binding.back.setOnClickListener {
             requireActivity().onBackPressed()

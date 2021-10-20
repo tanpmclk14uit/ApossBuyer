@@ -6,6 +6,7 @@
             type="com.example.aposs_buyer.model.CartItem" />
     </data>
 <RelativeLayout
+    android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
@@ -28,12 +29,14 @@
         android:layout_centerInParent="true"
         android:textSize="14dp"/>
     <TextView
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
         android:id="@+id/tv_price"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#262626"
-        android:text="@{cartItem.priceFormat}"
+        android:text="@{cartItem.priceFormat, default=ahihi}"
         android:textSize="14dp"/>
 </RelativeLayout>
 </layout>

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.databinding.FragmentProductDetailDialogListDialogBinding
 import com.example.aposs_buyer.uicontroler.adapter.ColorDetailPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.ColorPropertyAdapter
@@ -23,11 +25,14 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     StringDetailPropertyAdapter.PropertyStringValueSelected,
     ColorDetailPropertyAdapter.PropertyColorValueSelected {
 
+
     private var _binding: FragmentProductDetailDialogListDialogBinding? = null
 
     private val binding get() = _binding!!
     private val viewModel: DetailProductViewModel by activityViewModels()
     private val viewModelDialog: DetailProductDiaLogViewModel by viewModels()
+
+    private val args: ProductDetailDialogFragmentArgs by navArgs()
 
     private lateinit var dialogType: DialogType
 
@@ -77,8 +82,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
         binding.dialogButton.setOnClickListener {
             if (checkValidPropertyProduct()) {
                 if (dialogType == DialogType.CheckOutDialog) {
-                    viewModelDialog.goToCheckOut()
-                    Toast.makeText(requireContext(), "Go to check out", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(ProductDetailDialogFragmentDirections.actionProductDetailDialogFragmentToCheckOutFragment(viewModelDialog.productTypeCart.value!!.convertToCart()))
                     this.dismiss()
                 } else {
                     viewModelDialog.addToCart()
@@ -86,7 +90,6 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
                     this.dismiss()
                 }
             }
-
         }
     }
 
@@ -149,23 +152,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            val dialogTypeString = requireArguments().getString("dialogType")
-            dialogType = if (dialogTypeString == DialogType.CheckOutDialog.toString()) {
-                DialogType.CheckOutDialog
-            } else {
-                DialogType.CartDialog
-            }
-        }
-    }
-
-    companion object {
-        fun newInstance(dialogType: DialogType): ProductDetailDialogFragment =
-            ProductDetailDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putString("dialogType", dialogType.toString())
-                }
-            }
+        dialogType= args.dialogType
     }
 
 

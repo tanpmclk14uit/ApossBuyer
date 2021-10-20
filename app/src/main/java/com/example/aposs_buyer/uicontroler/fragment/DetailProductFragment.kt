@@ -57,14 +57,11 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
     }
     private fun callBottomSheet(){
         binding.addToCart.setOnClickListener {
-            val productDetailDialogFragment = ProductDetailDialogFragment.newInstance(DialogType.CartDialog)
-            productDetailDialogFragment.show(parentFragmentManager, productDetailDialogFragment.tag )
-
+            findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(DialogType.CartDialog))
 
         }
         binding.buyNow.setOnClickListener{
-            val productDetailDialogFragment = ProductDetailDialogFragment.newInstance(DialogType.CheckOutDialog)
-            productDetailDialogFragment.show(parentFragmentManager, productDetailDialogFragment.tag )
+            findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(DialogType.CheckOutDialog))
         }
     }
 

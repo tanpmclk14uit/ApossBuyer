@@ -15,6 +15,7 @@
             app:destination="@id/checkOutFragment" />
     </fragment>
     <fragment
+        tools:layout="@layout/fragment_check_out"
         android:id="@+id/checkOutFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutFragment"
         android:label="CheckOutFragment" >

@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentProductRatingBinding
+import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.RatingAdapter
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 
@@ -39,7 +41,7 @@ class ProductRatingFragment : Fragment() {
 
     private fun setUpNavigateToCart(){
         binding.cart.setOnClickListener {
-            findNavController().navigate(ProductRatingFragmentDirections.actionProductRatingFragmentToCartFragment2())
+            startActivity(Intent(this.context, CartSecondActivity::class.java))
         }
     }
     private fun setUpRatingComponent() {

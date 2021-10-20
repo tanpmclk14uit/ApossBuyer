@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.Image
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,7 +33,6 @@ class CartViewModel @Inject constructor(): ViewModel(){
         else size.value = _lstCartItem.value!!.size
         _choseList.value = getChose()
         choseSize.value = _choseList.value!!.size
-        Log.d("CartViewModel" ,_lstCartItem.value!![0].amount.toString())
     }
 
     private fun calculateTotal(): String
@@ -44,8 +44,10 @@ class CartViewModel @Inject constructor(): ViewModel(){
                     sum += _lstCartItem.value!![i].price * _lstCartItem.value!![i].amount
                 }
             }
-            "$$sum"
-        } else "$0"
+            val formatter = DecimalFormat("#,###")
+            val formattedNumber: String = formatter.format(sum)
+            "$formattedNumber VNĐ"
+        } else "0 VNĐ"
     }
 
     fun reCalculateTotal()

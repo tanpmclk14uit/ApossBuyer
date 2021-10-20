@@ -54,6 +54,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
         _selectedProductImages.value = selectedProductImages
     }
 
+
     fun setUpDialogData(viewModel: DetailProductViewModel) {
         makeTheProductTypeCart(
             viewModel.selectedProduct.value!!,
@@ -68,10 +69,6 @@ class DetailProductDiaLogViewModel @Inject constructor(
     fun addToCart(){
         // add data to database
         Log.d("DetailProductDiaLogViewModel","Add to cart: \n ${productTypeCart.value!!.toString()}" )
-    }
-    fun goToCheckOut(){
-        // navigate to check out
-        Log.d("DetailProductDiaLogViewModel", "Go to check out: \n ${productTypeCart.value!!.toString()}")
     }
     private fun validatePropertyValue(){
         if(isSpecialPropertySelectMoreThanOneValue()){
