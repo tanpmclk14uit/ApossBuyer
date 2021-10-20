@@ -103,6 +103,11 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    //room db
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$roomVersion")
 
 
 }

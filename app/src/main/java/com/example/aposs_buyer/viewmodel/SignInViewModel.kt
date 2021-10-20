@@ -3,6 +3,8 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.entity.Account
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.regex.Pattern
@@ -14,7 +16,6 @@ class SignInViewModel @Inject constructor() : ViewModel() {
     var email: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
     var toastMessage: MutableLiveData<String> = MutableLiveData()
-
     var emailErrorMessage: String? = ""
     var passwordErrorMessage: String? = ""
 
@@ -35,6 +36,7 @@ class SignInViewModel @Inject constructor() : ViewModel() {
                         "SignInViewModel",
                         "Success"
                     )
+
                 } else {
                     loginState.value = LoginState.Wait
                     toastMessage.value = "Wrong email or password!"

@@ -25,6 +25,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         sViewsWithIds.put(R.id.btn_rating, 12);
         sViewsWithIds.put(R.id.signOut, 13);
         sViewsWithIds.put(R.id.ln_noAccount, 14);
+        sViewsWithIds.put(R.id.signIn, 15);
     }
     // views
     @NonNull
@@ -41,7 +42,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentPersonBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 15, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 16, sIncludes, sViewsWithIds));
     }
     private FragmentPersonBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
@@ -54,6 +55,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
             , (android.widget.LinearLayout) bindings[6]
             , (android.widget.LinearLayout) bindings[14]
             , (androidx.appcompat.widget.AppCompatButton) bindings[11]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[15]
             , (androidx.appcompat.widget.AppCompatButton) bindings[13]
             , (android.widget.TextView) bindings[4]
             );

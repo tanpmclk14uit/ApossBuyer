@@ -13,6 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentLoginBinding
+import com.example.aposs_buyer.model.entity.Account
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.activity.MainActivity
 import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
 import com.example.aposs_buyer.utils.LoginState
@@ -53,6 +56,8 @@ class LoginFragment : Fragment() {
                     dialog.startLoading()
                 }else{
                     dialog.dismissDialog()
+                    val account: Account = Account(viewModel.email.value!!, viewModel.password.value!!)
+                    AccountDatabase.getInstance(this.requireContext()).accountDao.insertAccount(account)
                     startActivity(Intent(this.context, MainActivity::class.java))
                 }
             }
@@ -80,7 +85,7 @@ class LoginFragment : Fragment() {
 
     private fun setUpBackButton() {
         binding.backButton.setOnClickListener {
-            requireActivity().onBackPressed()
+            startActivity(Intent(this.context, MainActivity::class.java))
         }
     }
 

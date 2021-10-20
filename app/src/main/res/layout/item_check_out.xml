@@ -24,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{cartItem.name}"
-            android:textSize="12dp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="#272422"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{cartItem.property}"
-            android:textSize="12dp"
+            android:textSize="14sp"
             android:textColor="#262626"/>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,12 +40,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{cartItem.amountFormat}"
-                android:textSize="12dp"
+                android:textSize="14sp"
                 android:textColor="#262626"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:textColor="#022C43"
                 android:text="@{cartItem.priceFormat}"
                 android:layout_alignParentRight="true"/>
