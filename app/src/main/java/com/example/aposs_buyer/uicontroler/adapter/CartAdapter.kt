@@ -60,7 +60,6 @@ class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: 
         }
         holder.binding.cardCartItem.setOnClickListener {
             OnChoose(position)
-            Log.i("testing", getItem(position).toString())
         }
     }
 
