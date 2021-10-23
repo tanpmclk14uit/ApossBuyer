@@ -50,6 +50,7 @@ class UserDetailFragment : Fragment() {
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)
         isChange()
+        setCheckingName()
         binding.btnSaveChanges.setOnClickListener {
             onSaveCick()
             binding.btnSaveChanges.isEnabled = false
@@ -151,8 +152,8 @@ class UserDetailFragment : Fragment() {
     fun onSaveCick()
     {
         val oldInfo = viewModel.currentUser.value
-        val newUserInfo = com.example.aposs_buyer.model.Person(oldInfo!!.id, oldInfo!!.image, binding.etFirstName.text.toString(),
-        binding.etLastName.text.toString(), binding.etEmail.text.toString(), convert.stringToDate(binding.etBirthday.text.toString()),
+        val newUserInfo = com.example.aposs_buyer.model.Person(oldInfo!!.id, oldInfo!!.image, binding.etName.text.toString(),
+            binding.etEmail.text.toString(), convert.stringToDate(binding.etBirthday.text.toString()),
         convert.genderToBool(binding.actvGender.text.toString()))
         viewModel.onSave(newUserInfo)
     }
@@ -171,14 +172,19 @@ class UserDetailFragment : Fragment() {
         binding.etBirthday.addTextChangedListener {
             legalToClick(viewModel.isChangeBirthday(it.toString()))
         }
-        binding.etLastName.addTextChangedListener {
-            legalToClick(viewModel.isChangeLastName(it.toString()))
-        }
-        binding.etFirstName.addTextChangedListener {
-            legalToClick(viewModel.isChangeFirstName(it.toString()))
+        binding.etName.addTextChangedListener {
+            viewModel.name.value = it.toString()
+            legalToClick(viewModel.isChangeName(it.toString()))
         }
         binding.actvGender.addTextChangedListener {
             legalToClick(viewModel.isChangeGender(it.toString()))
         }
+    }
+
+    private fun setCheckingName(){
+        viewModel.name.observe(this.viewLifecycleOwner,{
+            viewModel.isValidName()
+            binding.etName.error = viewModel.nameErrorMessage
+        })
     }
 }

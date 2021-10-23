@@ -175,38 +175,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="First Name"
+                        android:text="Name"
                         android:textColor="@color/edit_user_detail_color"
                         android:textSize="14dp"
                         android:layout_marginBottom="10dp"/>
                     <EditText
-                        android:id="@+id/et_firstName"
+                        android:id="@+id/et_Name"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
-                        android:text="@{viewModel.currentUser.firstName}"
+                        android:text="@{viewModel.currentUser.name}"
                         android:textSize="16dp"
                         android:paddingStart="15dp"
                         android:maxLines="1"
-                        android:background="@drawable/bg_edit_user_detail"
-                        android:layout_marginBottom="15dp"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Last Name"
-                        android:inputType="text"
-                        android:textColor="@color/edit_user_detail_color"
-                        android:textSize="14dp"
-                        android:layout_marginBottom="10dp"/>
-                    <EditText
-                        android:id="@+id/et_lastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="44dp"
-                        android:textSize="16dp"
-                        android:text="@{viewModel.currentUser.lastName}"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:paddingStart="15dp"
                         android:background="@drawable/bg_edit_user_detail"
                         android:layout_marginBottom="15dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />

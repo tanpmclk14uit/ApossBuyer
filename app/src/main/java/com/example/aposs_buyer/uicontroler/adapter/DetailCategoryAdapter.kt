@@ -96,12 +96,10 @@ class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryVie
         holder.bind(getItem(position))
         name = getItem(position).name
         id = getItem(position).id
-        Log.i("000000000001", "$name và $id")
         holder.binding.indicator.setViewPager(holder.binding.imageViewPager)
         unit = holder.itemView.setOnClickListener {
             name = getItem(position).name
             id = getItem(position).id
-            Log.i("000000000002", "$name và $id")
             clickListener.onClick(getItem(position).id, getItem(position).name )
         }
         holder.setUpViewPagerCallBack()
@@ -109,7 +107,6 @@ class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryVie
 
     override fun onImageClick()
     {
-        Log.i("000000000003", "$name và $id")
         clickListener.onClick(id, name)
     }
 }

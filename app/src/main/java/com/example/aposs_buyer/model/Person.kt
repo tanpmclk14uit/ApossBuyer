@@ -5,8 +5,7 @@ import java.util.*
 data class Person(
     val id: Int,
     val image: Image,
-    val firstName: String,
-    val lastName: String,
+    val name: String,
     val email: String,
     val birthday: Date,
     val gender: Boolean
@@ -62,11 +61,6 @@ data class Person(
             //default should never happen
             return 1;
         }
-    }
-
-    fun getFullName(): String
-    {
-        return "$firstName $lastName"
     }
 
     private fun monthFormat(month: Int): String

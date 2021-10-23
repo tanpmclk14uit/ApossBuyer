@@ -138,11 +138,11 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         }
         com.example.aposs_buyer.model.Person viewModelPersonGetValue = null;
         com.example.aposs_buyer.model.Image viewModelPersonImage = null;
+        java.lang.String viewModelPersonName = null;
         java.lang.String viewModelPersonEmail = null;
         androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Person> viewModelPerson = null;
         android.net.Uri viewModelPersonImageImageUri = null;
         com.example.aposs_buyer.viewmodel.PersonViewModel viewModel = mViewModel;
-        java.lang.String viewModelPersonFullName = null;
 
         if ((dirtyFlags & 0x7L) != 0) {
 
@@ -164,10 +164,10 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
                 if (viewModelPersonGetValue != null) {
                     // read viewModel.person.getValue().image
                     viewModelPersonImage = viewModelPersonGetValue.getImage();
+                    // read viewModel.person.getValue().Name
+                    viewModelPersonName = viewModelPersonGetValue.getName();
                     // read viewModel.person.getValue().email
                     viewModelPersonEmail = viewModelPersonGetValue.getEmail();
-                    // read viewModel.person.getValue().fullName
-                    viewModelPersonFullName = viewModelPersonGetValue.getFullName();
                 }
 
 
@@ -180,7 +180,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, viewModelPersonFullName);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, viewModelPersonName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, viewModelPersonEmail);
             com.example.aposs_buyer.utils.BindingAdapterKt.bindImage(this.mboundView3, viewModelPersonImageImageUri);
         }

@@ -40,7 +40,9 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
         viewModel.address.value = args.defaultAddress
-
+        viewModel.name.value = viewModel.address.value!!.name
+        viewModel.cellNumber.value = viewModel.address.value!!.phoneNumber
+        addGenderList()
         setOnChange()
         checkButtonMatchDialog()
 
@@ -83,7 +85,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
         }
         else {
-            Log.d("fuuckkkkkkkkkkkkkkkkk", "fuckkkkkkkkkkkkkkkkkkkkk")
             Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT).show()
         }
     }

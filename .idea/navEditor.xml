@@ -603,7 +603,12 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_homeFragment_to_detailProductFragment2">
+                            <entry key="action_homeFragment_to_detailProductFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_kindFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -613,14 +618,23 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="kindFragment2">
+                  <entry key="kindFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-330" />
-                            <option name="y" value="-427" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_kindFragment_to_productOfKindFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -658,13 +672,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="productOfKindFragment2">
+                  <entry key="productOfKindFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-606" />
-                            <option name="y" value="-346" />
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
