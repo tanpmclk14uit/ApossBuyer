@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.NotificationViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="@color/back_ground"
         android:layout_height="match_parent"
         tools:context=".uicontroler.fragment.NotificationFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/back_ground"
@@ -24,10 +25,9 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@drawable/bg_card"
+                android:layout_height="wrap_content"
+                android:background="@color/light_green"
                 app:layout_collapseMode="pin">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -120,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="115dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

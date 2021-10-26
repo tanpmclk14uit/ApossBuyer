@@ -39,11 +39,7 @@
                 android:layout_marginStart="5dp"
                 android:text="Find something new here!"
                 android:textColor="@color/active_button" />
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_favorite_disable" />
+
         </LinearLayout>
         <!-- TODO: Update blank fragment layout -->
         <androidx.recyclerview.widget.RecyclerView

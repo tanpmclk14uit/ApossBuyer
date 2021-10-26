@@ -25,38 +25,30 @@
                 app:liftOnScroll="false">
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/bg_card"
-                    android:gravity="bottom"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    app:expandedTitleGravity="top"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
                     <androidx.appcompat.widget.Toolbar
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/light_green"
-                        app:layout_collapseMode="pin"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_collapseMode="pin">
 
-                        <LinearLayout
+                        <RelativeLayout
+                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="20dp"
                             android:gravity="center|top"
                             android:orientation="vertical"
-                            android:paddingBottom="15dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:contentDescription="@string/image"
-                                android:src="@drawable/ic_logo" />
+                            >
 
                             <RelativeLayout
+                                android:id="@+id/toolBox"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -76,7 +68,7 @@
                                     app:startIconDrawable="@drawable/ic_search">
 
                                     <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/tiet_search_bar"
+                                        android:id="@+id/search"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:background="@drawable/bg_search"
@@ -87,7 +79,7 @@
                                 </com.google.android.material.textfield.TextInputLayout>
 
                                 <ImageView
-                                    android:id="@+id/img_notification"
+                                    android:id="@+id/notification"
                                     android:layout_width="38dp"
                                     android:layout_height="38dp"
                                     android:layout_alignParentEnd="true"
@@ -96,67 +88,36 @@
                                     android:src="@drawable/ic__notifications" />
                             </RelativeLayout>
 
-                        </LinearLayout>
+                            <TextView
+                                android:id="@+id/title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/toolBox"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginVertical="10dp"
+                                android:text="@string/message"
+                                android:textColor="@color/white"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                            <ImageView
+                                android:id="@+id/lnAboutUs"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:layout_below="@+id/toolBox"
+                                android:layout_marginStart="-10dp"
+                                android:layout_marginTop="7dp"
+                                android:contentDescription="@string/image"
+                                android:src="@drawable/ic_logo" />
+                        </RelativeLayout>
                     </androidx.appcompat.widget.Toolbar>
-
-                    <LinearLayout
-                        android:id="@+id/ln_about_us"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="29dp"
-                        android:layout_marginTop="30dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="UseCompoundDrawables">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@string/image"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_home"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/about_us"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="normal">
-
-                        </TextView>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="30dp"
-                        android:text="@string/message"
-                        android:textColor="@color/white"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="18dp"
-                android:layout_marginTop="-30dp"
+                android:layout_marginTop="10dp"
                 android:elevation="8dp"
                 android:orientation="vertical">
 
@@ -212,8 +173,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/bg_input_message"
+                    android:layout_marginBottom="0dp"
+                    android:background="@color/light_green"
                     android:orientation="horizontal">
 
                     <ImageView

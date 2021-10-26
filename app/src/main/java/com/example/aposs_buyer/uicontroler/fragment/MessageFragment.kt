@@ -50,7 +50,7 @@ class MessageFragment : Fragment() {
             val intent = Intent(this.context, AboutUsActivity::class.java)
             startActivity(intent)
         }
-        binding.imgNotification.setOnClickListener {
+        binding.notification.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)
             startActivity(intent)
         }
@@ -58,7 +58,7 @@ class MessageFragment : Fragment() {
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }
-        binding.tietSearchBar.setOnClickListener {
+        binding.search.setOnClickListener {
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }

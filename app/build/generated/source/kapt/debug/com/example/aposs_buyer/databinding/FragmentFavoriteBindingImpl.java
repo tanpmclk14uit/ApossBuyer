@@ -14,12 +14,14 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.ln_about_us, 1);
-        sViewsWithIds.put(R.id.title, 2);
+        sViewsWithIds.put(R.id.toolBox, 1);
+        sViewsWithIds.put(R.id.search_bar, 2);
         sViewsWithIds.put(R.id.search, 3);
-        sViewsWithIds.put(R.id.notification, 4);
-        sViewsWithIds.put(R.id.tab, 5);
-        sViewsWithIds.put(R.id.viewPager, 6);
+        sViewsWithIds.put(R.id.img_notification, 4);
+        sViewsWithIds.put(R.id.title, 5);
+        sViewsWithIds.put(R.id.lnAboutUs, 6);
+        sViewsWithIds.put(R.id.tab, 7);
+        sViewsWithIds.put(R.id.viewPager, 8);
     }
     // views
     @NonNull
@@ -30,16 +32,18 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentFavoriteBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds));
     }
     private FragmentFavoriteBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (android.widget.LinearLayout) bindings[1]
             , (android.widget.ImageView) bindings[4]
+            , (android.widget.ImageView) bindings[6]
             , (com.google.android.material.textfield.TextInputEditText) bindings[3]
-            , (com.google.android.material.tabs.TabLayout) bindings[5]
-            , (android.widget.TextView) bindings[2]
-            , (androidx.viewpager2.widget.ViewPager2) bindings[6]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[2]
+            , (com.google.android.material.tabs.TabLayout) bindings[7]
+            , (android.widget.TextView) bindings[5]
+            , (android.widget.RelativeLayout) bindings[1]
+            , (androidx.viewpager2.widget.ViewPager2) bindings[8]
             );
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);

@@ -21,11 +21,12 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         sViewsWithIds.put(R.id.cardView2, 15);
         sViewsWithIds.put(R.id.cardView, 16);
         sViewsWithIds.put(R.id.more, 17);
-        sViewsWithIds.put(R.id.ln_about_us, 18);
-        sViewsWithIds.put(R.id.title, 19);
-        sViewsWithIds.put(R.id.search_bar, 20);
-        sViewsWithIds.put(R.id.tiet_search_bar, 21);
-        sViewsWithIds.put(R.id.notification, 22);
+        sViewsWithIds.put(R.id.toolBox, 18);
+        sViewsWithIds.put(R.id.search_bar, 19);
+        sViewsWithIds.put(R.id.search, 20);
+        sViewsWithIds.put(R.id.notification, 21);
+        sViewsWithIds.put(R.id.title, 22);
+        sViewsWithIds.put(R.id.lnAboutUs, 23);
     }
     // views
     @NonNull
@@ -38,7 +39,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentHomeBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 23, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 24, sIncludes, sViewsWithIds));
     }
     private FragmentHomeBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 7
@@ -49,17 +50,18 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[13]
             , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
-            , (android.widget.LinearLayout) bindings[18]
+            , (android.widget.ImageView) bindings[23]
             , (android.widget.TextView) bindings[17]
-            , (android.widget.ImageView) bindings[22]
+            , (android.widget.ImageView) bindings[21]
             , (androidx.recyclerview.widget.RecyclerView) bindings[10]
             , (android.widget.TextView) bindings[14]
             , (me.relex.circleindicator.CircleIndicator3) bindings[9]
             , (androidx.viewpager2.widget.ViewPager2) bindings[7]
             , (android.widget.RatingBar) bindings[6]
-            , (com.google.android.material.textfield.TextInputLayout) bindings[20]
-            , (com.google.android.material.textfield.TextInputEditText) bindings[21]
-            , (android.widget.TextView) bindings[19]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[20]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[19]
+            , (android.widget.TextView) bindings[22]
+            , (android.widget.RelativeLayout) bindings[18]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]
             , (android.widget.TextView) bindings[12]

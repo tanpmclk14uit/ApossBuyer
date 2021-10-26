@@ -50,11 +50,6 @@
                     android:textColor="@color/active_button" />
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_favorite_disable" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginHorizontal="20dp"

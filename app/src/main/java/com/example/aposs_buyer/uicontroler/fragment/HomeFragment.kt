@@ -95,7 +95,7 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }
-        binding.tietSearchBar.setOnClickListener {
+        binding.search.setOnClickListener {
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }

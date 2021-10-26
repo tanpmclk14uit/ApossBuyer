@@ -25,8 +25,8 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@drawable/bg_card"
+                android:layout_height="wrap_content"
+                android:background="@color/light_green"
                 app:layout_collapseMode="pin">
 
 
@@ -38,12 +38,6 @@
                     android:orientation="vertical"
                     android:paddingBottom="15dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:contentDescription="@string/image"
-                        android:src="@drawable/ic_logo" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
