@@ -93,7 +93,6 @@
     <string name="status">Status:</string>
     <string name="address">Address</string>
     <string name="billing_items">Billing items</string>
-    <string name="total">Total:</string>
     <string name="rating_now">Rating now</string>
     <string name="order_detail">Order detail</string>
     <string name="your_order_is_empty">Your order is empty</string>
@@ -107,4 +106,5 @@
     <string name="order_confirm_text">We apologize for any\ninconvenience may was caused\nfor your experience</string>
     <string name="continue_shopping">Continue shopping</string>
     <string name="check_out_policy">By placing your order you agree to our terms and conditions, privacy and returns policies and consent to some of your data being stored by Aposs which may be used to make future shopping experiences better for you.</string>
+    <string name="total">Total:</string>
 </resources>

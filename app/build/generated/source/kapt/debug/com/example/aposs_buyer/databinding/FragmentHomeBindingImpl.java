@@ -21,12 +21,12 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         sViewsWithIds.put(R.id.cardView2, 15);
         sViewsWithIds.put(R.id.cardView, 16);
         sViewsWithIds.put(R.id.more, 17);
-        sViewsWithIds.put(R.id.toolBox, 18);
-        sViewsWithIds.put(R.id.search_bar, 19);
-        sViewsWithIds.put(R.id.search, 20);
-        sViewsWithIds.put(R.id.notification, 21);
-        sViewsWithIds.put(R.id.title, 22);
-        sViewsWithIds.put(R.id.lnAboutUs, 23);
+        sViewsWithIds.put(R.id.title, 18);
+        sViewsWithIds.put(R.id.lnAboutUs, 19);
+        sViewsWithIds.put(R.id.toolBox, 20);
+        sViewsWithIds.put(R.id.search_bar, 21);
+        sViewsWithIds.put(R.id.search, 22);
+        sViewsWithIds.put(R.id.notification, 23);
     }
     // views
     @NonNull
@@ -50,18 +50,18 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[13]
             , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
-            , (android.widget.ImageView) bindings[23]
+            , (android.widget.ImageView) bindings[19]
             , (android.widget.TextView) bindings[17]
-            , (android.widget.ImageView) bindings[21]
+            , (android.widget.ImageView) bindings[23]
             , (androidx.recyclerview.widget.RecyclerView) bindings[10]
             , (android.widget.TextView) bindings[14]
             , (me.relex.circleindicator.CircleIndicator3) bindings[9]
             , (androidx.viewpager2.widget.ViewPager2) bindings[7]
             , (android.widget.RatingBar) bindings[6]
-            , (com.google.android.material.textfield.TextInputEditText) bindings[20]
-            , (com.google.android.material.textfield.TextInputLayout) bindings[19]
-            , (android.widget.TextView) bindings[22]
-            , (android.widget.RelativeLayout) bindings[18]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[22]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[21]
+            , (android.widget.TextView) bindings[18]
+            , (android.widget.RelativeLayout) bindings[20]
             , (android.widget.TextView) bindings[5]
             , (android.widget.TextView) bindings[4]
             , (android.widget.TextView) bindings[12]

@@ -6,18 +6,20 @@
             type="com.example.aposs_buyer.model.HomeProduct" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00000000">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="210dp"
-            android:layout_margin="8dp"
+            android:layout_marginHorizontal="3dp"
+            android:layout_marginBottom="10dp"
             android:padding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +46,7 @@
                     android:id="@+id/cardImage"
                     android:layout_width="match_parent"
                     app:cardElevation="0dp"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"

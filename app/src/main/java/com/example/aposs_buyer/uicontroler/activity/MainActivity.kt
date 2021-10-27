@@ -1,70 +1,72 @@
 package com.example.aposs_buyer.uicontroler.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.navigation.Navigation
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import android.os.Handler
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpNav()
-        setUpStatusBar()
+        binding.lifecycleOwner = this;
+        binding.bottomNavigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener)
+        navController = findNavController(R.id.fragment)
+
     }
-    private fun setUpStatusBar(){
-        run {
-            window.statusBarColor = this.resources.getColor(R.color.light_green)
+
+    private var exit: Boolean = false
+
+    override fun onBackPressed() {
+        if (!exit) {
+            Toast.makeText(this, "Click back again to exit", Toast.LENGTH_SHORT).show()
+            exit = true
+            Handler().postDelayed(
+                {
+                exit = false
+                },
+                2000
+            )
+        } else {
+            finish()
         }
     }
-    
-    private fun setUpNav(){
-        binding.meowBottomNavigation.apply {
-            add(MeowBottomNavigation.Model(1, R.drawable.ic_love))
-            add(MeowBottomNavigation.Model(2, R.drawable.ic_message))
-            add(MeowBottomNavigation.Model(3, R.drawable.ic_home))
-            add(MeowBottomNavigation.Model(4, R.drawable.ic_cart))
-            add(MeowBottomNavigation.Model(5, R.drawable.ic_person))
-        }
-        binding.meowBottomNavigation.show(3, true)
-        binding.meowBottomNavigation.setOnClickMenuListener {
-            val navController = Navigation.findNavController(this, R.id.navHostFragment)
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                if(destination.id == R.id.checkOutFragment || destination.id == R.id.finishCheckOutFragment|| destination.id == R.id.checkOutDialogFragment) {
-                    binding.meowBottomNavigation.visibility = View.GONE
-                } else {
 
-                    binding.meowBottomNavigation.visibility = View.VISIBLE
-                }
-            }
-            navController.navigateUp()
-
-            when(it.id){
-                1 -> {
-                    navController.navigate(R.id.favoriteFragment)
-                }
-                2->{
-                    navController.navigate(R.id.messageFragment)
-                }
-                3-> {
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
                     navController.navigate(R.id.homeFragment)
+                    return@OnNavigationItemSelectedListener true
                 }
-                4->{
+                R.id.favorite -> {
+                    navController.navigate(R.id.favoriteFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.message -> {
+                    navController.navigate(R.id.messageFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.cart -> {
                     navController.navigate(R.id.cartFragment)
+                    return@OnNavigationItemSelectedListener true
                 }
-                else -> {
+                R.id.person -> {
                     navController.navigate(R.id.personFragment)
+                    return@OnNavigationItemSelectedListener true
                 }
             }
+            false
         }
-
-    }
 }

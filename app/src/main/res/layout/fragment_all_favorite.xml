@@ -52,7 +52,7 @@
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="10dp"
             android:id="@+id/allItems"
             tools:listitem="@layout/item_favorite"
             favoriteData="@{viewModel.products}"

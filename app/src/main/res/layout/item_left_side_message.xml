@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="messageItem"
             type="com.example.aposs_buyer.model.MessageItem" />
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="right"
-        android:gravity="left"
-        android:layout_marginLeft="15dp"
+        android:layout_gravity="end"
+        android:gravity="start"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp">
         <LinearLayout
+            android:id="@+id/messageLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -28,14 +30,19 @@
                 message="@{messageItem.massage}"
                 android:textStyle="bold"/>
         </LinearLayout>
+
         <TextView
+            android:layout_marginStart="15dp"
+            android:gravity="start"
             android:id="@+id/tv_time"
+            message="@{messageItem.timeString}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11dp"
-            android:layout_marginRight="15dp"
-            message="@{messageItem.timeString}"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_toEndOf="@+id/messageLayout"
             android:textColor="@color/gray"
-            android:layout_gravity="center"/>
-    </LinearLayout>
+            android:textSize="12sp" />
+    </RelativeLayout>
 </layout>

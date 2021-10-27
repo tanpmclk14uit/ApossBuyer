@@ -25,7 +25,6 @@ class RatingActivity : AppCompatActivity(), BottomNavigationView.OnNavigationIte
         super.onCreate(savedInstanceState)
         var binding =  ActivityRatingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 

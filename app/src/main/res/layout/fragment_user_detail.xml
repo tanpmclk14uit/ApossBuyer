@@ -8,9 +8,9 @@
             type="com.example.aposs_buyer.viewmodel.UserDetailViewModel" />
     </data>
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_main"
         tools:context=".uicontroler.fragment.UserDetailFragment">
         <ScrollView
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/back_ground"
+            android:background="@color/white"
             tools:context=".uicontroler.fragment.MessageFragment">
 
         <com.google.android.material.appbar.AppBarLayout

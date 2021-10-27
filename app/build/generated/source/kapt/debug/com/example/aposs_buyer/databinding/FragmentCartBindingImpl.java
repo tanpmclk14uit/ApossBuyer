@@ -22,7 +22,8 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         sViewsWithIds.put(R.id.lnAboutUs, 8);
         sViewsWithIds.put(R.id.empty_cart, 9);
         sViewsWithIds.put(R.id.fullfill_cart, 10);
-        sViewsWithIds.put(R.id.btn_go_to_check_out, 11);
+        sViewsWithIds.put(R.id.checkout_layout, 11);
+        sViewsWithIds.put(R.id.btn_go_to_check_out, 12);
     }
     // views
     @NonNull
@@ -72,11 +73,12 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     };
 
     public FragmentCartBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 12, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
     }
     private FragmentCartBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
-            , (android.widget.Button) bindings[11]
+            , (android.widget.Button) bindings[12]
+            , (android.widget.LinearLayout) bindings[11]
             , (androidx.core.widget.NestedScrollView) bindings[9]
             , (androidx.core.widget.NestedScrollView) bindings[10]
             , (android.widget.ImageView) bindings[6]

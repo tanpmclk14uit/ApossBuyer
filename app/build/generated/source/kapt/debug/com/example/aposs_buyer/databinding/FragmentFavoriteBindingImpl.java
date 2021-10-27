@@ -14,12 +14,12 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.toolBox, 1);
-        sViewsWithIds.put(R.id.search_bar, 2);
-        sViewsWithIds.put(R.id.search, 3);
-        sViewsWithIds.put(R.id.img_notification, 4);
-        sViewsWithIds.put(R.id.title, 5);
-        sViewsWithIds.put(R.id.lnAboutUs, 6);
+        sViewsWithIds.put(R.id.title, 1);
+        sViewsWithIds.put(R.id.lnAboutUs, 2);
+        sViewsWithIds.put(R.id.toolBox, 3);
+        sViewsWithIds.put(R.id.search_bar, 4);
+        sViewsWithIds.put(R.id.search, 5);
+        sViewsWithIds.put(R.id.notification, 6);
         sViewsWithIds.put(R.id.tab, 7);
         sViewsWithIds.put(R.id.viewPager, 8);
     }
@@ -36,13 +36,13 @@ public class FragmentFavoriteBindingImpl extends FragmentFavoriteBinding  {
     }
     private FragmentFavoriteBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (android.widget.ImageView) bindings[4]
+            , (android.widget.ImageView) bindings[2]
             , (android.widget.ImageView) bindings[6]
-            , (com.google.android.material.textfield.TextInputEditText) bindings[3]
-            , (com.google.android.material.textfield.TextInputLayout) bindings[2]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[5]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[4]
             , (com.google.android.material.tabs.TabLayout) bindings[7]
-            , (android.widget.TextView) bindings[5]
-            , (android.widget.RelativeLayout) bindings[1]
+            , (android.widget.TextView) bindings[1]
+            , (android.widget.RelativeLayout) bindings[3]
             , (androidx.viewpager2.widget.ViewPager2) bindings[8]
             );
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];

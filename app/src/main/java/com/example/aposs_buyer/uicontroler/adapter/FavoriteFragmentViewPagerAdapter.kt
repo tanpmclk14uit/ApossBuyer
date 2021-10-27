@@ -19,5 +19,4 @@ class FavoriteFragmentViewPagerAdapter(fragmentManager: FragmentManager, lifecyc
             else -> AvailableFavoriteFragment()
         }
     }
-
 }

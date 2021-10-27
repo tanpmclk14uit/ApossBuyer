@@ -70,11 +70,13 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
             if (it==0) {
                 binding.emptyCart.visibility = View.VISIBLE
                 binding.fullfillCart.visibility = View.GONE
+                binding.checkoutLayout.visibility = View.GONE
             }
             else
             {
                 binding.emptyCart.visibility = View.GONE
                 binding.fullfillCart.visibility = View.VISIBLE
+                binding.checkoutLayout.visibility = View.VISIBLE
             }
         })
         viewModel.choseSize.observe(viewLifecycleOwner, Observer {

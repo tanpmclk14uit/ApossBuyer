@@ -6,32 +6,30 @@
         <variable
             name="cartItem"
             type="com.example.aposs_buyer.model.CartItem" />
-
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.CartViewModel" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:id="@+id/card_cart_item"
         android:layout_height="124dp"
-        android:layout_marginHorizontal="6dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="3dp"
         android:layout_marginBottom="10dp"
         android:checkable="true"
         android:focusable="true"
         app:cardCornerRadius="5dp"
         android:checked="@{cartItem.choose}"
         android:background="@drawable/bg_cart_item"
-        android:elevation="8dp"
+        app:cardElevation="5dp"
         app:strokeColor="#A4858C94">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-
         <ImageView
             image="@{cartItem.image.imageUri}"
             android:layout_width="100dp"
