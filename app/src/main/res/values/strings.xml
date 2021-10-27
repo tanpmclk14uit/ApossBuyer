@@ -107,4 +107,7 @@
     <string name="continue_shopping">Continue shopping</string>
     <string name="check_out_policy">By placing your order you agree to our terms and conditions, privacy and returns policies and consent to some of your data being stored by Aposs which may be used to make future shopping experiences better for you.</string>
     <string name="total">Total:</string>
+    <string name="see_all_items_in_detail">
+        <u>See all items in detail</u>
+    </string>
 </resources>

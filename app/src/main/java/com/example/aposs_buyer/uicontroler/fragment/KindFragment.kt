@@ -15,13 +15,14 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentKindBinding
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
+import com.example.aposs_buyer.uicontroler.activity.MainActivity
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.KindAdapter
 import com.example.aposs_buyer.viewmodel.KindViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class KindFragment : Fragment(), HomeProductAdapter.FavoriteInterface, KindAdapter.OnClickListenerInterface
+class KindFragment : Fragment(), KindAdapter.OnClickListenerInterface
 {
 
     private lateinit var binding: FragmentKindBinding
@@ -35,10 +36,7 @@ class KindFragment : Fragment(), HomeProductAdapter.FavoriteInterface, KindAdapt
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_kind, container, false)
         binding.lifecycleOwner =  this
         binding.viewModel = viewModel
-        binding.rcKind.adapter = KindAdapter(this, HomeProductAdapter.OnClickListener {
-            val intent = Intent(this.context, DetailProductActivity::class.java)
-            intent.putExtra("productID", it)
-            startActivity(intent) }, this)
+        binding.rcKind.adapter = KindAdapter(this)
         binding.rcKind.layoutManager = LinearLayoutManager(binding.rcKind.context, LinearLayoutManager.VERTICAL, false)
         if (args.categoryId != -1L)
         {
@@ -49,14 +47,6 @@ class KindFragment : Fragment(), HomeProductAdapter.FavoriteInterface, KindAdapt
             requireActivity().onBackPressed()
         }
         return binding.root
-    }
-
-    override fun addToFavorite(product: HomeProduct) {
-        viewModel.addToFavorite(product)
-    }
-
-    override fun removeFromFavorite(product: HomeProduct) {
-        viewModel.removeFromFavorite(product)
     }
 
     override fun onClick(id: Long, name: String) {

@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_kindFragment_to_productOfKindFragment"
             app:destination="@id/productOfKindFragment" />
+        <action
+            android:id="@+id/action_kindFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/productOfKindFragment"
@@ -114,5 +117,8 @@
         <argument
             android:name="kind_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_productOfKindFragment_to_kindFragment"
+            app:destination="@id/kindFragment" />
     </fragment>
 </navigation>

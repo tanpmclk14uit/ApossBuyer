@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_detail_component"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -202,18 +202,19 @@
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="10dp"
                     android:columnCount="2"
                     android:rowCount="1">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:id="@+id/cancelButton"
                         android:layout_row="0"
                         android:layout_column="0"
                         android:layout_columnWeight="1"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:background="@drawable/bg_disable_button"
                         android:backgroundTint="@color/back_ground"
@@ -223,10 +224,11 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/dialogButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_row="0"
                         android:layout_column="1"
                         android:layout_columnWeight="1"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginBottom="5dp"
                         android:background="@drawable/bg_active_button"
                         android:text="@string/buy_now"

@@ -28,20 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     private var exit: Boolean = false
 
-    override fun onBackPressed() {
-        if (!exit) {
-            Toast.makeText(this, "Click back again to exit", Toast.LENGTH_SHORT).show()
-            exit = true
-            Handler().postDelayed(
-                {
-                exit = false
-                },
-                2000
-            )
-        } else {
-            finish()
-        }
-    }
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->

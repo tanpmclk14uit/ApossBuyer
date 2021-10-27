@@ -26,34 +26,11 @@ class OrderAdapter(
     class OrderViewHolder(val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(order: Order) {
             binding.order = order
-            binding.address.visibility = View.GONE
             val adapter = BillingItemsAdapter()
             binding.billingItems.adapter = adapter
-            binding.billingItems.visibility = View.GONE
-            setShowAllAddress()
-            setShowAllBillingItems()
             setUpRatingButton(order)
         }
 
-        private fun setShowAllAddress() {
-            binding.showAll.setOnCheckedChangeListener { _, check ->
-                if (check) {
-                    binding.address.visibility = View.VISIBLE
-                } else {
-                    binding.address.visibility = View.GONE
-                }
-            }
-        }
-
-        private fun setShowAllBillingItems() {
-            binding.showAllBillingItems.setOnCheckedChangeListener { _, check ->
-                if (check) {
-                    binding.billingItems.visibility = View.VISIBLE
-                } else {
-                    binding.billingItems.visibility = View.GONE
-                }
-            }
-        }
 
         private fun setUpRatingButton(order: Order) {
             if (order.status == OrderStatus.Success) {

@@ -70,16 +70,6 @@ class OrderViewModel @Inject constructor() : ViewModel() {
                 "Color: Blue, Size: 30"
             )
         )
-        sampleBillingItems.add(
-            OrderBillingItem(
-                3,
-                imgBillingItem3,
-                "Item 3",
-                70000,
-                1,
-                "Color: Pink, Size: 30"
-            )
-        )
         sampleBillingItems2.add(
             OrderBillingItem(
                 4,
@@ -187,16 +177,6 @@ class OrderViewModel @Inject constructor() : ViewModel() {
                 50000,
                 1,
                 "Color: Blue, Size: 30"
-            )
-        )
-        sampleBillingItems.add(
-            OrderBillingItem(
-                3,
-                imgBillingItem3,
-                "Item 3",
-                70000,
-                1,
-                "Color: Pink, Size: 30"
             )
         )
 

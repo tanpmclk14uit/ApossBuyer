@@ -82,7 +82,6 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setShowAll()
         setUpViewPager()
         setUpIndicator()
-        setUpLeftRightController()
         val stringPropertyAdapter = StringPropertyAdapter(this)
         val colorPropertyAdapter = ColorPropertyAdapter(this)
         binding.stringProperty.adapter = stringPropertyAdapter
@@ -109,22 +108,6 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         }
     }
 
-    private fun setUpLeftRightController() {
-        binding.goToLeftImage.setOnClickListener {
-            if (binding.images.currentItem != 0) {
-                binding.images.currentItem -= 1
-            } else {
-                binding.images.currentItem = viewModel.selectedProductImages.value!!.size - 1
-            }
-        }
-        binding.goToRightImage.setOnClickListener {
-            if (binding.images.currentItem != viewModel.selectedProductImages.value!!.size - 1) {
-                binding.images.currentItem += 1
-            } else {
-                binding.images.currentItem = 0
-            }
-        }
-    }
 
     private fun setUpIndicator() {
         binding.indicator.setViewPager(binding.images)

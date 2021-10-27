@@ -8,7 +8,7 @@
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.OrderDetailViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/back_ground"
@@ -110,8 +110,9 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-
-            android:layout_marginTop="160dp"
+            android:layout_above="@id/bottomButton"
+            android:id="@+id/scroll"
+            android:layout_marginTop="70dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -120,7 +121,7 @@
                 android:layout_height="match_parent">
                 <androidx.cardview.widget.CardView
                     android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginHorizontal="10dp"
                     app:cardElevation="5dp"
                     app:cardCornerRadius="8dp"
                     android:layout_width="match_parent"
@@ -139,30 +140,14 @@
                            android:text="@string/address"
                            android:textSize="16sp" />
 
-                       <ToggleButton
-                           android:id="@+id/showAllAddress"
-                           android:layout_width="30dp"
-                           android:layout_height="30dp"
-                           android:layout_alignParentTop="true"
-                           android:layout_alignParentEnd="true"
-                           android:layout_gravity="end"
-                           android:layout_marginEnd="15dp"
-                           android:layout_marginTop="10dp"
-                           android:background="@drawable/selector_exspand_toggle"
-                           android:elevation="0dp"
-                           android:textAllCaps="false"
-                           android:textColor="@color/disable_pray"
-                           android:textOff=""
-                           android:textOn=""
-                           android:textStyle="normal" />
 
                        <ImageView
-                           android:layout_marginEnd="5dp"
+                           android:layout_marginEnd="10dp"
                            android:id="@+id/editAddress"
                            android:layout_width="20dp"
                            android:layout_height="20dp"
                            android:layout_marginTop="16dp"
-                           android:layout_toStartOf="@+id/showAllAddress"
+                           android:layout_alignParentEnd="true"
                            android:contentDescription="@string/image"
                            android:src="@drawable/ic_address_edit" />
 
@@ -174,8 +159,6 @@
                            android:layout_height="1dp"/>
 
                        <TextView
-                           android:justificationMode="inter_word"
-                           android:text="@{viewModel.detailOrder.address}"
                            android:id="@+id/address"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -183,15 +166,17 @@
                            android:layout_marginHorizontal="15dp"
                            android:layout_marginTop="10dp"
                            android:layout_marginBottom="15dp"
+                           android:justificationMode="inter_word"
                            android:lines="3"
                            android:maxLines="3"
+                           android:text="@{viewModel.detailOrder.address}"
                            android:textColor="@color/dark_pray"
                            android:textSize="16sp" />
                    </RelativeLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginHorizontal="10dp"
                     app:cardElevation="5dp"
                     app:cardCornerRadius="8dp"
                     android:layout_width="match_parent"
@@ -210,36 +195,21 @@
                             android:text="@string/items"
                             android:textSize="16sp" />
 
-                        <ToggleButton
-                            android:id="@+id/showAllBillingItems"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_gravity="end"
-                            android:layout_marginHorizontal="15dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/selector_exspand_toggle"
-                            android:elevation="0dp"
-                            android:textAllCaps="false"
-                            android:textColor="@color/disable_pray"
-                            android:textOff=""
-                            android:textOn=""
-                            android:textStyle="normal" />
                         <View
                             android:id="@+id/dividerBilling"
                             android:layout_below="@id/allItems"
                             android:background="#F2F2F2"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
+
                         <androidx.recyclerview.widget.RecyclerView
-                            android:layout_marginVertical="10dp"
-                            android:layout_marginHorizontal="10dp"
                             android:id="@+id/billingItems"
                             billingItemData="@{viewModel.detailOrder.billingItems}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/dividerBilling"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginVertical="10dp"
                             android:orientation="vertical"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:itemCount="2"
@@ -280,11 +250,10 @@
                             android:textSize="16sp" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginHorizontal="10dp"
                     app:cardElevation="5dp"
                     app:cardCornerRadius="8dp"
                     android:layout_width="match_parent"
@@ -337,44 +306,54 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/deliveringState"
                             deliveringStateData="@{viewModel.orderDeliveringState}"
-                            tools:itemCount="4"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            android:orientation="vertical"
-                            tools:listitem="@layout/item_order_delivering_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/dividerStatus"
                             android:layout_marginHorizontal="20dp"
                             android:layout_marginTop="30dp"
-                            android:layout_below="@+id/dividerStatus"
-                            android:layout_width="match_parent"
                             android:layout_marginBottom="30dp"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="vertical"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="4"
+                            tools:listitem="@layout/item_order_delivering_state" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_marginHorizontal="20dp"
-                    android:id="@+id/ratingNow"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/bg_rating_now_button"
-                    android:text="@string/rating_now"
-                    android:textAllCaps="true"
-                    android:textColor="@color/active_button"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_marginHorizontal="20dp"
-                    android:id="@+id/cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/bg_order_cancel_button"
-                    android:text="@string/cancel_order"
-                    android:textAllCaps="true"
-                    android:textColor="@color/disable_pray"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:id="@+id/bottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/ratingNow"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_rating_now_button"
+                android:text="@string/rating_now"
+                android:textAllCaps="true"
+                android:textColor="@color/active_button"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginVertical="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_order_cancel_button"
+                android:text="@string/cancel_order"
+                android:textAllCaps="true"
+                android:textColor="@color/disable_pray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

@@ -1,48 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="category"
-            type="com.example.aposs_buyer.model.DetailCategory"/>
+            type="com.example.aposs_buyer.model.DetailCategory" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:layout_marginTop="20dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categories">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginHorizontal="13dp"
-            android:shadowColor="@color/white"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
-            <!--Put automatic page view here-->
-            <androidx.viewpager2.widget.ViewPager2
-                detailCategoryImages="@{category.images}"
-                android:id="@+id/imageViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </androidx.cardview.widget.CardView>
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="3dp"
-            android:layout_height="135dp"
             android:layout_marginBottom="10dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="3dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -51,25 +36,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/imageViewPager"
+                    detailCategoryImages="@{category.images}"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <me.relex.circleindicator.CircleIndicator3
                     android:id="@+id/indicator"
+                    indicatorSize="@{category.images.size()}"
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
-                    android:layout_marginTop="50dp"
-                    indicatorSize="@{category.images.size()}"
+                    android:layout_marginTop="10dp"
                     app:ci_drawable="@drawable/bg_cycle_indicator"
                     app:ci_drawable_unselected="@drawable/bg_cycle_unselected_indicator"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewPager" />
+
                 <TextView
                     android:id="@+id/categoryName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
+                    android:text="@{category.name}"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
-                    android:text="@{category.name}"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -77,13 +70,13 @@
                     app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
                 <TextView
-                    android:layout_marginTop="3dp"
                     android:id="@+id/totalPurchase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
-                    android:textColor="@color/dark_pray"
+                    android:layout_marginTop="3dp"
                     android:text="@{category.displayToTalPurchase()}"
+                    android:textColor="@color/dark_pray"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -91,33 +84,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/categoryName" />
 
                 <TextView
-                    android:layout_marginTop="3dp"
                     android:id="@+id/totalProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="13dp"
-                    android:textColor="@color/dark_pray"
+                    android:layout_marginTop="3dp"
                     android:text="@{category.displayToTalProduct()}"
+                    android:textColor="@color/dark_pray"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/categoryName" />
 
                 <RatingBar
-                    android:layout_marginTop="4dp"
-                    android:layout_marginHorizontal="13dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/categoryName"
                     android:id="@+id/rating"
-                    android:rating="@{category.rating}"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="13dp"
+                    android:layout_marginTop="4dp"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:progressTint="@color/yellow"
+                    android:rating="@{category.rating}"
                     android:secondaryProgressTint="@color/yellow"
-                    android:stepSize="0.5" />
+                    android:stepSize="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

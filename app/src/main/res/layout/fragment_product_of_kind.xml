@@ -209,12 +209,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="18dp"
-                    android:layout_marginTop="200dp">
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="145dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rc_products"
                         listProduct="@{viewModel.productKind}"
+                        app:spanCount="2"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

@@ -53,14 +53,10 @@ class DetailOrderFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.address.visibility = View.GONE
-        binding.billingItems.visibility = View.GONE
         orderDetailBillingItem = BillingItemsAdapter()
         binding.billingItems.adapter = orderDetailBillingItem
         orderDeliveringStateAdapter = OrderDeliveringStateAdapter()
         binding.deliveringState.adapter = orderDeliveringStateAdapter
-        setShowALlAddress()
-        setShowAllBillingItems()
         setShowButton()
         setBackPress()
         setEditAddress()
@@ -112,26 +108,6 @@ class DetailOrderFragment : Fragment() {
             binding.editAddress.visibility = View.GONE
         }
 
-    }
-
-    private fun setShowAllBillingItems(){
-        binding.showAllBillingItems.setOnCheckedChangeListener{ _, check ->
-            if(check){
-                binding.billingItems.visibility = View.VISIBLE
-            }else{
-                binding.billingItems.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun setShowALlAddress(){
-        binding.showAllAddress.setOnCheckedChangeListener { _, check ->
-            if(check){
-                binding.address.visibility = View.VISIBLE
-            }else{
-                binding.address.visibility = View.GONE
-            }
-        }
     }
 
 

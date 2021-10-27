@@ -11,6 +11,7 @@
     </data>
 
     <RelativeLayout
+        android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -122,9 +123,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_below="@+id/content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/disable_pray" />
     </RelativeLayout>
 </layout>
