@@ -58,6 +58,9 @@ class RatingFragment : Fragment() {
         binding.lnAddImg.setOnClickListener {
             openGallery()
         }
+        binding.buttonAddImage.setOnClickListener {
+            openGallery()
+        }
         binding.btnSaveRate.setOnClickListener {
             Toast.makeText(this.context, "Save success", Toast.LENGTH_SHORT).show()
             findNavController().navigate(RatingFragmentDirections.actionRatingFragmentToRatedFragment())
@@ -87,6 +90,8 @@ class RatingFragment : Fragment() {
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
             imageUri = data.data!!
             viewModel.onAddImage(RateImage(0, Image(imageUri.toString())))
+            binding.buttonAddImage.visibility = View.GONE
+            binding.lnAddImg.visibility = View.VISIBLE
             checkValidToAdd()
             setDisplayAmount()
             addingRatingImageAdapter.submitList(viewModel.listChoseImage.value)

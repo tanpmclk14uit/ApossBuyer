@@ -8,11 +8,11 @@
     <LinearLayout
         android:layout_width="99dp"
         android:layout_height="99dp"
-        android:layout_marginRight="8dp">
+        android:layout_marginEnd="10dp">
         <ImageView
+            android:scaleType="centerCrop"
             imagesPath="@{rateImage.rateImage.uriRoot}"
             android:layout_width="99dp"
-            android:scaleType="fitXY"
             android:layout_height="99dp"/>
     </LinearLayout>
 </layout>

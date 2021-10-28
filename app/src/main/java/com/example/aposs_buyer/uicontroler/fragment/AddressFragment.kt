@@ -32,7 +32,7 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
        binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_address, container, false)
         binding.lifecycleOwner = this
@@ -45,20 +45,17 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     }
 
     override fun onClick(position: Int) {
-        viewModel.onChangeDefault(position)
-        addressAdapter.notifyDataSetChanged()
+
     }
 
-    fun setOnClick()
+    override fun onEdit(addressId: Long) {
+        findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(viewModel.getCurrentDefaultAddress(addressId)))
+    }
+
+    private fun setOnClick()
     {
-        binding.btnEditDefault.setOnClickListener {
-            findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(viewModel.getCurrentDefaultAddress()))
-        }
         binding.tvAddNewAddress.setOnClickListener {
             findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(viewModel.getCreateAddress()))
-        }
-        binding.btnDelete.setOnClickListener {
-            onOpenDeleteDialog()
         }
         binding.imgBack.setOnClickListener{
             requireActivity().onBackPressed()
@@ -69,37 +66,5 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
         }
     }
 
-    private fun onOpenDeleteDialog()
-    {
-        val dialogDelete = this.context?.let { Dialog(it) }
-        dialogDelete?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialogDelete?.setContentView(R.layout.delete_permission_dialog)
 
-        val window = dialogDelete?.window ?: return
-
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        val windowAttribute = window.attributes
-
-        windowAttribute.gravity = Gravity.CENTER
-        window.attributes= windowAttribute
-
-        dialogDelete.setCancelable(false)
-
-        val btnDelete:AppCompatButton = dialogDelete.findViewById(R.id.btn_delete)
-        val btnCancel: AppCompatButton = dialogDelete.findViewById(R.id.btn_cancel)
-
-        btnCancel.setOnClickListener {
-            dialogDelete.dismiss()
-        }
-
-        btnDelete.setOnClickListener {
-            viewModel.deleteDefaultAddress()
-            Toast.makeText(this.context, "Delete success", Toast.LENGTH_SHORT).show()
-            dialogDelete.dismiss()
-        }
-
-        dialogDelete.show()
-    }
 }

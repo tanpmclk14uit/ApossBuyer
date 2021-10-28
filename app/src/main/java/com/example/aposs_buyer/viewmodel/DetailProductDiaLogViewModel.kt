@@ -162,7 +162,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
                     sampleProperty += property.name
                     sampleProperty +=": "
                     sampleProperty += value.name
-                    sampleProperty +="; "
+                    sampleProperty +=", "
                 }
             }
         }
@@ -173,7 +173,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
                     sampleProperty += property.name
                     sampleProperty +=": "
                     sampleProperty += value.name
-                    sampleProperty +="; "
+                    sampleProperty +=", "
                 }
             }
         }

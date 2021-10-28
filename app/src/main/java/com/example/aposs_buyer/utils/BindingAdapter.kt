@@ -42,6 +42,7 @@ fun bindImagePath(imageView: ImageView, image: Uri?)
         )
         .transition(BitmapTransitionOptions.withCrossFade())
         .into(imageView)
+    imageView.scaleType= ImageView.ScaleType.CENTER_CROP
 }
 @BindingAdapter("categoriesData")
 fun bindCategoriesViewPager(viewPager2: ViewPager2, data: ArrayList<Category>?){

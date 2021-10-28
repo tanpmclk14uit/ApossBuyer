@@ -42,9 +42,6 @@ class CheckOutDialogFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewModel
         binding.rcCheckOutConfirm.adapter = checkOutAdapter
         binding.rcCheckOutConfirm.layoutManager = LinearLayoutManager(binding.rcCheckOutConfirm.context, LinearLayoutManager.VERTICAL, false)
-        binding.btnPlaceOrder.setOnClickListener {
-            findNavController().navigate(CheckOutDialogFragmentDirections.actionCheckOutDialogFragmentToFinishCheckOutFragment())
-        }
         setTextColor()
         return binding.root
     }

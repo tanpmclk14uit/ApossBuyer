@@ -142,12 +142,12 @@
 
 
                        <ImageView
-                           android:layout_marginEnd="10dp"
                            android:id="@+id/editAddress"
                            android:layout_width="20dp"
                            android:layout_height="20dp"
-                           android:layout_marginTop="16dp"
                            android:layout_alignParentEnd="true"
+                           android:layout_marginTop="16dp"
+                           android:layout_marginEnd="10dp"
                            android:contentDescription="@string/image"
                            android:src="@drawable/ic_address_edit" />
 

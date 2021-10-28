@@ -23,13 +23,13 @@
             tools:context=".uicontroler.fragment.MessageFragment">
 
             <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="120dp"
                 android:backgroundTint="@color/back_ground"
                 android:text="@string/app_name"
                 android:theme="@style/ThemeOverlay.AppCompat.Light"
-                app:elevation="0dp"
                 >
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -176,9 +176,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/checkout_layout"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginTop="130dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_below="@id/appBarLayout"
+                android:layout_marginVertical="10dp"
                 android:visibility="gone">
                     <RelativeLayout
                         android:layout_width="match_parent"

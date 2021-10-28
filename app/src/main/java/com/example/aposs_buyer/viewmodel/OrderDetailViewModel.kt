@@ -63,7 +63,7 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
             OrderBillingItem(
                 2,
                 imgBillingItem2,
-                "Item 2",
+                "Orders are being shipped",
                 50000,
                 1,
                 "Color: Blue, Size: 30"
@@ -73,7 +73,7 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
             OrderBillingItem(
                 3,
                 imgBillingItem3,
-                "Item 3",
+                "Orders are being shipped",
                 70000,
                 1,
                 "Color: Pink, Size: 30"

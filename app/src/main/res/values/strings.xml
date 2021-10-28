@@ -8,7 +8,7 @@
     <string name="person">Person</string>
     <string name="about_us">About us</string>
     <string name="image">image</string>
-    <string name="default_price">50.000đ</string>
+    <string name="default_price">Price: </string>
     <string name="purchase">550 purchased</string>
     <string name="Category">Categories</string>
     <string name="show_all">Show all</string>
@@ -110,4 +110,7 @@
     <string name="see_all_items_in_detail">
         <u>See all items in detail</u>
     </string>
+    <string name="write_your_comment_here">Write your comment here!</string>
+    <string name="add_image">Add image</string>
+    <string name="set_as_default_address">Set as default address</string>
 </resources>

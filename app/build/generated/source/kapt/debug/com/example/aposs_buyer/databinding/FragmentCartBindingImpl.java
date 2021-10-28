@@ -14,16 +14,17 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.toolBox, 3);
-        sViewsWithIds.put(R.id.search_bar, 4);
-        sViewsWithIds.put(R.id.tiet_search_bar, 5);
-        sViewsWithIds.put(R.id.img_notification, 6);
-        sViewsWithIds.put(R.id.title, 7);
-        sViewsWithIds.put(R.id.lnAboutUs, 8);
-        sViewsWithIds.put(R.id.empty_cart, 9);
-        sViewsWithIds.put(R.id.fullfill_cart, 10);
-        sViewsWithIds.put(R.id.checkout_layout, 11);
-        sViewsWithIds.put(R.id.btn_go_to_check_out, 12);
+        sViewsWithIds.put(R.id.appBarLayout, 3);
+        sViewsWithIds.put(R.id.toolBox, 4);
+        sViewsWithIds.put(R.id.search_bar, 5);
+        sViewsWithIds.put(R.id.tiet_search_bar, 6);
+        sViewsWithIds.put(R.id.img_notification, 7);
+        sViewsWithIds.put(R.id.title, 8);
+        sViewsWithIds.put(R.id.lnAboutUs, 9);
+        sViewsWithIds.put(R.id.empty_cart, 10);
+        sViewsWithIds.put(R.id.fullfill_cart, 11);
+        sViewsWithIds.put(R.id.checkout_layout, 12);
+        sViewsWithIds.put(R.id.btn_go_to_check_out, 13);
     }
     // views
     @NonNull
@@ -73,21 +74,22 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     };
 
     public FragmentCartBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 13, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 14, sIncludes, sViewsWithIds));
     }
     private FragmentCartBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
-            , (android.widget.Button) bindings[12]
-            , (android.widget.LinearLayout) bindings[11]
-            , (androidx.core.widget.NestedScrollView) bindings[9]
+            , (com.google.android.material.appbar.AppBarLayout) bindings[3]
+            , (android.widget.Button) bindings[13]
+            , (android.widget.LinearLayout) bindings[12]
             , (androidx.core.widget.NestedScrollView) bindings[10]
-            , (android.widget.ImageView) bindings[6]
-            , (android.widget.ImageView) bindings[8]
+            , (androidx.core.widget.NestedScrollView) bindings[11]
+            , (android.widget.ImageView) bindings[7]
+            , (android.widget.ImageView) bindings[9]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
-            , (com.google.android.material.textfield.TextInputLayout) bindings[4]
-            , (com.google.android.material.textfield.TextInputEditText) bindings[5]
-            , (android.widget.TextView) bindings[7]
-            , (android.widget.RelativeLayout) bindings[3]
+            , (com.google.android.material.textfield.TextInputLayout) bindings[5]
+            , (com.google.android.material.textfield.TextInputEditText) bindings[6]
+            , (android.widget.TextView) bindings[8]
+            , (android.widget.RelativeLayout) bindings[4]
             );
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];
         this.mboundView0.setTag(null);

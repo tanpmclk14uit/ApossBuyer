@@ -59,7 +59,7 @@ class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: 
             this.notifyItemChanged(position)
         }
         holder.binding.cardCartItem.setOnClickListener {
-            OnChoose(position)
+            onChoose(position)
         }
     }
 
@@ -69,7 +69,7 @@ class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: 
         changeAmount.onChangeAmount()
     }
 
-    private fun OnChoose(position: Int)
+    private fun onChoose(position: Int)
     {
         getItem(position).isChoose = !getItem(position).isChoose
         onChoose.onChose(position)

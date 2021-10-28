@@ -163,7 +163,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
             OrderBillingItem(
                 1,
                 imgBillingItem1,
-                "Item 1",
+                "Keychron k3v2 blue switch",
                 20000,
                 1,
                 "Color: Red, Size: 30"

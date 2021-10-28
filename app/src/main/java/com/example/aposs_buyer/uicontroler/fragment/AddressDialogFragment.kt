@@ -1,16 +1,14 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -20,8 +18,8 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressDialogBinding
 import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.viewmodel.AddressDialogViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @AndroidEntryPoint
@@ -36,7 +34,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
         viewModel.address.value = args.defaultAddress
@@ -49,18 +47,62 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         binding.btnEditAddAddress.setOnClickListener {
             onClickEditOrAdd()
         }
+        binding.btnDelete.setOnClickListener {
+            onOpenDeleteDialog()
+        }
         onAddNewAddress()
         setCheckingCellPhone()
         setCheckingName()
         return binding.root
     }
+    private fun onOpenDeleteDialog()
+    {
+        val dialogDelete = this.context?.let { Dialog(it) }
+        dialogDelete?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogDelete?.setContentView(R.layout.delete_permission_dialog)
 
+        val window = dialogDelete?.window ?: return
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val windowAttribute = window.attributes
+
+        windowAttribute.gravity = Gravity.CENTER
+        window.attributes= windowAttribute
+
+        dialogDelete.setCancelable(false)
+
+        val btnDelete: AppCompatButton = dialogDelete.findViewById(R.id.btn_delete)
+        val btnCancel: AppCompatButton = dialogDelete.findViewById(R.id.btn_cancel)
+
+        btnCancel.setOnClickListener {
+            dialogDelete.dismiss()
+        }
+
+//        btnDelete.setOnClickListener {
+//            viewModel.deleteDefaultAddress()
+//            Toast.makeText(this.context, "Delete success", Toast.LENGTH_SHORT).show()
+//            dialogDelete.dismiss()
+//        }
+
+        dialogDelete.show()
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun checkButtonMatchDialog()
     {
         if( args.defaultAddress.id == 0L) {
             binding.btnEditAddAddress.text = "Add new address"
+            binding.btnDelete.text = "Cancel"
+            binding.btnDelete.setOnClickListener {
+                this.dismiss()
+            }
         }
-        else binding.btnEditAddAddress.text = "Edit"
+        else {
+            binding.btnEditAddAddress.text = "Edit"
+            binding.btnDelete.text = "Delete"
+        }
         if (binding.btnEditAddAddress.text == "Edit") binding.btnEditAddAddress.isEnabled = false
     }
 

@@ -166,6 +166,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:scaleX="1.2"
+                        android:scaleY="1.2"
+                        app:tint="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
