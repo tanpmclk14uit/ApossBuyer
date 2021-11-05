@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.model
 
+import com.squareup.moshi.Json
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
