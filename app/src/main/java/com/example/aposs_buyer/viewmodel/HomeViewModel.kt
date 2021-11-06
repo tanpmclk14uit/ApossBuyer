@@ -9,12 +9,14 @@ import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.model.dto.ProductDTO
+import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,8 +38,8 @@ class HomeViewModel @Inject constructor(
     private var _currentProductKind= MutableLiveData<String>()
     val currentProductKind: LiveData<String> get() = _currentProductKind
     // products data
-    private var _products = MutableLiveData<ArrayList<HomeProduct>>()
-    val products: LiveData<ArrayList<HomeProduct>> get() = _products
+    private var _products = MutableLiveData<List<HomeProduct>>()
+    val products: LiveData<List<HomeProduct>> get() = _products
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -52,15 +54,25 @@ class HomeViewModel @Inject constructor(
         coroutineScope.launch {
             val getProductDeferred = productRepository.productService.getProductsAsync();
             try {
-                val productDTO: ProductDTO = getProductDeferred.await()
-                _products.value = ArrayList()
-                Log.d("tag", productDTO.pageSize.toString())
+                val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
+                _products.value = productResponseDTO.content.stream().map { productDTO -> convertToHomeProduct(productDTO) }.collect(
+                    Collectors.toList())
             }
             catch (e: Exception){
                 Log.d("exception", e.toString())
                 _products.value = ArrayList()
             }
         }
+    }
+    private fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct{
+        return HomeProduct(
+            id = productDTO.id,
+            image = Image(productDTO.image),
+            name = productDTO.name,
+            isFavorite = productDTO.favorite,
+            rating = productDTO.rating.toFloat(),
+            price = productDTO.price
+        )
     }
     override fun onCleared() {
         super.onCleared()

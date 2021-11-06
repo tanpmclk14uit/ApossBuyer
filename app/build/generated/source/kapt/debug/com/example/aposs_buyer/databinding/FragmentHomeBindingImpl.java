@@ -135,7 +135,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             case 3 :
                 return onChangeViewModelRankingProducts((androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.RankingProduct>>) object, fieldId);
             case 4 :
-                return onChangeViewModelProducts((androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.HomeProduct>>) object, fieldId);
+                return onChangeViewModelProducts((androidx.lifecycle.LiveData<java.util.List<com.example.aposs_buyer.model.HomeProduct>>) object, fieldId);
             case 5 :
                 return onChangeViewModelDisplayCategoryPurchase((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
             case 6 :
@@ -179,7 +179,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         }
         return false;
     }
-    private boolean onChangeViewModelProducts(androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.HomeProduct>> ViewModelProducts, int fieldId) {
+    private boolean onChangeViewModelProducts(androidx.lifecycle.LiveData<java.util.List<com.example.aposs_buyer.model.HomeProduct>> ViewModelProducts, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x10L;
@@ -220,7 +220,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         com.example.aposs_buyer.model.Category viewModelDisplayCategoryGetValue = null;
         java.util.ArrayList<com.example.aposs_buyer.model.Category> viewModelCategoriesGetValue = null;
         int viewModelRankingProductsSize = 0;
-        java.util.ArrayList<com.example.aposs_buyer.model.HomeProduct> viewModelProductsGetValue = null;
+        java.util.List<com.example.aposs_buyer.model.HomeProduct> viewModelProductsGetValue = null;
         java.lang.String viewModelDisplayCategoryPurchaseGetValue = null;
         java.lang.String viewModelDisplayCategoryProductsGetValue = null;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryProducts = null;
@@ -229,7 +229,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         float viewModelDisplayCategoryRating = 0f;
         java.lang.String viewModelDisplayCategoryName = null;
         java.util.ArrayList<com.example.aposs_buyer.model.RankingProduct> viewModelRankingProductsGetValue = null;
-        androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.HomeProduct>> viewModelProducts = null;
+        androidx.lifecycle.LiveData<java.util.List<com.example.aposs_buyer.model.HomeProduct>> viewModelProducts = null;
         com.example.aposs_buyer.viewmodel.HomeViewModel viewModel = mViewModel;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryPurchase = null;
         androidx.lifecycle.LiveData<java.lang.String> viewModelCurrentProductKind = null;

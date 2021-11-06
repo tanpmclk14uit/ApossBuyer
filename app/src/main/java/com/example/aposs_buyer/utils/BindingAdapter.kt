@@ -94,7 +94,7 @@ fun bindRankingViewPager(viewPager2: ViewPager2, data: ArrayList<RankingProduct>
     adapter.submitList(data)
 }
 @BindingAdapter("productData")
-fun bindProductRecyclerView(recyclerView: RecyclerView, data: ArrayList<HomeProduct>?){
+fun bindProductRecyclerView(recyclerView: RecyclerView, data: List<HomeProduct>?){
     val adapter = recyclerView.adapter as HomeProductAdapter
     adapter.submitList(data)
 }
@@ -114,7 +114,6 @@ fun bindRecyclerView(recyclerView: RecyclerView,
 @BindingAdapter("message")
 fun bindMessage(textView: TextView, message:String) {
     textView.text = message
-    //Log.i("Binding for Text View", "doneeeeeeeeeeee")
 }
 
 @BindingAdapter("listMessage")

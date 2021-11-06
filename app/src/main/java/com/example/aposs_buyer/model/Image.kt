@@ -17,7 +17,6 @@ data class Image(val imgURL: String): Parcelable{
 
     fun getUriRoot(): Uri
     {
-        Log.d("Con lạy giời", Uri.parse(imgURL).toString())
         return Uri.parse(imgURL)
     }
 }
