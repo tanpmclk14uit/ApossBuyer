@@ -19,3 +19,11 @@ enum class OrderStatus{
 enum class ProductsStatus{
     Loading, Success, Fail
 }
+
+enum class CategoryStatus{
+    Loading, Success, Fail
+}
+
+enum class KindStatus{
+    Loading, Success, Fail
+}

@@ -4,15 +4,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RankingProduct
+import com.example.aposs_buyer.model.dto.DetailCategoryDTO
 import com.example.aposs_buyer.model.dto.ProductDTO
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
+import com.example.aposs_buyer.responsitory.CategoryRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.utils.CategoryStatus
 import com.example.aposs_buyer.utils.ProductsStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,7 +27,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     //category data
@@ -51,9 +57,15 @@ class HomeViewModel @Inject constructor(
     private var _status = MutableLiveData<ProductsStatus>()
     val status: LiveData<ProductsStatus> get()= _status
 
+    private var _categoryStatus = MutableLiveData<CategoryStatus>()
+    val categoryStatus: LiveData<CategoryStatus> get()= _categoryStatus
+
     init {
-        _categories.value = loadCategoriesData()
-        setUpDisplayCategory(0)
+        loadCategoriesData()
+        if(_categoryStatus.value ==  CategoryStatus.Success)
+        {
+            setUpDisplayCategory(0)
+        }
         _rankingProducts.value = loadRankingData()
         _products.value = ArrayList()
         _status.value = ProductsStatus.Success
@@ -77,7 +89,7 @@ class HomeViewModel @Inject constructor(
                 try {
                     val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
                     val productsInCurrentPage = productResponseDTO.content.stream()
-                        .map { productDTO -> convertToHomeProduct(productDTO) }.collect(
+                        .map { productDTO -> Converter.convertToHomeProduct(productDTO) }.collect(
                             Collectors.toList()
                         )
                     _products.value = concatenate(_products.value!!, productsInCurrentPage)
@@ -95,15 +107,30 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
-        return HomeProduct(
-            id = productDTO.id,
-            image = Image(productDTO.image),
-            name = productDTO.name,
-            isFavorite = productDTO.favorite,
-            rating = productDTO.rating.toFloat(),
-            price = productDTO.price
-        )
+
+
+    object Converter {
+         fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
+            return HomeProduct(
+                id = productDTO.id,
+                image = Image(productDTO.image),
+                name = productDTO.name,
+                isFavorite = productDTO.favorite,
+                rating = productDTO.rating.toFloat(),
+                price = productDTO.price
+            )
+        }
+
+        fun convertDetailCategoryDTOToCategory(categoryDTO: DetailCategoryDTO): Category{
+            return Category(
+                id = categoryDTO.id,
+                name = categoryDTO.name,
+                totalProduct = categoryDTO.totalProducts,
+                totalPurchase = categoryDTO.totalPurchases,
+                rating = categoryDTO.rating,
+                mainImage = Image(categoryDTO.images[0])
+            )
+        }
     }
 
     override fun onCleared() {
@@ -111,19 +138,21 @@ class HomeViewModel @Inject constructor(
         viewModelJob.cancel()
     }
 
-    private fun loadCategoriesData(): ArrayList<Category> {
-        val imgURl1 = "https://i.pinimg.com/originals/58/f3/0a/58f30a4b7fc165af50e7052725b8bc09.jpg"
-        val imgURL2 =
-            "https://th.bing.com/th/id/R.380e118b26177f38ab0036ecb5014a0b?rik=coxm1X%2f%2bYh9klw&pid=ImgRaw&r=0"
-        val imgURL3 = "https://www.hartehanks.com/wp-content/uploads/2021/09/MarTech.jpg"
-        val imgCategory1 = Image(imgURl1)
-        val imgCategory2 = Image(imgURL2)
-        val imgCategory3 = Image(imgURL3)
-        val sampleCategories = ArrayList<Category>()
-        sampleCategories.add(Category(1, "Sport Clothes", 1147, 2172, 3.5f, imgCategory1))
-        sampleCategories.add(Category(2, "Healthy Food", 2194, 1258, 4f, imgCategory2))
-        sampleCategories.add(Category(3, "Laptop", 3153, 1917, 4.5f, imgCategory3))
-        return sampleCategories
+    private fun loadCategoriesData() {
+        _categoryStatus.value = CategoryStatus.Loading
+        viewModelScope.launch {
+            val listDetailCategoryDTO = categoryRepository.categoryService.getAllCategory()
+            try {
+                _categories.value = ArrayList(listDetailCategoryDTO.stream().map {
+                    Converter.convertDetailCategoryDTOToCategory(it)
+                }.collect(Collectors.toList()))
+                _categoryStatus.value = CategoryStatus.Success
+            }
+            catch (e:java.lang.Exception){
+                Log.e("Exception", e.toString())
+                _categoryStatus.value = CategoryStatus.Fail
+            }
+        }
     }
 
     private fun loadRankingData(): ArrayList<RankingProduct> {

@@ -1,16 +1,27 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.Kind
+import com.example.aposs_buyer.model.dto.KindDTO
+import com.example.aposs_buyer.responsitory.KindRepository
+import com.example.aposs_buyer.utils.KindStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
-class KindViewModel @Inject constructor(): ViewModel() {
+class KindViewModel @Inject constructor(private val kindRepository: KindRepository): ViewModel() {
+
+    private val _status = MutableLiveData<KindStatus>()
 
     private val selectedCategoryId = MutableLiveData<Long>()
 
@@ -19,9 +30,12 @@ class KindViewModel @Inject constructor(): ViewModel() {
 
     val selectedCategoryName = MutableLiveData<String>()
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     fun setSelectedCategory()
     {
-        _listKind.value = loadProduct(selectedCategoryId.value!!)
+        loadProduct(selectedCategoryId.value!!)
     }
 
     fun getSelectedCategory(): MutableList<Kind>
@@ -29,52 +43,51 @@ class KindViewModel @Inject constructor(): ViewModel() {
         return _listKind.value!!
     }
 
-    fun setSelectedKindIdAndName(selectedKindId: Long, selectedName: String)
+    fun setSelectedKindIdAndName(selectedCategory: Long, selectedName: String)
     {
-        selectedCategoryId.value = selectedKindId
+        selectedCategoryId.value = selectedCategory
         selectedCategoryName.value = selectedName
     }
 
-    private fun loadProduct(selectedKindId: Long): MutableList<Kind>
+    private fun loadProduct(selectedCategory: Long)
     {
-        //declare call db to get all product having selected kind id here
-        return when (selectedKindId) {
-            1L -> {
-                val imgURl1 =
-                    "https://dailytimes.com.pk/assets/uploads/2019/04/09/fast-food-chain.jpg"
-                val imgProduct1 = Image(imgURl1)
-                val imgURl2 ="https://vietcetera.com/wp-content/uploads/2018/07/Bitis_Hunter_Featured.jpg"
-                val imgProduct2 = Image(imgURl2)
-                val sampleProducts: MutableList<HomeProduct> = mutableListOf()
-                val sampleKinds: MutableList<Kind> = mutableListOf()
-                sampleKinds.add(Kind(1L, "Vegetable", 23424, 75, 3.4F, sampleProducts, imgProduct1))
-                sampleKinds.add(Kind(1L, "Meat", 1244, 253, 3.8F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Chicken", 14124, 23, 4.4F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Fish", 25452, 34, 2.4F, sampleProducts, imgProduct1))
-                sampleKinds.add(Kind(1L, "Vegetable", 23424, 75, 3.4F, sampleProducts, imgProduct1))
-                sampleKinds.add(Kind(1L, "Meat", 1244, 253, 3.8F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Chicken", 14124, 23, 4.4F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Fish", 25452, 34, 2.4F, sampleProducts, imgProduct1))
-                sampleKinds
+        _status.value = KindStatus.Loading
+        coroutineScope.launch {
+            val listKindDTO = kindRepository.kindService.getAllKind()
+            try {
+                val listSelectedKindDTO: MutableList<KindDTO> = mutableListOf()
+                for (item in listKindDTO) {
+                    if (item.category == selectedCategory) {
+                        listSelectedKindDTO.add(item)
+                    }
+                }
+                _listKind.value = listSelectedKindDTO.stream().map {
+                    Converter.convertFromKindDTOToKind(it)
+                }.collect(Collectors.toList())
+                _status.value = KindStatus.Success
             }
-            else ->{
-                val imgURl1 =
-                    "https://dailytimes.com.pk/assets/uploads/2019/04/09/fast-food-chain.jpg"
-                val imgProduct1 = Image(imgURl1)
-                val imgURl2 ="https://vietcetera.com/wp-content/uploads/2018/07/Bitis_Hunter_Featured.jpg"
-                val imgProduct2 = Image(imgURl2)
-                val sampleProducts: MutableList<HomeProduct> = mutableListOf()
-                val sampleKinds: MutableList<Kind> = mutableListOf()
-                sampleKinds.add(Kind(1L, "Vegetable", 23424, 75, 3.4F, sampleProducts, imgProduct1))
-                sampleKinds.add(Kind(1L, "Meat", 1244, 253, 3.8F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Chicken", 14124, 23, 4.4F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Fish", 25452, 34, 2.4F, sampleProducts, imgProduct1))
-                sampleKinds.add(Kind(1L, "Vegetable", 23424, 75, 3.4F, sampleProducts, imgProduct1))
-                sampleKinds.add(Kind(1L, "Meat", 1244, 253, 3.8F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Chicken", 14124, 23, 4.4F, sampleProducts, imgProduct2))
-                sampleKinds.add(Kind(1L, "Fish", 25452, 34, 2.4F, sampleProducts, imgProduct1))
-                sampleKinds
+            catch (e: Exception)
+            {
+                Log.e("exception", e.toString())
+                _status.value = KindStatus.Fail
             }
+        }
+    }
+    object Converter {
+        fun convertFromKindDTOToKind(kindDTO: KindDTO): Kind {
+            val listHomeProduct = kindDTO.products.stream().map {
+                productDTO -> HomeViewModel.Converter.convertToHomeProduct(productDTO)
+            }.collect(Collectors.toList())
+            return Kind(
+                id = kindDTO.id,
+                name = kindDTO.name,
+                totalPurchase = kindDTO.totalPurchases,
+                totalProduct = kindDTO.totalProducts,
+                rating = kindDTO.rating,
+                image = Image(kindDTO.image),
+                Products = listHomeProduct,
+                category = kindDTO.category
+            )
         }
     }
 

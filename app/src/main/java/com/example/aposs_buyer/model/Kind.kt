@@ -7,6 +7,7 @@ data class Kind(
     val totalProduct: Int,
     val rating: Float,
     val Products: List<HomeProduct>,
-    val image: Image
+    val image: Image,
+    val category: Long,
 )
 
