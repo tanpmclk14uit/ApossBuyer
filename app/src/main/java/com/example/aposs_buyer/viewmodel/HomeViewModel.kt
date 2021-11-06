@@ -11,6 +11,7 @@ import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.model.dto.ProductDTO
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.utils.ProductsStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository
-)  : ViewModel() {
+) : ViewModel() {
 
     //category data
     private var _categories = MutableLiveData<ArrayList<Category>>()
@@ -35,8 +36,9 @@ class HomeViewModel @Inject constructor(
     //ranking data
     private var _rankingProducts = MutableLiveData<ArrayList<RankingProduct>>()
     val rankingProducts: LiveData<ArrayList<RankingProduct>> get() = _rankingProducts
-    private var _currentProductKind= MutableLiveData<String>()
+    private var _currentProductKind = MutableLiveData<String>()
     val currentProductKind: LiveData<String> get() = _currentProductKind
+
     // products data
     private var _products = MutableLiveData<List<HomeProduct>>()
     val products: LiveData<List<HomeProduct>> get() = _products
@@ -44,27 +46,56 @@ class HomeViewModel @Inject constructor(
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    private var currentPage = 1
+    private var isLastPage = false
+    private var _status = MutableLiveData<ProductsStatus>()
+    val status: LiveData<ProductsStatus> get()= _status
+
     init {
         _categories.value = loadCategoriesData()
         setUpDisplayCategory(0)
         _rankingProducts.value = loadRankingData()
+        _products.value = ArrayList()
+        _status.value = ProductsStatus.Success
         loadProducts()
     }
-    private fun loadProducts(){
-        coroutineScope.launch {
-            val getProductDeferred = productRepository.productService.getProductsAsync();
-            try {
-                val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
-                _products.value = productResponseDTO.content.stream().map { productDTO -> convertToHomeProduct(productDTO) }.collect(
-                    Collectors.toList())
-            }
-            catch (e: Exception){
-                Log.d("exception", e.toString())
-                _products.value = ArrayList()
+
+    fun <T> concatenate(vararg lists: List<T>): List<T> {
+        val result: MutableList<T> = ArrayList()
+        for (list in lists) {
+            result.addAll(list)
+        }
+        return result
+    }
+
+    fun loadProducts() {
+        if (!isLastPage) {
+            _status.value = ProductsStatus.Loading
+            coroutineScope.launch {
+                val getProductDeferred =
+                    productRepository.productService.getProductsAsync(currentPage);
+                try {
+                    val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
+                    val productsInCurrentPage = productResponseDTO.content.stream()
+                        .map { productDTO -> convertToHomeProduct(productDTO) }.collect(
+                            Collectors.toList()
+                        )
+                    _products.value = concatenate(_products.value!!, productsInCurrentPage)
+                    _status.value = ProductsStatus.Success
+                    if (productResponseDTO.last) {
+                        isLastPage = true
+                    } else {
+                        currentPage++
+                    }
+                } catch (e: Exception) {
+                    Log.d("exception", e.toString())
+                    _status.value = ProductsStatus.Fail
+                }
             }
         }
     }
-    private fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct{
+
+    private fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
         return HomeProduct(
             id = productDTO.id,
             image = Image(productDTO.image),
@@ -74,10 +105,12 @@ class HomeViewModel @Inject constructor(
             price = productDTO.price
         )
     }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
+
     private fun loadCategoriesData(): ArrayList<Category> {
         val imgURl1 = "https://i.pinimg.com/originals/58/f3/0a/58f30a4b7fc165af50e7052725b8bc09.jpg"
         val imgURL2 =
@@ -163,15 +196,16 @@ class HomeViewModel @Inject constructor(
         displayCategoryPurchase.value = String.format("%s purchased", currentCategory.totalPurchase)
         displayCategoryProducts.value = String.format("%s products", currentCategory.totalProduct)
     }
-    fun setCurrentProductKind(currentPosition: Int){
+
+    fun setCurrentProductKind(currentPosition: Int) {
         _currentProductKind.value = rankingProducts.value!![currentPosition].kind
     }
 
-    fun addNewFavoriteProduct(productId: Long){
+    fun addNewFavoriteProduct(productId: Long) {
         // update database and add new favorite product
     }
 
-    fun removeFavoriteProduct(productId: Long){
+    fun removeFavoriteProduct(productId: Long) {
         // update database and remove favorite product
     }
 }

@@ -43,7 +43,9 @@ public class BR {
 
   public static final int rating = 20;
 
-  public static final int view = 21;
+  public static final int status = 21;
 
-  public static final int viewModel = 22;
+  public static final int view = 22;
+
+  public static final int viewModel = 23;
 }

@@ -3,9 +3,12 @@ package com.example.aposs_buyer.uicontroler.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,15 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
-import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
-import com.example.aposs_buyer.model.Notification
 import com.example.aposs_buyer.model.RankingProduct
-import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
-import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
-import com.example.aposs_buyer.uicontroler.activity.DetailProductActivity
-import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
-import com.example.aposs_buyer.uicontroler.activity.SearchActivity
+import com.example.aposs_buyer.uicontroler.activity.*
 import com.example.aposs_buyer.uicontroler.adapter.CategoriesViewPagerAdapter
 import com.example.aposs_buyer.uicontroler.adapter.HomeProductAdapter
 import com.example.aposs_buyer.uicontroler.adapter.RankingViewPagerAdapter
@@ -33,7 +30,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : HomeProductAdapter.FavoriteInterface,
-    RankingViewPagerAdapter.FavoriteInterface, Fragment(), CategoriesViewPagerAdapter.OnClickListener {
+    RankingViewPagerAdapter.FavoriteInterface, Fragment(),
+    CategoriesViewPagerAdapter.OnClickListener,
+    ViewTreeObserver.OnScrollChangedListener {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -111,9 +110,15 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         setUpViewPagerCallBack()
         setUpViewPagerAnimation()
         setUpNotification()
+        setUpNestedScrollView()
         return binding.root
     }
-    private fun setUpNotification(){
+
+    private fun setUpNestedScrollView() {
+        binding.scrollView.viewTreeObserver.addOnScrollChangedListener(this)
+    }
+
+    private fun setUpNotification() {
         binding.notification.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)
             startActivity(intent)
@@ -193,13 +198,24 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         viewModel.removeFavoriteProduct(product.id)
     }
 
-    fun onNavigateToKind()
-    {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToKindFragment(viewModel.displayCategory.value!!.id, viewModel.displayCategory.value!!.name))
+    fun onNavigateToKind() {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToKindFragment(
+                viewModel.displayCategory.value!!.id,
+                viewModel.displayCategory.value!!.name
+            )
+        )
     }
-
     override fun onClick() {
         onNavigateToKind()
+    }
+
+    override fun onScrollChanged() {
+        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount -1)
+        val bottomDetector = view.bottom -  (binding.scrollView.height + binding.scrollView.scrollY)
+        if(bottomDetector <=0){
+            viewModel.loadProducts()
+        }
     }
 
 }

@@ -15,3 +15,7 @@ enum class SignUpState{
 enum class OrderStatus{
     Pending, Confirmed, Delivering, Success, Cancel
 }
+
+enum class ProductsStatus{
+    Loading, Success, Fail
+}

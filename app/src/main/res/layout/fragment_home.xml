@@ -6,6 +6,12 @@
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.HomeViewModel" />
+        <variable
+            name="view"
+            type="android.view.View" />
+        <variable
+            name="status"
+            type="com.example.aposs_buyer.utils.ProductsStatus" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -14,6 +20,7 @@
         tools:context=".uicontroler.fragment.HomeFragment">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -58,23 +65,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/categories">
 
-<!--                        <androidx.cardview.widget.CardView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="160dp"-->
-<!--                            android:layout_marginHorizontal="3dp"-->
-<!--                            android:shadowColor="@color/white"-->
-<!--                            app:cardCornerRadius="20dp"-->
-<!--                            app:cardElevation="4dp"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent">-->
-<!--                            &lt;!&ndash;Put automatic page view here&ndash;&gt;-->
-<!--                            <androidx.viewpager2.widget.ViewPager2-->
-<!--                                categoriesData="@{viewModel.categories}"-->
-<!--                                android:id="@+id/imageViewPager"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="match_parent"/>-->
-<!--                        </androidx.cardview.widget.CardView>-->
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -254,6 +244,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
                     <androidx.recyclerview.widget.RecyclerView
+                        android:nestedScrollingEnabled="false"
                         android:id="@+id/products"
                         android:layout_marginTop="5dp"
                         tools:listitem="@layout/item_product"
@@ -262,6 +253,11 @@
                         productData="@{viewModel.products}"
                         android:layout_width="match_parent"
                         android:clipToPadding="false"
+                        android:layout_height="wrap_content"/>
+                    <ProgressBar
+                        android:visibility="@{viewModel.status == status.Loading? view.VISIBLE: view.GONE}"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
