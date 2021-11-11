@@ -2,10 +2,12 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,7 +22,7 @@ import com.example.aposs_buyer.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface {
+class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTreeObserver.OnScrollChangedListener  {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var homeProductAdapter: HomeProductAdapter
@@ -45,6 +47,7 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface {
             onSearchTextChange()
             homeProductAdapter.submitList(viewModel.listForDisplay.value)
             homeProductAdapter.notifyDataSetChanged()
+            Log.d("result", "changed" + it.toString())
         })
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
@@ -53,6 +56,7 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface {
             val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)
         }
+        setUpNestedScrollView()
         return binding.root
     }
 
@@ -66,6 +70,18 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface {
 
     fun onSearchTextChange()
     {
-        viewModel.changeListDisplay()
+        viewModel.onSearchTextChange()
+    }
+
+    override fun onScrollChanged() {
+        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount -1)
+        val bottomDetector = view.bottom -  (binding.scrollView.height + binding.scrollView.scrollY)
+        if(bottomDetector <=0){
+            viewModel.loadListForDisplay()
+        }
+    }
+
+    private fun setUpNestedScrollView() {
+        binding.scrollView.viewTreeObserver.addOnScrollChangedListener(this)
     }
 }

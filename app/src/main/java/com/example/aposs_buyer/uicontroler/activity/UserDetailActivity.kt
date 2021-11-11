@@ -8,7 +8,8 @@ import com.example.aposs_buyer.databinding.ActivityUserDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class UserDetailActivity : AppCompatActivity() {
+class
+UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
 

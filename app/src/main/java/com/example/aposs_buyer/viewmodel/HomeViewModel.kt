@@ -72,14 +72,6 @@ class HomeViewModel @Inject constructor(
         loadProducts()
     }
 
-    fun <T> concatenate(vararg lists: List<T>): List<T> {
-        val result: MutableList<T> = ArrayList()
-        for (list in lists) {
-            result.addAll(list)
-        }
-        return result
-    }
-
     fun loadProducts() {
         if (!isLastPage) {
             _status.value = ProductsStatus.Loading
@@ -92,7 +84,7 @@ class HomeViewModel @Inject constructor(
                         .map { productDTO -> Converter.convertToHomeProduct(productDTO) }.collect(
                             Collectors.toList()
                         )
-                    _products.value = concatenate(_products.value!!, productsInCurrentPage)
+                    _products.value = Converter.concatenate(_products.value!!, productsInCurrentPage)
                     _status.value = ProductsStatus.Success
                     if (productResponseDTO.last) {
                         isLastPage = true
@@ -106,8 +98,6 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
-
 
     object Converter {
          fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
@@ -130,6 +120,21 @@ class HomeViewModel @Inject constructor(
                 rating = categoryDTO.rating,
                 mainImage = Image(categoryDTO.images[0])
             )
+        }
+        fun <T> concatenate(vararg lists: List<T>): List<T> {
+            val result: MutableList<T> = ArrayList()
+            for (list in lists) {
+                result.addAll(list)
+            }
+            return result
+        }
+
+        fun <T> concatenateMutable(vararg lists: MutableList<T>): MutableList<T> {
+            val result: MutableList<T> = ArrayList()
+            for (list in lists) {
+                result.addAll(list)
+            }
+            return result
         }
     }
 

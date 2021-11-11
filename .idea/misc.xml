@@ -28,6 +28,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout-v31/fragment_message.xml" value="0.26268115942028986" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_category.xml" value="0.13496376811594202" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.13496376811594202" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_search.xml" value="0.13269927536231885" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/activity_user_detail.xml" value="0.17831813576494426" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_address_dialog.xml" value="0.13858695652173914" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_cart.xml" value="0.20520833333333333" />
@@ -36,6 +37,7 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_home.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_message.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_person.xml" value="0.20520833333333333" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_search.xml" value="0.13269927536231885" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_user_detail.xml" value="0.25" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_categories.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/item_category.xml" value="0.13496376811594202" />

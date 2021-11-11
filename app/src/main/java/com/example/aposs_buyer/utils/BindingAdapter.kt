@@ -207,7 +207,7 @@ fun bindRating(recyclerView: RecyclerView, data: List<ProductRating>?){
 fun bindCategoriesViewPager(linearLayout: LinearLayout, data: List<HomeProduct>?){
     if (data!!.isEmpty())
     {
-        linearLayout.visibility = View.GONE
+        linearLayout.visibility = View.INVISIBLE
     }
     else
     {
