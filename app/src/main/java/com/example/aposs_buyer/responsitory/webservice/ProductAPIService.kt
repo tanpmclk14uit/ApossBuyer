@@ -14,4 +14,9 @@ interface ProductAPIService {
         @Query("pageNo") pageNo: Int = 1
     ): Deferred<ProductResponseDTO>
 
+    @GET("products/search")
+    fun getProductsAsyncByKeyword(
+        @Query("keyWord") keyword: String = "",
+        @Query("pageNo") pageNo: Int = 1
+    ): Deferred<ProductResponseDTO>
 }
