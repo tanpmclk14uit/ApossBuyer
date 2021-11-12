@@ -10,6 +10,7 @@ data class HomeProduct(
     val name: String,
     val price: Int,
     val rating: Float,
+    val purchased: Int,
     var isFavorite: Boolean
 ){
     fun priceToString(): String{

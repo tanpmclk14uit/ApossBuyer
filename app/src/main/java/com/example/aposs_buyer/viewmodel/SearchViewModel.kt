@@ -50,9 +50,10 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
     fun loadListForDisplay()
     {
         if (!isLastPage){
+            setSort()
             _status.value = ProductsStatus.Loading;
             coroutineScope.launch {
-                val lstProductDeferred = productRepository.productService.getProductsAsyncByKeyword(curentKeyWord.value!!, currentPage)
+                val lstProductDeferred = productRepository.productService.getProductsAsyncByKeyword(curentKeyWord.value!!, currentPage, sortBy, sortDir)
                 try {
                     val productResponseDTO: ProductResponseDTO = lstProductDeferred.await()
                     val lstResultCurrentPage = productResponseDTO.content.stream().map {
@@ -80,6 +81,30 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         viewModelJob.cancel()
     }
 
+    private var sortBy: String = "id"
+    private var sortDir: String = "asc"
+    private fun setSort()
+    {
+        when {
+            isSortByPurchased -> {
+               sortBy = "purchased"
+                sortDir = "desc"
+            }
+            isSortByPrice -> {
+                sortBy = "price"
+                sortDir = "asc"
+            }
+            isSortByRating -> {
+                sortBy = "rating"
+                sortDir = "desc"
+            }
+            else ->{
+                sortBy = "id"
+                sortDir= "asc"
+            }
+        }
+    }
+
     fun onSearchTextChange() {
         isLastPage = false
         currentPage = 1
@@ -87,41 +112,61 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         loadListForDisplay()
     }
 
-    fun sortByRating (arr: MutableList<HomeProduct>, low: Int, high: Int): Int {
-        val pivot = arr[high]
-        var i = low - 1
-        for (j in low until high) {
-            if (arr[j].rating < pivot.rating) {
-                i++
-                val temp = arr[i]
-                arr[i] = arr[j]
-                arr[j] = temp
-            }
+    private var isSortByRating =false;
+    fun sortByRating (){
+        if (!isSortByRating) {
+            isSortByRating = true
+            isSortByPrice = false
+            isSortByPurchased = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        } else {
+            isSortByRating = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
         }
-        val temp = arr[i + 1]
-        arr[i + 1] = arr[high]
-        arr[high] = temp
-        return i + 1
     }
 
-    fun sortByPrice(arr: MutableList<HomeProduct>, low: Int, high: Int): Int {
-        val pivot = arr[high]
-        var i = low - 1
-        for (j in low until high) {
-            if (arr[j].price < pivot.price) {
-                i++
-                val temp = arr[i]
-                arr[i] = arr[j]
-                arr[j] = temp
-            }
+    private var isSortByPrice =false
+    fun sortByPrice(){
+        if (!isSortByPrice) {
+            isSortByPrice = true
+            isSortByPurchased = false
+            isSortByRating = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        } else {
+            isSortByPrice = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
         }
-        val temp = arr[i + 1]
-        arr[i + 1] = arr[high]
-        arr[high] = temp
-        return i + 1
     }
 
-    fun sortByPurchased(arr: MutableList<HomeProduct>, low: Int, high: Int): Int {
-
+    private var isSortByPurchased =false
+    fun sortByPurchased(){
+        if (!isSortByPurchased) {
+            isSortByPurchased = true
+            isSortByRating = false
+            isSortByPrice = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        } else
+        {
+            isSortByPurchased = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        }
     }
 }

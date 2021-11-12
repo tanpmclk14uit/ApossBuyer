@@ -204,7 +204,8 @@ class DetailProductViewModel @Inject constructor(
                     "Wilson Mens Hurry Professional",
                     958000,
                     4f,
-                    true
+                    1,
+                    true,
                 )
             )
             sampleProducts.add(
@@ -214,10 +215,11 @@ class DetailProductViewModel @Inject constructor(
                     "Wilson Mens Shirt",
                     582000,
                     4.5f,
+                    1,
                     false
                 )
             )
-            sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, false))
+            sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, 1,false))
             sampleProducts.add(
                 HomeProduct(
                     4,
@@ -225,6 +227,7 @@ class DetailProductViewModel @Inject constructor(
                     "Laptop asus Vivo Book",
                     1958000,
                     5f,
+                    1,
                     true
                 )
             )

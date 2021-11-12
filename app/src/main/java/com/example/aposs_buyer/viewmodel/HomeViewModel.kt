@@ -107,7 +107,8 @@ class HomeViewModel @Inject constructor(
                 name = productDTO.name,
                 isFavorite = productDTO.favorite,
                 rating = productDTO.rating.toFloat(),
-                price = productDTO.price
+                price = productDTO.price,
+                purchased = productDTO.purchased
             )
         }
 

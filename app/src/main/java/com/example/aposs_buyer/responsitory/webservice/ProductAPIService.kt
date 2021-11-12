@@ -17,6 +17,8 @@ interface ProductAPIService {
     @GET("products/search")
     fun getProductsAsyncByKeyword(
         @Query("keyword") keyword: String = "",
-        @Query("pageNo") pageNo: Int = 1
+        @Query("pageNo") pageNo: Int = 1,
+        @Query("sortBy") sortBy: String = "id",
+        @Query("sortDir") sortDir: String = "asc",
     ): Deferred<ProductResponseDTO>
 }

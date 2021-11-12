@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,7 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTre
     private lateinit var homeProductAdapter: HomeProductAdapter
     private val viewModel: SearchViewModel by viewModels()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,9 +47,7 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTre
         binding.rcSearch.layoutManager = GridLayoutManager(binding.rcSearch.context, 2, GridLayoutManager.VERTICAL, false)
         viewModel.curentKeyWord.observe(viewLifecycleOwner, Observer {
             onSearchTextChange()
-            homeProductAdapter.submitList(viewModel.listForDisplay.value)
-            homeProductAdapter.notifyDataSetChanged()
-            Log.d("result", "changed" + it.toString())
+
         })
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
@@ -56,8 +56,25 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTre
             val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)
         }
+        setUpOnClickSortingButton()
         setUpNestedScrollView()
         return binding.root
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setUpOnClickSortingButton() {
+        binding.btnSortByPrice.setOnClickListener {
+            viewModel.sortByPrice()
+
+        }
+        binding.btnSortByPurchased.setOnClickListener {
+            viewModel.sortByPurchased()
+
+        }
+        binding.btnSortByRating.setOnClickListener {
+            viewModel.sortByRating()
+
+        }
     }
 
     override fun addToFavorite(product: HomeProduct) {
