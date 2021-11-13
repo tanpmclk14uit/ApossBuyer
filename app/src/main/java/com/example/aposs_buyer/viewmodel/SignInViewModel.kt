@@ -3,48 +3,38 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.aposs_buyer.model.entity.Account
-import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.utils.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import retrofit2.http.HTTP
 import java.util.regex.Pattern
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
-class SignInViewModel @Inject constructor() : ViewModel() {
+class SignInViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     var email: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
     var toastMessage: MutableLiveData<String> = MutableLiveData()
     var emailErrorMessage: String? = ""
     var passwordErrorMessage: String? = ""
-
     var loginState: MutableLiveData<LoginState> = MutableLiveData()
+    var token: TokenDTO? = null
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun onLoginClick() {
         if (email.value != null && password.value != null) {
             if (isValidEmail() && isValidPassword()) {
-                Log.d(
-                    "SignInViewModel",
-                    "Email:" + email.value!! + "; Password:" + password.value!!
-                )
-
-                if (isRightEmailPassword()) {
-                    loginState.value = LoginState.Success
-                    toastMessage.value = "Login success"
-                    Log.d(
-                        "SignInViewModel",
-                        "Success"
-                    )
-
-                } else {
-                    loginState.value = LoginState.Wait
-                    toastMessage.value = "Wrong email or password!"
-                    Log.d(
-                        "SignInViewModel",
-                        "False"
-                    )
-                }
+                signIn()
             } else {
                 toastMessage.value = "Email or password is invalid!"
             }
@@ -53,11 +43,20 @@ class SignInViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun isRightEmailPassword(): Boolean {
+    private fun signIn() {
         loginState.value = LoginState.Loading
-        return email.value == "admin@gmail.com" && password.value == "123456789"
+        coroutineScope.launch {
+            val response = authRepository.signIn(email.value!!, password.value!!)
+            token = response.body()
+            if (response.code()== 200) {
+                loginState.value = LoginState.Success
+                toastMessage.value = "Login success"
+            } else {
+                loginState.value = LoginState.Wait
+                toastMessage.value = "Wrong email or password!"
+            }
+        }
     }
-
 
     private fun isEmailRightFormat(email: String): Boolean {
         return Pattern.compile(

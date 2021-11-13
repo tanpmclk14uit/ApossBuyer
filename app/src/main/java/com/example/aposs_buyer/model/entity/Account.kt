@@ -7,5 +7,7 @@ import androidx.room.PrimaryKey
 data class Account(
     @PrimaryKey
     var userName: String,
-    var password: String
+    var password: String,
+    var accessToken: String,
+    var tokenType: String
 )

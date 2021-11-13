@@ -2,7 +2,6 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,10 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentLoginBinding
 import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
-import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.activity.MainActivity
 import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
 import com.example.aposs_buyer.utils.LoginState
 import com.example.aposs_buyer.viewmodel.SignInViewModel
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,31 +44,40 @@ class LoginFragment : Fragment() {
         onLoginStateChange()
         return binding.root
     }
-    private fun onLoginStateChange(){
+
+    private fun onLoginStateChange() {
         viewModel.loginState.observe(this.viewLifecycleOwner, {
-            if (it == LoginState.Wait){
+            if (it == LoginState.Wait) {
                 dialog.dismissDialog()
-            }else{
-                if(it == LoginState.Loading){
+            } else {
+                if (it == LoginState.Loading) {
                     dialog.startLoading()
-                }else{
+                } else {
                     dialog.dismissDialog()
-                    val account: Account = Account(viewModel.email.value!!, viewModel.password.value!!)
-                    AccountDatabase.getInstance(this.requireContext()).accountDao.insertAccount(account)
-                    startActivity(Intent(this.context, MainActivity::class.java))
+                    if (viewModel.token != null && viewModel.email.value != null && viewModel.password.value != null) {
+                        val account: Account =
+                            Account(viewModel.email.value!!, viewModel.password.value!!, viewModel.token!!.accessToken, viewModel.token!!.tokenType)
+                        AccountDatabase.getInstance(this.requireContext()).accountDao.insertAccount(
+                            account
+                        )
+                        startActivity(Intent(this.context, MainActivity::class.java))
+                    }else{
+                        Toast.makeText(this.context, "An error occur!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })
     }
 
-    private fun setCheckingEmail(){
-        viewModel.email.observe(this.viewLifecycleOwner,{
+    private fun setCheckingEmail() {
+        viewModel.email.observe(this.viewLifecycleOwner, {
             viewModel.isValidEmail()
             binding.emailLayout.error = viewModel.emailErrorMessage;
         })
     }
-    private fun setCheckingPassword(){
-        viewModel.password.observe(this.viewLifecycleOwner,{
+
+    private fun setCheckingPassword() {
+        viewModel.password.observe(this.viewLifecycleOwner, {
             viewModel.isValidPassword()
             binding.passwordLayout.error = viewModel.passwordErrorMessage
         })
