@@ -51,6 +51,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Wilson Mens Hurry Professional",
                 958000,
                 4f,
+                1,
                 true
             )
         )
@@ -61,10 +62,11 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Wilson Mens Shirt",
                 582000,
                 4.5f,
+                1,
                 false
             )
         )
-        sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, false))
+        sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, 1,false))
         sampleProducts.add(
             HomeProduct(
                 4,
@@ -72,6 +74,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -82,6 +85,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -92,6 +96,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -102,6 +107,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -112,6 +118,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -122,6 +129,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -132,6 +140,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -142,6 +151,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -152,6 +162,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )
@@ -162,6 +173,7 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 "Laptop asus Vivo Book",
                 1958000,
                 5f,
+                1,
                 true
             )
         )

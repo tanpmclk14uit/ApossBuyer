@@ -1,25 +1,42 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.ListAdapter
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
+import com.example.aposs_buyer.model.dto.ProductResponseDTO
+import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.utils.ProductsStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(): ViewModel() {
+class SearchViewModel @Inject constructor(private val productRepository: ProductRepository): ViewModel() {
 
-    private val _listForTestSearch = MutableLiveData<MutableList<HomeProduct>>()
 
     val listForDisplay =  MutableLiveData<MutableList<HomeProduct>>()
-
+    private var isLastPage = false
     val curentKeyWord = MutableLiveData<String>()
+    private var currentPage = 1;
+
+    private var _status = MutableLiveData<ProductsStatus>()
+    val status: LiveData<ProductsStatus> get()= _status
+
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        _listForTestSearch.value = loadListTestSearch()
-        listForDisplay.value = _listForTestSearch.value
+        curentKeyWord.value = "";
+        listForDisplay.value = mutableListOf();
+        loadListForDisplay();
     }
 
     fun addToFavorite(product: HomeProduct) {
@@ -30,155 +47,126 @@ class SearchViewModel @Inject constructor(): ViewModel() {
         //remove from favorite in db
     }
 
-    fun changeListDisplay()
+    fun loadListForDisplay()
     {
-        listForDisplay.value = mutableListOf<HomeProduct>()
-        for (i in 0 until _listForTestSearch.value!!.size)
-        {
-            if (_listForTestSearch.value!![i].name.contains(curentKeyWord.value.toString()))
-            {
-                listForDisplay.value!!.add(_listForTestSearch.value!![i])
+        if (!isLastPage){
+            setSort()
+            _status.value = ProductsStatus.Loading;
+            coroutineScope.launch {
+                val lstProductDeferred = productRepository.productService.getProductsAsyncByKeyword(curentKeyWord.value!!, currentPage, sortBy, sortDir)
+                try {
+                    val productResponseDTO: ProductResponseDTO = lstProductDeferred.await()
+                    val lstResultCurrentPage = productResponseDTO.content.stream().map {
+                        HomeViewModel.Converter.convertToHomeProduct(it)
+                    }.collect(Collectors.toList())
+                    listForDisplay.value = HomeViewModel.Converter.concatenateMutable(listForDisplay.value!!,lstResultCurrentPage)
+                    _status.value = ProductsStatus.Success
+                    if (productResponseDTO.last) {
+                        isLastPage = true
+                    } else {
+                        currentPage++
+                    }
+                }
+                catch (e: Exception)
+                {
+                    Log.e("Exception", e.toString())
+                    _status.value = ProductsStatus.Fail
+                }
             }
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
-    private fun loadListTestSearch(): MutableList<HomeProduct>
+    private var sortBy: String = "id"
+    private var sortDir: String = "asc"
+    private fun setSort()
     {
-        val imgURl1 =
-            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
-        val imgURL2 =
-            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
-        val imgURL3 =
-            "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
-        val imgURL4 =
-            "https://api.duniagames.co.id/api/content/upload/file/9607962621588584775.JPG"
-        val imgProduct1 = Image(imgURl1)
-        val imgProduct2 = Image(imgURL2)
-        val imgProduct3 = Image(imgURL3)
-        val imgProduct4 = Image(imgURL4)
-        val sampleProducts: MutableList<HomeProduct> = mutableListOf()
-        sampleProducts.add(
-            HomeProduct(
-                1,
-                imgProduct1,
-                "Wilson Mens Hurry Professional",
-                958000,
-                4f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                2,
-                imgProduct2,
-                "Wilson Mens Shirt",
-                582000,
-                4.5f,
-                false
-            )
-        )
-        sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, false))
-        sampleProducts.add(
-            HomeProduct(
-                4,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                5,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                6,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                7,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                8,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                9,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                10,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                11,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                12,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        sampleProducts.add(
-            HomeProduct(
-                13,
-                imgProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                5f,
-                true
-            )
-        )
-        return sampleProducts
+        when {
+            isSortByPurchased -> {
+               sortBy = "purchased"
+                sortDir = "desc"
+            }
+            isSortByPrice -> {
+                sortBy = "price"
+                sortDir = "asc"
+            }
+            isSortByRating -> {
+                sortBy = "rating"
+                sortDir = "desc"
+            }
+            else ->{
+                sortBy = "id"
+                sortDir= "asc"
+            }
+        }
+    }
+
+    fun onSearchTextChange() {
+        isLastPage = false
+        currentPage = 1
+        listForDisplay.value = mutableListOf()
+        loadListForDisplay()
+    }
+
+    private var isSortByRating =false;
+    fun sortByRating (){
+        if (!isSortByRating) {
+            isSortByRating = true
+            isSortByPrice = false
+            isSortByPurchased = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        } else {
+            isSortByRating = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        }
+    }
+
+    private var isSortByPrice =false
+    fun sortByPrice(){
+        if (!isSortByPrice) {
+            isSortByPrice = true
+            isSortByPurchased = false
+            isSortByRating = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        } else {
+            isSortByPrice = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        }
+    }
+
+    private var isSortByPurchased =false
+    fun sortByPurchased(){
+        if (!isSortByPurchased) {
+            isSortByPurchased = true
+            isSortByRating = false
+            isSortByPrice = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        } else
+        {
+            isSortByPurchased = false
+            isLastPage = false
+            currentPage = 1
+            listForDisplay.value = mutableListOf()
+            loadListForDisplay()
+        }
     }
 }
