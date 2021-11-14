@@ -9,5 +9,6 @@ data class Account(
     var userName: String,
     var password: String,
     var accessToken: String,
-    var tokenType: String
+    var tokenType: String,
+    var refreshToken: String,
 )

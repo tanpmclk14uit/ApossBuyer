@@ -7,12 +7,12 @@ data class Person(
     val image: Image,
     val name: String,
     val email: String,
-    val birthday: Date,
+    val birthDate: Date,
     val gender: Boolean
 ){
     fun getBirthdayByString(): String
     {
-        return "${birthday.date}-${monthFormat(birthday.month)}-${birthday.year}"
+        return "${birthDate.date}-${monthFormat(birthDate.month)}-${birthDate.year}"
     }
 
     fun getGenderString(): String

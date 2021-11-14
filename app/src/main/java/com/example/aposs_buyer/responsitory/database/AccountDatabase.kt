@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.database.dao.AccountDAO
 
-@Database(entities = [Account::class], version = 1, exportSchema = false)
+@Database(entities = [Account::class], version = 2, exportSchema = false)
 abstract class AccountDatabase : RoomDatabase() {
     abstract val accountDao: AccountDAO
 
@@ -23,7 +23,8 @@ abstract class AccountDatabase : RoomDatabase() {
                         context.applicationContext,
                         AccountDatabase::class.java,
                         DATABASE_NAME
-                    ).fallbackToDestructiveMigration().allowMainThreadQueries()
+                    ).fallbackToDestructiveMigration()
+                        .allowMainThreadQueries()
                         .build()
                     INSTANCE = instance
                 }

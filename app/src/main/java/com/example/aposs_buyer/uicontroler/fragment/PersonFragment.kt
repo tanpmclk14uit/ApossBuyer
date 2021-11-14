@@ -62,7 +62,6 @@ class PersonFragment : Fragment() {
                 startActivity(Intent(this.context, LoginActivity::class.java))
                 requireActivity().finish()
             }
-
         }
         binding.imgNotification.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)

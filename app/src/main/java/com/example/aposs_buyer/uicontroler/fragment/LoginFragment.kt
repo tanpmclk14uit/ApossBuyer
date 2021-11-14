@@ -56,12 +56,18 @@ class LoginFragment : Fragment() {
                     dialog.dismissDialog()
                     if (viewModel.token != null && viewModel.email.value != null && viewModel.password.value != null) {
                         val account: Account =
-                            Account(viewModel.email.value!!, viewModel.password.value!!, viewModel.token!!.accessToken, viewModel.token!!.tokenType)
+                            Account(
+                                viewModel.email.value!!,
+                                viewModel.password.value!!,
+                                viewModel.token!!.accessToken,
+                                viewModel.token!!.tokenType,
+                                viewModel.token!!.refreshToken
+                            )
                         AccountDatabase.getInstance(this.requireContext()).accountDao.insertAccount(
                             account
                         )
                         startActivity(Intent(this.context, MainActivity::class.java))
-                    }else{
+                    } else {
                         Toast.makeText(this.context, "An error occur!", Toast.LENGTH_SHORT).show()
                     }
                 }

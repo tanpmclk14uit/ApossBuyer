@@ -17,5 +17,4 @@ class ProductRepository @Inject constructor(){
         RetrofitInstance.retrofit.create(ProductAPIService::class.java)
     }
 
-
 }

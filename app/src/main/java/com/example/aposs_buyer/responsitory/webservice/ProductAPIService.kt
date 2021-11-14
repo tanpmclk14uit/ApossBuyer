@@ -8,7 +8,6 @@ import retrofit2.http.Query
 
 
 interface ProductAPIService {
-
     @GET("products")
     fun getProductsAsync(
         @Query("pageNo") pageNo: Int = 1

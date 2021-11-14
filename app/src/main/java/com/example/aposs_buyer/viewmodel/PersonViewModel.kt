@@ -27,6 +27,5 @@ class PersonViewModel @Inject constructor(): ViewModel() {
         val imgURL3 =
             "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
         return Person(1, Image(imgURL3),"Phạm Minh Tân","tan.lk16.cla@gmai.com", Date(2001, 7,23), true)
-//        return Person(0, Image(""), "", "")
     }
 }
