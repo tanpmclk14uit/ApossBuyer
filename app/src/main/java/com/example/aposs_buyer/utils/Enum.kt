@@ -27,3 +27,8 @@ enum class CategoryStatus{
 enum class KindStatus{
     Loading, Success, Fail
 }
+
+
+enum class DeliveryAddressStatus{
+    Loading, Success, Fail
+}

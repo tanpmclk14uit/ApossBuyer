@@ -3,8 +3,7 @@ package com.example.aposs_buyer.responsitory.webservice
 import com.example.aposs_buyer.model.dto.SignInDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AuthService {
 
@@ -13,4 +12,8 @@ interface AuthService {
         @Body signInDTO: SignInDTO
     ): Response<TokenDTO>
 
+    @POST( "auth/access-token")
+    suspend fun getNewAccessToken(
+        @Body refreshToken: String
+    ): Response<String>
 }
