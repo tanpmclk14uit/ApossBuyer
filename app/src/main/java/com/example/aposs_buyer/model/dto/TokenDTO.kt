@@ -8,7 +8,4 @@ data class TokenDTO(
     fun getFullAccessToken(): String{
         return "$tokenType $accessToken"
     }
-    fun getFullRefreshToken(): String{
-        return "$tokenType $refreshToken"
-    }
 }

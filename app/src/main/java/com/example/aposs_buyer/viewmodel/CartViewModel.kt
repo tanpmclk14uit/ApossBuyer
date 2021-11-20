@@ -126,11 +126,11 @@ class CartViewModel @Inject constructor(
                     }
                     allCartItemsResponse.code() == 401 -> {
                         Log.d("cart", "Expire access token")
-//                        val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.getFullRefreshToken())
-//                        if(accessTokenResponse.code() == 200){
-//                            tokenDTO!!.accessToken = accessTokenResponse.body()!!
-//                            loadCartList()
-//                        }
+                        val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                        if(accessTokenResponse.code() == 200){
+                            tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                            loadCartList()
+                        }
                     }
                     allCartItemsResponse.code()== 404 -> {
                         Log.d("cart", "Resource not found")

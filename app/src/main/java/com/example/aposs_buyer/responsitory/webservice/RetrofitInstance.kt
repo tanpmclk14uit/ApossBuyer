@@ -23,7 +23,7 @@ object RetrofitInstance {
             val moshi = Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
                 .build()
-            retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
+            retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(
                     Constants.BASE_URL
                 )
