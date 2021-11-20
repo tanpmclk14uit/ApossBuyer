@@ -27,3 +27,7 @@ enum class CategoryStatus{
 enum class KindStatus{
     Loading, Success, Fail
 }
+
+enum class LoadingState{
+    Loading, Success, Fail
+}

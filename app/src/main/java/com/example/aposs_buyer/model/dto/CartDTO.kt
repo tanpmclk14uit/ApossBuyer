@@ -1,11 +1,12 @@
 package com.example.aposs_buyer.model.dto
 
 data class CartDTO(
-    val id: Int,
-    val productId: Int,
-    val property: String,
-    val quantity: Int,
-    val imageUrl: String,
-    val name: String,
-    val price: Int
+    var id: Int,
+    var productId: Int,
+    var property: String,
+    var quantity: Int,
+    var imageUrl: String,
+    var name: String,
+    var price: Int,
+    var select: Boolean
 )

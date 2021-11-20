@@ -107,12 +107,12 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.core.widget.NestedScrollView
-                android:layout_centerInParent="true"
                 android:id="@+id/empty_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
-                android:layout_marginTop="180dp"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="10dp"
+                android:visibility="visible"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                 <LinearLayout
@@ -123,40 +123,25 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cart_empty_1"
-                        android:textAlignment="center"
-                        android:textColor="@color/dark_pray"
-                        android:textSize="16dp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/cart_empty_2"
-                            android:textAlignment="center"
-                            android:textColor="@color/dark_pray"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
-                            android:text="categories"
-                            android:textColor="@color/red"
-                            android:textSize="16dp" />
-                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:src="@drawable/ic_empty_cart" />
+                    <TextView
+                        android:id="@+id/loadingMessage"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cart_empty_2"
+                        android:textAlignment="center"
+                        android:textColor="@color/dark_pray"
+                        android:textSize="16sp" />
+                    <ProgressBar
+                        android:id="@+id/loadingProgress"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"/>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 

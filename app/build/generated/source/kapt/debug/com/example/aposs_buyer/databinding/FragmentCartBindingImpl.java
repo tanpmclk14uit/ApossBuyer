@@ -22,9 +22,11 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         sViewsWithIds.put(R.id.title, 8);
         sViewsWithIds.put(R.id.lnAboutUs, 9);
         sViewsWithIds.put(R.id.empty_cart, 10);
-        sViewsWithIds.put(R.id.fullfill_cart, 11);
-        sViewsWithIds.put(R.id.checkout_layout, 12);
-        sViewsWithIds.put(R.id.btn_go_to_check_out, 13);
+        sViewsWithIds.put(R.id.loadingMessage, 11);
+        sViewsWithIds.put(R.id.loadingProgress, 12);
+        sViewsWithIds.put(R.id.fullfill_cart, 13);
+        sViewsWithIds.put(R.id.checkout_layout, 14);
+        sViewsWithIds.put(R.id.btn_go_to_check_out, 15);
     }
     // views
     @NonNull
@@ -74,17 +76,19 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     };
 
     public FragmentCartBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 14, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 16, sIncludes, sViewsWithIds));
     }
     private FragmentCartBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 2
             , (com.google.android.material.appbar.AppBarLayout) bindings[3]
-            , (android.widget.Button) bindings[13]
-            , (android.widget.LinearLayout) bindings[12]
+            , (android.widget.Button) bindings[15]
+            , (android.widget.LinearLayout) bindings[14]
             , (androidx.core.widget.NestedScrollView) bindings[10]
-            , (androidx.core.widget.NestedScrollView) bindings[11]
+            , (androidx.core.widget.NestedScrollView) bindings[13]
             , (android.widget.ImageView) bindings[7]
             , (android.widget.ImageView) bindings[9]
+            , (android.widget.TextView) bindings[11]
+            , (android.widget.ProgressBar) bindings[12]
             , (androidx.recyclerview.widget.RecyclerView) bindings[1]
             , (com.google.android.material.textfield.TextInputLayout) bindings[5]
             , (com.google.android.material.textfield.TextInputEditText) bindings[6]

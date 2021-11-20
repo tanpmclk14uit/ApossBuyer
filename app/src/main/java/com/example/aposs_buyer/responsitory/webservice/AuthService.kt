@@ -4,7 +4,6 @@ import com.example.aposs_buyer.model.dto.SignInDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthService {

@@ -18,8 +18,7 @@
     <string name="type_here">Type message here</string>
     <string name="contact">Feel free to contact us now</string>
     <string name="cart_empty">Nothing to check out You may like to take a look in our categories</string>
-    <string name="cart_empty_1">Nothing to check out</string>
-    <string name="cart_empty_2">You may like to take a look in our</string>
+    <string name="cart_empty_2">Nothing to check out\nYou may like to take a look in our categories</string>
     <string name="account">Account</string>
     <string name="defaultCartNumber">1</string>
     <string name="add_to_cart">Add to cart</string>

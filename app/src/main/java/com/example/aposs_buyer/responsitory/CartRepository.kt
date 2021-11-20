@@ -13,4 +13,7 @@ class CartRepository @Inject constructor() {
     suspend fun getAllCart(accessToken: String): Response<List<CartDTO>> {
         return cartService.getAllCart(accessToken)
     }
+    suspend fun updateCart(accessToken: String, cartDTO: CartDTO): Response<String>{
+        return cartService.updateCart(accessToken, cartDTO)
+    }
 }

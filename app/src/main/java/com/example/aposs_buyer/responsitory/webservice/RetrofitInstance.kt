@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.responsitory.webservice
 
+import android.util.JsonReader
 import android.util.Log
 import com.example.aposs_buyer.utils.Constants
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -12,6 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitInstance {
 
+
     lateinit var retrofit: Retrofit;
 
     init {
@@ -23,7 +25,8 @@ object RetrofitInstance {
             val moshi = Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
                 .build()
-            retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
+            retrofit = Retrofit.Builder()
+                .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(
                     Constants.BASE_URL
                 )

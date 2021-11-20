@@ -1,9 +1,6 @@
 package com.example.aposs_buyer.responsitory.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.aposs_buyer.model.entity.Account
 
 @Dao
@@ -14,6 +11,9 @@ interface AccountDAO {
 
     @Delete
     fun deleteAccount(account: Account)
+
+    @Query("UPDATE account SET accessToken = :accessToken")
+    fun updateAccessToken(accessToken: String)
 
     @Query("SELECT * FROM account Limit 1")
     fun getAccount(): Account?

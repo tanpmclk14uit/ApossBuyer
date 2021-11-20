@@ -1,7 +1,9 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,7 @@ import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
 import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
+import com.example.aposs_buyer.utils.LoadingState
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,8 +65,9 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
             startActivity(intent)
         }
         viewModel.size.observe(viewLifecycleOwner, {
-            if (it==0) {
+            if (it==0 && viewModel.loadingStatus.value == LoadingState.Success) {
                 binding.emptyCart.visibility = View.VISIBLE
+                binding.loadingMessage.text = this.resources.getString(R.string.cart_empty_2)
                 binding.fullfillCart.visibility = View.GONE
                 binding.checkoutLayout.visibility = View.GONE
             }
@@ -122,6 +126,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         val account = accountDao.getAccount()
         if(account != null){
             onCartListChange()
+            onLoadingStateChange()
             viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
             viewModel.loadCartList()
         }else{
@@ -134,5 +139,28 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         viewModel.lstCartItem.observe(viewLifecycleOwner, {
             cartAdapter.submitList(it)
         })
+    }
+    @SuppressLint("SetTextI18n")
+    private fun onLoadingStateChange(){
+        viewModel.loadingStatus.observe(viewLifecycleOwner,{
+            if(it == LoadingState.Loading){
+                binding.emptyCart.visibility = View.VISIBLE
+                binding.fullfillCart.visibility = View.GONE
+                binding.loadingProgress.visibility = View.VISIBLE
+                binding.loadingMessage.text = "Loading..."
+            }else if(it == LoadingState.Fail){
+                binding.emptyCart.visibility = View.VISIBLE
+                binding.loadingMessage.text = "Loading fail"
+                binding.fullfillCart.visibility = View.GONE
+                binding.loadingProgress.visibility = View.GONE
+                binding.checkoutLayout.visibility = View.GONE
+            }
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("cart", "pause")
+        viewModel.updateCart()
     }
 }
