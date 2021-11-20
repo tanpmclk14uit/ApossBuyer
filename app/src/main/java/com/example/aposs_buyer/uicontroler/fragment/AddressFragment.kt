@@ -66,5 +66,8 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
         }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadUserAddress()
+    }
 }

@@ -48,7 +48,7 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
         loadUserAddress()
     }
 
-    private fun loadUserAddress()
+     fun loadUserAddress()
     {
         status.value = DeliveryAddressStatus.Loading
         coroutineScope.launch {

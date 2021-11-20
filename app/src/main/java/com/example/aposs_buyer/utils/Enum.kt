@@ -36,3 +36,7 @@ enum class DeliveryAddressStatus{
 enum class LoadingStatus{
     Loading, Success, Fail
 }
+
+enum class AddingStatus{
+    Loading, Success, Fail
+}

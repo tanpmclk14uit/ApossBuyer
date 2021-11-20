@@ -15,19 +15,19 @@ interface DeliveryAddressService {
 
     @DELETE("delivery_address/{id}")
     suspend fun deleteDeliveryAddressService(
-        @Path(value = "id") id: Long,
         @Header("Authorization") token: String,
-    )
+        @Path(value = "id") id: Long,
+    ): Response<String>
 
     @POST("delivery_address")
     suspend fun addDeliveryAddressService(
-        @Body addressDTO: DeliveryAddressDTO,
         @Header("Authorization") token: String,
-    )
+        @Body addressDTO: DeliveryAddressDTO,
+    ): Response<String>
 
     @PUT("delivery_address")
     suspend fun updateDeliveryAddressService(
-        @Body addressDTO: DeliveryAddressDTO,
         @Header("Authorization") token: String,
-    )
+        @Body addressDTO: DeliveryAddressDTO,
+    ): Response<String>
 }
