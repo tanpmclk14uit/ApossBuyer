@@ -146,4 +146,8 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
             }
         })
     }
+    override fun onPause() {
+        super.onPause()
+        viewModel.updateCart()
+    }
 }

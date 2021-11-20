@@ -74,7 +74,9 @@ class CartViewModel @Inject constructor(
     }
 
     fun removeItem(position: Int) {
+        val cartItem = _lstCartItem.value!![position]
         _lstCartItem.value!!.removeAt(position)
+        deleteCartItem(cartItem.id)
     }
 
     fun setNewChose() {
@@ -105,6 +107,33 @@ class CartViewModel @Inject constructor(
 
     private var cartItemsDTO: List<CartDTO> = ArrayList()
 
+    private fun deleteCartItem(id: Long){
+        if (tokenDTO != null) {
+            coroutineScope.launch {
+                val deleteResponse =
+                    cartRepository.deleteCart(
+                        tokenDTO!!.getFullAccessToken(),
+                        id
+                    )
+                if (deleteResponse.code() == 200) {
+                    Log.d("cart", deleteResponse.body().toString())
+                    return@launch
+                } else {
+                    if (deleteResponse.code() == 401) {
+                        Log.d("cart", "Expire access token")
+                        val accessTokenResponse =
+                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                        if (accessTokenResponse.code() == 200) {
+                            tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                            deleteCartItem(id)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun updateCartItem(cartDTO: CartDTO) {
         if (tokenDTO != null) {
             coroutineScope.launch {
@@ -131,7 +160,6 @@ class CartViewModel @Inject constructor(
             }
         }
     }
-
     fun updateCart() {
         for (cartItem: CartItem in _lstCartItem.value!!) {
             for (cartItemDTO: CartDTO in cartItemsDTO) {
@@ -143,7 +171,6 @@ class CartViewModel @Inject constructor(
             }
         }
     }
-
     fun loadCartList() {
         coroutineScope.launch {
             if (tokenDTO != null) {

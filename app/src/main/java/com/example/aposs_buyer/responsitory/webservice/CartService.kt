@@ -2,10 +2,7 @@ package com.example.aposs_buyer.responsitory.webservice
 
 import com.example.aposs_buyer.model.dto.CartDTO
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface CartService {
 
@@ -19,4 +16,11 @@ interface CartService {
         @Header("Authorization") accessToken: String,
         @Body cartDTO: CartDTO
     ): Response<String>
+
+    @DELETE("cart/{id}")
+    suspend fun deleteCart(
+        @Header("Authorization") accessToken: String,
+        @Path (value = "id") id: Long
+    ): Response<String>
+
 }

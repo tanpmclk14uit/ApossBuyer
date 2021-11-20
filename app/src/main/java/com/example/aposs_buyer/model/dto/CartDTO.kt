@@ -1,7 +1,7 @@
 package com.example.aposs_buyer.model.dto
 
 data class CartDTO(
-    var id: Int,
+    var id: Long,
     var productId: Int,
     var property: String,
     var quantity: Int,

@@ -7,7 +7,7 @@ import java.text.DecimalFormat
 
 @Parcelize
 data class CartItem(
-    val id: Int,
+    val id: Long,
     val image: Image,
     val name: String,
     val price: Int,

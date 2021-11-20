@@ -160,7 +160,6 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
 
     override fun onPause() {
         super.onPause()
-        Log.d("cart", "pause")
         viewModel.updateCart()
     }
 }
