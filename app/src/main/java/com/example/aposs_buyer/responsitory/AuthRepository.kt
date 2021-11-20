@@ -19,4 +19,7 @@ class AuthRepository @Inject constructor() {
         val signInDTO: SignInDTO = SignInDTO(email, password);
         return authService.signIn(signInDTO)
     }
+    suspend fun getAccessToken(refreshToken: String): Response<String>{
+        return authService.getAccessToken(refreshToken)
+    }
 }

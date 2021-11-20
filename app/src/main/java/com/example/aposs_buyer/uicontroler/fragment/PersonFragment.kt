@@ -31,7 +31,7 @@ class PersonFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         viewModel.isSignIn.value =
-            AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount().isNotEmpty()
+            AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
         viewModel.isSignIn.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 binding.lnNoAccount.visibility = View.GONE
@@ -53,11 +53,11 @@ class PersonFragment : Fragment() {
             startActivity(Intent(this.context, OrderActivity::class.java))
         }
         binding.signOut.setOnClickListener {
-            val listAccount =
+            val account =
                 AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount()
-            if (listAccount.isNotEmpty()) {
+            if (account != null) {
                 AccountDatabase.getInstance(this.requireContext()).accountDao.deleteAccount(
-                    listAccount[0]
+                    account
                 )
                 startActivity(Intent(this.context, LoginActivity::class.java))
                 requireActivity().finish()

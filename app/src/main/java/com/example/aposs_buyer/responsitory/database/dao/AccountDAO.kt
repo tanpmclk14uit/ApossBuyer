@@ -15,6 +15,6 @@ interface AccountDAO {
     @Delete
     fun deleteAccount(account: Account)
 
-    @Query("SELECT * FROM account")
-    fun getAccount(): List<Account>
+    @Query("SELECT * FROM account Limit 1")
+    fun getAccount(): Account?
 }

@@ -1,11 +1,14 @@
 package com.example.aposs_buyer.model.dto
 
 data class TokenDTO(
-    val accessToken: String,
-    val tokenType: String,
-    val refreshToken: String,
+    var accessToken: String,
+    var tokenType: String,
+    var refreshToken: String,
 ){
-    fun getFullToken(): String{
+    fun getFullAccessToken(): String{
         return "$tokenType $accessToken"
+    }
+    fun getFullRefreshToken(): String{
+        return "$tokenType $refreshToken"
     }
 }

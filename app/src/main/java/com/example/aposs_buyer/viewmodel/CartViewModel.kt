@@ -1,17 +1,31 @@
 package com.example.aposs_buyer.viewmodel
 
 import android.util.Log
+import android.util.LogPrinter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.Image
+import com.example.aposs_buyer.model.dto.CartDTO
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.AuthRepository
+import com.example.aposs_buyer.responsitory.CartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import java.util.stream.Collectors
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
-class CartViewModel @Inject constructor(): ViewModel(){
+class CartViewModel @Inject constructor(
+    private val cartRepository: CartRepository,
+    private val authRepository: AuthRepository
+): ViewModel(){
 
     private val _lstCartItem = MutableLiveData<ArrayList<CartItem>>()
     val lstCartItem: LiveData<ArrayList<CartItem>> get() = _lstCartItem
@@ -23,14 +37,15 @@ class CartViewModel @Inject constructor(): ViewModel(){
     val size = MutableLiveData<Int>()
     val choseSize = MutableLiveData<Int>()
 
+    var tokenDTO: TokenDTO? = null
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+
     init {
-        _lstCartItem.value = loadCartList()
+        _lstCartItem.value = ArrayList()
         total.value = calculateTotal()
-        if (_lstCartItem.value == null)
-        {
-            size.value = 0
-        }
-        else size.value = _lstCartItem.value!!.size
+         size.value = _lstCartItem.value!!.size
         _choseList.value = getChose()
         choseSize.value = _choseList.value!!.size
     }
@@ -80,50 +95,48 @@ class CartViewModel @Inject constructor(): ViewModel(){
         return choseList
     }
 
-    private fun loadCartList(): ArrayList<CartItem>
+    private fun toCartItem(cartDTO: CartDTO): CartItem {
+        val image = Image(cartDTO.imageUrl)
+        return CartItem(
+            id =cartDTO.id,
+            image = image,
+            name = cartDTO.name,
+            price = cartDTO.price,
+            amount = cartDTO.quantity,
+            property = cartDTO.property,
+            isChoose = true
+        )
+    }
+
+    fun loadCartList()
     {
-        val sampleProducts = ArrayList<CartItem>()
-        val imgURl1 =
-            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
-        val imgURL2 =
-            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
-        val imgURL4 = "https://api.duniagames.co.id/api/content/upload/file/9607962621588584775.JPG"
-        val imgProduct1 = Image(imgURl1)
-        val imgProduct2 = Image(imgURL2)
-        val imgProduct4 = Image(imgURL4)
-            sampleProducts.add(
-                CartItem(
-                    1,
-                    imgProduct1,
-                    "Wilson Mens Hurry Professional",
-                    1,
-                    1,
-                    "Color: red, size: 30",
-                    false
-                )
-            )
-            sampleProducts.add(
-                CartItem(
-                    2,
-                    imgProduct2,
-                    "Wilson Mens Shirt",
-                    2,
-                    1,
-                    "Color: red, size: 30",
-                    false
-                )
-            )
-            sampleProducts.add(
-                CartItem(
-                    4,
-                    imgProduct4,
-                    "Laptop asus Vivo Book",
-                    2,
-                    1,
-                    "Color: red, size: 30",
-                    false
-                )
-            )
-        return sampleProducts
+        coroutineScope.launch {
+            if(tokenDTO != null){
+                val allCartItemsResponse = cartRepository.getAllCart(tokenDTO!!.getFullAccessToken())
+                when {
+                    allCartItemsResponse.code() == 200 -> {
+                        _lstCartItem.value = allCartItemsResponse.body()!!.stream().map{
+                            toCartItem(it)
+                        }.collect(Collectors.toList()).toCollection(ArrayList())
+                        total.value = calculateTotal()
+                        size.value = _lstCartItem.value!!.size
+                        _choseList.value = getChose()
+                        choseSize.value = _choseList.value!!.size
+                        return@launch
+                    }
+                    allCartItemsResponse.code() == 401 -> {
+                        Log.d("cart", "Expire access token")
+//                        val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.getFullRefreshToken())
+//                        if(accessTokenResponse.code() == 200){
+//                            tokenDTO!!.accessToken = accessTokenResponse.body()!!
+//                            loadCartList()
+//                        }
+                    }
+                    allCartItemsResponse.code()== 404 -> {
+                        Log.d("cart", "Resource not found")
+                    }
+                }
+            }
+        }
     }
 }

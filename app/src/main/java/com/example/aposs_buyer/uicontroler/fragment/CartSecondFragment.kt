@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCartBinding
 import com.example.aposs_buyer.databinding.FragmentCartSecondBinding
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
 import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,8 +37,9 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart_second, container, false)
+        checkLogin()
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.rcCart.adapter = cartAdapter
@@ -95,11 +99,28 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
     override fun onChangeAmount() {
         viewModel.reCalculateTotal()
     }
-
     override fun onChose(position: Int) {
         viewModel.setNewChose()
         viewModel.reCalculateTotal()
         viewModel.setChoseSize()
         cartAdapter.notifyItemChanged(position)
+    }
+    private fun checkLogin(){
+        val accountDao = AccountDatabase.getInstance(this.requireContext()).accountDao
+        val account = accountDao.getAccount()
+        if(account != null){
+            onCartListChange()
+            viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
+            viewModel.loadCartList()
+        }else{
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+    }
+    private fun onCartListChange(){
+        viewModel.lstCartItem.observe(viewLifecycleOwner, {
+            cartAdapter.submitList(it)
+        })
     }
 }
