@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.Address
+import com.example.aposs_buyer.model.District
+import com.example.aposs_buyer.model.Province
+import com.example.aposs_buyer.model.Ward
 import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
@@ -32,6 +36,7 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
     val listAddress : LiveData<MutableList<Address>> get() = _listAddress
 
     private val status  = MutableLiveData<DeliveryAddressStatus>()
+    private val statusDelete  = MutableLiveData<DeliveryAddressStatus>()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -50,14 +55,9 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
             var account = AccountDatabase.getInstance(appContext).accountDao.getAccount()[0]
             var token = account.tokenType + " " + account.accessToken
                 var response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
-            Log.d("oldToken", response.code().toString())
-            Log.d("oldToken", AccountDatabase.getInstance(appContext).accountDao.getAccount()[0].refreshToken)
             if (response.code() == 401)
             {
-                Log.d("oldToken", AccountDatabase.getInstance(appContext).accountDao.getAccount()[0].refreshToken)
-                val newAccessToken = authRepository.getNewAccessToken( account.refreshToken).body()!!
-                AccountDatabase.getInstance(appContext).accountDao.getAccount()[0].accessToken = newAccessToken
-                Log.d("newToken", AccountDatabase.getInstance(appContext).accountDao.getAccount()[0].accessToken)
+                getNewAccessToken(account)
                 account = AccountDatabase.getInstance(appContext).accountDao.getAccount()[0]
                 token = account.tokenType + " " + account.accessToken
                 response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
@@ -75,6 +75,21 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
                 Log.e("Exception", e.toString())
             }
         }
+    }
+
+    private suspend fun getNewAccessToken(account: Account)
+    {
+        val newAccessToken = authRepository.getNewAccessToken(account.refreshToken).body()!!
+        val accountNew: Account =
+            Account(
+                account.userName,
+                account.password,
+                newAccessToken,
+                account.tokenType,
+                account.refreshToken
+            )
+        AccountDatabase.getInstance(appContext).accountDao.deleteAccount(account)
+        AccountDatabase.getInstance(appContext).accountDao.insertAccount(accountNew)
     }
 
     private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address
@@ -114,8 +129,6 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
         return Address(0, "", true, "", "", "", "", "", false)
     }
 
-    fun deleteDefaultAddress() {
-        // delete default and choose newest to default
-    }
+
 
 }

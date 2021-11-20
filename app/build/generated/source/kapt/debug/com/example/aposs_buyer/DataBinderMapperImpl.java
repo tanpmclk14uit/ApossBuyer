@@ -75,6 +75,7 @@ import com.example.aposs_buyer.databinding.ItemRightSideMessageBindingImpl;
 import com.example.aposs_buyer.databinding.ItemStringPropertyBindingImpl;
 import com.example.aposs_buyer.databinding.ItemViewPagerDetailCategoryBindingImpl;
 import com.example.aposs_buyer.databinding.ItemViewPaperCategoriesBindingImpl;
+import com.example.aposs_buyer.databinding.ProvinceListItemBindingImpl;
 import java.lang.IllegalArgumentException;
 import java.lang.Integer;
 import java.lang.Object;
@@ -224,7 +225,9 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 69;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(69);
+  private static final int LAYOUT_PROVINCELISTITEM = 70;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(70);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_about_us, LAYOUT_ACTIVITYABOUTUS);
@@ -296,6 +299,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_string_property, LAYOUT_ITEMSTRINGPROPERTY);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_view_pager_detail_category, LAYOUT_ITEMVIEWPAGERDETAILCATEGORY);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.item_view_paper_categories, LAYOUT_ITEMVIEWPAPERCATEGORIES);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.province_list_item, LAYOUT_PROVINCELISTITEM);
   }
 
   private final ViewDataBinding internalGetViewDataBinding0(DataBindingComponent component,
@@ -722,6 +726,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_view_paper_categories is invalid. Received: " + tag);
       }
+      case  LAYOUT_PROVINCELISTITEM: {
+        if ("layout/province_list_item_0".equals(tag)) {
+          return new ProvinceListItemBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for province_list_item is invalid. Received: " + tag);
+      }
     }
     return null;
   }
@@ -819,7 +829,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(69);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(70);
 
     static {
       sKeys.put("layout/activity_about_us_0", com.example.aposs_buyer.R.layout.activity_about_us);
@@ -891,6 +901,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_string_property_0", com.example.aposs_buyer.R.layout.item_string_property);
       sKeys.put("layout/item_view_pager_detail_category_0", com.example.aposs_buyer.R.layout.item_view_pager_detail_category);
       sKeys.put("layout/item_view_paper_categories_0", com.example.aposs_buyer.R.layout.item_view_paper_categories);
+      sKeys.put("layout/province_list_item_0", com.example.aposs_buyer.R.layout.province_list_item);
     }
   }
 }

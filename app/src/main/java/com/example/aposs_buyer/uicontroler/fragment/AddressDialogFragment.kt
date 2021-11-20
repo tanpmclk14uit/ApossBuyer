@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -12,11 +13,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressDialogBinding
 import com.example.aposs_buyer.model.Address
+import com.example.aposs_buyer.model.Province
 import com.example.aposs_buyer.viewmodel.AddressDialogViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +32,8 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private val viewModel: AddressDialogViewModel by viewModels()
     private val args: AddressDialogFragmentArgs by navArgs()
 
+    private lateinit var provinceAdapter: ArrayAdapter<String>
+    private lateinit var districtAdapter: ArrayAdapter<String>
     //override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
     override fun onCreateView(
@@ -40,16 +45,36 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         viewModel.address.value = args.defaultAddress
         viewModel.name.value = viewModel.address.value!!.name
         viewModel.cellNumber.value = viewModel.address.value!!.phoneNumber
+        provinceAdapter = ArrayAdapter(requireContext(), R.layout.province_list_item, arrayListOf())
+        binding.actvCity.setAdapter(provinceAdapter)
+        districtAdapter = ArrayAdapter(requireContext(), R.layout.province_list_item, arrayListOf())
+        binding.actvDistrict.setAdapter(districtAdapter)
         addGenderList()
         setOnChange()
         checkButtonMatchDialog()
-
         binding.btnEditAddAddress.setOnClickListener {
             onClickEditOrAdd()
         }
         binding.btnDelete.setOnClickListener {
-            onOpenDeleteDialog()
+            if (binding.btnDelete.text == "Cancel")
+            {
+                findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
+            }
+            else {
+                onOpenDeleteDialog()
+            }
         }
+        viewModel.listProvince.observe(viewLifecycleOwner, Observer {
+            addProvinceList()
+        })
+        binding.actvCity.setOnItemClickListener{ adapterView, view, i, l ->
+            viewModel.loadDistrictByProvince(idOfProvince(i))
+            Log.d("choosed the province", idOfProvince(i).toString())
+        }
+        viewModel.listDistrict.observe(viewLifecycleOwner, Observer {
+            addDistrictList()
+            Log.d("choosed the province", viewModel.listDistrict.toString())
+        })
         onAddNewAddress()
         setCheckingCellPhone()
         setCheckingName()
@@ -111,6 +136,31 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         val genderList = listOf("Male", "Female")
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)
+    }
+
+    private fun addProvinceList()
+    {
+        val provinceList = viewModel.listProvince
+        for (i in 0 .. provinceList.value!!.size)
+        {
+            provinceAdapter.insert(provinceList.value!![i].name, i)
+        }
+        provinceAdapter.notifyDataSetChanged()
+    }
+
+    private fun addDistrictList()
+    {
+        val districtList = viewModel.listDistrict
+        for (i in 0 .. districtList.value!!.size)
+        {
+            districtAdapter.insert(districtList.value!![i].name, i)
+        }
+        districtAdapter.notifyDataSetChanged()
+    }
+
+    private fun idOfProvince(position: Int): Long
+    {
+       return viewModel.listProvince.value!![position].id
     }
 
     private fun onAddNewAddress()

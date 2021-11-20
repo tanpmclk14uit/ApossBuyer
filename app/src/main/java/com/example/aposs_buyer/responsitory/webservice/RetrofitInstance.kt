@@ -21,7 +21,7 @@ object RetrofitInstance {
 
 
     val retrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
+        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).baseUrl(
                 Constants.BASE_URL
             )
