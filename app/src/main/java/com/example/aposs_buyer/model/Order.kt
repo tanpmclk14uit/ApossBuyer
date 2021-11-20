@@ -15,6 +15,7 @@ data class Order(
     val billingItems: ArrayList<OrderBillingItem>,
     val totalPrice: Int
 ){
+    private var cancelReason: String ="";
     fun totalPriceToString(): String{
         val formatter = DecimalFormat("#,###")
         val formattedNumber: String = formatter.format(totalPrice)
@@ -25,8 +26,13 @@ data class Order(
         val simpleDate = SimpleDateFormat("HH:mm dd/MM/yyyy")
         return simpleDate.format(orderTime)
     }
-
     fun getStatusString():String{
         return status.toString()
+    }
+    fun getCancelReason(): String{
+        return cancelReason
+    }
+    fun setCancelReason(cancelReason: String){
+        this.cancelReason = cancelReason
     }
 }
