@@ -303,12 +303,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
                 binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
             viewModel.onAddNewAddress(newAddress)
-            if (newAddress.isDefault)
-            {
-                val currentDefault = args.currentDefaultAddress
-                currentDefault.isDefault = false
-                viewModel.onUpdateAddress(currentDefault)
-            }
             findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
         }
         if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != ""
@@ -320,12 +314,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
                 binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
             viewModel.onAddNewAddress(newAddress)
-            if (newAddress.isDefault)
-            {
-                val currentDefault = args.currentDefaultAddress
-                currentDefault.isDefault = false
-                viewModel.onUpdateAddress(currentDefault)
-            }
             findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
         }
         else {
@@ -352,12 +340,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                     viewModel.isDefault.value!!
                 )
                 onUpdateAddress(newAddress)
-                if (newAddress.isDefault)
-                {
-                    val currentDefault = args.currentDefaultAddress
-                    currentDefault.isDefault = false
-                    viewModel.onUpdateAddress(currentDefault)
-                }
                 requireActivity().onBackPressed()
             } else {
                 Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT)
