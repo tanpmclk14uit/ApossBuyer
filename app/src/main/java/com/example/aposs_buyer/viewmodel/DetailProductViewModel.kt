@@ -5,13 +5,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.*
+import com.example.aposs_buyer.model.dto.ProductDetailDTO
+import com.example.aposs_buyer.model.dto.ProductImageDTO
+import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.responsitory.webservice.ProductAPIService
+import com.example.aposs_buyer.utils.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
+    private val productRepository: ProductRepository
 ) : ViewModel() {
-
 
     private var selectedProductId: Long = 0
 
@@ -40,20 +50,23 @@ class DetailProductViewModel @Inject constructor(
     val selectedProductRatingFilter = MutableLiveData<ArrayList<ProductRating>>()
     val selectedProductTotalReviewFilter = MutableLiveData<String>()
 
+    val productDetailLoadingState = MutableLiveData<LoadingState>()
+
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     private val TAG = "DetailProductViewModel"
 
 
     fun setSelectedProductId(id: Long) {
         selectedProductId = id
         if (selectedProductId != (-1).toLong()) {
-            _selectedProduct.value = loadSelectedProductById(selectedProductId)
-            _selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
-            _selectedProductImages.value = loadListImageByID(selectedProductId)
+            loadSelectedProductById(selectedProductId)
+            loadListImageByID(selectedProductId)
             _selectedProductStringProperty.value =
                 loadSelectedProductStringPropertyById(selectedProductId)
             _selectedProductColorProperty.value =
                 loadSelectedProductColorPropertyById(selectedProductId)
-            _sameKindProducts.value = loadProductsByKind(_selectedProduct.value!!.kind)
             _selectedProductRating.value = loadProductRatingById(selectedProductId)
             Log.d(TAG, selectedProductId.toString())
         }
@@ -293,40 +306,47 @@ class DetailProductViewModel @Inject constructor(
         return sampleProductProperty
     }
 
-    private fun loadSelectedProductById(id: Long): ProductDetail {
-        //Load basic information of product by id
+    private fun mapToProductDetail(productDetailDTO: ProductDetailDTO): ProductDetail{
         return ProductDetail(
-            "Wilson Mens Hurry Professional",
-            958000,
-            480,
-            4f,
+            productDetailDTO.name,
+            productDetailDTO.price,
+            productDetailDTO.purchase,
+            productDetailDTO.rating,
             true,
-            "Wilson's Pro Staff Classic has been tearing up the courts since 1986. Its thickly cushioned upper and anti-shock pad-enhanced heel and forefoot bring the comfort while the midfoot wrap offers extra stability. An all-court Duralast Supreme outsole adds to the life of the shoe.\n" +
-                    "\n" +
-                    "Wilson tennis footwear is designed to meet the demands of different athletes and player profiles. The line is divided into collections that serve specific purposes. The Tour Collection is super lightweight, breathable and fits like a glove. The Trance Collection is renowned for supreme durability and unrivaled stability. Finally, the Pro Staff Collection provides all-around comfort and all-court performance.",
-            11,
-            "shoe",
-            3
+            productDetailDTO.description,
+            productDetailDTO.quantity,
+            productDetailDTO.kindName,
+            productDetailDTO.totalReview
         )
     }
+    //Done
+    private fun loadSelectedProductById(id: Long) {
+        //Load basic information of product by id
+        productDetailLoadingState.value = LoadingState.Loading
+        coroutineScope.launch {
+            val productResponse = productRepository.loadProductById(id)
+            if(productResponse.isSuccessful){
+                _selectedProduct.value = mapToProductDetail(productResponse.body()!!)
+                _selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
+                _sameKindProducts.value = loadProductsByKind(_selectedProduct.value!!.kind)
+                productDetailLoadingState.value = LoadingState.Success
+            }else{
+                productDetailLoadingState.value = LoadingState.Fail
+            }
+        }
+    }
+    private fun mapToImage(productImageDTO: ProductImageDTO): Image{
+        return Image(productImageDTO.imageUrl)
+    }
 
-    private fun loadListImageByID(id: Long): List<Image> {
-        val sampleProductsImage = ArrayList<Image>()
-        val imgURl1 =
-            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
-        val imgURL2 =
-            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
-        val imgURL3 =
-            "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
-        val imgURL4 = "https://api.duniagames.co.id/api/content/upload/file/9607962621588584775.JPG"
-        val imgProduct1 = Image(imgURl1)
-        val imgProduct2 = Image(imgURL2)
-        val imgProduct3 = Image(imgURL3)
-        val imgProduct4 = Image(imgURL4)
-        sampleProductsImage.add(imgProduct1)
-        sampleProductsImage.add(imgProduct2)
-        sampleProductsImage.add(imgProduct3)
-        sampleProductsImage.add(imgProduct4)
-        return sampleProductsImage
+    private fun loadListImageByID(id: Long) {
+        coroutineScope.launch {
+            val productImageResponse = productRepository.loadProductImageByProductId(id)
+            if(productImageResponse.isSuccessful){
+                _selectedProductImages.value = productImageResponse.body()!!.stream().map {
+                    mapToImage(it)
+                }.collect(Collectors.toList())
+            }
+        }
     }
 }

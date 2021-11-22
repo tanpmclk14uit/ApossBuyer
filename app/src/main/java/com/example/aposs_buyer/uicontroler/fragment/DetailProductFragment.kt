@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,7 @@ import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.utils.DialogType
+import com.example.aposs_buyer.utils.LoadingState
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,7 +51,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpRatingComponent()
         setUpToNavigateCart()
         setUpBottomSheetDialog()
-
+        onDetailProductChange()
         return binding.root
     }
     private fun setUpBottomSheetDialog(){
@@ -122,6 +124,18 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
             }
         }
     }
+    private fun onDetailProductChange(){
+        viewModel.productDetailLoadingState.observe(viewLifecycleOwner, {
+            if(it == LoadingState.Loading){
+                binding.detailProgress.visibility = View.VISIBLE
+            }else{
+                binding.detailProgress.visibility = View.GONE
+                if(it == LoadingState.Fail){
+                    Toast.makeText(this.requireContext(),"Loading fail", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
 
     override fun notifySelectedStringValueChange(propertyId: Long) {
         viewModel.notifySelectedStringPropertyChange(propertyId)
@@ -138,7 +152,5 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
     override fun removeFromFavorite(product: HomeProduct) {
         //remove from favorite
     }
-
-
 }
 

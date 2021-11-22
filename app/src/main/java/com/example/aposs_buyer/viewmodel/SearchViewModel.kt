@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.HomeProduct
-import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.ProductsStatus
@@ -53,7 +51,7 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
             setSort()
             _status.value = ProductsStatus.Loading;
             coroutineScope.launch {
-                val lstProductDeferred = productRepository.productService.getProductsAsyncByKeyword(curentKeyWord.value!!, currentPage, sortBy, sortDir)
+                val lstProductDeferred = productRepository.productService.getProductsByKeywordAsync(curentKeyWord.value!!, currentPage, sortBy, sortDir)
                 try {
                     val productResponseDTO: ProductResponseDTO = lstProductDeferred.await()
                     val lstResultCurrentPage = productResponseDTO.content.stream().map {
