@@ -21,7 +21,10 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressDialogBinding
 import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.Province
+import com.example.aposs_buyer.utils.AddingStatus
+import com.example.aposs_buyer.utils.BridgeObject
 import com.example.aposs_buyer.viewmodel.AddressDialogViewModel
+import com.example.aposs_buyer.viewmodel.AddressViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +40,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private lateinit var provinceAdapter: ArrayAdapter<String>
     private lateinit var districtAdapter: ArrayAdapter<String>
     private lateinit var wardAdapter: ArrayAdapter<String>
+
     //override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
     override fun onCreateView(
@@ -45,12 +49,10 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
-        viewModel.address.value = args.defaultAddress
-        viewModel.name.value = viewModel.address.value!!.name
-        viewModel.cellNumber.value = viewModel.address.value!!.phoneNumber
+
         setStartValue()
-        viewModel.listProvince.value = mutableListOf()
-        viewModel.loadProvince()
+//        viewModel.listProvince.value = mutableListOf()
+//        viewModel.loadProvince()
         setAdapterForAddressElement()
         addGenderList()
         setOnChange()
@@ -76,6 +78,10 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 
     private fun setStartValue()
     {
+        viewModel.address.value = args.defaultAddress
+        viewModel.name.value = viewModel.address.value!!.name
+        viewModel.cellNumber.value = viewModel.address.value!!.phoneNumber
+        viewModel.isDefault.value = viewModel.address.value!!.isDefault
         binding.actvCity.setText(args.defaultAddress.city, false)
         viewModel.positionOfProvince(args.defaultAddress.city)
         if (args.defaultAddress.gender) {
@@ -102,10 +108,8 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             addProvinceList()
             if (viewModel.positionOfProvince(args.defaultAddress.city)<it.size && viewModel.positionOfProvince(args.defaultAddress.city) != 0)
             {
-                deleteProvince()
-                binding.actvCity.setSelection(viewModel.positionOfProvince(args.defaultAddress.city))
+                Log.d("district2", idOfProvince(viewModel.positionOfProvince(args.defaultAddress.city)).toString())
                 viewModel.listDistrict.value = mutableListOf()
-                Log.d("haizzzzzzzzzzzzzz", "00000000000000000000000000000000")
                 viewModel.loadDistrictByProvince(idOfProvince(viewModel.positionOfProvince(args.defaultAddress.city)))
             }
         })
@@ -119,11 +123,9 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         }
         viewModel.listDistrict.observe(viewLifecycleOwner, Observer {
             addDistrictList()
-            Log.d("haizzzzzzzzzzzzzz", "00000000000000000000000000000000")
             districtAdapter.notifyDataSetChanged()
             if (viewModel.positionOfDistrict(args.defaultAddress.district)<=it.size && viewModel.positionOfDistrict(args.defaultAddress.district)!=0 && !firsTimeLoadProvince)
             {
-                binding.actvDistrict.setSelection(viewModel.positionOfDistrict(args.defaultAddress.district))
                 firsTimeLoadProvince = true
                 viewModel.loadWardByDistrict(idOfDistrict(viewModel.positionOfDistrict(args.defaultAddress.district)))
             }
@@ -207,10 +209,13 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun addProvinceList()
     {
         val provinceList = viewModel.listProvince
+        deleteProvince()
         if (provinceList.value != null) {
             for (i in 0 until provinceList.value!!.size) {
                 provinceAdapter.insert(provinceList.value!![i].name, i)
+//                Log.d("province", provinceList.value!![i].name)
             }
+            provinceAdapter.notifyDataSetChanged()
             provinceAdapter.notifyDataSetChanged()
         }
     }
@@ -218,10 +223,11 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun addDistrictList()
     {
         val districtList = viewModel.listDistrict
+        deleteDistrict()
         for (i in 0 until  districtList.value!!.size)
         {
             districtAdapter.insert(districtList.value!![i].name, i)
-            Log.d("district", districtList.value!![i].name)
+//            Log.d("district", districtList.value!![i].name)
         }
         districtAdapter.notifyDataSetChanged()
         districtAdapter.notifyDataSetChanged()
@@ -230,10 +236,11 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun addWardList()
     {
         val wardList = viewModel.listWard
+        deleteWardList()
         for (i in 0 until wardList.value!!.size)
         {
             wardAdapter.insert(wardList.value!![i].name, i)
-            Log.d("district", wardList.value!![i].name)
+//            Log.d("district", wardList.value!![i].name)
         }
         wardAdapter.notifyDataSetChanged()
         wardAdapter.notifyDataSetChanged()
@@ -294,8 +301,14 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             val newAddress = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.text.toString()=="Male",
                 binding.etPhone.text.toString(), binding.actvCity.text.toString(),
                 binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
-                binding.etAddressLane.text.toString(), false)
+                binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
             viewModel.onAddNewAddress(newAddress)
+            if (newAddress.isDefault)
+            {
+                val currentDefault = args.currentDefaultAddress
+                currentDefault.isDefault = false
+                viewModel.onUpdateAddress(currentDefault)
+            }
             findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
         }
         if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != ""
@@ -305,8 +318,14 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             val newAddress = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.hint.toString()=="Male",
                 binding.etPhone.text.toString(), binding.actvCity.text.toString(),
                 binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
-                binding.etAddressLane.text.toString(), false)
+                binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
             viewModel.onAddNewAddress(newAddress)
+            if (newAddress.isDefault)
+            {
+                val currentDefault = args.currentDefaultAddress
+                currentDefault.isDefault = false
+                viewModel.onUpdateAddress(currentDefault)
+            }
             findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
         }
         else {
@@ -316,49 +335,35 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 
     private fun onClickEditOrAdd()
     {
-        if (binding.btnEditAddAddress.text == "Edit")
-        {
-                if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() !="" && binding.actvWard.text.toString() !="" &&
-                        binding.actvGender.text.toString() != "") {
-                    var newAddress: Address = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.text.toString()=="Male",
-                        binding.etPhone.text.toString(), binding.actvCity.text.toString(),
-                        binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
-                        binding.etAddressLane.text.toString(), false)
-                    onUpdateAddress(newAddress)
-                    findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
-                }
-                else if (binding.actvCity.hint != "" && binding.actvDistrict.hint != "" && binding.actvWard.hint != ""&&
-                    binding.actvGender.text.toString() != "" ){
-                        var newAddress: Address = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.text.toString()=="Male",
-                        binding.etPhone.text.toString(), binding.actvCity.hint.toString(),
-                        binding.actvDistrict.hint.toString(), binding.actvWard.hint.toString(),
-                        binding.etAddressLane.text.toString(), false)
-                        onUpdateAddress(newAddress)
-                        findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
-                } else if (binding.actvCity.hint != null&& binding.actvDistrict.hint != null && binding.actvWard.hint != null&&
-                    binding.actvGender.hint.toString() != "" ){
-                    var newAddress: Address = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.hint.toString()=="Male",
-                        binding.etPhone.text.toString(), binding.actvCity.hint.toString(),
-                        binding.actvDistrict.hint.toString(), binding.actvWard.hint.toString(),
-                        binding.etAddressLane.text.toString(), false)
-                    onUpdateAddress(newAddress)
-                    findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
-                }
-            else if (binding.actvCity.hint != null&& binding.actvDistrict.hint != null && binding.actvWard.hint != null&&
-                    binding.actvGender.hint.toString() != "" ){
-                var newAddress: Address = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.hint.toString()=="Male",
-                    binding.etPhone.text.toString(), binding.actvCity.hint.toString(),
-                    binding.actvDistrict.hint.toString(), binding.actvWard.hint.toString(),
-                    binding.etAddressLane.text.toString(), false)
+        if (binding.btnEditAddAddress.text == "Edit") {
+            Log.d("postingDefault", viewModel.isDefault.value!!.toString())
+            if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != "" && binding.actvWard.text.toString() != "" &&
+                binding.actvGender.text.toString() != ""
+            ) {
+                var newAddress: Address = Address(
+                    args.defaultAddress.id,
+                    binding.etName.text.toString(),
+                    binding.actvGender.text.toString() == "Male",
+                    binding.etPhone.text.toString(),
+                    binding.actvCity.text.toString(),
+                    binding.actvDistrict.text.toString(),
+                    binding.actvWard.text.toString(),
+                    binding.etAddressLane.text.toString(),
+                    viewModel.isDefault.value!!
+                )
                 onUpdateAddress(newAddress)
-                findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
-            }
-            else{
-                        Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT).show()
+                if (newAddress.isDefault)
+                {
+                    val currentDefault = args.currentDefaultAddress
+                    currentDefault.isDefault = false
+                    viewModel.onUpdateAddress(currentDefault)
                 }
-
-        }
-        else onAddNewAddress()
+                requireActivity().onBackPressed()
+            } else {
+                Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        } else onAddNewAddress()
     }
 
     private fun onUpdateAddress(address: Address)

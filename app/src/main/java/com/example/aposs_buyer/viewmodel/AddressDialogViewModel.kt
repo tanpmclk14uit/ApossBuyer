@@ -2,9 +2,11 @@ package com.example.aposs_buyer.viewmodel
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
 import com.example.aposs_buyer.model.dto.DistrictDTO
@@ -14,6 +16,7 @@ import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.*
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.AddingStatus
+import com.example.aposs_buyer.utils.BridgeObject
 import com.example.aposs_buyer.utils.DeliveryAddressStatus
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,15 +42,17 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
     var cellNumberErrorMessage: String? = ""
     var name: MutableLiveData<String> = MutableLiveData()
     var cellNumber: MutableLiveData<String> = MutableLiveData()
-
+    var isDefault: MutableLiveData<Boolean> = MutableLiveData(false)
     val listProvince = MutableLiveData<MutableList<Province>>()
 
     val listDistrict = MutableLiveData<MutableList<District>>()
 
     val listWard = MutableLiveData<MutableList<Ward>>()
 
+    val listAddress = MutableLiveData<MutableList<Address>> ()
+
     private val status = MutableLiveData<LoadingStatus>()
-    private val addingStatus = MutableLiveData<AddingStatus>()
+     val addingStatus = MutableLiveData<AddingStatus>()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -97,25 +102,76 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
         return address.value!!.phoneNumber == newPhone
     }
 
+    fun loadUserAddress()
+    {
+        status.value = LoadingStatus.Loading
+        viewModelScope.launch {
+            var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
+            var token = account.tokenType + " " + account.accessToken
+            var response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
+            if (response.code() == 401)
+            {
+                getNewAccessToken(account)
+                account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
+                token = account.tokenType + " " + account.accessToken
+                response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
+            }
+            val listDeliveryAddressDTO = response.body()
+            try {
+                listAddress.value = listDeliveryAddressDTO!!.stream().map{
+                        it -> convertDeliveryAddressDTOToAddress(it)
+                }.collect(Collectors.toList())
+                status.value = LoadingStatus.Success
+            }
+            catch (e:Exception)
+            {
+                status.value = LoadingStatus.Fail
+                Log.e("Exception", e.toString())
+            }
+        }
+    }
+
+    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address
+    {
+        return Address(
+            id =  deliveryAddressDTO.id,
+            name = deliveryAddressDTO.name,
+            gender = deliveryAddressDTO.gender,
+            phoneNumber = deliveryAddressDTO.phoneNumber,
+            city = deliveryAddressDTO.province.name,
+            district = deliveryAddressDTO.district.name,
+            ward = deliveryAddressDTO.ward.name,
+            isDefault = deliveryAddressDTO.isDefault,
+            addressLane = deliveryAddressDTO.addressLane
+        );
+    }
+
     fun onAddNewAddress(address: Address) {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
         addingStatus.value = AddingStatus.Loading
         coroutineScope.launch {
             var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
             var token = account.tokenType + " " + account.accessToken
-            var response = deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(token,deliveryAddressDTO)
-            if (response.code() == 401)
-            {
+            var response =
+                deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(
+                    token,
+                    deliveryAddressDTO
+                )
+            if (response.code() == 401) {
                 getNewAccessToken(account)
                 account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
                 token = account.tokenType + " " + account.accessToken
-                response = deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(token,deliveryAddressDTO)
+                response =
+                    deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(
+                        token,
+                        deliveryAddressDTO
+                    )
             }
+            addingStatus.value = AddingStatus.Success
+            loadUserAddress()
             try {
-                addingStatus.value = AddingStatus.Success
-            }
-            catch (e:Exception)
-            {
+
+            } catch (e: Exception) {
                 addingStatus.value = AddingStatus.Fail
                 Log.e("Exception", e.toString())
             }
@@ -144,7 +200,7 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
             gender = address.gender,
             addressLane = address.addressLane,
             phoneNumber = address.phoneNumber,
-            isDefault = false,
+            isDefault = address.isDefault,
             ward = convertCurrentNameToWardDTO(address.ward),
             district = convertCurrentNameToDistrictDTO(address.district),
             province = convertCurrentNameToProvinceDTO(address.city)
@@ -176,12 +232,12 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
     }
 
     private fun convertCurrentNameToWardDTO(name: String): WardDTO{
-        for(i in 0 until listWard.value!!.size)
-        {
-            val ward = listWard.value!![i]
-            if(name == ward.name)
-            {
-                return convertFromWardToWardDTO(ward)
+        if (listWard.value != null) {
+            for (i in 0 until listWard.value!!.size) {
+                val ward = listWard.value!![i]
+                if (name == ward.name) {
+                    return convertFromWardToWardDTO(ward)
+                }
             }
         }
         return WardDTO(1, "Phường Phúc Xá", 1)
@@ -189,21 +245,25 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
 
     fun onUpdateAddress(address: Address) {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
+        Log.d("postingObject", deliveryAddressDTO.toString())
         addingStatus.value = AddingStatus.Loading
         coroutineScope.launch {
             var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
             var token = account.tokenType + " " + account.accessToken
-            Log.d("Updating", "On update")
             var response = deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(token,deliveryAddressDTO)
-            if (response.code() == 401)
-            {
+            if (response.code() == 401) {
                 getNewAccessToken(account)
                 account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
                 token = account.tokenType + " " + account.accessToken
-                response = deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(token,deliveryAddressDTO)
+                response =
+                    deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(
+                        token,
+                        deliveryAddressDTO
+                    )
             }
+            addingStatus.value = AddingStatus.Success
+            BridgeObject.addressListChange.value = !BridgeObject.addressListChange.value!!
             try {
-                addingStatus.value = AddingStatus.Success
             }
             catch (e:Exception)
             {
@@ -366,6 +426,7 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
                 token = account.tokenType + " " + account.accessToken
                 response = deliveryAddressRepository.deliveryAddressService.deleteDeliveryAddressService(token,id)
             }
+            loadUserAddress()
             try {
                 addingStatus.value = AddingStatus.Success
             }

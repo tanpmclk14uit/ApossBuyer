@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.District
 import com.example.aposs_buyer.model.Province
@@ -32,10 +33,9 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
                                            @ApplicationContext private  val appContext: Context,
                                             private val authRepository: AuthRepository): ViewModel() {
 
-    private val _listAddress = MutableLiveData<MutableList<Address>>()
-    val listAddress : LiveData<MutableList<Address>> get() = _listAddress
+    val listAddress = MutableLiveData<MutableList<Address>> ()
 
-    private val status  = MutableLiveData<DeliveryAddressStatus>()
+     val status  = MutableLiveData<DeliveryAddressStatus>()
     private val statusDelete  = MutableLiveData<DeliveryAddressStatus>()
 
     private var viewModelJob = Job()
@@ -44,14 +44,14 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
 
 
     init {
-        _listAddress.value = mutableListOf()
+        listAddress.value = mutableListOf()
         loadUserAddress()
     }
 
      fun loadUserAddress()
     {
         status.value = DeliveryAddressStatus.Loading
-        coroutineScope.launch {
+        viewModelScope.launch {
             var account = AccountDatabase.getInstance(appContext).accountDao.getAccount()[0]
             var token = account.tokenType + " " + account.accessToken
                 var response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
@@ -64,7 +64,7 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
             }
             val listDeliveryAddressDTO = response.body()
             try {
-                _listAddress.value = listDeliveryAddressDTO!!.stream().map{
+                listAddress.value = listDeliveryAddressDTO!!.stream().map{
                     it -> convertDeliveryAddressDTOToAddress(it)
                 }.collect(Collectors.toList())
                 status.value = DeliveryAddressStatus.Success
@@ -108,19 +108,19 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
     }
 
     fun onChangeDefault(position: Int) {
-        for(i in 0 until _listAddress.value!!.size)
+        for(i in 0 until listAddress.value!!.size)
         {
-            if (_listAddress.value!![i].isDefault)
+            if (listAddress.value!![i].isDefault)
                 listAddress.value!![i].isDefault = false
         }
-        _listAddress.value!![position].isDefault = true
+        listAddress.value!![position].isDefault = true
     }
 
-    fun getCurrentDefaultAddress(id: Long): Address {
-        for (i in 0 until _listAddress.value!!.size)
+    fun getAddress(id: Long): Address {
+        for (i in 0 until listAddress.value!!.size)
         {
-            if (_listAddress.value!![i].id == id)
-                return _listAddress.value!![i]
+            if (listAddress.value!![i].id == id)
+                return listAddress.value!![i]
         }
         return Address(0, "None", true, "none", "none", "none", "none", "none", false)
     }
@@ -129,6 +129,14 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
         return Address(0, "", true, "", "", "", "", "", false)
     }
 
+    fun getCurrentDefaultAddress(): Address {
+        for (i in 0 until listAddress.value!!.size)
+        {
+            if (listAddress.value!![i].isDefault)
+                return listAddress.value!![i]
+        }
+        return Address(0, "None", true, "none", "none", "none", "none", "none", false)
+    }
 
 
 }
