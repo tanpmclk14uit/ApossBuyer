@@ -19,8 +19,12 @@
         <argument
             android:name="default_address"
             app:argType="com.example.aposs_buyer.model.Address" />
+
         <action
             android:id="@+id/action_addressDialogFragment2_to_addressFragment"
             app:destination="@id/addressFragment" />
+        <argument
+            android:name="current_default_address"
+            app:argType="com.example.aposs_buyer.model.Address" />
     </dialog>
 </navigation>

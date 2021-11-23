@@ -25,13 +25,14 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/isDefault"
-                android:textColor="@color/active_button"
-                android:text="[ Default ]"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="[ Default ]"
+                android:textColor="@color/active_button"
+                android:textStyle="bold" />
             <ImageView
                 app:tint="@color/active_button"
                 android:id="@+id/editAddress"

@@ -27,7 +27,7 @@ class SignInViewModel @Inject constructor(
     var emailErrorMessage: String? = ""
     var passwordErrorMessage: String? = ""
     var loginState: MutableLiveData<LoginState> = MutableLiveData()
-    var token: TokenDTO? = null
+        var token: TokenDTO? = null
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 

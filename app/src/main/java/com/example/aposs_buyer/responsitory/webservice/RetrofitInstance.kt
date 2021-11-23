@@ -1,7 +1,5 @@
 package com.example.aposs_buyer.responsitory.webservice
 
-import android.util.JsonReader
-import android.util.Log
 import com.example.aposs_buyer.utils.Constants
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi

@@ -31,3 +31,16 @@ enum class KindStatus{
 enum class LoadingState{
     Loading, Success, Fail
 }
+
+
+enum class DeliveryAddressStatus{
+    Loading, Success, Fail
+}
+
+enum class LoadingStatus{
+    Loading, Success, Fail
+}
+
+enum class AddingStatus{
+    Loading, Success, Fail
+}

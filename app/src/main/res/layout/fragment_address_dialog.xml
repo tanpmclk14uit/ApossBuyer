@@ -236,12 +236,14 @@
                 android:paddingHorizontal="15dp"
                 android:text="@{viewModel.address.addressLane}"
                 android:textSize="16dp" />
-            <androidx.appcompat.widget.AppCompatRadioButton
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:text="@string/set_as_default_address"
+                android:id="@+id/cb_is_default"
                 android:layout_width="match_parent"
+                android:checked="@={viewModel.isDefault()}"
                 android:layout_height="wrap_content">
 
-            </androidx.appcompat.widget.AppCompatRadioButton>
+            </androidx.appcompat.widget.AppCompatCheckBox>
 
             <GridLayout
                 android:layout_marginBottom="15dp"
