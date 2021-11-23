@@ -106,14 +106,14 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
     {
         status.value = LoadingStatus.Loading
         viewModelScope.launch {
-            var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-            var token = account.tokenType + " " + account.accessToken
+            var account = AccountDatabase.getInstance(context).accountDao.getAccount()
+            var token = account!!.tokenType + " " + account.accessToken
             var response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
             if (response.code() == 401)
             {
                 getNewAccessToken(account)
-                account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-                token = account.tokenType + " " + account.accessToken
+                account = AccountDatabase.getInstance(context).accountDao.getAccount()
+                token = account!!.tokenType + " " + account.accessToken
                 response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
             }
             val listDeliveryAddressDTO = response.body()
@@ -150,8 +150,8 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
         addingStatus.value = AddingStatus.Loading
         coroutineScope.launch {
-            var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-            var token = account.tokenType + " " + account.accessToken
+            var account = AccountDatabase.getInstance(context).accountDao.getAccount()
+            var token = account!!.tokenType + " " + account.accessToken
             var response =
                 deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(
                     token,
@@ -159,8 +159,8 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
                 )
             if (response.code() == 401) {
                 getNewAccessToken(account)
-                account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-                token = account.tokenType + " " + account.accessToken
+                account = AccountDatabase.getInstance(context).accountDao.getAccount()
+                token = account!!.tokenType + " " + account.accessToken
                 response =
                     deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(
                         token,
@@ -180,7 +180,7 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
 
     private suspend fun getNewAccessToken(account: Account)
     {
-        val newAccessToken = authRepository.getNewAccessToken(account.refreshToken).body()!!
+        val newAccessToken = authRepository.getAccessToken(account.refreshToken).body()!!
         val accountNew: Account =
             Account(
                 account.userName,
@@ -248,13 +248,13 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
         Log.d("postingObject", deliveryAddressDTO.toString())
         addingStatus.value = AddingStatus.Loading
         coroutineScope.launch {
-            var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-            var token = account.tokenType + " " + account.accessToken
+            var account = AccountDatabase.getInstance(context).accountDao.getAccount()
+            var token = account!!.tokenType + " " + account.accessToken
             var response = deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(token,deliveryAddressDTO)
             if (response.code() == 401) {
                 getNewAccessToken(account)
-                account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-                token = account.tokenType + " " + account.accessToken
+                account = AccountDatabase.getInstance(context).accountDao.getAccount()
+                token = account!!.tokenType + " " + account.accessToken
                 response =
                     deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(
                         token,
@@ -416,14 +416,14 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
     fun deleteDeliveryAddress(id: Long) {
         addingStatus.value = AddingStatus.Loading
         coroutineScope.launch {
-            var account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-            var token = account.tokenType + " " + account.accessToken
+            var account = AccountDatabase.getInstance(context).accountDao.getAccount()
+            var token = account!!.tokenType + " " + account.accessToken
             var response = deliveryAddressRepository.deliveryAddressService.deleteDeliveryAddressService(token,id)
             if (response.code() == 401)
             {
                 getNewAccessToken(account)
-                account = AccountDatabase.getInstance(context).accountDao.getAccount()[0]
-                token = account.tokenType + " " + account.accessToken
+                account = AccountDatabase.getInstance(context).accountDao.getAccount()
+                token = account!!.tokenType + " " + account.accessToken
                 response = deliveryAddressRepository.deliveryAddressService.deleteDeliveryAddressService(token,id)
             }
             loadUserAddress()

@@ -52,14 +52,14 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
     {
         status.value = DeliveryAddressStatus.Loading
         viewModelScope.launch {
-            var account = AccountDatabase.getInstance(appContext).accountDao.getAccount()[0]
-            var token = account.tokenType + " " + account.accessToken
+            var account = AccountDatabase.getInstance(appContext).accountDao.getAccount()
+            var token = account!!.tokenType + " " + account.accessToken
                 var response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
             if (response.code() == 401)
             {
                 getNewAccessToken(account)
-                account = AccountDatabase.getInstance(appContext).accountDao.getAccount()[0]
-                token = account.tokenType + " " + account.accessToken
+                account = AccountDatabase.getInstance(appContext).accountDao.getAccount()
+                token = account!!.tokenType + " " + account.accessToken
                 response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
             }
             val listDeliveryAddressDTO = response.body()
@@ -79,7 +79,7 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
 
     private suspend fun getNewAccessToken(account: Account)
     {
-        val newAccessToken = authRepository.getNewAccessToken(account.refreshToken).body()!!
+        val newAccessToken = authRepository.getAccessToken(account.refreshToken).body()!!
         val accountNew: Account =
             Account(
                 account.userName,
