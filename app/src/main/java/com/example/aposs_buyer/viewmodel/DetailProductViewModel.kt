@@ -238,8 +238,9 @@ class DetailProductViewModel @Inject constructor(
         }
     }
 
-    private fun mapToProductDetail(productDetailDTO: ProductDetailDTO): ProductDetail {
+    private fun mapToProductDetail(productDetailDTO: ProductDetailDTO, id: Long): ProductDetail {
         return ProductDetail(
+            id,
             productDetailDTO.name,
             productDetailDTO.price,
             productDetailDTO.purchase,
@@ -257,7 +258,7 @@ class DetailProductViewModel @Inject constructor(
         coroutineScope.launch {
             val productResponse = productRepository.loadProductById(id)
             if (productResponse.isSuccessful) {
-                _selectedProduct.value = mapToProductDetail(productResponse.body()!!)
+                _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
                 _selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
                loadProductsByKind(productResponse.body()!!.kindId)
                 if(_selectedProduct.value!!.totalReview != 0){

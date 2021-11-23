@@ -3,6 +3,7 @@ package com.example.aposs_buyer.model
 import java.text.DecimalFormat
 
 data class ProductDetail(
+    val id: Long,
     val name: String,
     val price: Int,
     val purchase: Int,

@@ -1,6 +1,7 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.databinding.FragmentProductDetailDialogListDialogBinding
+import com.example.aposs_buyer.model.CartItem
+import com.example.aposs_buyer.model.Image
+import com.example.aposs_buyer.model.dto.CartDTO
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.ColorDetailPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.ColorPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.StringDetailPropertyAdapter
@@ -19,12 +26,12 @@ import com.example.aposs_buyer.utils.DialogType
 import com.example.aposs_buyer.viewmodel.DetailProductDiaLogViewModel
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     StringDetailPropertyAdapter.PropertyStringValueSelected,
     ColorDetailPropertyAdapter.PropertyColorValueSelected {
-
 
     private var _binding: FragmentProductDetailDialogListDialogBinding? = null
 
@@ -77,17 +84,30 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
             }
         }
     }
-
+    private fun toCartItem(cartDTO: CartDTO): CartItem {
+        val image = Image(cartDTO.imageUrl)
+        return CartItem(
+            id = cartDTO.id,
+            image = image,
+            name = cartDTO.name,
+            price = cartDTO.price,
+            amount = cartDTO.quantity,
+            property = cartDTO.property,
+            isChoose = cartDTO.select
+        )
+    }
     private fun dialogTypeButton() {
         binding.dialogButton.setOnClickListener {
             if (checkValidPropertyProduct()) {
                 if (dialogType == DialogType.CheckOutDialog) {
-                    findNavController().navigate(ProductDetailDialogFragmentDirections.actionProductDetailDialogFragmentToCheckOutFragment(viewModelDialog.productTypeCart.value!!.convertToCart()))
+                    findNavController().navigate(ProductDetailDialogFragmentDirections.actionProductDetailDialogFragmentToCheckOutFragment(toCartItem(viewModelDialog.productTypeCart.value!!)))
                     this.dismiss()
                 } else {
-                    viewModelDialog.addToCart()
-                    Toast.makeText(requireContext(), "Add to cart successfully", Toast.LENGTH_SHORT).show()
-                    this.dismiss()
+                    if(isLogin()){
+                        viewModelDialog.addToCart()
+                        Toast.makeText(requireContext(), "Add to cart successfully", Toast.LENGTH_SHORT).show()
+                        this.dismiss()
+                    }
                 }
             }
         }
@@ -114,30 +134,30 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
 
     private fun onAvailableQuantitiesChange() {
         viewModelDialog.selectedProductQuantitiesDiaLog.observe(this, {
-            if (viewModelDialog.productTypeCart.value!!.amount > viewModelDialog.selectedProductQuantitiesDiaLog.value!!) {
-                viewModelDialog.productTypeCart.value!!.amount =
+            if (viewModelDialog.productTypeCart.value!!.quantity > viewModelDialog.selectedProductQuantitiesDiaLog.value!!) {
+                viewModelDialog.productTypeCart.value!!.quantity =
                     viewModelDialog.selectedProductQuantitiesDiaLog.value!!
                 viewModelDialog.productTypeCartAmount.value =
-                    viewModelDialog.productTypeCart.value!!.amount
+                    viewModelDialog.productTypeCart.value!!.quantity
             }
         })
     }
 
     private fun onAddAmount() {
-        if (viewModelDialog.productTypeCart.value!!.amount < viewModelDialog.selectedProductQuantitiesDiaLog.value!!) {
-            viewModelDialog.productTypeCart.value!!.amount++
+        if (viewModelDialog.productTypeCart.value!!.quantity < viewModelDialog.selectedProductQuantitiesDiaLog.value!!) {
+            viewModelDialog.productTypeCart.value!!.quantity++
             viewModelDialog.productTypeCartAmount.value =
-                viewModelDialog.productTypeCart.value!!.amount
+                viewModelDialog.productTypeCart.value!!.quantity
         } else {
             Toast.makeText(this.requireContext(), "It's max in stock", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun onReduceAmount() {
-        if (viewModelDialog.productTypeCart.value!!.amount > 1) {
-            viewModelDialog.productTypeCart.value!!.amount--
+        if (viewModelDialog.productTypeCart.value!!.quantity > 1) {
+            viewModelDialog.productTypeCart.value!!.quantity--
             viewModelDialog.productTypeCartAmount.value =
-                viewModelDialog.productTypeCart.value!!.amount
+                viewModelDialog.productTypeCart.value!!.quantity
         }
     }
 
@@ -168,5 +188,19 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
 
     override fun notifySelectedStringValueChange(propertyId: Long) {
         viewModelDialog.notifySelectedStringPropertyChange(propertyId)
+    }
+    private fun isLogin(): Boolean{
+        val accountDao = AccountDatabase.getInstance(this.requireContext()).accountDao
+        val account = accountDao.getAccount()
+        return if(account != null){
+            viewModelDialog.tokenDTO =
+                TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
+            true
+        }else{
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+            false
+        }
     }
 }

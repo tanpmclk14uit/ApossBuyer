@@ -19,4 +19,8 @@ class CartRepository @Inject constructor() {
     suspend fun deleteCart(accessToken: String, id: Long): Response<String>{
         return cartService.deleteCart(accessToken, id)
     }
+
+    suspend fun addNewCart(accessToken: String, cartDTO: CartDTO): Response<String>{
+        return cartService.addNewCart(accessToken,cartDTO)
+    }
 }

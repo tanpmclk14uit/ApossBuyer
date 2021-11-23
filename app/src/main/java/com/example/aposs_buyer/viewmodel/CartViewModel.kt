@@ -48,6 +48,7 @@ class CartViewModel @Inject constructor(
 
     init {
         _lstCartItem.value = ArrayList()
+        _choseList.value = ArrayList()
     }
 
     private fun calculateTotal(): String {

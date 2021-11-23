@@ -17,6 +17,12 @@ interface CartService {
         @Body cartDTO: CartDTO
     ): Response<String>
 
+    @POST("cart")
+    suspend fun addNewCart(
+        @Header("Authorization") accessToken: String,
+        @Body cartDTO: CartDTO
+    ): Response<String>
+
     @DELETE("cart/{id}")
     suspend fun deleteCart(
         @Header("Authorization") accessToken: String,
