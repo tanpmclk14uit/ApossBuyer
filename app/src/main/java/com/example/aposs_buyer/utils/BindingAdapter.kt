@@ -40,6 +40,7 @@ fun bindImagePath(imageView: ImageView, image: Uri?)
         .apply(
             RequestOptions().placeholder(R.drawable.animation_loading)
         )
+        .error(RequestOptions().placeholder(R.drawable.ic_baseline_error_24))
         .transition(BitmapTransitionOptions.withCrossFade())
         .into(imageView)
     imageView.scaleType= ImageView.ScaleType.CENTER_CROP

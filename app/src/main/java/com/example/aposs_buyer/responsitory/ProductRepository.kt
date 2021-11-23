@@ -1,17 +1,9 @@
 package com.example.aposs_buyer.responsitory
 
-import com.example.aposs_buyer.model.dto.ProductDetailDTO
-import com.example.aposs_buyer.model.dto.ProductImageDTO
+import com.example.aposs_buyer.model.dto.*
 import com.example.aposs_buyer.responsitory.webservice.ProductAPIService
 import com.example.aposs_buyer.responsitory.webservice.RetrofitInstance
-import com.example.aposs_buyer.utils.Constants
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Deferred
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
 
@@ -27,4 +19,22 @@ class ProductRepository @Inject constructor(){
     suspend fun loadProductImageByProductId(id: Long): Response<List<ProductImageDTO>>{
         return productService.getProductImagesById(id)
     }
+
+    suspend fun loadProductByKindId(id: Long): Response<ProductResponseDTO>{
+        return productService.getProductByKindId(id)
+    }
+
+    suspend fun loadProductStringPropertyById(id: Long): Response<List<ProductPropertyDTO>>{
+        return productService.getProductPropertiesById(id, false)
+    }
+
+    suspend fun loadProductColorPropertyById(id: Long): Response<List<ProductPropertyDTO>>{
+        return productService.getProductPropertiesById(id, true)
+    }
+
+    suspend fun loadProductRatingById(id: Long): Response<List<ProductRatingDTO>>{
+        return productService.getProductRatingsById(id)
+    }
+
+
 }

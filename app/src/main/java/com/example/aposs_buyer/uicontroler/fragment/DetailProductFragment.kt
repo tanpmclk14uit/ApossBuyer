@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -52,6 +53,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpToNavigateCart()
         setUpBottomSheetDialog()
         onDetailProductChange()
+        onRatingProductChange()
         return binding.root
     }
     private fun setUpBottomSheetDialog(){
@@ -132,6 +134,35 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
                 binding.detailProgress.visibility = View.GONE
                 if(it == LoadingState.Fail){
                     Toast.makeText(this.requireContext(),"Loading fail", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun onRatingProductChange(){
+        viewModel.productRatingLoadingState.observe(viewLifecycleOwner, {
+            if(it == LoadingState.Loading){
+                binding.ratingExtraModule.visibility = View.VISIBLE
+                binding.ratingLoadingProgress.visibility = View.VISIBLE
+                binding.ratingModule.visibility = View.GONE
+                binding.ratingMessage.text ="Loading..."
+            }else{
+                if(it == LoadingState.Success){
+                    if(viewModel.selectedProductRating.value != null && viewModel.selectedProductRating.value!!.isNotEmpty()){
+                        binding.ratingModule.visibility = View.VISIBLE
+                        binding.ratingExtraModule.visibility = View.GONE
+                    }else{
+                        binding.ratingModule.visibility = View.GONE
+                        binding.ratingExtraModule.visibility = View.VISIBLE
+                        binding.ratingLoadingProgress.visibility = View.GONE
+                        binding.ratingMessage.text ="Be the first person rate this product!!"
+                    }
+                }else{
+                    binding.ratingModule.visibility = View.GONE
+                    binding.ratingExtraModule.visibility = View.VISIBLE
+                    binding.ratingLoadingProgress.visibility = View.GONE
+                    binding.ratingMessage.text = "Loading error!!"
                 }
             }
         })

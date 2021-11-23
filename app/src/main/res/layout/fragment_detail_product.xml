@@ -375,8 +375,29 @@
                             android:text="@{viewModel.selectedProduct.toTalReviewToString()}"
                             android:textColor="@color/dark_pray" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/ratingExtraModule"
+                        android:padding="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_detail_component"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ProgressBar
+                            android:id="@+id/ratingLoadingProgress"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"/>
+                        <TextView
+                            android:id="@+id/ratingMessage"
+                            android:text="Be the first person rate this product!!"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ratingModule"
                         android:layout_width="match_parent"
                         android:layout_height="360dp"
                         android:layout_marginTop="10dp"

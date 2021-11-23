@@ -1,8 +1,7 @@
 package com.example.aposs_buyer.responsitory.webservice
 
-import com.example.aposs_buyer.model.dto.ProductDetailDTO
-import com.example.aposs_buyer.model.dto.ProductImageDTO
-import com.example.aposs_buyer.model.dto.ProductResponseDTO
+import com.example.aposs_buyer.model.dto.*
+import dagger.hilt.internal.GeneratedEntryPoint
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
@@ -33,5 +32,22 @@ interface ProductAPIService {
     suspend fun getProductImagesById(
         @Path(value = "id") id: Long
     ): Response<List<ProductImageDTO>>
+
+    @GET("products/kind/{id}")
+    suspend fun getProductByKindId(
+        @Path(value = "id") id: Long
+    ): Response<ProductResponseDTO>
+
+    @GET("products/{id}/properties")
+    suspend fun getProductPropertiesById(
+        @Path(value = "id") id: Long,
+        @Query("isColor") isColor: Boolean,
+    ): Response<List<ProductPropertyDTO>>
+
+    @GET("products/{id}/ratings")
+    suspend fun getProductRatingsById(
+        @Path(value = "id") id: Long,
+    ): Response<List<ProductRatingDTO>>
+
 
 }
