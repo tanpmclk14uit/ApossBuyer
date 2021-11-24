@@ -13,6 +13,11 @@ interface DeliveryAddressService {
         @Header("Authorization") token: String,
     ): Response<List<DeliveryAddressDTO>>
 
+    @GET("delivery_address/default")
+    suspend fun getDefaultAddress(
+        @Header("Authorization") token: String,
+    ): Response<DeliveryAddressDTO>
+
     @DELETE("delivery_address/{id}")
     suspend fun deleteDeliveryAddressService(
         @Header("Authorization") token: String,

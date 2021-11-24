@@ -66,4 +66,10 @@ class CheckOutFragment : Fragment() {
         }
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("onResume", "Resuming")
+        viewModel.loadDefaultAddress()
+    }
 }

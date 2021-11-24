@@ -129,6 +129,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
             onLoadingStateChange()
             viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
             viewModel.loadCartList()
+            viewModel.loadDefaultAddress()
         }else{
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)

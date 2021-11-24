@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.Order
 import com.example.aposs_buyer.model.OrderBillingItem
+import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
+import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*

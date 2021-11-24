@@ -9,12 +9,15 @@ import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.dto.CartDTO
+import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
+import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.LoadingState
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +32,7 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     private val authRepository: AuthRepository,
+    private val orderRepository: OrderRepository,
     private val deliveryAddressRepository: DeliveryAddressRepository,
     @ApplicationContext val context: Context
 ) : ViewModel() {
@@ -177,6 +181,56 @@ class CartViewModel @Inject constructor(
             }
         }
     }
+
+    val loadAddressStatus = MutableLiveData<LoadingStatus>()
+    fun loadDefaultAddress()
+    {
+        loadAddressStatus.value = LoadingStatus.Loading
+        coroutineScope.launch {
+            if (tokenDTO != null) {
+                val defaultAddressRespone =
+                    deliveryAddressRepository.deliveryAddressService.getDefaultAddress(
+                        tokenDTO!!.getFullAccessToken()
+                    )
+                if (defaultAddressRespone.code() == 200)
+                {
+                    val defaultAddressDTO = defaultAddressRespone.body()
+                    defaultAddress.value = convertDeliveryAddressDTOToAddress(defaultAddressDTO!!)
+                    loadAddressStatus.value = LoadingStatus.Success
+                    return@launch
+                }
+                if (defaultAddressRespone.code() == 401)
+                {
+                    val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                    if (accessTokenResponse.code() == 200) {
+                        tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                        AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                        loadDefaultAddress()
+                    }
+                }
+                else
+                {
+                    loadAddressStatus.value = LoadingStatus.Fail
+                }
+            }
+        }
+    }
+
+    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address
+    {
+        return Address(
+            id =  deliveryAddressDTO.id,
+            name = deliveryAddressDTO.name,
+            gender = deliveryAddressDTO.gender,
+            phoneNumber = deliveryAddressDTO.phoneNumber,
+            city = deliveryAddressDTO.province.name,
+            district = deliveryAddressDTO.district.name,
+            ward = deliveryAddressDTO.ward.name,
+            isDefault = deliveryAddressDTO.isDefault,
+            addressLane = deliveryAddressDTO.addressLane
+        );
+    }
+
     fun loadCartList() {
         coroutineScope.launch {
             if (tokenDTO != null) {

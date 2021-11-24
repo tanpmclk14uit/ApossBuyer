@@ -118,6 +118,7 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
             onCartListChange()
             viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
             viewModel.loadCartList()
+            viewModel.loadDefaultAddress()
         }else{
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
@@ -129,6 +130,7 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
             cartAdapter.submitList(it)
         })
     }
+
     @SuppressLint("SetTextI18n")
     private fun onLoadingStateChange(){
         viewModel.loadingStatus.observe(viewLifecycleOwner,{
