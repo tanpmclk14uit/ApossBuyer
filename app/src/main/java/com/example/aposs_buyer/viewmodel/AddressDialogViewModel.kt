@@ -181,16 +181,7 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
     private suspend fun getNewAccessToken(account: Account)
     {
         val newAccessToken = authRepository.getAccessToken(account.refreshToken).body()!!
-        val accountNew: Account =
-            Account(
-                account.userName,
-                account.password,
-                newAccessToken,
-                account.tokenType,
-                account.refreshToken
-            )
-        AccountDatabase.getInstance(context).accountDao.deleteAccount(account)
-        AccountDatabase.getInstance(context).accountDao.insertAccount(accountNew)
+        AccountDatabase.getInstance(context).accountDao.updateAccessToken(newAccessToken)
     }
 
     private fun convertAddressToDeliveryAddressDTO(address: Address): DeliveryAddressDTO{
@@ -208,24 +199,24 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
     }
 
     private fun convertCurrentNameToDistrictDTO(name: String): DistrictDTO{
-        for(i in 0 until listDistrict.value!!.size)
-        {
-            val district = listDistrict.value!![i]
-            if(name == district.name)
-            {
-                return convertFromDistrictToDistrictDTO(district)
+        if (listDistrict.value !=null) {
+            for (i in 0 until listDistrict.value!!.size) {
+                val district = listDistrict.value!![i]
+                if (name == district.name) {
+                    return convertFromDistrictToDistrictDTO(district)
+                }
             }
         }
         return DistrictDTO(1, "Quận Ba Đình", 1)
     }
 
     private fun convertCurrentNameToProvinceDTO(name: String): ProvinceDTO{
-        for(i in 0 until listProvince.value!!.size)
-        {
-            val province = listProvince.value!![i]
-            if(name == province.name)
-            {
-                return convertFromProvinceToProvinceDTO(province)
+        if (listProvince.value != null) {
+            for (i in 0 until listProvince.value!!.size) {
+                val province = listProvince.value!![i]
+                if (name == province.name) {
+                    return convertFromProvinceToProvinceDTO(province)
+                }
             }
         }
         return ProvinceDTO(1, "Thành phố Hà Nội")

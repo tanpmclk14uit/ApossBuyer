@@ -61,4 +61,9 @@ data class Address(
         return "Address lane: $addressLane"
     }
 
+    fun getFullAddress(): String
+    {
+        return "$addressLane, $ward, $district, $city"
+    }
+
 }

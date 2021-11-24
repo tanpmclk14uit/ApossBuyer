@@ -5,12 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.dto.CartDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
+import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +29,7 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     private val authRepository: AuthRepository,
+    private val deliveryAddressRepository: DeliveryAddressRepository,
     @ApplicationContext val context: Context
 ) : ViewModel() {
 
@@ -39,10 +42,12 @@ class CartViewModel @Inject constructor(
     val total = MutableLiveData<String>()
     val size = MutableLiveData<Int>()
     val choseSize = MutableLiveData<Int>()
+    val defaultAddress = MutableLiveData<Address>()
 
     var tokenDTO: TokenDTO? = null
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
 
     var loadingStatus = MutableLiveData<LoadingState>()
 

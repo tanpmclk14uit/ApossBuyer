@@ -73,7 +73,6 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     {
         binding.tvAddNewAddress.setOnClickListener {
             findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(viewModel.getCreateAddress(), viewModel.getCurrentDefaultAddress()))
-            this.requireActivity().finish()
         }
         binding.imgBack.setOnClickListener{
             requireActivity().onBackPressed()

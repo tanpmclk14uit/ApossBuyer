@@ -180,7 +180,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="Jessi Pham"
+                            android:text="@{viewModel.defaultAddress.name}"
                             android:textColor="#272422"
                             android:textSize="14dp" />
                     </LinearLayout>
@@ -200,7 +200,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="Los Angeles, Canifornia, USA"
+                            android:text="@{viewModel.defaultAddress.fullAddress}"
                             android:textColor="#272422"
                             android:textSize="14dp" />
                     </LinearLayout>
@@ -220,7 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="0123 456 789"
+                            android:text="@{viewModel.defaultAddress.phoneNumber}"
                             android:textColor="#272422"
                             android:textSize="14dp" />
                     </LinearLayout>
