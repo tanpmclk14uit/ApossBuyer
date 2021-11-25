@@ -50,8 +50,10 @@ class CheckOutFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.btnConfirm.setOnClickListener {
-            viewModel.addNewOrder()
-            findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToFinishCheckOutFragment())
+            if (viewModel.defaultAddress.value != null) {
+                viewModel.addNewOrder()
+                findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToFinishCheckOutFragment())
+            }
         }
         binding.clCart.setOnClickListener {
             val intent = Intent(this.context, CartSecondActivity::class.java)
