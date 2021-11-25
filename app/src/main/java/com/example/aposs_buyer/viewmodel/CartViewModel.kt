@@ -5,12 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.aposs_buyer.model.Address
-import com.example.aposs_buyer.model.CartItem
-import com.example.aposs_buyer.model.Image
-import com.example.aposs_buyer.model.dto.CartDTO
-import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
-import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.model.*
+import com.example.aposs_buyer.model.dto.*
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
@@ -18,6 +14,7 @@ import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.LoadingState
 import com.example.aposs_buyer.utils.LoadingStatus
+import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -25,8 +22,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import java.time.LocalDateTime
+import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
@@ -44,9 +44,11 @@ class CartViewModel @Inject constructor(
     val choseList: LiveData<ArrayList<CartItem>> get() = _choseList
 
     val total = MutableLiveData<String>()
+    val totalInt = MutableLiveData<Int>()
     val size = MutableLiveData<Int>()
     val choseSize = MutableLiveData<Int>()
     val defaultAddress = MutableLiveData<Address>()
+    val defaultAddressDTO = MutableLiveData<DeliveryAddressDTO>()
 
     var tokenDTO: TokenDTO? = null
     private var viewModelJob = Job()
@@ -68,6 +70,7 @@ class CartViewModel @Inject constructor(
                     sum += _lstCartItem.value!![i].price * _lstCartItem.value!![i].amount
                 }
             }
+            totalInt.value = sum
             val formatter = DecimalFormat("#,###")
             val formattedNumber: String = formatter.format(sum)
             "$formattedNumber VNĐ"
@@ -182,6 +185,66 @@ class CartViewModel @Inject constructor(
         }
     }
 
+    val addingAddressStatus = MutableLiveData<LoadingStatus>()
+    fun addNewOrder()
+    {
+        addingAddressStatus.value = LoadingStatus.Loading
+        coroutineScope.launch {
+            if(tokenDTO != null)
+            {
+                val listOrderItemDTO = _choseList.value!!.stream().map {
+                    convertToOrderItemDTO(it)
+                }.collect(Collectors.toList())
+                val orderDTO = OrderDTO(
+                    id = 0,
+                    orderTime = Calendar.getInstance().time,
+                    orderStatus = OrderStatus.Pending,
+                    orderItemDTOList = listOrderItemDTO,
+                    totalPrice = totalInt.value!!,
+                    address = defaultAddress.value!!.getFullAddress(),
+                    cancelReason = null
+                )
+                val response = orderRepository.orderService.addNewOrder(orderDTO, tokenDTO!!.getFullAccessToken())
+                if (response.code() == 200)
+                {
+                    Log.d("checkout", "done")
+                    addingAddressStatus.value = LoadingStatus.Success
+                    for (i: Int in 0 until choseList.value!!.size)
+                    {
+                        deleteCartItem(choseList.value!![i].id)
+                    }
+                    _choseList.value = ArrayList()
+                    return@launch
+                }
+                if (response.code() == 401)
+                {
+                    val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                    if (accessTokenResponse.code() == 200) {
+                        tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                        AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                        addNewOrder()
+                    }
+                }
+                else {
+                    Log.d("checkout", "fail")
+                    addingAddressStatus.value = LoadingStatus.Fail
+                }
+            }
+        }
+    }
+
+    fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO
+    {
+        return OrderItemDTO(
+            id = 0,
+            name = orderItem.name,
+            property = orderItem.property,
+            price = orderItem.price,
+            imageUrl = orderItem.image.imgURL,
+            amount = orderItem.amount
+        )
+    }
+
     val loadAddressStatus = MutableLiveData<LoadingStatus>()
     fun loadDefaultAddress()
     {
@@ -194,8 +257,9 @@ class CartViewModel @Inject constructor(
                     )
                 if (defaultAddressRespone.code() == 200)
                 {
-                    val defaultAddressDTO = defaultAddressRespone.body()
-                    defaultAddress.value = convertDeliveryAddressDTOToAddress(defaultAddressDTO!!)
+                    val defaultAddressDTOResponseBody = defaultAddressRespone.body()
+                    defaultAddressDTO.value = defaultAddressDTOResponseBody!!
+                    defaultAddress.value = convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
                     loadAddressStatus.value = LoadingStatus.Success
                     return@launch
                 }

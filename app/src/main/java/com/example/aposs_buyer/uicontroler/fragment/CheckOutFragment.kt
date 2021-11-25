@@ -50,6 +50,7 @@ class CheckOutFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.btnConfirm.setOnClickListener {
+            viewModel.addNewOrder()
             findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToFinishCheckOutFragment())
         }
         binding.clCart.setOnClickListener {
