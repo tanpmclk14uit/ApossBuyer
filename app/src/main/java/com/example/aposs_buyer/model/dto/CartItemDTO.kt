@@ -11,6 +11,6 @@ data class CartItemDTO(
     var property: String
 ) {
     fun convertToCart(): CartItem{
-        return CartItem(-1, Image(imageURL), name, price, amount, property, true)
+        return CartItem(-1, 0, Image(imageURL), name, price, amount, property, true)
     }
 }

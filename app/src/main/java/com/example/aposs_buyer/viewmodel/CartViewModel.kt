@@ -114,7 +114,8 @@ class CartViewModel @Inject constructor(
             price = cartDTO.price,
             amount = cartDTO.quantity,
             property = cartDTO.property,
-            isChoose = cartDTO.select
+            isChoose = cartDTO.select,
+            product = cartDTO.productId,
         )
     }
 
@@ -241,13 +242,15 @@ class CartViewModel @Inject constructor(
             property = orderItem.property,
             price = orderItem.price,
             imageUrl = orderItem.image.imgURL,
-            amount = orderItem.amount
+            amount = orderItem.amount,
+            product = orderItem.product,
         )
     }
 
     val loadAddressStatus = MutableLiveData<LoadingStatus>()
     fun loadDefaultAddress()
     {
+        Log.d("address", "load")
         loadAddressStatus.value = LoadingStatus.Loading
         coroutineScope.launch {
             if (tokenDTO != null) {
@@ -261,6 +264,7 @@ class CartViewModel @Inject constructor(
                     defaultAddressDTO.value = defaultAddressDTOResponseBody!!
                     defaultAddress.value = convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
                     loadAddressStatus.value = LoadingStatus.Success
+                    Log.d("address", defaultAddress.toString())
                     return@launch
                 }
                 if (defaultAddressRespone.code() == 401)
@@ -275,6 +279,7 @@ class CartViewModel @Inject constructor(
                 else
                 {
                     loadAddressStatus.value = LoadingStatus.Fail
+                    Log.d("address", "fail")
                 }
             }
         }

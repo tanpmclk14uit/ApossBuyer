@@ -55,6 +55,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 1,
+                0,
                 imgBillingItem1,
                 "Item 1",
                 20000,
@@ -65,6 +66,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 2,
+                0,
                 imgBillingItem2,
                 "Item 2",
                 50000,
@@ -75,6 +77,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems2.add(
             OrderBillingItem(
                 4,
+                0,
                 imgBillingItem4,
                 "Item 4",
                 80000,
@@ -117,6 +120,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 1,
+                0,
                 imgBillingItem1,
                 "Item 1",
                 20000,
@@ -128,6 +132,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems2.add(
             OrderBillingItem(
                 4,
+                0,
                 imgBillingItem4,
                 "Item 4",
                 80000,
@@ -164,6 +169,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 1,
+                0,
                 imgBillingItem1,
                 "Keychron k3v2 blue switch",
                 20000,
@@ -174,6 +180,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 2,
+                0,
                 imgBillingItem2,
                 "Item 2",
                 50000,
@@ -201,6 +208,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems2.add(
             OrderBillingItem(
                 4,
+                0,
                 imgBillingItem4,
                 "Item 4",
                 80000,

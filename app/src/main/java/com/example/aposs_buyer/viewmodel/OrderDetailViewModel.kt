@@ -52,6 +52,7 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 1,
+                0,
                 imgBillingItem1,
                 "Item 1",
                 20000,
@@ -62,6 +63,7 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 2,
+                0,
                 imgBillingItem2,
                 "Orders are being shipped",
                 50000,
@@ -72,6 +74,7 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
         sampleBillingItems.add(
             OrderBillingItem(
                 3,
+                0,
                 imgBillingItem3,
                 "Orders are being shipped",
                 70000,

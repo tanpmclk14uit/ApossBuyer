@@ -4,6 +4,7 @@ import java.text.DecimalFormat
 
 data class OrderBillingItem(
     val id: Long,
+    val product:Long,
     val image: Image,
     val name: String,
     val price: Int,

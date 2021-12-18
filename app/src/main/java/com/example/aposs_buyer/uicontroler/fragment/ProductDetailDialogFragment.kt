@@ -93,7 +93,8 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
             price = cartDTO.price,
             amount = cartDTO.quantity,
             property = cartDTO.property,
-            isChoose = cartDTO.select
+            isChoose = cartDTO.select,
+            product = cartDTO.productId,
         )
     }
     private fun dialogTypeButton() {

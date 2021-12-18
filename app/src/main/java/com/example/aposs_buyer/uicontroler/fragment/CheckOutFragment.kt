@@ -41,6 +41,8 @@ class CheckOutFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         if(args.item != null){
+            viewModel.lstCartItem.value!!.clear()
+            viewModel.choseList.value!!.clear()
             viewModel.lstCartItem.value!!.add(args.item!!)
             viewModel.choseList.value!!.add(args.item!!)
             viewModel.reCalculateTotal()
