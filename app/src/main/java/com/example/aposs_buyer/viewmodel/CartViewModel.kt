@@ -17,13 +17,11 @@ import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.util.*
+import java.util.stream.Collector
 import java.util.stream.Collectors
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -121,7 +119,7 @@ class CartViewModel @Inject constructor(
 
     private var cartItemsDTO: List<CartDTO> = ArrayList()
 
-    private fun deleteCartItem(id: Long){
+    private fun deleteCartItem(id: Long) {
         if (tokenDTO != null) {
             coroutineScope.launch {
                 val deleteResponse =
@@ -139,7 +137,9 @@ class CartViewModel @Inject constructor(
                             authRepository.getAccessToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
-                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                tokenDTO!!.accessToken
+                            )
                             deleteCartItem(id)
                         }
                     }
@@ -166,7 +166,9 @@ class CartViewModel @Inject constructor(
                             authRepository.getAccessToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
-                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                tokenDTO!!.accessToken
+                            )
                             updateCartItem(cartDTO)
                         }
                     }
@@ -174,6 +176,7 @@ class CartViewModel @Inject constructor(
             }
         }
     }
+
     fun updateCart() {
         for (cartItem: CartItem in _lstCartItem.value!!) {
             for (cartItemDTO: CartDTO in cartItemsDTO) {
@@ -187,12 +190,10 @@ class CartViewModel @Inject constructor(
     }
 
     val addingAddressStatus = MutableLiveData<LoadingStatus>()
-    fun addNewOrder()
-    {
+    fun addNewOrder() {
         addingAddressStatus.value = LoadingStatus.Loading
         coroutineScope.launch {
-            if(tokenDTO != null)
-            {
+            if (tokenDTO != null) {
                 val listOrderItemDTO = _choseList.value!!.stream().map {
                     convertToOrderItemDTO(it)
                 }.collect(Collectors.toList())
@@ -205,28 +206,27 @@ class CartViewModel @Inject constructor(
                     address = defaultAddress.value!!.getFullAddress(),
                     cancelReason = null
                 )
-                val response = orderRepository.orderService.addNewOrder(orderDTO, tokenDTO!!.getFullAccessToken())
-                if (response.code() == 200)
-                {
+                val response = orderRepository.orderService.addNewOrder(
+                    orderDTO,
+                    tokenDTO!!.getFullAccessToken()
+                )
+                if (response.code() == 200) {
                     Log.d("checkout", "done")
                     addingAddressStatus.value = LoadingStatus.Success
-                    for (i: Int in 0 until choseList.value!!.size)
-                    {
+                    for (i: Int in 0 until choseList.value!!.size) {
                         deleteCartItem(choseList.value!![i].id)
                     }
                     _choseList.value = ArrayList()
                     return@launch
                 }
-                if (response.code() == 401)
-                {
+                if (response.code() == 401) {
                     val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
                     if (accessTokenResponse.code() == 200) {
                         tokenDTO!!.accessToken = accessTokenResponse.body()!!
                         AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
                         addNewOrder()
                     }
-                }
-                else {
+                } else {
                     Log.d("checkout", "fail")
                     addingAddressStatus.value = LoadingStatus.Fail
                 }
@@ -234,22 +234,20 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO
-    {
+    fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO {
         return OrderItemDTO(
             id = 0,
             name = orderItem.name,
             property = orderItem.property,
             price = orderItem.price,
             imageUrl = orderItem.image.imgURL,
-            amount = orderItem.amount,
+            quantity = orderItem.amount,
             product = orderItem.product,
         )
     }
 
     val loadAddressStatus = MutableLiveData<LoadingStatus>()
-    fun loadDefaultAddress()
-    {
+    fun loadDefaultAddress() {
         Log.d("address", "load")
         loadAddressStatus.value = LoadingStatus.Loading
         coroutineScope.launch {
@@ -258,26 +256,22 @@ class CartViewModel @Inject constructor(
                     deliveryAddressRepository.deliveryAddressService.getDefaultAddress(
                         tokenDTO!!.getFullAccessToken()
                     )
-                if (defaultAddressRespone.code() == 200)
-                {
+                if (defaultAddressRespone.code() == 200) {
                     val defaultAddressDTOResponseBody = defaultAddressRespone.body()
                     defaultAddressDTO.value = defaultAddressDTOResponseBody!!
-                    defaultAddress.value = convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
+                    defaultAddress.value =
+                        convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
                     loadAddressStatus.value = LoadingStatus.Success
-                    Log.d("address", defaultAddress.toString())
                     return@launch
                 }
-                if (defaultAddressRespone.code() == 401)
-                {
+                if (defaultAddressRespone.code() == 401) {
                     val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
                     if (accessTokenResponse.code() == 200) {
                         tokenDTO!!.accessToken = accessTokenResponse.body()!!
                         AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
                         loadDefaultAddress()
                     }
-                }
-                else
-                {
+                } else {
                     loadAddressStatus.value = LoadingStatus.Fail
                     Log.d("address", "fail")
                 }
@@ -285,10 +279,9 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address
-    {
+    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address {
         return Address(
-            id =  deliveryAddressDTO.id,
+            id = deliveryAddressDTO.id,
             name = deliveryAddressDTO.name,
             gender = deliveryAddressDTO.gender,
             phoneNumber = deliveryAddressDTO.phoneNumber,
@@ -325,7 +318,9 @@ class CartViewModel @Inject constructor(
                             authRepository.getAccessToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
-                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                tokenDTO!!.accessToken
+                            )
                             loadCartList()
                         }
                     }
@@ -334,6 +329,90 @@ class CartViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun holdProduct(): Boolean{
+        var result = false
+        Log.d("checkoutBussiness", getChose().toString())
+        if (tokenDTO != null) {
+                loadingStatus.value = LoadingState.Loading
+                val listOrderItemDTO = getChose().stream().map {
+                    convertToOrderItemDTO(it)
+                }.collect(Collectors.toList())
+            Log.d("holding", listOrderItemDTO.toString())
+                runBlocking {
+                    val holdResponse = async {
+                        orderRepository.orderService.holdProduct(
+                            listOrderItemDTO,
+                            tokenDTO!!.getFullAccessToken()
+                        )
+                    }
+                    runBlocking {
+                        when (holdResponse.await().code()) {
+                            200 -> {
+                                result = true
+                                Log.d("checkoutBussiness", "success")
+                            }
+                            401 -> {
+                                val accessTokenResponse =
+                                    authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                                if (accessTokenResponse.code() == 200) {
+                                    tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                        tokenDTO!!.accessToken
+                                    )
+                                    holdProduct()
+                                }
+                                Log.d("checkoutBussiness", "expired")
+                            }
+                            else -> {
+                                result = false
+                                Log.d("checkoutBussiness", "false")
+                            }
+                        }
+                    }
+                }
+            }
+        Log.d("checkoutBussiness", "last come")
+        return result
+    }
+
+    fun reduceHold() {
+        coroutineScope.launch {
+            Log.d("checkoutBussiness", getChose().toString())
+            if (tokenDTO != null) {
+                loadingStatus.value = LoadingState.Loading
+                val listOrderItemDTO = getChose().stream().map {
+                    convertToOrderItemDTO(it)
+                }.collect(Collectors.toList())
+                val reduceHoldResponse =
+                    orderRepository.orderService.reduceHold(
+                        listOrderItemDTO,
+                        tokenDTO!!.getFullAccessToken()
+                    )
+                when (reduceHoldResponse.code()) {
+                    200 -> {
+                        Log.d("checkoutBussiness", "success")
+                    }
+                    401 -> {
+                        val accessTokenResponse =
+                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                        if (accessTokenResponse.code() == 200) {
+                            tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                tokenDTO!!.accessToken
+                            )
+                            holdProduct()
+                        }
+                        Log.d("checkoutBussiness", "expired")
+                    }
+                    else -> {
+                        Log.d("checkoutBussiness", "false")
+                    }
+                }
+            }
+
         }
     }
 }

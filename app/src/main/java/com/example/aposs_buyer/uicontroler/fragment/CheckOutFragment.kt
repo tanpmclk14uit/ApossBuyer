@@ -16,9 +16,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCheckOutBinding
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.AddressActivity
 import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
+import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CheckOutAdapter
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +43,8 @@ class CheckOutFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_check_out, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        checkLogin()
+        Log.d("Checkoutbusiness", args.item.toString())
         if(args.item != null){
             viewModel.lstCartItem.value!!.clear()
             viewModel.choseList.value!!.clear()
@@ -50,6 +55,7 @@ class CheckOutFragment : Fragment() {
         binding.rcCheckOut.adapter = checkOutAdapter
         binding.rcCheckOut.layoutManager = LinearLayoutManager(binding.rcCheckOut.context, LinearLayoutManager.VERTICAL, false)
         binding.imgBack.setOnClickListener {
+            viewModel.reduceHold()
             requireActivity().onBackPressed()
         }
         binding.btnConfirm.setOnClickListener {
@@ -75,7 +81,17 @@ class CheckOutFragment : Fragment() {
         }
         return binding.root
     }
-
+    private fun checkLogin(){
+        val accountDao = AccountDatabase.getInstance(this.requireContext()).accountDao
+        val account = accountDao.getAccount()
+        if(account != null){
+            viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
+        }else{
+            val intent = Intent(this.context, SearchActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+    }
     override fun onResume() {
         super.onResume()
         Log.d("onResume", "Resuming")

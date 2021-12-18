@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -46,7 +47,13 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
         binding.rcCart.adapter = cartAdapter
         binding.rcCart.layoutManager = LinearLayoutManager(binding.rcCart.context, LinearLayoutManager.VERTICAL, false)
         binding.btnGoToCheckOut.setOnClickListener {
-            findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckOutFragment())
+            if (viewModel.holdProduct()) {
+                Log.d("checkoutBussiness", "change page")
+                findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckOutFragment())
+            }
+            else {
+                Toast.makeText(this.context, "Current having not enough quantity", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.lnAboutUs.setOnClickListener {
             val intent = Intent(this.context, AboutUsActivity::class.java)

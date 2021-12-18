@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -47,7 +48,17 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
         binding.rcCart.adapter = cartAdapter
         binding.rcCart.layoutManager = LinearLayoutManager(binding.rcCart.context, LinearLayoutManager.VERTICAL, false)
         binding.btnGoToCheckOut.setOnClickListener {
-            findNavController().navigate(CartSecondFragmentDirections.actionCartSecondFragmentToCheckOutFragment())
+            if (viewModel.holdProduct()) {
+                Log.d("checkoutBussiness", "change page")
+                findNavController().navigate(CartSecondFragmentDirections.actionCartSecondFragmentToCheckOutFragment())
+            }
+            else {
+                Toast.makeText(
+                    this.context,
+                    "Current having not enough quantity",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()

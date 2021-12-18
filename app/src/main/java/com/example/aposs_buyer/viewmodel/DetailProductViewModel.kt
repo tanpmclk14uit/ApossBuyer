@@ -1,26 +1,29 @@
 package com.example.aposs_buyer.viewmodel
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.*
+import com.example.aposs_buyer.responsitory.AuthRepository
+import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+
 ) : ViewModel() {
 
     private var selectedProductId: Long = 0
@@ -290,4 +293,6 @@ class DetailProductViewModel @Inject constructor(
             }
         }
     }
+
+
 }

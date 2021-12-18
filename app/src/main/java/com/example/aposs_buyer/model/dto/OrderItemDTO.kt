@@ -6,6 +6,6 @@ data class OrderItemDTO(
     var imageUrl: String,
     var name: String,
     var price: Int,
-    var amount: Int,
+    var quantity: Int,
     var property: String,
 )

@@ -3,6 +3,7 @@ package com.example.aposs_buyer.uicontroler.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,8 +102,24 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
         binding.dialogButton.setOnClickListener {
             if (checkValidPropertyProduct()) {
                 if (dialogType == DialogType.CheckOutDialog) {
-                    findNavController().navigate(ProductDetailDialogFragmentDirections.actionProductDetailDialogFragmentToCheckOutFragment(toCartItem(viewModelDialog.productTypeCart.value!!)))
-                    this.dismiss()
+                    if( isLogin()) {
+                        if (viewModelDialog.holdProduct()) {
+                            Log.d("checkoutBussiness", "change page")
+                            findNavController().navigate(
+                                ProductDetailDialogFragmentDirections.actionProductDetailDialogFragmentToCheckOutFragment(
+                                    toCartItem(viewModelDialog.productTypeCart.value!!)
+                                )
+                            )
+                            this.dismiss()
+                        }
+                        else {
+                            Toast.makeText(
+                                this.context,
+                                "Current having not enough quantity",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 } else {
                     if(isLogin()){
                         viewModelDialog.addToCart()

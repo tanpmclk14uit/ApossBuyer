@@ -5,27 +5,29 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.ProductDetail
 import com.example.aposs_buyer.model.ProductDetailProperty
 import com.example.aposs_buyer.model.dto.CartDTO
+import com.example.aposs_buyer.model.dto.OrderItemDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
+import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.utils.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailProductDiaLogViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     private val authRepository: AuthRepository,
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    private val orderRepository: OrderRepository,
 ) : ViewModel() {
 
     var tokenDTO: TokenDTO? = null
@@ -264,4 +266,75 @@ class DetailProductDiaLogViewModel @Inject constructor(
         setSelectedProductMinValue()
     }
 
+    var loadingStatus = MutableLiveData<LoadingState>()
+    fun holdProduct(): Boolean {
+        var result = false
+        if (tokenDTO != null) {
+            loadingStatus.value = LoadingState.Loading
+            val listOrderItemDTO :MutableList<OrderItemDTO> = mutableListOf()
+            listOrderItemDTO.add(convertToOrderItemDTO(toCartItem(productTypeCart.value!!)))
+            runBlocking {
+                val holdResponse = async {
+                    orderRepository.orderService.holdProduct(
+                        listOrderItemDTO,
+                        tokenDTO!!.getFullAccessToken()
+                    )
+                }
+                runBlocking {
+                    when (holdResponse.await().code()) {
+                        200 -> {
+                            result = true
+                            Log.d("checkoutBussiness", "success")
+                        }
+                        401 -> {
+                            val accessTokenResponse =
+                                authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                            Log.d("checkoutBussiness", tokenDTO!!.accessToken)
+                            if (accessTokenResponse.code() == 200) {
+                                tokenDTO!!.accessToken = accessTokenResponse.body()!!
+                                AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                    tokenDTO!!.accessToken
+                                )
+                                Log.d("checkoutBussiness", tokenDTO!!.accessToken)
+                                holdProduct()
+                            }
+                            Log.d("checkoutBussiness", "expired")
+                        }
+                        else -> {
+                            result = false
+                            Log.d("checkoutBussiness", "false")
+                        }
+                    }
+                }
+            }
+        }
+        Log.d("checkoutBussiness", "last come")
+        return result
+    }
+
+    private fun toCartItem(cartDTO: CartDTO): CartItem {
+        val image = Image(cartDTO.imageUrl)
+        return CartItem(
+            id = cartDTO.id,
+            image = image,
+            name = cartDTO.name,
+            price = cartDTO.price,
+            amount = cartDTO.quantity,
+            property = cartDTO.property,
+            isChoose = cartDTO.select,
+            product = cartDTO.productId,
+        )
+    }
+
+    fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO {
+        return OrderItemDTO(
+            id = 0,
+            name = orderItem.name,
+            property = orderItem.property,
+            price = orderItem.price,
+            imageUrl = orderItem.image.imgURL,
+            quantity = orderItem.amount,
+            product = orderItem.product,
+        )
+    }
 }
