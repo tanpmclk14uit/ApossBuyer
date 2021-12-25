@@ -78,19 +78,19 @@ class OrderFragment  : Fragment(), OrderAdapter.OrderInterface {
         binding.bottomBar.setOnItemSelectedListener {
             when(it.title.toString()){
                 "Pending" ->{
-                    viewModel.setCurrentOrders(viewModel.loadPendingOrder())
+                    viewModel.loadPendingOrder()
                 }
                 "Confirmed" ->{
-                    viewModel.setCurrentOrders(viewModel.loadConfirmedOrder())
+                    viewModel.loadConfirmedOrder()
                 }
                 "Delivering" ->{
-                    viewModel.setCurrentOrders(viewModel.loadDeliveringOrder())
+                    viewModel.loadDeliveringOrder()
                 }
                 "Success" ->{
-                    viewModel.setCurrentOrders(viewModel.loadSuccessOrder())
+                    viewModel.loadSuccessOrder()
                 }
                 "Cancel"->{
-                    viewModel.setCurrentOrders(viewModel.loadCancelOrder())
+                    viewModel.loadCancelOrder()
                 }
             }
 

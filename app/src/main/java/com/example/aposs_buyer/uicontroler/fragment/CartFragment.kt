@@ -53,6 +53,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment(), CartAdapter.OnChoose 
             }
             else {
                 Toast.makeText(this.context, "Current having not enough quantity", Toast.LENGTH_SHORT).show()
+                viewModel.loadCartList()
             }
         }
         binding.lnAboutUs.setOnClickListener {

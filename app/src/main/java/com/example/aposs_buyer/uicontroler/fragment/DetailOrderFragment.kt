@@ -2,6 +2,7 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.uicontroler.adapter.BillingItemsAdapter
 import com.example.aposs_buyer.uicontroler.adapter.OrderDeliveringStateAdapter
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import com.example.aposs_buyer.viewmodel.OrderDetailViewModel
 import com.example.aposs_buyer.viewmodel.OrderViewModel

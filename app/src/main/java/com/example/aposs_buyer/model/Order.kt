@@ -12,7 +12,7 @@ data class Order(
     val orderTime: Date,
     val status: OrderStatus,
     val address: String,
-    val billingItems: ArrayList<OrderBillingItem>,
+    var billingItems: ArrayList<OrderBillingItem>,
     val totalPrice: Int
 ){
     private var cancelReason: String ="";

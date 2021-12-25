@@ -2,11 +2,9 @@ package com.example.aposs_buyer.responsitory.webservice
 
 import com.example.aposs_buyer.model.dto.OrderDTO
 import com.example.aposs_buyer.model.dto.OrderItemDTO
+import com.example.aposs_buyer.utils.OrderStatus
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface OrderService {
 
@@ -27,4 +25,16 @@ interface OrderService {
         @Body listOrderItemDTO: List<OrderItemDTO>,
         @Header("Authorization") token: String,
     ): Response<String>
+
+    @POST("order/all-order-by")
+    suspend fun getAllOrderByStatus(
+        @Body orderStatus: OrderStatus,
+        @Header("Authorization") token: String,
+    ): Response<List<OrderDTO>>
+
+    @POST("order/order-by-id/{id}")
+    suspend fun getOrderById(
+        @Header("Authorization") accessToken: String,
+        @Path (value = "id") id: Long
+    ): Response<OrderDTO>
 }

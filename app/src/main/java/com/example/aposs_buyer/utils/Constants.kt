@@ -8,5 +8,5 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Constants {
     //const val BASE_URL = "http://192.168.1.8:8081/api/v1/"
-    const val BASE_URL = "http://192.168.1.6:8081/api/v1/"
+    const val BASE_URL = "http://192.168.1.4:8081/api/v1/"
 }

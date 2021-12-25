@@ -161,7 +161,7 @@
             tools:listitem="@layout/item_order"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
-            orderData="@{viewModel.currentListOrder}"
+            orderData="@{viewModel.displayListOrder}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,15 +9,32 @@ import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.Order
 import com.example.aposs_buyer.model.OrderBillingItem
 import com.example.aposs_buyer.model.OrderDeliveringState
+import com.example.aposs_buyer.model.dto.OrderDTO
+import com.example.aposs_buyer.model.dto.OrderItemDTO
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.AuthRepository
+import com.example.aposs_buyer.responsitory.OrderRepository
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
+import java.util.stream.Collectors
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
 @HiltViewModel
-class OrderDetailViewModel @Inject constructor() : ViewModel() {
+class OrderDetailViewModel @Inject constructor(
+    val orderRepository: OrderRepository,
+    val authRepository: AuthRepository,
+    @ApplicationContext val context: Context
+) : ViewModel() {
 
     private var _detailOrder: MutableLiveData<Order> = MutableLiveData()
     val detailOrder: LiveData<Order> get() = _detailOrder
@@ -25,6 +43,12 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
         MutableLiveData()
     val orderDeliveringState: LiveData<ArrayList<OrderDeliveringState>> get() = _orderDeliveringState
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    private var _loadStatus = MutableLiveData<LoadingStatus>()
+    val loadStatus: LiveData<LoadingStatus> get() = _loadStatus
+
     fun setCurrentOrder(order: Order) {
         _detailOrder.value = order
         _orderDeliveringState.value = loadOrderDeliveringState(order.id)
@@ -32,66 +56,66 @@ class OrderDetailViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setDetailOrderById(id: Long) {
-        _detailOrder.value = loadDetailOrderById(id)
+        loadDetailOrderById(id)
         _orderDeliveringState.value = loadOrderDeliveringState(id)
         Log.d("OrderDetailViewModel", "Order: $id")
     }
 
-    private fun loadDetailOrderById(id: Long): Order {
-        val sampleBillingItems: ArrayList<OrderBillingItem> = ArrayList()
-        val imgURl1 =
-            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
-        val imgURL2 =
-            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
-        val imgURL3 =
-            "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
-        val imgBillingItem1 = Image(imgURl1)
-        val imgBillingItem2 = Image(imgURL2)
-        val imgBillingItem3 = Image(imgURL3)
-
-        sampleBillingItems.add(
-            OrderBillingItem(
-                1,
-                0,
-                imgBillingItem1,
-                "Item 1",
-                20000,
-                1,
-                "Color: Red, Size: 30"
-            )
-        )
-        sampleBillingItems.add(
-            OrderBillingItem(
-                2,
-                0,
-                imgBillingItem2,
-                "Orders are being shipped",
-                50000,
-                1,
-                "Color: Blue, Size: 30"
-            )
-        )
-        sampleBillingItems.add(
-            OrderBillingItem(
-                3,
-                0,
-                imgBillingItem3,
-                "Orders are being shipped",
-                70000,
-                1,
-                "Color: Pink, Size: 30"
-            )
-        )
-        return Order(
-            id,
-            Date(),
-            OrderStatus.Pending,
-            "Mr Pham Minh Tan, 0343027600, 696 Hang Bai khu pho 6, Phuong linh trung, Thu Duc, Ho Chi Minh",
-            sampleBillingItems,
-            140000
+    private fun loadDetailOrderById(id: Long) {
+        val account = AccountDatabase.getInstance(context).accountDao.getAccount()
+        val token =
+            TokenDTO(accessToken = account!!.accessToken, account.tokenType, account.refreshToken)
+        _loadStatus.value = LoadingStatus.Loading
+        coroutineScope.launch {
+            var respond =
+                orderRepository.orderService.getOrderById(token.getFullAccessToken(), id)
+            if (respond.code() == 200) {
+                val orderDTO = respond.body()
+                _detailOrder.value = convertToOrder(orderDTO!!)
+                Log.d("DetailOrder", _detailOrder.value.toString())
+                _loadStatus.value = LoadingStatus.Success
+            }
+            if (respond.code() == 401) {
+                val accessTokenResponse =
+                    authRepository.getAccessToken(token.refreshToken)
+                if (accessTokenResponse.code() == 200) {
+                    token.accessToken = accessTokenResponse.body()!!
+                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                        token.accessToken
+                    )
+                    loadDetailOrderById(id)
+                }
+            } else {
+                _loadStatus.value = LoadingStatus.Fail
+            }
+        }
+    }
+    private fun convertToOrderItem(orderItemDTO: OrderItemDTO): OrderBillingItem
+    {
+        return OrderBillingItem(
+            id = orderItemDTO.id,
+            product = orderItemDTO.product,
+            price = orderItemDTO.price,
+            property = orderItemDTO.property,
+            image = Image(orderItemDTO.imageUrl),
+            amount = orderItemDTO.quantity,
+            name = orderItemDTO.name
         )
     }
 
+    private fun convertToOrder(orderDTO: OrderDTO): Order
+    {
+        return Order(
+            id = orderDTO.id,
+            orderTime = orderDTO.orderTime,
+            billingItems = ArrayList(orderDTO.orderItemDTOList.stream().map {
+                convertToOrderItem(it)
+            }.collect(Collectors.toList())),
+            totalPrice = orderDTO.totalPrice,
+            status = orderDTO.orderStatus,
+            address = orderDTO.address
+        )
+    }
     private fun loadOrderDeliveringState(id: Long): ArrayList<OrderDeliveringState> {
         val sample: ArrayList<OrderDeliveringState> = ArrayList()
         sample.add(OrderDeliveringState(1, "Placed order", Date()))
