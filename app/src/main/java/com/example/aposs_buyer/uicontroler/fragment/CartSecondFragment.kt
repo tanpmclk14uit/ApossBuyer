@@ -21,10 +21,7 @@ import com.example.aposs_buyer.databinding.FragmentCartBinding
 import com.example.aposs_buyer.databinding.FragmentCartSecondBinding
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
-import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
-import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
-import com.example.aposs_buyer.uicontroler.activity.SearchActivity
+import com.example.aposs_buyer.uicontroler.activity.*
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
 import com.example.aposs_buyer.utils.LoadingState
 import com.example.aposs_buyer.viewmodel.CartViewModel
@@ -131,7 +128,7 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
             viewModel.loadCartList()
             viewModel.loadDefaultAddress()
         }else{
-            val intent = Intent(this.context, SearchActivity::class.java)
+            val intent = Intent(this.context, LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
         }
