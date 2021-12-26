@@ -38,6 +38,8 @@
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/district_list_item.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_address.xml" value="0.12092391304347826" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_address_dialog.xml" value="0.25" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_cancel_order.xml" value="0.1921875" />
+        <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_cancel_order_confirm.xml" value="0.1921875" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_cart.xml" value="0.20520833333333333" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_categories.xml" value="0.13496376811594202" />
         <entry key="..\:/ApossBuyer/app/src/main/res/layout/fragment_check_out.xml" value="0.13858695652173914" />

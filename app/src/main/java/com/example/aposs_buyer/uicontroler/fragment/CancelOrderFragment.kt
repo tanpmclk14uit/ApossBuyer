@@ -13,8 +13,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCancelOrderBinding
 import com.example.aposs_buyer.viewmodel.CancelOrderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CancelOrderFragment : Fragment() {
 
     private val viewModel: CancelOrderViewModel by viewModels()

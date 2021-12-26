@@ -37,4 +37,11 @@ interface OrderService {
         @Header("Authorization") accessToken: String,
         @Path (value = "id") id: Long
     ): Response<OrderDTO>
+
+    @POST("order/cancel-order-customer/{id}")
+    suspend fun cancelOrder(
+        @Path(value = "id") id: Long,
+        @Body cancelReason: String,
+        @Header("Authorization") accessToken: String,
+    ): Response<String>
 }
