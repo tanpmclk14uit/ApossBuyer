@@ -12,6 +12,11 @@ interface AuthService {
         @Body signInDTO: SignInDTO
     ): Response<TokenDTO>
 
+    @POST("auth/sign-in-with-social-account")
+    suspend fun signInWithSocialAccount(
+        @Body signInWithSocialDTO: SignInWithSocialDTO
+    ): Response<TokenDTO>
+
     @POST("auth/access-token")
     suspend fun getAccessToken(
         @Body refreshToken: String
@@ -26,5 +31,6 @@ interface AuthService {
     suspend fun resentConfirmEmail (
         @Query("email") email: String
     ):Response<String>
+
 
 }

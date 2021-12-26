@@ -3,6 +3,7 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.dto.SignInWithSocialDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.utils.LoginState
@@ -35,7 +36,7 @@ class SignInViewModel @Inject constructor(
     fun onLoginClick() {
         if (email.value != null && password.value != null) {
             if (isValidEmail() && isValidPassword()) {
-                signIn()
+                signIn(email.value!!, password.value!!)
             } else {
                 toastMessage.value = "Email or password is invalid!"
             }
@@ -44,15 +45,32 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private fun signIn() {
+    private fun signIn(email: String, password: String) {
         loginState.value = LoginState.Loading
         coroutineScope.launch {
-            val response = authRepository.signIn(email.value!!, password.value!!)
-            token = response.body()
+            val response = authRepository.signIn(email, password)
             if (response.code()== 200) {
+                token = response.body()
                 loginState.value = LoginState.Success
                 toastMessage.value = "Login success"
             } else {
+                loginState.value = LoginState.Wait
+                val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
+                toastMessage.value = jsonError.getString("message")
+            }
+        }
+    }
+    fun signInWithSocialAccount(socialDTO: SignInWithSocialDTO){
+        loginState.value = LoginState.Loading
+        coroutineScope.launch {
+            val response = authRepository.signInWithSocialAccount(socialDTO)
+            if(response.code() == 200){
+                token = response.body()
+                email.value = socialDTO.email
+                password.value =""
+                loginState.value = LoginState.Success
+                toastMessage.value = "Login success"
+            }else{
                 loginState.value = LoginState.Wait
                 val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
                 toastMessage.value = jsonError.getString("message")

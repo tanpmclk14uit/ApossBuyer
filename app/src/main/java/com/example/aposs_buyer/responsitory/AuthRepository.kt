@@ -2,6 +2,7 @@ package com.example.aposs_buyer.responsitory
 
 import android.util.Log
 import com.example.aposs_buyer.model.dto.SignInDTO
+import com.example.aposs_buyer.model.dto.SignInWithSocialDTO
 import com.example.aposs_buyer.model.dto.SignUpDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.webservice.AuthService
@@ -28,5 +29,9 @@ class AuthRepository @Inject constructor() {
     }
     suspend fun resentConfirmEmail(email: String): Response<String>{
         return authService.resentConfirmEmail(email)
+    }
+
+    suspend fun signInWithSocialAccount(signInWithSocialDTO: SignInWithSocialDTO): Response<TokenDTO>{
+        return authService.signInWithSocialAccount(signInWithSocialDTO)
     }
 }
