@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.http.HTTP
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -53,7 +54,8 @@ class SignInViewModel @Inject constructor(
                 toastMessage.value = "Login success"
             } else {
                 loginState.value = LoginState.Wait
-                toastMessage.value = "Wrong email or password!"
+                val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
+                toastMessage.value = jsonError.getString("message")
             }
         }
     }

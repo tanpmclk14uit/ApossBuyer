@@ -1,10 +1,9 @@
 package com.example.aposs_buyer.responsitory.webservice
 
-import com.example.aposs_buyer.model.dto.SignInDTO
-import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.model.dto.*
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AuthService {
 
@@ -17,5 +16,15 @@ interface AuthService {
     suspend fun getAccessToken(
         @Body refreshToken: String
     ): Response<String>
+
+    @POST("auth/sign-up")
+    suspend fun signUp(
+        @Body signUpDTO: SignUpDTO
+    ):Response<String>
+
+    @GET("auth/resent-confirm")
+    suspend fun resentConfirmEmail (
+        @Query("email") email: String
+    ):Response<String>
 
 }
