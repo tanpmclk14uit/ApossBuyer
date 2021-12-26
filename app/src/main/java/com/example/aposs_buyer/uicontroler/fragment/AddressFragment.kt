@@ -82,4 +82,5 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
             startActivity(intent)
         }
     }
+
 }

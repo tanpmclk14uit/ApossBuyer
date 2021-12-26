@@ -44,12 +44,13 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
 
 
     init {
-        listAddress.value = mutableListOf()
+
         loadUserAddress()
     }
 
      fun loadUserAddress()
     {
+        listAddress.value = mutableListOf()
         status.value = DeliveryAddressStatus.Loading
         viewModelScope.launch {
             var account = AccountDatabase.getInstance(appContext).accountDao.getAccount()

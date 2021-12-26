@@ -90,6 +90,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         else {binding.actvGender.setText("Female", false)}
         binding.actvDistrict.setText(args.defaultAddress.district, false)
         binding.actvWard.setText(args.defaultAddress.ward, false)
+        binding.btnEditAddAddress.isEnabled = true
     }
 
     private fun setAdapterForAddressElement()
@@ -177,6 +178,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             viewModel.deleteDeliveryAddress(args.defaultAddress.id)
             Toast.makeText(this.context, "Delete success", Toast.LENGTH_SHORT).show()
             dialogDelete.dismiss()
+            requireActivity().onBackPressed()
         }
 
         dialogDelete.show()
@@ -196,14 +198,16 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             binding.btnEditAddAddress.text = "Edit"
             binding.btnDelete.text = "Delete"
         }
-        if (binding.btnEditAddAddress.text == "Edit") binding.btnEditAddAddress.isEnabled = false
+//        if (binding.btnEditAddAddress.text == "Edit") binding.btnEditAddAddress.isEnabled = false
     }
 
+    @SuppressLint("SetTextI18n")
     private fun addGenderList()
     {
         val genderList = listOf("Male", "Female")
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)
+        binding.actvGender.setText("Male", false)
     }
 
     private fun addProvinceList()
@@ -303,9 +307,9 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
                 binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
             viewModel.onAddNewAddress(newAddress)
-            findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
+            requireActivity().onBackPressed()
         }
-        if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != ""
+        else if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != ""
             && binding.actvGender.hint != null && binding.actvWard.text.toString() != ""
             && binding.etName.text.toString() != "" && binding.etPhone.text.toString() != ""
             && binding.etAddressLane.text.toString()!= "" ) {
@@ -314,7 +318,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
                 binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
             viewModel.onAddNewAddress(newAddress)
-            findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
+            requireActivity().onBackPressed()
         }
         else {
             Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT).show()
@@ -355,7 +359,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 
     private fun havingLegalToClick(isLegal: Boolean)
     {
-        binding.btnEditAddAddress.isEnabled =  isLegal
+        binding.btnEditAddAddress.isEnabled =  true
     }
 
     private fun setCheckingName(){

@@ -258,10 +258,9 @@ class CartViewModel @Inject constructor(
                     )
                 if (defaultAddressRespone.code() == 200) {
                     val defaultAddressDTOResponseBody = defaultAddressRespone.body()
-                    defaultAddressDTO.value = defaultAddressDTOResponseBody!!
-                    defaultAddress.value =
-                        convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
-                    loadAddressStatus.value = LoadingStatus.Success
+                        defaultAddressDTO.value = defaultAddressDTOResponseBody!!
+                        defaultAddress.value =
+                            convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
                     return@launch
                 }
                 if (defaultAddressRespone.code() == 401) {

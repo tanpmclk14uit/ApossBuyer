@@ -168,6 +168,7 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
                     )
             }
             addingStatus.value = AddingStatus.Success
+            BridgeObject.addressListChange.value = !BridgeObject.addressListChange.value!!
             loadUserAddress()
             try {
 
@@ -417,6 +418,7 @@ class AddressDialogViewModel @Inject constructor(private val provinceRepository:
                 token = account!!.tokenType + " " + account.accessToken
                 response = deliveryAddressRepository.deliveryAddressService.deleteDeliveryAddressService(token,id)
             }
+            BridgeObject.addressListChange.value = !BridgeObject.addressListChange.value!!
             loadUserAddress()
             try {
                 addingStatus.value = AddingStatus.Success

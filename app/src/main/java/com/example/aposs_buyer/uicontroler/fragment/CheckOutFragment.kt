@@ -44,7 +44,6 @@ class CheckOutFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         checkLogin()
-        Log.d("Checkoutbusiness", args.item.toString())
         if(args.item != null){
             viewModel.lstCartItem.value!!.clear()
             viewModel.choseList.value!!.clear()
@@ -59,12 +58,12 @@ class CheckOutFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.btnConfirm.setOnClickListener {
-            if (viewModel.defaultAddress.value != null) {
-                viewModel.addNewOrder()
-                findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToFinishCheckOutFragment())
+            if (viewModel.defaultAddress.value!!.id == 0L && viewModel.defaultAddress.value!!.ward == "") {
+                Toast.makeText(this.context, "Please choose default address", Toast.LENGTH_SHORT).show()
             }
             else {
-                Toast.makeText(this.context, "Please choose default address", Toast.LENGTH_SHORT).show()
+                viewModel.addNewOrder()
+                findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToFinishCheckOutFragment())
             }
         }
         binding.clCart.setOnClickListener {
