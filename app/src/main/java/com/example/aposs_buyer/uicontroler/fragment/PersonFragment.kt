@@ -14,6 +14,8 @@ import com.example.aposs_buyer.databinding.FragmentPersonBinding
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.*
 import com.example.aposs_buyer.viewmodel.PersonViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,9 +61,16 @@ class PersonFragment : Fragment() {
                 AccountDatabase.getInstance(this.requireContext()).accountDao.deleteAccount(
                     account
                 )
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .requestProfile()
+                    .build()
+                val mGoogleSignInClient = GoogleSignIn.getClient(this.requireActivity(), gso);
+                mGoogleSignInClient.signOut()
                 startActivity(Intent(this.context, LoginActivity::class.java))
                 requireActivity().finish()
             }
+
         }
         binding.imgNotification.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)
