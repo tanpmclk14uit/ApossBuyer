@@ -8,9 +8,13 @@ import android.widget.AutoCompleteTextView
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aposs_buyer.R
 
-class YesNoOrderSuccessStatusDialog(activity: Activity) {
+class YesNoOrderSuccessStatusDialog(activity: Activity, val successClick: SuccessClick) {
     private var myActivity: Activity = activity
     private lateinit var dialog: AlertDialog
+
+    interface SuccessClick{
+        fun onSuccessClick()
+    }
 
     fun loadingDialog()
     {
@@ -30,6 +34,7 @@ class YesNoOrderSuccessStatusDialog(activity: Activity) {
         }
 
         btnSave.setOnClickListener {
+            successClick.onSuccessClick()
             dialog.dismiss()
         }
     }

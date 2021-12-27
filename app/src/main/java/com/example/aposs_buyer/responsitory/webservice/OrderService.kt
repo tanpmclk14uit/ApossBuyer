@@ -44,4 +44,10 @@ interface OrderService {
         @Body cancelReason: String,
         @Header("Authorization") accessToken: String,
     ): Response<String>
+
+    @POST("order/success-order-customer/{id}")
+    suspend fun successOrder(
+        @Path(value = "id") id: Long,
+        @Header("Authorization") accessToken: String,
+    ): Response<String>
 }

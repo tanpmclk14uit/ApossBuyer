@@ -20,6 +20,7 @@ import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.uicontroler.adapter.BillingItemsAdapter
 import com.example.aposs_buyer.uicontroler.adapter.OrderDeliveringStateAdapter
+import com.example.aposs_buyer.uicontroler.dialog.YesNoOrderSuccessStatusDialog
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import com.example.aposs_buyer.viewmodel.OrderDetailViewModel
@@ -27,12 +28,13 @@ import com.example.aposs_buyer.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailOrderFragment : Fragment() {
+class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessClick{
 
     private lateinit var binding: FragmentDetailOrderBinding
     private val viewModelOrders: OrderViewModel by activityViewModels()
     private val viewModel: OrderDetailViewModel by viewModels()
     private lateinit var orderDetailBillingItem: BillingItemsAdapter
+    private lateinit var dialog: YesNoOrderSuccessStatusDialog
 
     private val args: DetailOrderFragmentArgs by navArgs()
 
@@ -59,12 +61,15 @@ class DetailOrderFragment : Fragment() {
         binding.billingItems.adapter = orderDetailBillingItem
         orderDeliveringStateAdapter = OrderDeliveringStateAdapter()
         binding.deliveringState.adapter = orderDeliveringStateAdapter
+        dialog = YesNoOrderSuccessStatusDialog(requireActivity(), this)
+        setStatusValue(viewModelOrders.currentOrder!!.status)
         setShowButton()
         setBackPress()
         setEditAddress()
         setCancelOrder()
         setCartPress()
         onRatingClick()
+        setSuccessOrder()
         return binding.root
     }
     private fun setCartPress(){
@@ -90,6 +95,13 @@ class DetailOrderFragment : Fragment() {
         }
     }
 
+    private fun setSuccessOrder()
+    {
+        binding.Success.setOnClickListener {
+            dialog.loadingDialog()
+        }
+    }
+
     private fun setEditAddress(){
         binding.editAddress.setOnClickListener {
            startActivity(Intent(this.context, AddressActivity::class.java))
@@ -110,6 +122,38 @@ class DetailOrderFragment : Fragment() {
             binding.editAddress.visibility = View.GONE
         }
 
+        if (viewModel.detailOrder.value!!.status == OrderStatus.Delivering)
+        {
+            binding.Success.visibility = View.VISIBLE
+        }else{
+            binding.Success.visibility = View.GONE
+        }
+
+    }
+
+    private fun setStatusValue(orderStatus: OrderStatus)
+    {
+        binding.statusString.text = orderStatus.toString()
+        if (orderStatus == OrderStatus.Pending)
+        {
+            binding.statusIcon.setImageResource(R.drawable.ic_order_pending)
+        } else if (orderStatus == OrderStatus.Confirmed)
+        {
+            binding.statusIcon.setImageResource(R.drawable.ic_order_confirm)
+        } else if (orderStatus == OrderStatus.Delivering)
+        {
+            binding.statusIcon.setImageResource(R.drawable.ic_order_delivering)
+        }else if (orderStatus == OrderStatus.Cancel)
+        {
+            binding.statusIcon.setImageResource(R.drawable.ic_order_cancel)
+        } else {
+            binding.statusIcon.setImageResource(R.drawable.ic_order_pass)
+        }
+    }
+
+    override fun onSuccessClick() {
+        viewModel.successOrder(args.id)
+        setStatusValue(OrderStatus.Success)
     }
 
 

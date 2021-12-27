@@ -274,20 +274,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_marginTop="15dp"
+                            android:id="@+id/statusString"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
                             android:layout_marginEnd="5dp"
                             android:layout_toStartOf="@+id/statusIcon"
                             android:layout_toEndOf="@+id/status"
                             android:gravity="end"
-                            android:text="@{viewModel.detailOrder.getStatusString()}"
                             android:textColor="@color/dark_pray"
                             android:textSize="16sp" />
 
                         <ImageView
                             android:id="@+id/statusIcon"
-                            statusIconData="@{viewModel.detailOrder.status}"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentEnd="true"
@@ -327,6 +326,19 @@
             android:id="@+id/bottomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/Success"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/bg_btn_received"
+                android:text="Received"
+                android:textAllCaps="true"
+                android:textColor="@color/light_green"
+                android:textSize="16sp"
+                android:textStyle="bold" />
             <androidx.appcompat.widget.AppCompatButton
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginHorizontal="10dp"
