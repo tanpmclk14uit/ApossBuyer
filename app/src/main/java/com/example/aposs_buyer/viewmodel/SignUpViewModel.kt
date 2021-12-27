@@ -3,13 +3,23 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.aposs_buyer.model.dto.SignUpDTO
+import com.example.aposs_buyer.responsitory.AuthRepository
+import com.example.aposs_buyer.utils.LoginState
 import com.example.aposs_buyer.utils.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor() : ViewModel() {
+class SignUpViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     var email: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
@@ -21,25 +31,22 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
 
     var signUpState: MutableLiveData<SignUpState> = MutableLiveData()
 
-    var verifyString: MutableLiveData<ArrayList<String>> = MutableLiveData()
     var emailErrorMessage: String? = ""
     var passwordErrorMessage: String? = ""
     var nameErrorMessage: String? = ""
     var confirmErrorMessage: String? = ""
     var cellNumberErrorMessage: String? = ""
 
-    init {
-        verifyString.value = arrayListOf("","","","")
-    }
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
 
     fun onSignUpClick() {
         if (email.value != null && password.value != null && name.value != null && confirmPassword.value != null && cellNumber.value != null) {
             if (isValidName() && isValidEmail() && isValidPassword() && isValidConfirmPassword() && isValidPhoneNumber()) {
-                Log.d(
-                    "SignInViewModel",
-                    "Name:" + name.value!! + "; Email:" + email.value!! + "; Password:" + password.value!! + "; Confirm password:" + confirmPassword.value!! + "; Cell phone:" + cellNumber.value!!
-                )
-                signUpState.value = SignUpState.Verify
+                val signUpAccount: SignUpDTO = SignUpDTO(email.value!!, name.value!!, password.value!!, cellNumber.value!!)
+                signUp(signUpAccount)
+
             } else {
                 toastMessage.value = "One ore more filed is invalid!"
             }
@@ -47,37 +54,41 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
             toastMessage.value = "One ore more filed is blank!"
         }
     }
-    fun notifyVerifyChange(){
-        verifyString.value = verifyString.value
-    }
-
-    private fun isVerifyStringEmpty(): Boolean{
-        for(verify in verifyString.value!!){
-            if(verify.isBlank()){
-                return true
+    private fun signUp(signUpAccount: SignUpDTO){
+        signUpState.value = SignUpState.Loading
+        coroutineScope.launch {
+            val response = authRepository.signUp(signUpAccount)
+            if (response.code()== 200) {
+                toastMessage.value = response.body()
+                signUpState.value = SignUpState.Verify
+            } else {
+                val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
+                toastMessage.value = jsonError.getString("message")
+                signUpState.value = SignUpState.Wait
             }
         }
-        return false
     }
-    private fun verifyArrayToString(): String{
-        var verifyArrayString: String =""
-        for (value in verifyString.value!!){
-            verifyArrayString += value
+    fun onResentEmailClick(){
+        if(email.value!=null && isValidEmail()){
+            resentConfirmEmail(email.value!!)
+        }else{
+            toastMessage.value = "Email error!"
         }
-        return verifyArrayString
     }
-
-    fun isVerifyRight(): Boolean{
-        if(!isVerifyStringEmpty()){
-            if(verifyArrayToString() == "1234"){
-                return true
-            }else{
-                toastMessage.value = "Verify number is wrong"
+    private fun resentConfirmEmail(email: String){
+        signUpState.value = SignUpState.Loading
+        coroutineScope.launch {
+            val response = authRepository.resentConfirmEmail(email)
+            if (response.code()== 200) {
+                toastMessage.value = response.body()
+                signUpState.value = SignUpState.Wait
+            } else {
+                val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
+                toastMessage.value = jsonError.getString("message")
+                signUpState.value = SignUpState.Wait
             }
         }
-        return false
     }
-
 
     private fun isEmailRightFormat(email: String): Boolean {
         return Pattern.compile(

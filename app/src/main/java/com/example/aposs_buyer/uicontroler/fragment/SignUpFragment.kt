@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentSignUpBinding
+import com.example.aposs_buyer.model.entity.Account
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.uicontroler.activity.MainActivity
+import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
+import com.example.aposs_buyer.utils.LoginState
 import com.example.aposs_buyer.utils.SignUpState
 import com.example.aposs_buyer.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
-
+    private lateinit var dialog: LoadingDialog
     private val viewModel: SignUpViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -30,6 +36,7 @@ class SignUpFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        dialog = LoadingDialog(requireActivity())
         setUpSignInButton()
         toastMessageChange()
         setCheckingName()
@@ -43,8 +50,17 @@ class SignUpFragment : Fragment() {
 
     private fun setOnStateChange(){
         viewModel.signUpState.observe(this.viewLifecycleOwner,{
-            if(it == SignUpState.Verify){
-                findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToVerifyFragment())
+            if (it == SignUpState.Wait) {
+                dialog.dismissDialog()
+            } else {
+                if (it == SignUpState.Loading) {
+                    dialog.startLoading()
+                } else {
+                    dialog.dismissDialog()
+                    if(it == SignUpState.Verify){
+                        findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToVerifyFragment())
+                    }
+                }
             }
         })
     }

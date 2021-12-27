@@ -32,27 +32,19 @@ class VerifyFragment : Fragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_verify, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.change.setOnClickListener {
-            findNavController().navigate(VerifyFragmentDirections.actionVerifyFragmentToSignUpFragment())
+        binding.signIn.setOnClickListener {
+            findNavController().navigate(VerifyFragmentDirections.actionVerifyFragmentToLoginFragment())
             viewModel.signUpState.value = SignUpState.Wait
         }
-        onVerifyNumberChange()
+        binding.resent.setOnClickListener {
+            viewModel.onResentEmailClick()
+        }
         toastMessageChange()
         return binding.root
     }
     private fun toastMessageChange() {
         viewModel.toastMessage.observe(this.viewLifecycleOwner, {
             Toast.makeText(this.requireContext(), it, Toast.LENGTH_SHORT).show()
-        })
-    }
-
-    private fun onVerifyNumberChange(){
-        viewModel.verifyString.observe(this.viewLifecycleOwner, {
-            if(viewModel.isVerifyRight()){
-                Toast.makeText(this.requireContext(), "Register success", Toast.LENGTH_SHORT).show()
-                //register to db, loading statement
-                findNavController().navigate(VerifyFragmentDirections.actionVerifyFragmentToSuccessFragment())
-            }
         })
     }
 }

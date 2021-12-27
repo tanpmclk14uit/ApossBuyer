@@ -95,18 +95,26 @@ class DetailProductDiaLogViewModel @Inject constructor(
     fun addToCart() {
         if (tokenDTO != null) {
             coroutineScope.launch {
-                val createRepository = cartRepository.addNewCart(tokenDTO!!.getFullAccessToken(), productTypeCart.value!!)
-                if(createRepository.isSuccessful){
-                    Log.d("DetailProductDiaLogViewModel", "Add to cart: \n ${productTypeCart.value!!}")
+                val createRepository = cartRepository.addNewCart(
+                    tokenDTO!!.getFullAccessToken(),
+                    productTypeCart.value!!
+                )
+                if (createRepository.isSuccessful) {
+                    Log.d(
+                        "DetailProductDiaLogViewModel",
+                        "Add to cart: \n ${productTypeCart.value!!}"
+                    )
                     return@launch
-                }else{
-                    if(createRepository.code() == 400){
+                } else {
+                    if (createRepository.code() == 400) {
                         Log.d("cart", "Expire access token")
                         val accessTokenResponse =
                             authRepository.getAccessToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
-                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
+                            AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                                tokenDTO!!.accessToken
+                            )
                             addToCart()
                         }
                     }
@@ -186,22 +194,42 @@ class DetailProductDiaLogViewModel @Inject constructor(
     }
 
     private fun setSelectedProductMinValue() {
-        var minSelect = selectedProductStringPropertyDiaLog.value!![0].valueCountSummarize
-        for (property in selectedProductStringPropertyDiaLog.value!!) {
-            if (property.valueCountSummarize < minSelect) {
-                minSelect = property.valueCountSummarize
+        var stringMin =0;
+        var colorMin =0;
+        val stringProperty = selectedProductStringPropertyDiaLog.value
+        val colorProperty = selectedProductColorPropertyDiaLog.value
+        if (stringProperty != null && stringProperty.isNotEmpty()) {
+            stringMin = stringProperty[0].valueCountSummarize
+            for (property in selectedProductStringPropertyDiaLog.value!!) {
+                if (property.valueCountSummarize < stringMin) {
+                    stringMin = property.valueCountSummarize
+                }
             }
         }
-        for (property in selectedProductColorPropertyDiaLog.value!!) {
-            if (property.valueCountSummarize < minSelect) {
-                minSelect = property.valueCountSummarize
+        if (colorProperty != null && colorProperty.isNotEmpty()) {
+            colorMin = colorProperty[0].valueCountSummarize
+            for (property in selectedProductColorPropertyDiaLog.value!!) {
+                if (property.valueCountSummarize < colorMin) {
+                    colorMin = property.valueCountSummarize
+                }
             }
+        }
+        if(stringMin!=0 && stringMin < colorMin){
+            selectedProductQuantitiesDiaLog.value = colorMin
+        }
+        if(colorMin !=0 && colorMin <= stringMin){
+            selectedProductQuantitiesDiaLog.value = stringMin
+        }
+        if(stringMin ==0 && colorMin ==0){
+            selectedProductQuantitiesDiaLog.value = selectedProduct.value!!.availableQuantities
         }
         validatePropertyValue()
-        selectedProductQuantitiesDiaLog.value = minSelect
     }
 
     private fun convertPropertyToString(): String {
+        if(selectedProductQuantitiesDiaLog.value == selectedProduct.value!!.availableQuantities){
+            return " "
+        }
         var sampleProperty = ""
         for (property in selectedProductStringPropertyDiaLog.value!!) {
             for (value in property.values) {
@@ -271,7 +299,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
         var result = false
         if (tokenDTO != null) {
             loadingStatus.value = LoadingState.Loading
-            val listOrderItemDTO :MutableList<OrderItemDTO> = mutableListOf()
+            val listOrderItemDTO: MutableList<OrderItemDTO> = mutableListOf()
             listOrderItemDTO.add(convertToOrderItemDTO(toCartItem(productTypeCart.value!!)))
             runBlocking {
                 val holdResponse = async {
@@ -302,13 +330,13 @@ class DetailProductDiaLogViewModel @Inject constructor(
                         }
                         else -> {
                             result = false
-                            Log.d("checkoutBussiness", "false")
+
                         }
                     }
                 }
             }
         }
-        Log.d("checkoutBussiness", "last come")
+
         return result
     }
 
@@ -326,7 +354,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
         )
     }
 
-    fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO {
+    private fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO {
         return OrderItemDTO(
             id = 0,
             name = orderItem.name,
