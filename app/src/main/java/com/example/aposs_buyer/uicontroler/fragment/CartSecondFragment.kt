@@ -70,6 +70,7 @@ class CartSecondFragment : Fragment(), CartAdapter.ChangeAmount, CartAdapter.OnC
                 binding.loadingMessage.text = this.resources.getString(R.string.cart_empty_2)
                 binding.fullfillCart.visibility = View.GONE
                 binding.checkoutLayout.visibility = View.GONE
+                binding.loadingProgress.visibility = View.GONE
             }
             else
             {
