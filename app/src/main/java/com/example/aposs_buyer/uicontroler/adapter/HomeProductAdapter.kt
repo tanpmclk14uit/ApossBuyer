@@ -75,5 +75,4 @@ class HomeProductAdapter(
             favoriteInterface.removeFromFavorite(product)
         }
     }
-
 }

@@ -48,6 +48,4 @@ interface ProductAPIService {
     suspend fun getProductRatingsById(
         @Path(value = "id") id: Long,
     ): Response<List<ProductRatingDTO>>
-
-
 }

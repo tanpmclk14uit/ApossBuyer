@@ -47,7 +47,6 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTre
         binding.rcSearch.layoutManager = GridLayoutManager(binding.rcSearch.context, 2, GridLayoutManager.VERTICAL, false)
         viewModel.curentKeyWord.observe(viewLifecycleOwner, Observer {
             onSearchTextChange()
-
         })
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
