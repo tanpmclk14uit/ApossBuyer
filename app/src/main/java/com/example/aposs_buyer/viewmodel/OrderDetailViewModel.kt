@@ -12,6 +12,7 @@ import com.example.aposs_buyer.model.OrderDeliveringState
 import com.example.aposs_buyer.model.dto.OrderDTO
 import com.example.aposs_buyer.model.dto.OrderItemDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
@@ -123,5 +124,32 @@ class OrderDetailViewModel @Inject constructor(
         sample.add(OrderDeliveringState(3, "Orders are being shipped", Date()))
         sample.add(OrderDeliveringState(4, "Orders are being shipped", Date()))
         return sample
+    }
+
+    fun successOrder(id: Long){
+        _loadStatus.value = LoadingStatus.Loading
+        val account: Account = AccountDatabase.getInstance(context).accountDao.getAccount()!!
+        var tokenDTO = TokenDTO(accessToken = account.accessToken, tokenType = account.tokenType, refreshToken = account.refreshToken)
+        coroutineScope.launch {
+            val response = orderRepository.orderService.successOrder(id, tokenDTO.getFullAccessToken())
+            if (response.code() == 200)
+            {
+                _loadStatus.value = LoadingStatus.Success
+            }
+            else if (response.code() == 401){
+                val accessTokenResponse =
+                    authRepository.getAccessToken(tokenDTO.refreshToken)
+                if (accessTokenResponse.code() == 200) {
+                    tokenDTO.accessToken = accessTokenResponse.body()!!
+                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+                        tokenDTO.accessToken
+                    )
+                    successOrder(id)
+                }
+            }
+            else {
+                _loadStatus.value = LoadingStatus.Fail
+            }
+        }
     }
 }
