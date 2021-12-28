@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.HomeProduct
+import com.example.aposs_buyer.model.Image
+import com.example.aposs_buyer.model.dto.ProductDTO
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.ProductsStatus
@@ -55,8 +57,9 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                 try {
                     val productResponseDTO: ProductResponseDTO = lstProductDeferred.await()
                     val lstResultCurrentPage = productResponseDTO.content.stream().map {
-                        HomeViewModel.Converter.convertToHomeProduct(it)
+                        convertToHomeProduct(it)
                     }.collect(Collectors.toList())
+                    listForDisplay.value = mutableListOf()
                         listForDisplay.value = HomeViewModel.Converter.concatenateMutable(
                             listForDisplay.value!!,
                             lstResultCurrentPage)
@@ -65,7 +68,6 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                         isLastPage = true
                     } else {
                         currentPage++
-                        loadListForDisplay()
                     }
                 }
                 catch (e: Exception)
@@ -75,6 +77,18 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                 }
             }
         }
+    }
+
+    fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
+        return HomeProduct(
+            id = productDTO.id,
+            image = Image(productDTO.image),
+            name = productDTO.name,
+            isFavorite = productDTO.favorite,
+            rating = productDTO.rating.toFloat(),
+            price = productDTO.price,
+            purchased = productDTO.purchased
+        )
     }
 
     override fun onCleared() {
