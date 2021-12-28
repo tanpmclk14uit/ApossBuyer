@@ -52,6 +52,8 @@ class OrderViewModel @Inject constructor(
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+
+
     init {
         loadPendingOrder()
     }
@@ -90,6 +92,7 @@ class OrderViewModel @Inject constructor(
             }
         }
     }
+
 
     fun loadPendingOrder() {
         clearList()

@@ -57,12 +57,15 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                     val lstResultCurrentPage = productResponseDTO.content.stream().map {
                         HomeViewModel.Converter.convertToHomeProduct(it)
                     }.collect(Collectors.toList())
-                    listForDisplay.value = HomeViewModel.Converter.concatenateMutable(listForDisplay.value!!,lstResultCurrentPage)
+                        listForDisplay.value = HomeViewModel.Converter.concatenateMutable(
+                            listForDisplay.value!!,
+                            lstResultCurrentPage)
                     _status.value = ProductsStatus.Success
                     if (productResponseDTO.last) {
                         isLastPage = true
                     } else {
                         currentPage++
+                        loadListForDisplay()
                     }
                 }
                 catch (e: Exception)

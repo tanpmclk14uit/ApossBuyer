@@ -63,7 +63,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
         binding.deliveringState.adapter = orderDeliveringStateAdapter
         dialog = YesNoOrderSuccessStatusDialog(requireActivity(), this)
         setStatusValue(viewModelOrders.currentOrder!!.status)
-        setShowButton()
+        setShowButtonByStatus(viewModelOrders.currentOrder!!.status)
         setBackPress()
         setEditAddress()
         setCancelOrder()
@@ -87,6 +87,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
     private fun setBackPress(){
         binding.back.setOnClickListener {
             requireActivity().onBackPressed()
+            viewModelOrders.loadDeliveringOrder()
         }
     }
     private fun setCancelOrder(){
@@ -108,13 +109,14 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
         }
     }
 
-    private fun setShowButton(){
-        if(viewModel.detailOrder.value!!.status == OrderStatus.Success){
+
+    private fun setShowButtonByStatus(status: OrderStatus){
+        if(status == OrderStatus.Success){
             binding.ratingNow.visibility = View.VISIBLE
         }else{
             binding.ratingNow.visibility = View.GONE
         }
-        if(viewModel.detailOrder.value!!.status == OrderStatus.Pending || viewModel.detailOrder.value!!.status == OrderStatus.Confirmed){
+        if(status == OrderStatus.Pending || status == OrderStatus.Confirmed){
             binding.cancel.visibility = View.VISIBLE
             binding.editAddress.visibility = View.VISIBLE
         }else{
@@ -122,7 +124,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
             binding.editAddress.visibility = View.GONE
         }
 
-        if (viewModel.detailOrder.value!!.status == OrderStatus.Delivering)
+        if (status == OrderStatus.Delivering)
         {
             binding.Success.visibility = View.VISIBLE
         }else{
@@ -154,7 +156,6 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
     override fun onSuccessClick() {
         viewModel.successOrder(args.id)
         setStatusValue(OrderStatus.Success)
+        setShowButtonByStatus(OrderStatus.Success)
     }
-
-
 }
