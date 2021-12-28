@@ -26,26 +26,26 @@ interface OrderService {
         @Header("Authorization") token: String,
     ): Response<String>
 
-    @POST("order/all-order-by")
+    @GET("order/all-order-by")
     suspend fun getAllOrderByStatus(
-        @Body orderStatus: OrderStatus,
+        @Query("status") orderStatus: OrderStatus,
         @Header("Authorization") token: String,
     ): Response<List<OrderDTO>>
 
-    @POST("order/order-by-id/{id}")
+    @GET("order/order-by-id/{id}")
     suspend fun getOrderById(
         @Header("Authorization") accessToken: String,
         @Path (value = "id") id: Long
     ): Response<OrderDTO>
 
-    @POST("order/cancel-order-customer/{id}")
+    @PUT("order/cancel-order-customer/{id}")
     suspend fun cancelOrder(
         @Path(value = "id") id: Long,
         @Body cancelReason: String,
         @Header("Authorization") accessToken: String,
     ): Response<String>
 
-    @POST("order/success-order-customer/{id}")
+    @PUT("order/success-order-customer/{id}")
     suspend fun successOrder(
         @Path(value = "id") id: Long,
         @Header("Authorization") accessToken: String,
