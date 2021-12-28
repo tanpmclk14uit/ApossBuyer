@@ -73,7 +73,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadProducts() {
-        if (!isLastPage) {
+        if (!isLastPage && _status.value!= ProductsStatus.Loading) {
             _status.value = ProductsStatus.Loading
             coroutineScope.launch {
                 val getProductDeferred =
@@ -85,12 +85,12 @@ class HomeViewModel @Inject constructor(
                             Collectors.toList()
                         )
                     _products.value = Converter.concatenate(_products.value!!, productsInCurrentPage)
-                    _status.value = ProductsStatus.Success
                     if (productResponseDTO.last) {
                         isLastPage = true
                     } else {
                         currentPage++
                     }
+                    _status.value = ProductsStatus.Success
                 } catch (e: Exception) {
                     Log.d("exception", e.toString())
                     _status.value = ProductsStatus.Fail
