@@ -13,4 +13,4 @@
 + Dữ liệu: Room database, gọi API từ ApossBackend
 ## Tác giả:
 + Phạm Minh Tân (github.com/tanpmclk14uit)
-+ Bùi Dương Duy Khang (github.com/khangbdd
++ Bùi Dương Duy Khang (github.com/khangbdd)
