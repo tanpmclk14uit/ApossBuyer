@@ -10,7 +10,7 @@
 8) Xem lịch sử đơn hàng, tạo đơn hàng, hủy đơn hàng.
 ## Công nghệ:
 + Ngôn ngữ: Kotlin
-+ Dữ liệu: Room database, gọi API từ ApossBackend
++ Dữ liệu: Room database, gọi API từ ApossBackend (https://github.com/tanpmclk14uit/ApossBackend)
 ## Tác giả:
 + Phạm Minh Tân (github.com/tanpmclk14uit)
 + Bùi Dương Duy Khang (github.com/khangbdd)
