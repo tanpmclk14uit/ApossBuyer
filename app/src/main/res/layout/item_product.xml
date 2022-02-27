@@ -32,18 +32,6 @@
                 android:layout_gravity="center"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatToggleButton
-                    android:id="@+id/favorite"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@drawable/favorite_toggle_selector"
-                    android:checked="@={product.favorite}"
-                    android:textOff=""
-                    android:textOn=""
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardImage"
                     android:layout_width="match_parent"

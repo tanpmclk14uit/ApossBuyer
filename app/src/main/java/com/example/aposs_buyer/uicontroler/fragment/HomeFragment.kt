@@ -29,8 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : HomeProductAdapter.FavoriteInterface,
-    RankingViewPagerAdapter.FavoriteInterface, Fragment(),
+class HomeFragment : RankingViewPagerAdapter.FavoriteInterface, Fragment(),
     CategoriesViewPagerAdapter.OnClickListener,
     ViewTreeObserver.OnScrollChangedListener {
 
@@ -81,7 +80,7 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
                 intent.putExtra("productID", it)
                 startActivity(intent)
             })
-        binding.products.adapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener {
+        binding.products.adapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)
             startActivity(intent)
@@ -182,14 +181,6 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
         mHandler.postDelayed(rankingRunnable, 4000)
     }
 
-    override fun addToFavorite(product: HomeProduct) {
-        viewModel.addNewFavoriteProduct(product.id)
-    }
-
-    override fun removeFromFavorite(product: HomeProduct) {
-        viewModel.removeFavoriteProduct(product.id)
-    }
-
     override fun addToFavorite(product: RankingProduct) {
         viewModel.addNewFavoriteProduct(product.id)
     }
@@ -206,14 +197,15 @@ class HomeFragment : HomeProductAdapter.FavoriteInterface,
             )
         )
     }
+
     override fun onClick() {
         onNavigateToKind()
     }
 
     override fun onScrollChanged() {
-        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount -1)
-        val bottomDetector = view.bottom -  (binding.scrollView.height + binding.scrollView.scrollY)
-        if(bottomDetector <=0){
+        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount - 1)
+        val bottomDetector = view.bottom - (binding.scrollView.height + binding.scrollView.scrollY)
+        if (bottomDetector <= 0) {
             viewModel.loadProducts()
         }
     }

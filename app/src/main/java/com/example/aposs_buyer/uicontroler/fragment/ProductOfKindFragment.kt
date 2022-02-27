@@ -19,7 +19,7 @@ import com.example.aposs_buyer.viewmodel.ProductOfKindViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductOfKindFragment() : Fragment(), HomeProductAdapter.FavoriteInterface {
+class ProductOfKindFragment() : Fragment() {
 
     private lateinit var binding: FragmentProductOfKindBinding
     private val args: ProductOfKindFragmentArgs by navArgs()
@@ -40,7 +40,7 @@ class ProductOfKindFragment() : Fragment(), HomeProductAdapter.FavoriteInterface
             viewModel.setSelectedProductsKind()
         }
 
-        homeProductAdapter= HomeProductAdapter(this,  HomeProductAdapter.OnClickListener{
+        homeProductAdapter= HomeProductAdapter(HomeProductAdapter.OnClickListener{
            val intent = Intent(this.context, DetailProductActivity::class.java)
            intent.putExtra("productID", it)
            startActivity(intent) })
@@ -51,13 +51,5 @@ class ProductOfKindFragment() : Fragment(), HomeProductAdapter.FavoriteInterface
             requireActivity().onBackPressed()
         }
         return binding.root
-    }
-
-    override fun addToFavorite(product: HomeProduct) {
-        viewModel.addToFavorite(product)
-    }
-
-    override fun removeFromFavorite(product: HomeProduct) {
-        viewModel.removeFromFavorite(product)
     }
 }

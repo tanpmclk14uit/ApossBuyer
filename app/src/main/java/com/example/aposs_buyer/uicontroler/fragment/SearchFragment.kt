@@ -23,7 +23,7 @@ import com.example.aposs_buyer.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTreeObserver.OnScrollChangedListener  {
+class SearchFragment : Fragment(), ViewTreeObserver.OnScrollChangedListener {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var homeProductAdapter: HomeProductAdapter
@@ -35,16 +35,17 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTre
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_search, container, false)
-        binding.lifecycleOwner=this
-        homeProductAdapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
+        binding.lifecycleOwner = this
+        homeProductAdapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)
             startActivity(intent)
         })
         binding.viewModel = viewModel
         binding.rcSearch.adapter = homeProductAdapter
-        binding.rcSearch.layoutManager = GridLayoutManager(binding.rcSearch.context, 2, GridLayoutManager.VERTICAL, false)
+        binding.rcSearch.layoutManager =
+            GridLayoutManager(binding.rcSearch.context, 2, GridLayoutManager.VERTICAL, false)
         viewModel.curentKeyWord.observe(viewLifecycleOwner, Observer {
             onSearchTextChange()
         })
@@ -76,23 +77,14 @@ class SearchFragment : Fragment(), HomeProductAdapter.FavoriteInterface, ViewTre
         }
     }
 
-    override fun addToFavorite(product: HomeProduct) {
-        viewModel.addToFavorite(product)
-    }
-
-    override fun removeFromFavorite(product: HomeProduct) {
-        viewModel.removeFromFavorite(product)
-    }
-
-    fun onSearchTextChange()
-    {
+    fun onSearchTextChange() {
         viewModel.onSearchTextChange()
     }
 
     override fun onScrollChanged() {
-        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount -1)
-        val bottomDetector = view.bottom -  (binding.scrollView.height + binding.scrollView.scrollY)
-        if(bottomDetector <=0){
+        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount - 1)
+        val bottomDetector = view.bottom - (binding.scrollView.height + binding.scrollView.scrollY)
+        if (bottomDetector <= 0) {
             viewModel.loadListForDisplay()
         }
     }

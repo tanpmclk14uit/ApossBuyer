@@ -26,9 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertyStringValueSelected,
-    ColorDetailPropertyAdapter.PropertyColorValueSelected,
-        HomeProductAdapter.FavoriteInterface
-{
+    ColorDetailPropertyAdapter.PropertyColorValueSelected {
     private val args: DetailProductFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailProductBinding
     private val viewModel: DetailProductViewModel by activityViewModels()
@@ -56,33 +54,46 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         onRatingProductChange()
         return binding.root
     }
-    private fun setUpBottomSheetDialog(){
+
+    private fun setUpBottomSheetDialog() {
         callBottomSheet()
     }
-    private fun callBottomSheet(){
+
+    private fun callBottomSheet() {
         binding.addToCart.setOnClickListener {
-            findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(DialogType.CartDialog))
+            findNavController().navigate(
+                DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(
+                    DialogType.CartDialog
+                )
+            )
 
         }
-        binding.buyNow.setOnClickListener{
-            findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(DialogType.CheckOutDialog))
+        binding.buyNow.setOnClickListener {
+            findNavController().navigate(
+                DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(
+                    DialogType.CheckOutDialog
+                )
+            )
         }
     }
 
-    private fun setUpToNavigateCart(){
+    private fun setUpToNavigateCart() {
         binding.clCart.setOnClickListener {
             val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)
         }
     }
-    private fun setUpRatingComponent(){
+
+    private fun setUpRatingComponent() {
         val ratingAdapter = RatingAdapter()
         binding.ratings.adapter = ratingAdapter
         binding.showAllRating.setOnClickListener {
-            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductRatingFragment())
+            this.findNavController()
+                .navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductRatingFragment())
         }
     }
-    private fun setUpProductProperty(){
+
+    private fun setUpProductProperty() {
         setShowAll()
         setUpViewPager()
         setUpIndicator()
@@ -91,17 +102,24 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         binding.stringProperty.adapter = stringPropertyAdapter
         binding.colorProperty.adapter = colorPropertyAdapter
     }
-    private fun setUpSameKindProduct(){
-        val productAdapter = HomeProductAdapter(this, HomeProductAdapter.OnClickListener{
-            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentSelf(it))
+
+    private fun setUpSameKindProduct() {
+        val productAdapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
+            this.findNavController()
+                .navigate(DetailProductFragmentDirections.actionDetailProductFragmentSelf(it))
         })
         binding.sameKindProduct.adapter = productAdapter
     }
 
     private fun setUpViewPager() {
-        val imagesAdapter = DetailProductImageViewPagerAdapter(DetailProductImageViewPagerAdapter.OnClickListener{
-            this.findNavController().navigate(DetailProductFragmentDirections.actionDetailProductFragmentToFullScreenImageFragment(it))
-        })
+        val imagesAdapter =
+            DetailProductImageViewPagerAdapter(DetailProductImageViewPagerAdapter.OnClickListener {
+                this.findNavController().navigate(
+                    DetailProductFragmentDirections.actionDetailProductFragmentToFullScreenImageFragment(
+                        it
+                    )
+                )
+            })
         binding.images.setPageTransformer(ZoomOutPageTransformer())
         binding.images.adapter = imagesAdapter
     }
@@ -126,39 +144,40 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
             }
         }
     }
-    private fun onDetailProductChange(){
+
+    private fun onDetailProductChange() {
         viewModel.productDetailLoadingState.observe(viewLifecycleOwner, {
-            if(it == LoadingState.Loading){
+            if (it == LoadingState.Loading) {
                 binding.detailProgress.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.detailProgress.visibility = View.GONE
-                if(it == LoadingState.Fail){
-                    Toast.makeText(this.requireContext(),"Loading fail", Toast.LENGTH_SHORT).show()
+                if (it == LoadingState.Fail) {
+                    Toast.makeText(this.requireContext(), "Loading fail", Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
 
     @SuppressLint("SetTextI18n")
-    private fun onRatingProductChange(){
+    private fun onRatingProductChange() {
         viewModel.productRatingLoadingState.observe(viewLifecycleOwner, {
-            if(it == LoadingState.Loading){
+            if (it == LoadingState.Loading) {
                 binding.ratingExtraModule.visibility = View.VISIBLE
                 binding.ratingLoadingProgress.visibility = View.VISIBLE
                 binding.ratingModule.visibility = View.GONE
-                binding.ratingMessage.text ="Loading..."
-            }else{
-                if(it == LoadingState.Success){
-                    if(viewModel.selectedProductRating.value != null && viewModel.selectedProductRating.value!!.isNotEmpty()){
+                binding.ratingMessage.text = "Loading..."
+            } else {
+                if (it == LoadingState.Success) {
+                    if (viewModel.selectedProductRating.value != null && viewModel.selectedProductRating.value!!.isNotEmpty()) {
                         binding.ratingModule.visibility = View.VISIBLE
                         binding.ratingExtraModule.visibility = View.GONE
-                    }else{
+                    } else {
                         binding.ratingModule.visibility = View.GONE
                         binding.ratingExtraModule.visibility = View.VISIBLE
                         binding.ratingLoadingProgress.visibility = View.GONE
-                        binding.ratingMessage.text ="Be the first person rate this product!!"
+                        binding.ratingMessage.text = "Be the first person rate this product!!"
                     }
-                }else{
+                } else {
                     binding.ratingModule.visibility = View.GONE
                     binding.ratingExtraModule.visibility = View.VISIBLE
                     binding.ratingLoadingProgress.visibility = View.GONE
@@ -176,12 +195,5 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         viewModel.notifySelectedColorPropertyChange(propertyId)
     }
 
-    override fun addToFavorite(product: HomeProduct) {
-        //add to favorite
-    }
-
-    override fun removeFromFavorite(product: HomeProduct) {
-        //remove from favorite
-    }
 }
 

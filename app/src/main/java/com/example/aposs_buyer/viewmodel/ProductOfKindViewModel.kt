@@ -9,28 +9,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductOfKindViewModel @Inject constructor(): ViewModel() {
+class ProductOfKindViewModel @Inject constructor() : ViewModel() {
 
-    private val _selectedKindId= MutableLiveData<Long>()
+    private val _selectedKindId = MutableLiveData<Long>()
 
     val selectedKindName = MutableLiveData<String>()
 
     private val _productsKind = MutableLiveData<MutableList<HomeProduct>>()
     val productKind: LiveData<MutableList<HomeProduct>> get() = _productsKind
 
-    fun setSelectedKindIdAndName(id: Long, name: String)
-    {
+    fun setSelectedKindIdAndName(id: Long, name: String) {
         selectedKindName.value = name
         _selectedKindId.value = id
     }
 
-    fun setSelectedProductsKind()
-    {
+    fun setSelectedProductsKind() {
         _productsKind.value = loadProductOfKind()
     }
 
-    private fun loadProductOfKind(): MutableList<HomeProduct>
-    {
+    private fun loadProductOfKind(): MutableList<HomeProduct> {
         val imgURl1 =
             "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
         val imgURL2 =
@@ -52,7 +49,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 958000,
                 4f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -63,10 +59,9 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 582000,
                 4.5f,
                 1,
-                false
             )
         )
-        sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, 1,false))
+        sampleProducts.add(HomeProduct(3, imgProduct3, "White broccoli", 46000, 4f, 1))
         sampleProducts.add(
             HomeProduct(
                 4,
@@ -75,7 +70,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -86,7 +80,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -97,7 +90,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -108,7 +100,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -119,7 +110,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -130,7 +120,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -141,7 +130,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -152,7 +140,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -163,7 +150,6 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         sampleProducts.add(
@@ -174,17 +160,8 @@ class ProductOfKindViewModel @Inject constructor(): ViewModel() {
                 1958000,
                 5f,
                 1,
-                true
             )
         )
         return sampleProducts
-    }
-
-    fun addToFavorite(product: HomeProduct) {
-        //add to favorite in db
-    }
-
-    fun removeFromFavorite(product: HomeProduct) {
-        //delete from favorite in db
     }
 }

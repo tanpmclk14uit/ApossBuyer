@@ -84,7 +84,6 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
             id = productDTO.id,
             image = Image(productDTO.image),
             name = productDTO.name,
-            isFavorite = productDTO.favorite,
             rating = productDTO.rating.toFloat(),
             price = productDTO.price,
             purchased = productDTO.purchased

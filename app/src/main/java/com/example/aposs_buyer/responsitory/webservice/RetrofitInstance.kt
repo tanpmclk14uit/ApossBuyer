@@ -22,8 +22,6 @@ import java.util.*
 
 
 object RetrofitInstance {
-
-
     lateinit var retrofit: Retrofit;
 
     init {
@@ -50,19 +48,6 @@ object RetrofitInstance {
 
 
 }
-
-//class OffsetDateTimeAdapter {
-//    @ToJson
-//    fun toJson(value: Date): String {
-//        return DateTimeFormatter.ISO_DATE.format(value.toInstant())
-//    }
-//
-//    @FromJson
-//    fun fromJson(value: String): Date {
-//        return Date.from(OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant())
-//    }
-//
-//}
 
 class DateJsonAdapter: JsonAdapter<Date>() {
     private val dateFormat = "yyyy-MM-dd HH:mm:ss"

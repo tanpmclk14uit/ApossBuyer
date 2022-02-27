@@ -11,7 +11,6 @@ data class HomeProduct(
     val price: Int,
     val rating: Float,
     val purchased: Int,
-    var isFavorite: Boolean
 ){
     fun priceToString(): String{
         val formatter = DecimalFormat("#,###")

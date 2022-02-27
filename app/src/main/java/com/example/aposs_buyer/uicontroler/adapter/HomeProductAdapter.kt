@@ -13,7 +13,6 @@ import com.example.aposs_buyer.databinding.ItemProductBinding
 import com.example.aposs_buyer.model.HomeProduct
 
 class HomeProductAdapter(
-    private val favoriteInterface: FavoriteInterface,
     private val onClickListener: OnClickListener
 ) :
     ListAdapter<HomeProduct, HomeProductAdapter.HomeProductViewHolder>(DiffCallBack) {
@@ -40,11 +39,6 @@ class HomeProductAdapter(
         }
     }
 
-    interface FavoriteInterface {
-        fun addToFavorite(product: HomeProduct)
-        fun removeFromFavorite(product: HomeProduct)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeProductViewHolder {
         return HomeProductViewHolder(ItemProductBinding.inflate(LayoutInflater.from(parent.context)))
     }
@@ -52,27 +46,8 @@ class HomeProductAdapter(
     override fun onBindViewHolder(holder: HomeProductViewHolder, position: Int) {
         val currentProduct = getItem(position)
         holder.bind(currentProduct)
-        holder.binding.favorite.setOnClickListener {
-            onFavoriteIconCLick(position, currentProduct, holder.binding.favorite, it.context)
-        }
         holder.itemView.setOnClickListener {
             onClickListener.onClick(currentProduct.id)
-        }
-    }
-
-    private fun onFavoriteIconCLick(
-        position: Int,
-        product: HomeProduct,
-        favorite: ToggleButton,
-        context: Context
-    ) {
-        if (favorite.isChecked) {
-            Toast.makeText(context, "Add to favorite successfully", Toast.LENGTH_SHORT).show()
-            favoriteInterface.addToFavorite(product)
-        } else {
-            Toast.makeText(context, "Remove from favorite successfully", Toast.LENGTH_SHORT)
-                .show()
-            favoriteInterface.removeFromFavorite(product)
         }
     }
 }

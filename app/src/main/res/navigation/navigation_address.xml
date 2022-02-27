@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_address"
     app:startDestination="@id/addressFragment">
 
     <fragment
         android:id="@+id/addressFragment"
+        tools:layout="@layout/fragment_address"
         android:name="com.example.aposs_buyer.uicontroler.fragment.AddressFragment"
         android:label="AddressFragment" >
         <action
@@ -13,6 +15,7 @@
             app:destination="@id/addressDialogFragment2" />
     </fragment>
     <dialog
+        tools:layout="@layout/fragment_address_dialog"
         android:id="@+id/addressDialogFragment2"
         android:name="com.example.aposs_buyer.uicontroler.fragment.AddressDialogFragment"
         android:label="AddressDialogFragment" >
