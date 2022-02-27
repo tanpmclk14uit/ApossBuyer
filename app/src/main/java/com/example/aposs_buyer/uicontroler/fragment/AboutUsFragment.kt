@@ -40,7 +40,7 @@ class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about_us, container, false)
         binding.lifecycleOwner = this
@@ -54,7 +54,7 @@ class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
         return binding.root
     }
 
-    fun setUpViewPagerCallBack() {
+    private fun setUpViewPagerCallBack() {
         binding.imageViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

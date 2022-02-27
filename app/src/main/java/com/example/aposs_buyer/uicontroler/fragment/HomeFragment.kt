@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : RankingViewPagerAdapter.FavoriteInterface, Fragment(),
+class HomeFragment : Fragment(),
     CategoriesViewPagerAdapter.OnClickListener,
     ViewTreeObserver.OnScrollChangedListener {
 
@@ -75,7 +75,7 @@ class HomeFragment : RankingViewPagerAdapter.FavoriteInterface, Fragment(),
         binding.viewModel = viewModel
         binding.imageViewPager.adapter = CategoriesViewPagerAdapter(this)
         binding.rankingViewPager.adapter =
-            RankingViewPagerAdapter(this, RankingViewPagerAdapter.OnClickListener {
+            RankingViewPagerAdapter(RankingViewPagerAdapter.OnClickListener {
                 val intent = Intent(this.context, DetailProductActivity::class.java)
                 intent.putExtra("productID", it)
                 startActivity(intent)
@@ -179,14 +179,6 @@ class HomeFragment : RankingViewPagerAdapter.FavoriteInterface, Fragment(),
         super.onResume()
         mHandler.postDelayed(categoriesRunnable, 4000)
         mHandler.postDelayed(rankingRunnable, 4000)
-    }
-
-    override fun addToFavorite(product: RankingProduct) {
-        viewModel.addNewFavoriteProduct(product.id)
-    }
-
-    override fun removeFromFavorite(product: RankingProduct) {
-        viewModel.removeFavoriteProduct(product.id)
     }
 
     fun onNavigateToKind() {

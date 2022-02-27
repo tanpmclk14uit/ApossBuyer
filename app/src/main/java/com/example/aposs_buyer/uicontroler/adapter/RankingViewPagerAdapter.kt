@@ -15,7 +15,6 @@ import com.example.aposs_buyer.databinding.ItemRakingBinding
 import com.example.aposs_buyer.model.RankingProduct
 
 class RankingViewPagerAdapter(
-    private val favoriteInterface: FavoriteInterface,
     private val onClickListener: OnClickListener
 ) :
     ListAdapter<RankingProduct, RankingViewPagerAdapter.RankingViewHolder>(DiffCallBack) {
@@ -32,11 +31,6 @@ class RankingViewPagerAdapter(
         override fun areContentsTheSame(oldItem: RankingProduct, newItem: RankingProduct): Boolean {
             return oldItem.id == newItem.id
         }
-    }
-
-    interface FavoriteInterface {
-        fun addToFavorite(product: RankingProduct)
-        fun removeFromFavorite(product: RankingProduct)
     }
 
     class RankingViewHolder(var binding: ItemRakingBinding) :
@@ -58,29 +52,8 @@ class RankingViewPagerAdapter(
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
-        holder.binding.favorite.setOnClickListener {
-            onFavoriteIconCLick(position, currentItem, holder.binding.favorite, it.context)
-        }
         holder.itemView.setOnClickListener {
             onClickListener.onClick(currentItem.id)
-        }
-    }
-
-    private fun onFavoriteIconCLick(
-        position: Int,
-        product: RankingProduct,
-        favorite: ToggleButton,
-        context: Context
-    ) {
-        if (favorite.isChecked) {
-            Toast.makeText(context, "Add to favorite successfully", Toast.LENGTH_SHORT).show()
-            favoriteInterface.addToFavorite(product)
-        } else {
-            Toast.makeText(context, "Remove from favorite successfully", Toast.LENGTH_SHORT)
-                .show()
-            favoriteInterface.removeFromFavorite(product)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, itemCount);
         }
     }
 }

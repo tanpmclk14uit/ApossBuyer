@@ -29,57 +29,56 @@ import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
-class AddressViewModel @Inject constructor(private  val deliveryAddressRepository: DeliveryAddressRepository,
-                                           @ApplicationContext private  val appContext: Context,
-                                            private val authRepository: AuthRepository): ViewModel() {
+class AddressViewModel @Inject constructor(
+    private val deliveryAddressRepository: DeliveryAddressRepository,
+    @ApplicationContext private val appContext: Context,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
-    val listAddress = MutableLiveData<MutableList<Address>> ()
+    val listAddress = MutableLiveData<MutableList<Address>>()
 
-     val status  = MutableLiveData<DeliveryAddressStatus>()
-    private val statusDelete  = MutableLiveData<DeliveryAddressStatus>()
+    val status = MutableLiveData<DeliveryAddressStatus>()
+    private val statusDelete = MutableLiveData<DeliveryAddressStatus>()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-
     init {
-
         loadUserAddress()
     }
 
-     fun loadUserAddress()
-    {
+    fun loadUserAddress() {
         listAddress.value = mutableListOf()
         status.value = DeliveryAddressStatus.Loading
         viewModelScope.launch {
             var account = AccountDatabase.getInstance(appContext).accountDao.getAccount()
             var token = account!!.tokenType + " " + account.accessToken
-                var response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
-            if (response.code() == 401)
-            {
+            var response =
+                deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
+            if (response.code() == 401) {
                 getNewAccessToken(account)
                 account = AccountDatabase.getInstance(appContext).accountDao.getAccount()
                 token = account!!.tokenType + " " + account.accessToken
-                response = deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(token)
+                response =
+                    deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(
+                        token
+                    )
             }
             val listDeliveryAddressDTO = response.body()
             try {
-                listAddress.value = listDeliveryAddressDTO!!.stream().map{
-                    it -> convertDeliveryAddressDTOToAddress(it)
+                listAddress.value = listDeliveryAddressDTO!!.stream().map { it ->
+                    convertDeliveryAddressDTOToAddress(it)
                 }.collect(Collectors.toList())
                 status.value = DeliveryAddressStatus.Success
-            }
-            catch (e:Exception)
-            {
+            } catch (e: Exception) {
                 status.value = DeliveryAddressStatus.Fail
                 Log.e("Exception", e.toString())
             }
         }
     }
 
-    private suspend fun getNewAccessToken(account: Account)
-    {
+    private suspend fun getNewAccessToken(account: Account) {
         val newAccessToken = authRepository.getAccessToken(account.refreshToken).body()!!
         val accountNew: Account =
             Account(
@@ -93,10 +92,9 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
         AccountDatabase.getInstance(appContext).accountDao.insertAccount(accountNew)
     }
 
-    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address
-    {
+    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address {
         return Address(
-            id =  deliveryAddressDTO.id,
+            id = deliveryAddressDTO.id,
             name = deliveryAddressDTO.name,
             gender = deliveryAddressDTO.gender,
             phoneNumber = deliveryAddressDTO.phoneNumber,
@@ -109,8 +107,7 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
     }
 
     fun onChangeDefault(position: Int) {
-        for(i in 0 until listAddress.value!!.size)
-        {
+        for (i in 0 until listAddress.value!!.size) {
             if (listAddress.value!![i].isDefault)
                 listAddress.value!![i].isDefault = false
         }
@@ -118,21 +115,19 @@ class AddressViewModel @Inject constructor(private  val deliveryAddressRepositor
     }
 
     fun getAddress(id: Long): Address {
-        for (i in 0 until listAddress.value!!.size)
-        {
+        for (i in 0 until listAddress.value!!.size) {
             if (listAddress.value!![i].id == id)
                 return listAddress.value!![i]
         }
         return Address(0, "None", true, "none", "none", "none", "none", "none", false)
     }
 
-    fun getCreateAddress():Address{
+    fun getCreateAddress(): Address {
         return Address(0, "", true, "", "", "", "", "", false)
     }
 
     fun getCurrentDefaultAddress(): Address {
-        for (i in 0 until listAddress.value!!.size)
-        {
+        for (i in 0 until listAddress.value!!.size) {
             if (listAddress.value!![i].isDefault)
                 return listAddress.value!![i]
         }

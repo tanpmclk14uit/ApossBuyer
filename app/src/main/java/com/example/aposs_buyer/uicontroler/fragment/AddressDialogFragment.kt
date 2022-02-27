@@ -244,7 +244,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         for (i in 0 until wardList.value!!.size)
         {
             wardAdapter.insert(wardList.value!![i].name, i)
-//            Log.d("district", wardList.value!![i].name)
         }
         wardAdapter.notifyDataSetChanged()
         wardAdapter.notifyDataSetChanged()

@@ -15,6 +15,7 @@ import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.CategoryRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.CategoryStatus
+import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.ProductsStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
@@ -81,7 +82,7 @@ class HomeViewModel @Inject constructor(
                 try {
                     val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
                     val productsInCurrentPage = productResponseDTO.content.stream()
-                        .map { productDTO -> Converter.convertToHomeProduct(productDTO) }.collect(
+                        .map { productDTO -> Converter.convertProductDTOtoHomeProduct(productDTO) }.collect(
                             Collectors.toList()
                         )
                     _products.value = Converter.concatenate(_products.value!!, productsInCurrentPage)
@@ -96,45 +97,6 @@ class HomeViewModel @Inject constructor(
                     _status.value = ProductsStatus.Fail
                 }
             }
-        }
-    }
-
-    object Converter {
-         fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
-            return HomeProduct(
-                id = productDTO.id,
-                image = Image(productDTO.image),
-                name = productDTO.name,
-                rating = productDTO.rating.toFloat(),
-                price = productDTO.price,
-                purchased = productDTO.purchased
-            )
-        }
-
-        fun convertDetailCategoryDTOToCategory(categoryDTO: DetailCategoryDTO): Category{
-            return Category(
-                id = categoryDTO.id,
-                name = categoryDTO.name,
-                totalProduct = categoryDTO.totalProducts,
-                totalPurchase = categoryDTO.totalPurchases,
-                rating = categoryDTO.rating,
-                mainImage = Image(categoryDTO.images[0])
-            )
-        }
-        fun <T> concatenate(vararg lists: List<T>): List<T> {
-            val result: MutableList<T> = ArrayList()
-            for (list in lists) {
-                result.addAll(list)
-            }
-            return result
-        }
-
-        fun <T> concatenateMutable(vararg lists: MutableList<T>): MutableList<T> {
-            val result: MutableList<T> = ArrayList()
-            for (list in lists) {
-                result.addAll(list)
-            }
-            return result
         }
     }
 
@@ -233,13 +195,5 @@ class HomeViewModel @Inject constructor(
 
     fun setCurrentProductKind(currentPosition: Int) {
         _currentProductKind.value = rankingProducts.value!![currentPosition].kind
-    }
-
-    fun addNewFavoriteProduct(productId: Long) {
-        // update database and add new favorite product
-    }
-
-    fun removeFavoriteProduct(productId: Long) {
-        // update database and remove favorite product
     }
 }

@@ -15,7 +15,6 @@ class AddressAdapter(val onClickListener: OnAddressCLickListener) :
     ListAdapter<Address, AddressAdapter.AddressViewHolder>(DiffCallBack) {
 
     interface OnAddressCLickListener {
-        fun onClick(position: Int)
         fun onEdit(addressId: Long)
     }
 
@@ -28,10 +27,6 @@ class AddressAdapter(val onClickListener: OnAddressCLickListener) :
             } else {
                 binding.isDefault.visibility = View.GONE
             }
-
-//            if (address.isDefault) binding.lnItemAddress.setBackgroundResource(R.drawable.bg_item_address_is_selected)
-//            else binding.lnItemAddress.setBackgroundResource(R.drawable.bg_address_item)
-
             binding.executePendingBindings()
         }
     }

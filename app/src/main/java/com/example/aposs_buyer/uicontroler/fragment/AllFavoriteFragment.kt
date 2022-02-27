@@ -53,10 +53,10 @@ class AllFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface, Fragm
     }
 
     private fun watchFavoriteItemChange() {
-        viewModel.products.observe(viewLifecycleOwner, { change ->
+        viewModel.products.observe(viewLifecycleOwner) { change ->
             adapter.submitList(change)
             binding.allItems.recycledViewPool.clear()
-        })
+        }
     }
 
     override fun removeFromFavorite(product: FavoriteProduct) {

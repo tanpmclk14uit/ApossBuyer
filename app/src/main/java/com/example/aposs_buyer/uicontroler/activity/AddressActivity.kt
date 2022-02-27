@@ -14,7 +14,6 @@ class AddressActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }

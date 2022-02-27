@@ -9,6 +9,7 @@ import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.Kind
 import com.example.aposs_buyer.model.dto.KindDTO
 import com.example.aposs_buyer.responsitory.KindRepository
+import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.KindStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -71,23 +72,6 @@ class KindViewModel @Inject constructor(private val kindRepository: KindReposito
                 Log.e("exception", e.toString())
                 _status.value = KindStatus.Fail
             }
-        }
-    }
-    object Converter {
-        fun convertFromKindDTOToKind(kindDTO: KindDTO): Kind {
-            val listHomeProduct = kindDTO.products.stream().map {
-                productDTO -> HomeViewModel.Converter.convertToHomeProduct(productDTO)
-            }.collect(Collectors.toList())
-            return Kind(
-                id = kindDTO.id,
-                name = kindDTO.name,
-                totalPurchase = kindDTO.totalPurchases,
-                totalProduct = kindDTO.totalProducts,
-                rating = kindDTO.rating,
-                image = Image(kindDTO.image),
-                Products = listHomeProduct,
-                category = kindDTO.category
-            )
         }
     }
 

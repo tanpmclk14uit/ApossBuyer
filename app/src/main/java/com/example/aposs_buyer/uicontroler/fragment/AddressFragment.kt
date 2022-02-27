@@ -33,54 +33,62 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     private val viewModel: AddressViewModel by viewModels()
     private lateinit var addressAdapter: AddressAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-       binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_address, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         addressAdapter = AddressAdapter(this)
         binding.rcAddress.adapter = addressAdapter
-        binding.rcAddress.layoutManager = LinearLayoutManager(binding.rcAddress.context, LinearLayoutManager.VERTICAL, false)
+        binding.rcAddress.layoutManager =
+            LinearLayoutManager(binding.rcAddress.context, LinearLayoutManager.VERTICAL, false)
         BridgeObject.addressListChange.observe(viewLifecycleOwner, Observer {
             viewModel.loadUserAddress()
             Log.d("Address", "changing")
         })
         viewModel.status.observe(viewLifecycleOwner, Observer {
-            if (viewModel.status.value!! == DeliveryAddressStatus.Success)
-            {
-            addressAdapter.submitList(viewModel.listAddress.value)
-            addressAdapter.notifyDataSetChanged()
-            Log.d("Address", viewModel.listAddress.value.toString())
+            if (viewModel.status.value!! == DeliveryAddressStatus.Success) {
+                addressAdapter.submitList(viewModel.listAddress.value)
+                addressAdapter.notifyDataSetChanged()
+                Log.d("Address", viewModel.listAddress.value.toString())
             }
         })
-        setOnClick()
+        setOnAddNewAddressClick()
+        setOnBackClick()
+        setOnCartClick()
         return binding.root
     }
 
-    override fun onClick(position: Int) {
-
-    }
-
     override fun onEdit(addressId: Long) {
-        findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(viewModel.getAddress(addressId), viewModel.getCurrentDefaultAddress()))
+        findNavController().navigate(
+            AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(
+                viewModel.getAddress(addressId),
+                viewModel.getCurrentDefaultAddress()
+            )
+        )
     }
-
-    private fun setOnClick()
-    {
+    private fun setOnAddNewAddressClick(){
         binding.tvAddNewAddress.setOnClickListener {
-            findNavController().navigate(AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(viewModel.getCreateAddress(), viewModel.getCurrentDefaultAddress()))
+            findNavController().navigate(
+                AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(
+                    viewModel.getCreateAddress(),
+                    viewModel.getCurrentDefaultAddress()
+                )
+            )
         }
-        binding.imgBack.setOnClickListener{
+    }
+    private fun setOnBackClick(){
+        binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+    }
+    private fun setOnCartClick(){
         binding.clCart.setOnClickListener {
             val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)
         }
     }
-
 }

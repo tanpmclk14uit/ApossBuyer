@@ -9,6 +9,7 @@ import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.dto.ProductDTO
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.ProductsStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -57,10 +58,10 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                 try {
                     val productResponseDTO: ProductResponseDTO = lstProductDeferred.await()
                     val lstResultCurrentPage = productResponseDTO.content.stream().map {
-                        convertToHomeProduct(it)
+                        Converter.convertProductDTOtoHomeProduct(it)
                     }.collect(Collectors.toList())
                     listForDisplay.value = mutableListOf()
-                        listForDisplay.value = HomeViewModel.Converter.concatenateMutable(
+                        listForDisplay.value = Converter.concatenateMutable(
                             listForDisplay.value!!,
                             lstResultCurrentPage)
                     _status.value = ProductsStatus.Success
@@ -77,17 +78,6 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                 }
             }
         }
-    }
-
-    fun convertToHomeProduct(productDTO: ProductDTO): HomeProduct {
-        return HomeProduct(
-            id = productDTO.id,
-            image = Image(productDTO.image),
-            name = productDTO.name,
-            rating = productDTO.rating.toFloat(),
-            price = productDTO.price,
-            purchased = productDTO.purchased
-        )
     }
 
     override fun onCleared() {

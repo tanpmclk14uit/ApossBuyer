@@ -27,7 +27,7 @@ class AvailableFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface,
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
@@ -48,10 +48,10 @@ class AvailableFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface,
     }
 
     private fun watchFavoriteItemChange() {
-        viewModel.availableProduct.observe(viewLifecycleOwner, { change ->
+        viewModel.availableProduct.observe(viewLifecycleOwner) { change ->
             adapter.submitList(change)
             binding.allItems.recycledViewPool.clear()
-        })
+        }
     }
 
     override fun removeFromFavorite(product: FavoriteProduct) {
