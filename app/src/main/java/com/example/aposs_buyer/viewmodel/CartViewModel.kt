@@ -134,7 +134,7 @@ class CartViewModel @Inject constructor(
                     if (deleteResponse.code() == 401) {
                         Log.d("cart", "Expire access token")
                         val accessTokenResponse =
-                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                            authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
                             AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -163,7 +163,7 @@ class CartViewModel @Inject constructor(
                     if (updateResponse.code() == 401) {
                         Log.d("cart", "Expire access token")
                         val accessTokenResponse =
-                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                            authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
                             AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -220,7 +220,7 @@ class CartViewModel @Inject constructor(
                     return@launch
                 }
                 if (response.code() == 401) {
-                    val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                    val accessTokenResponse = authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                     if (accessTokenResponse.code() == 200) {
                         tokenDTO!!.accessToken = accessTokenResponse.body()!!
                         AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
@@ -264,7 +264,7 @@ class CartViewModel @Inject constructor(
                     return@launch
                 }
                 if (defaultAddressRespone.code() == 401) {
-                    val accessTokenResponse = authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                    val accessTokenResponse = authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                     if (accessTokenResponse.code() == 200) {
                         tokenDTO!!.accessToken = accessTokenResponse.body()!!
                         AccountDatabase.getInstance(context).accountDao.updateAccessToken(tokenDTO!!.accessToken)
@@ -314,7 +314,7 @@ class CartViewModel @Inject constructor(
                     401 -> {
                         Log.d("cart", "Expire access token")
                         val accessTokenResponse =
-                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                            authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
                             AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -355,7 +355,7 @@ class CartViewModel @Inject constructor(
                             }
                             401 -> {
                                 val accessTokenResponse =
-                                    authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                                    authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                                 if (accessTokenResponse.code() == 200) {
                                     tokenDTO!!.accessToken = accessTokenResponse.body()!!
                                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -396,7 +396,7 @@ class CartViewModel @Inject constructor(
                     }
                     401 -> {
                         val accessTokenResponse =
-                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                            authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
                             AccountDatabase.getInstance(context).accountDao.updateAccessToken(

@@ -116,7 +116,7 @@ class OrderViewModel @Inject constructor(
             if (respond.code() == 401)
             {
                 val accessTokenResponse =
-                    authRepository.getAccessToken(token.refreshToken)
+                    authRepository.getAccessTokenFromRefreshToken(token.refreshToken)
                 if (accessTokenResponse.code() == 200) {
                     token.accessToken = accessTokenResponse.body()!!
                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -181,7 +181,7 @@ class OrderViewModel @Inject constructor(
             if (respond.code() == 401)
             {
                 val accessTokenResponse =
-                    authRepository.getAccessToken(token.refreshToken)
+                    authRepository.getAccessTokenFromRefreshToken(token.refreshToken)
                 if (accessTokenResponse.code() == 200) {
                     token.accessToken = accessTokenResponse.body()!!
                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -217,7 +217,7 @@ class OrderViewModel @Inject constructor(
             if (respond.code() == 401)
             {
                 val accessTokenResponse =
-                    authRepository.getAccessToken(token.refreshToken)
+                    authRepository.getAccessTokenFromRefreshToken(token.refreshToken)
                 if (accessTokenResponse.code() == 200) {
                     token.accessToken = accessTokenResponse.body()!!
                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -253,7 +253,7 @@ class OrderViewModel @Inject constructor(
             if (respond.code() == 401)
             {
                 val accessTokenResponse =
-                    authRepository.getAccessToken(token.refreshToken)
+                    authRepository.getAccessTokenFromRefreshToken(token.refreshToken)
                 if (accessTokenResponse.code() == 200) {
                     token.accessToken = accessTokenResponse.body()!!
                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -289,7 +289,7 @@ class OrderViewModel @Inject constructor(
             if (respond.code() == 401)
             {
                 val accessTokenResponse =
-                    authRepository.getAccessToken(token.refreshToken)
+                    authRepository.getAccessTokenFromRefreshToken(token.refreshToken)
                 if (accessTokenResponse.code() == 200) {
                     token.accessToken = accessTokenResponse.body()!!
                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(

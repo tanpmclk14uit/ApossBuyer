@@ -53,7 +53,7 @@ class CancelOrderViewModel @Inject constructor(
             }
             else if (response.code() == 401){
                 val accessTokenResponse =
-                    authRepository.getAccessToken(tokenDTO.refreshToken)
+                    authRepository.getAccessTokenFromRefreshToken(tokenDTO.refreshToken)
                 if (accessTokenResponse.code() == 200) {
                     tokenDTO.accessToken = accessTokenResponse.body()!!
                     AccountDatabase.getInstance(context).accountDao.updateAccessToken(

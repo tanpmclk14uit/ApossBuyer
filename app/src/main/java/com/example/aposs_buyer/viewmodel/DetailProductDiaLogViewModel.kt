@@ -109,7 +109,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
                     if (createRepository.code() == 400) {
                         Log.d("cart", "Expire access token")
                         val accessTokenResponse =
-                            authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                            authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                         if (accessTokenResponse.code() == 200) {
                             tokenDTO!!.accessToken = accessTokenResponse.body()!!
                             AccountDatabase.getInstance(context).accountDao.updateAccessToken(
@@ -316,7 +316,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
                         }
                         401 -> {
                             val accessTokenResponse =
-                                authRepository.getAccessToken(tokenDTO!!.refreshToken)
+                                authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
                             Log.d("checkoutBussiness", tokenDTO!!.accessToken)
                             if (accessTokenResponse.code() == 200) {
                                 tokenDTO!!.accessToken = accessTokenResponse.body()!!
