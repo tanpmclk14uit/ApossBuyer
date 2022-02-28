@@ -362,17 +362,17 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun setCheckingName(){
-        viewModel.name.observe(this.viewLifecycleOwner,{
+        viewModel.name.observe(this.viewLifecycleOwner) {
             viewModel.isValidName()
             binding.etName.error = viewModel.nameErrorMessage
-        })
+        }
     }
 
     private fun setCheckingCellPhone(){
-        viewModel.cellNumber.observe(this.viewLifecycleOwner,{
+        viewModel.cellNumber.observe(this.viewLifecycleOwner) {
             viewModel.isValidPhoneNumber()
             binding.etPhone.error = viewModel.cellNumberErrorMessage
-        })
+        }
     }
 
     fun setOnChange() {

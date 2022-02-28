@@ -6,14 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
-import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.utils.DeliveryAddressStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -44,7 +40,7 @@ class AddressViewModel @Inject constructor(
                         )
                     if (response.isSuccessful) {
                         val listDeliveryAddressDTO = response.body()
-                        listAddress.value = listDeliveryAddressDTO!!.stream().map { it ->
+                        listAddress.value = listDeliveryAddressDTO!!.stream().map {
                             convertDeliveryAddressDTOToAddress(it)
                         }.collect(Collectors.toList())
                         status.value = DeliveryAddressStatus.Success
@@ -87,7 +83,7 @@ class AddressViewModel @Inject constructor(
             ward = deliveryAddressDTO.ward.name,
             isDefault = deliveryAddressDTO.isDefault,
             addressLane = deliveryAddressDTO.addressLane
-        );
+        )
     }
 
     fun getAddress(id: Long): Address {

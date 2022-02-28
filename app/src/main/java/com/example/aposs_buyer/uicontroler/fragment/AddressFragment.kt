@@ -38,17 +38,14 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
         binding.viewModel = viewModel
         addressAdapter = AddressAdapter(this)
         binding.rcAddress.adapter = addressAdapter
-        binding.rcAddress.layoutManager =
-            LinearLayoutManager(binding.rcAddress.context, LinearLayoutManager.VERTICAL, false)
-        BridgeObject.addressListChange.observe(viewLifecycleOwner, Observer {
-            viewModel.loadUserAddress()
-        })
+
         viewModel.status.observe(viewLifecycleOwner, Observer {
             if (viewModel.status.value!! == DeliveryAddressStatus.Success) {
                 addressAdapter.submitList(viewModel.listAddress.value)
-                addressAdapter.notifyDataSetChanged()
+               // addressAdapter.notifyDataSetChanged()
             }
         })
+
         setOnAddNewAddressClick()
         setOnBackClick()
         setOnCartClick()
@@ -63,7 +60,8 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
             )
         )
     }
-    private fun setOnAddNewAddressClick(){
+
+    private fun setOnAddNewAddressClick() {
         binding.tvAddNewAddress.setOnClickListener {
             findNavController().navigate(
                 AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2(
@@ -73,12 +71,14 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
             )
         }
     }
-    private fun setOnBackClick(){
+
+    private fun setOnBackClick() {
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
-    private fun setOnCartClick(){
+
+    private fun setOnCartClick() {
         binding.clCart.setOnClickListener {
             val intent = Intent(this.context, CartSecondActivity::class.java)
             startActivity(intent)

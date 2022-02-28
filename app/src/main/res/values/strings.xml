@@ -112,4 +112,9 @@
     <string name="write_your_comment_here">Write your comment here!</string>
     <string name="add_image">Add image</string>
     <string name="set_as_default_address">Set as default address</string>
+    <string name="my_address">My address</string>
+    <string name="default_cart_number">1</string>
+    <string name="default_address_guide">Tap to select default address</string>
+    <string name="add_new_address_guide">Tap to add new address</string>
+    <string name="loading_failed_x_x">Loading failed x.x</string>
 </resources>

@@ -8,6 +8,14 @@
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.AddressViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="status"
+            type="com.example.aposs_buyer.utils.DeliveryAddressStatus" />
     </data>
 
     <RelativeLayout
@@ -18,8 +26,8 @@
         tools:context=".uicontroler.fragment.AddressFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
             android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/back_ground"
             android:text="@string/app_name"
@@ -36,106 +44,124 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:gravity="center|top"
-                    android:orientation="vertical"
-                    android:paddingBottom="15dp">
+                    android:layout_margin="0dp"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
 
+                    <ImageView
+                        android:id="@+id/img_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_back_white" />
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="50dp"
+                        android:gravity="center"
+                        android:text="@string/my_address"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:id="@+id/cl_cart"
+                        android:layout_width="33dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="5dp">
 
                         <ImageView
-                            android:id="@+id/img_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginTop="10dp"
+                            android:id="@+id/img_cart"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_gravity="bottom|left"
                             android:contentDescription="@string/image"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_back_white" />
+                            android:src="@drawable/ic_cart"
+                            app:tint="@color/white"
+                            tools:ignore="RtlHardcoded" />
 
                         <TextView
-                            android:id="@+id/title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginEnd="50dp"
-                            android:text="My address"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="end|top"
+                            android:background="@drawable/bg_quantity_in_cart"
+                            android:text="@string/default_cart_number"
+                            android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
+                            android:textSize="10sp"
+                            tools:ignore="RtlCompat,SmallSp" />
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                        <androidx.coordinatorlayout.widget.CoordinatorLayout
-                            android:id="@+id/cl_cart"
-                            android:layout_width="33dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginTop="5dp">
-
-                            <ImageView
-                                android:id="@+id/img_cart"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:layout_gravity="bottom|left"
-                                android:contentDescription="@string/image"
-                                android:src="@drawable/ic_cart"
-                                app:tint="@color/white"
-                                tools:ignore="RtlHardcoded" />
-
-                            <TextView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:layout_gravity="right|top"
-                                android:background="@drawable/bg_quantity_in_cart"
-                                android:text="1"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:textSize="10dp"
-                                tools:ignore="RtlCompat" />
-                        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/title"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:text="Tap to select default address"
-                            android:textColor="#272422"
-                            android:textSize="16dp" />
-                    </RelativeLayout>
-                </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/title"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/default_address_guide"
+                        android:textColor="#272422"
+                        android:textSize="16sp" />
+                </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_above="@id/tv_add_new_address"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/tv_add_new_address"
             android:layout_below="@id/appBarLayout"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:paddingHorizontal="10dp">
+
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="@{viewModel.status == status.Loading?view.VISIBLE: view.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:visibility="@{viewModel.status == status.Fail? view.VISIBLE: view.GONE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/loading_failed_x_x"
+                android:textSize="20sp"
+                app:drawableTopCompat="@drawable/ic_empty" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_address"
                 listAddress="@{viewModel.listAddress}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_address" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:textAllCaps="false"
             android:id="@+id/tv_add_new_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,9 +171,10 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="11dp"
             android:background="@drawable/bg_rating_now_button"
-            android:text="Tap to add new address"
+            android:text="@string/add_new_address_guide"
+            android:textAllCaps="false"
             android:textColor="#060DD9"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
