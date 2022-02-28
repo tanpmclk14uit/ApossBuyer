@@ -125,7 +125,7 @@ class AddressDialogViewModel @Inject constructor(
             city = deliveryAddressDTO.province.name,
             district = deliveryAddressDTO.district.name,
             ward = deliveryAddressDTO.ward.name,
-            isDefault = deliveryAddressDTO.isDefault,
+            isDefaultAddress = deliveryAddressDTO.isDefault,
             addressLane = deliveryAddressDTO.addressLane
         )
     }
@@ -182,7 +182,7 @@ class AddressDialogViewModel @Inject constructor(
             gender = address.gender,
             addressLane = address.addressLane,
             phoneNumber = address.phoneNumber,
-            isDefault = address.isDefault,
+            isDefault = address.isDefaultAddress,
             ward = convertCurrentNameToWardDTO(address.ward),
             district = convertCurrentNameToDistrictDTO(address.district),
             province = convertCurrentNameToProvinceDTO(address.city)

@@ -287,9 +287,9 @@ class CartViewModel @Inject constructor(
             city = deliveryAddressDTO.province.name,
             district = deliveryAddressDTO.district.name,
             ward = deliveryAddressDTO.ward.name,
-            isDefault = deliveryAddressDTO.isDefault,
+            isDefaultAddress = deliveryAddressDTO.isDefault,
             addressLane = deliveryAddressDTO.addressLane
-        );
+        )
     }
 
     fun loadCartList() {

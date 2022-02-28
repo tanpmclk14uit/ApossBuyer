@@ -1,22 +1,20 @@
 package com.example.aposs_buyer.model
 
-import android.os.Parcel
 import android.os.Parcelable
-import androidx.versionedparcelable.VersionedParcelize
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
 data class Address(
     val id: Long,
-    val name: String,
-    val gender: Boolean,
-    val phoneNumber: String,
-    val city: String,
-    val district: String,
-    val ward: String,
-    val addressLane: String,
-    var isDefault: Boolean
+    var name: String = "",
+    var gender: Boolean = true,
+    var phoneNumber: String = "",
+    var city: String = "",
+    var district: String = "",
+    var ward: String = "",
+    var addressLane: String = "",
+    var isDefaultAddress: Boolean = false
 ): Parcelable
 {
     fun getNameString(): String

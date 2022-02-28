@@ -22,12 +22,13 @@ class AddressViewModel @Inject constructor(
 
     val listAddress = MutableLiveData<MutableList<Address>>()
     val status = MutableLiveData<DeliveryAddressStatus>()
+    var currentAddress = MutableLiveData<Address>()
 
     init {
         loadUserAddress()
     }
 
-    fun loadUserAddress() {
+    private fun loadUserAddress() {
         listAddress.value = mutableListOf()
         status.value = DeliveryAddressStatus.Loading
         viewModelScope.launch {
@@ -64,7 +65,7 @@ class AddressViewModel @Inject constructor(
     private suspend fun getNewAccessTokenFromRefreshToken(refreshToken: String) {
         viewModelScope.launch {
             val newAccessTokenResponse = authRepository.getAccessTokenFromRefreshToken(refreshToken)
-            if(newAccessTokenResponse.isSuccessful){
+            if (newAccessTokenResponse.isSuccessful) {
                 val newAccessToken =
                     authRepository.getAccessTokenFromRefreshToken(refreshToken).body()!!
                 authRepository.updateAccessToken(newAccessToken)
@@ -81,29 +82,9 @@ class AddressViewModel @Inject constructor(
             city = deliveryAddressDTO.province.name,
             district = deliveryAddressDTO.district.name,
             ward = deliveryAddressDTO.ward.name,
-            isDefault = deliveryAddressDTO.isDefault,
+            isDefaultAddress = deliveryAddressDTO.isDefault,
             addressLane = deliveryAddressDTO.addressLane
         )
-    }
-
-    fun getAddress(id: Long): Address {
-        for (i in 0 until listAddress.value!!.size) {
-            if (listAddress.value!![i].id == id)
-                return listAddress.value!![i]
-        }
-        return Address(0, "None", true, "none", "none", "none", "none", "none", false)
-    }
-
-    fun getCreateAddress(): Address {
-        return Address(0, "", true, "", "", "", "", "", false)
-    }
-
-    fun getCurrentDefaultAddress(): Address {
-        for (i in 0 until listAddress.value!!.size) {
-            if (listAddress.value!![i].isDefault)
-                return listAddress.value!![i]
-        }
-        return Address(0, "None", true, "none", "none", "none", "none", "none", false)
     }
 
 }

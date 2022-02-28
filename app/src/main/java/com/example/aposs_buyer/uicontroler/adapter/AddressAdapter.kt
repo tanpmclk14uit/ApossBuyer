@@ -15,14 +15,14 @@ class AddressAdapter(val onClickListener: OnAddressCLickListener) :
     ListAdapter<Address, AddressAdapter.AddressViewHolder>(DiffCallBack) {
 
     interface OnAddressCLickListener {
-        fun onEdit(addressId: Long)
+        fun onEdit(address: Address)
     }
 
     class AddressViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(address: Address) {
             binding.address = address
-            if (address.isDefault) {
+            if (address.isDefaultAddress) {
                 binding.isDefault.visibility = View.VISIBLE
             } else {
                 binding.isDefault.visibility = View.GONE
@@ -50,11 +50,11 @@ class AddressAdapter(val onClickListener: OnAddressCLickListener) :
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         holder.bind(getItem(position))
-        if (holder.binding.address!!.isDefault)
+        if (holder.binding.address!!.isDefaultAddress)
             holder.binding.lnItemAddress.setBackgroundResource(R.drawable.bg_item_address_is_selected)
         else holder.binding.lnItemAddress.setBackgroundResource(R.drawable.bg_address_item)
         holder.binding.editAddress.setOnClickListener {
-            onClickListener.onEdit(getItem(position).id)
+            onClickListener.onEdit(getItem(position))
         }
     }
 }

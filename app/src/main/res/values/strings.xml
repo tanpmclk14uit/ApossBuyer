@@ -117,4 +117,14 @@
     <string name="default_address_guide">Tap to select default address</string>
     <string name="add_new_address_guide">Tap to add new address</string>
     <string name="loading_failed_x_x">Loading failed x.x</string>
+    <string name="name_tag">Name</string>
+    <string name="phone_tag">Phone</string>
+    <string name="gender_tag">Gender</string>
+    <string name="city_tag">City</string>
+    <string name="district_tag">District</string>
+    <string name="ward_tag">Ward</string>
+    <string name="address_lane_tag">Address lane</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="submit">Submit</string>
 </resources>
