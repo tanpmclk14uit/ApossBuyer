@@ -15,6 +15,8 @@ import com.example.aposs_buyer.model.dto.WardDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.utils.DeliveryAddressStatus
+import com.example.aposs_buyer.utils.LoadingState
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.StringValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,6 +37,8 @@ class AddressViewModel @Inject constructor(
     val listProvince = MutableLiveData<MutableList<Province>>()
     val listDistrict = MutableLiveData<MutableList<District>>()
     val listWard = MutableLiveData<MutableList<Ward>>()
+    val loadingStatus = MutableLiveData<LoadingStatus>()
+    val checkChange = MutableLiveData<Boolean>()
 
     init {
         loadUserAddress()
@@ -49,6 +53,7 @@ class AddressViewModel @Inject constructor(
 
     fun addNewAddress() {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
+        loadingStatus.value = LoadingStatus.Loading
         viewModelScope.launch {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -59,16 +64,20 @@ class AddressViewModel @Inject constructor(
                             deliveryAddressDTO
                         )
                     if (response.isSuccessful) {
+                        loadingStatus.value = LoadingStatus.Success
                         loadUserAddress()
                     } else {
                         if (response.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 addNewAddress()
+                            } else {
+                                loadingStatus.value = LoadingStatus.Fail
                             }
                         }
                     }
                 }
             } catch (e: Exception) {
+                loadingStatus.value = LoadingStatus.Fail
                 Log.e("Exception", e.toString())
             }
         }
@@ -76,6 +85,7 @@ class AddressViewModel @Inject constructor(
 
     fun onUpdateAddress() {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
+        loadingStatus.value = LoadingStatus.Loading
         viewModelScope.launch {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -86,22 +96,27 @@ class AddressViewModel @Inject constructor(
                             deliveryAddressDTO
                         )
                     if (response.isSuccessful) {
+                        loadingStatus.value = LoadingStatus.Success
                         loadUserAddress()
                     } else {
                         if (response.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 onUpdateAddress()
+                            } else {
+                                loadingStatus.value = LoadingStatus.Fail
                             }
                         }
                     }
                 }
             } catch (e: Exception) {
+                loadingStatus.value = LoadingStatus.Fail
                 Log.e("Exception", e.toString())
             }
         }
     }
 
     fun deleteDeliveryAddress() {
+        loadingStatus.value = LoadingStatus.Loading
         viewModelScope.launch {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -112,16 +127,20 @@ class AddressViewModel @Inject constructor(
                             currentAddress.id
                         )
                     if (response.isSuccessful) {
+                        loadingStatus.value = LoadingStatus.Success
                         loadUserAddress()
                     } else {
                         if (response.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 deleteDeliveryAddress()
+                            } else {
+                                loadingStatus.value = LoadingStatus.Fail
                             }
                         }
                     }
                 }
             } catch (e: Exception) {
+                loadingStatus.value = LoadingStatus.Fail
                 Log.e("Exception", e.toString())
             }
         }

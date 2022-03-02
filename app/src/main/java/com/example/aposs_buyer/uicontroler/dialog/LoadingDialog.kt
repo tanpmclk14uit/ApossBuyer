@@ -4,20 +4,20 @@ import android.app.Activity
 import android.app.AlertDialog
 import com.example.aposs_buyer.R
 
-class LoadingDialog (myActivity: Activity) {
+class LoadingDialog(myActivity: Activity) {
     private var activity: Activity = myActivity
     private lateinit var dialog: AlertDialog
 
-    fun startLoading(){
+    fun startLoading() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
-
         val inflater = activity.layoutInflater
-        builder.setView(inflater.inflate(R.layout.dialog_loading,null))
+        builder.setView(inflater.inflate(R.layout.dialog_loading, null))
         builder.setCancelable(false)
         dialog = builder.create()
         dialog.show()
     }
-    fun dismissDialog(){
+
+    fun dismissDialog() {
         dialog.dismiss()
     }
 }

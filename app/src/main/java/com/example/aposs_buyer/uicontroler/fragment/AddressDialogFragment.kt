@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -16,6 +17,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressDialogBinding
+import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.StringValidator
 import com.example.aposs_buyer.viewmodel.AddressViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -40,10 +43,11 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
-        setGenderAutomationText()
+        setUpGenderAutomationText()
         setUpProvinceAutomationText()
         setUpDistrictAutomationText()
         setUpWardAutomationText()
+        setUpLoadingDialog()
         setUpDefaultAddressCheckChange()
         // set up edit text: name, phone, address lane
         doOnTextChange()
@@ -92,14 +96,25 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun setUpLoadingDialog() {
+        // observe with loading status
+        viewModel.loadingStatus.observe(viewLifecycleOwner) {
+            if (it == LoadingStatus.Fail) {
+                Toast.makeText(this.requireContext(), "Server error!!!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
     private fun setUpDefaultAddressCheckChange() {
-        binding.defaultCheckBox.setOnCheckedChangeListener { _, _ ->
+        viewModel.checkChange.observe(viewLifecycleOwner){
+            viewModel.newAddress.value!!.isDefaultAddress = it
             viewModel.trackingValidInformation()
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setGenderAutomationText() {
+    private fun setUpGenderAutomationText() {
         val genderList = listOf("Male", "Female")
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)

@@ -248,14 +248,14 @@
                 android:inputType="text"
                 tools:ignore="LabelFor" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/defaultCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.newAddress.defaultAddress}"
+                android:checked="@={viewModel.checkChange}"
                 android:text="@string/set_as_default_address">
 
-            </androidx.appcompat.widget.AppCompatCheckBox>
+            </CheckBox>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:enabled="@{viewModel.validInformation}"
