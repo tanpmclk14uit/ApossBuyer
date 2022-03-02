@@ -44,11 +44,6 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("address", "lua")
-    }
-
     private fun setAddressRecycleView(){
         addressAdapter = AddressAdapter(this)
         binding.rcAddress.adapter = addressAdapter

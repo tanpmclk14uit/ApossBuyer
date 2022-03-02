@@ -15,52 +15,46 @@ data class Address(
     var ward: String = "",
     var addressLane: String = "",
     var isDefaultAddress: Boolean = false
-): Parcelable
-{
-    fun getNameString(): String
-    {
+) : Parcelable {
+    fun setGenderFromString(genderString: String) {
+        this.gender = genderString == "Male"
+    }
+
+    fun getNameString(): String {
         return "Name: $name"
     }
 
-    fun getGenderString():String
-    {
+    fun getGenderString(): String {
         if (gender) return "Gender: Male"
         return "Gender: Female"
     }
 
-    fun getGenderSmallString(): String
-    {
+    fun getGenderSmallString(): String {
         if (gender) return "Male"
         return "Female"
     }
 
-    fun getPhoneNumberString(): String
-    {
+    fun getPhoneNumberString(): String {
         return "Phone: $phoneNumber"
     }
 
-    fun getCityString(): String
-    {
+    fun getCityString(): String {
         return "City: $city"
     }
 
-    fun getDistrictString(): String
-    {
+    fun getDistrictString(): String {
         return "District: $district"
     }
 
-    fun getWardString(): String
-    {
+    fun getWardString(): String {
         return "Ward: $ward"
     }
 
-    fun getAddressLaneString(): String
-    {
+    fun getAddressLaneString(): String {
         return "Address lane: $addressLane"
     }
 
-    fun getFullAddress(): String
-    {
+    fun getFullAddress(): String {
         return "$addressLane, $ward, $district, $city"
     }
 

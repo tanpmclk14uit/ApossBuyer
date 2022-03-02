@@ -2,12 +2,19 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.*
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressDialogBinding
+import com.example.aposs_buyer.utils.StringValidator
 import com.example.aposs_buyer.viewmodel.AddressViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,8 +25,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentAddressDialogBinding
     private val viewModel: AddressViewModel by activityViewModels()
-    private var firsTimeLoadProvince  = false
-    private var firsTimeLoadWard  = false
     private lateinit var provinceAdapter: ArrayAdapter<String>
     private lateinit var districtAdapter: ArrayAdapter<String>
     private lateinit var wardAdapter: ArrayAdapter<String>
@@ -29,14 +34,17 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        setGenderAutomationTest()
-//        setStartValue()
-//        setAdapterForAddressElement()
-//        addGenderList()
-//        setOnChange()
+        setGenderAutomationText()
+        setUpProvinceAutomationText()
+        setUpDistrictAutomationText()
+        setUpWardAutomationText()
+        setUpFirstState()
+        doOnTextChange()
+
 //        checkButtonMatchDialog()
 //        binding.btnEditAddAddress.setOnClickListener {
 //            onClickEditOrAdd()
@@ -56,92 +64,131 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 //        setCheckingName()
         return binding.root
     }
+
+
     @SuppressLint("SetTextI18n")
-    private fun setGenderAutomationTest()
-    {
+    private fun setUpFirstState() {
+        if (viewModel.currentAddress.value!!.id != -1L) {
+            // edit address
+            // set up gender check box
+            binding.actvGender.setText(
+                viewModel.currentAddress.value!!.getGenderSmallString(),
+                false
+            )
+            // set up edit button
+        } else {
+            //create new address
+            //set up gender first box
+            binding.actvGender.setText("Male", false)
+            // set up submit button
+            binding.submitButton.setOnClickListener {
+                Log.d("address", viewModel.currentAddress.value!!.toString())
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setGenderAutomationText() {
         val genderList = listOf("Male", "Female")
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)
-        if(viewModel.currentAddress.value!!.id!=-1L){
-            binding.actvGender.setText(viewModel.currentAddress.value!!.getGenderSmallString(), false)
-        }else{
-            binding.actvGender.setText("Male", false)
+        binding.actvGender.addTextChangedListener {
+            viewModel.currentAddress.value!!.setGenderFromString(it.toString());
         }
-
     }
 
-//    private fun setStartValue()
-//    {
-//        viewModel.address.value = args.defaultAddress
-//        viewModel.name.value = viewModel.address.value!!.name
-//        viewModel.cellNumber.value = viewModel.address.value!!.phoneNumber
-//        viewModel.isDefault.value = viewModel.address.value!!.isDefault
-//        binding.actvCity.setText(args.defaultAddress.city, false)
-//        viewModel.positionOfProvince(args.defaultAddress.city)
-//        if (args.defaultAddress.gender) {
-//            binding.actvGender.setText("Male", false)
-//        }
-//        else {binding.actvGender.setText("Female", false)}
-//        binding.actvDistrict.setText(args.defaultAddress.district, false)
-//        binding.actvWard.setText(args.defaultAddress.ward, false)
-//        binding.btnEditAddAddress.isEnabled = true
-//    }
-
-    private fun setAdapterForAddressElement()
-    {
+    private fun setUpProvinceAutomationText() {
         provinceAdapter = ArrayAdapter(requireContext(), R.layout.province_list_item, arrayListOf())
         binding.actvCity.setAdapter(provinceAdapter)
-        districtAdapter = ArrayAdapter(requireContext(), R.layout.district_list_item, arrayListOf())
-        binding.actvDistrict.setAdapter(districtAdapter)
-        wardAdapter = ArrayAdapter(requireContext(), R.layout.ward_list_item, arrayListOf())
-        binding.actvWard.setAdapter(wardAdapter)
+        // submit province data
+        if (provinceAdapter.isEmpty) {
+            provinceAdapter.addAll(viewModel.listProvince.value!!.map { province -> province.name })
+        }
+        // on user select province
+        binding.actvCity.doOnTextChanged { text, _, _, _ ->
+            val provinceId = viewModel.getIdOfProvince(text.toString())
+            if (provinceId != -1L) {
+                //load all districts of selected province
+                viewModel.loadDistrictsByProvinceId(provinceId)
+                //clear old district value
+                binding.actvDistrict.setText("", false)
+                //clear old ward value
+                binding.actvWard.setText("",false)
+                // set address value
+                viewModel.currentAddress.value!!.city = text.toString()
+                // tracking valid button
+                viewModel.trackingValidInformation()
+            }
+        }
     }
 
-//    private fun onSetLinkOfEventForAddressChoose()
-//    {
-//        viewModel.listProvince.observe(viewLifecycleOwner, Observer {
-//            addProvinceList()
-//            if (viewModel.positionOfProvince(args.defaultAddress.city)<it.size && viewModel.positionOfProvince(args.defaultAddress.city) != 0)
-//            {
-//                Log.d("district2", idOfProvince(viewModel.positionOfProvince(args.defaultAddress.city)).toString())
-//                viewModel.listDistrict.value = mutableListOf()
-//                viewModel.loadDistrictByProvince(idOfProvince(viewModel.positionOfProvince(args.defaultAddress.city)))
-//            }
-//        })
-//        binding.actvCity.setOnItemClickListener{ adapterView, view, i, l ->
-//            deleteDistrict()
-//            deleteWardList()
-//            binding.actvDistrict.setText("", false)
-//            binding.actvWard.setText("", false)
-//            viewModel.listWard.value = mutableListOf()
-//            viewModel.loadDistrictByProvince(idOfProvince(i))
-//        }
-//        viewModel.listDistrict.observe(viewLifecycleOwner, Observer {
-//            addDistrictList()
-//            districtAdapter.notifyDataSetChanged()
-//            if (viewModel.positionOfDistrict(args.defaultAddress.district)<=it.size && viewModel.positionOfDistrict(args.defaultAddress.district)!=0 && !firsTimeLoadProvince)
-//            {
-//                firsTimeLoadProvince = true
-//                viewModel.loadWardByDistrict(idOfDistrict(viewModel.positionOfDistrict(args.defaultAddress.district)))
-//            }
-//        })
-//        binding.actvDistrict.setOnItemClickListener { adapterView, view, i, l ->
-//            deleteWardList()
-//            binding.actvWard.setText("", false)
-//            wardAdapter.notifyDataSetChanged()
-//            viewModel.loadWardByDistrict(idOfDistrict(i))
-//        }
-//        viewModel.listWard.observe(viewLifecycleOwner, Observer {
-//            addWardList()
-//            wardAdapter.notifyDataSetChanged()
-//            if (viewModel.positionOfWard(args.defaultAddress.ward)<=it.size && viewModel.positionOfWard(args.defaultAddress.ward)!=0 && !firsTimeLoadWard)
-//            {
-//                binding.actvWard.setSelection(viewModel.positionOfWard(args.defaultAddress.ward))
-//                firsTimeLoadWard= true
-//            }
-//        })
-//        binding.btnEditAddAddress.isEnabled = true
-//    }
+    private fun setUpDistrictAutomationText() {
+        // set up adapter
+        districtAdapter = ArrayAdapter(requireContext(), R.layout.district_list_item, arrayListOf())
+        binding.actvDistrict.setAdapter(districtAdapter)
+        // observe data
+        viewModel.listDistrict.observe(viewLifecycleOwner) {
+            districtAdapter.clear()
+            districtAdapter.addAll(it.map { district -> district.name })
+        }
+        // on user select district
+        binding.actvDistrict.doOnTextChanged { text, _, _, _ ->
+            val districtId = viewModel.getIdOfDistrict(text.toString())
+            if (districtId != -1L) {
+                // load all wards of selected district
+                viewModel.loadWardsByDistrictId(districtId)
+                //clear old ward value
+                binding.actvWard.setText("",false)
+                //set address value
+                viewModel.currentAddress.value!!.district = text.toString()
+                // tracking valid button
+                viewModel.trackingValidInformation()
+            }
+        }
+    }
+
+    private fun setUpWardAutomationText() {
+        //set up adapter
+        wardAdapter = ArrayAdapter(requireContext(), R.layout.ward_list_item, arrayListOf())
+        binding.actvWard.setAdapter(wardAdapter)
+        // observe data
+        viewModel.listWard.observe(viewLifecycleOwner) {
+            wardAdapter.clear()
+            wardAdapter.addAll(it.map { ward -> ward.name })
+        }
+        // on user select ward
+        binding.actvWard.doOnTextChanged { text, _, _, _ ->
+            viewModel.currentAddress.value!!.ward = text.toString()
+            // tracking valid button
+            viewModel.trackingValidInformation()
+        }
+    }
+
+    private fun doOnTextChange() {
+        // name edit text
+        binding.etName.doAfterTextChanged {
+            binding.etName.error = StringValidator.getNameError(it.toString())
+            // tracking valid button
+            viewModel.trackingValidInformation()
+        }
+        // phone edit text
+        binding.etPhone.doAfterTextChanged {
+            binding.etPhone.error = StringValidator.getPhoneNumberError(it.toString())
+            // tracking valid button
+            viewModel.trackingValidInformation()
+        }
+        // address edit text
+        binding.etAddressLane.doAfterTextChanged {
+            if (it.toString().isBlank()) {
+                binding.etAddressLane.error = "Please provide detail address lane!"
+            } else {
+                binding.etAddressLane.error = null
+            }
+            // tracking valid button
+            viewModel.trackingValidInformation()
+        }
+    }
+
 
 //    private fun onOpenDeleteDialog()
 //    {
@@ -193,93 +240,6 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 //            binding.btnDelete.text = "Delete"
 //        }
 ////        if (binding.btnEditAddAddress.text == "Edit") binding.btnEditAddAddress.isEnabled = false
-//    }
-
-
-//
-//    private fun addProvinceList()
-//    {
-//        val provinceList = viewModel.listProvince
-//        deleteProvince()
-//        if (provinceList.value != null) {
-//            for (i in 0 until provinceList.value!!.size) {
-//                provinceAdapter.insert(provinceList.value!![i].name, i)
-////                Log.d("province", provinceList.value!![i].name)
-//            }
-//            provinceAdapter.notifyDataSetChanged()
-//            provinceAdapter.notifyDataSetChanged()
-//        }
-//    }
-
-//    private fun addDistrictList()
-//    {
-//        val districtList = viewModel.listDistrict
-//        deleteDistrict()
-//        for (i in 0 until  districtList.value!!.size)
-//        {
-//            districtAdapter.insert(districtList.value!![i].name, i)
-////            Log.d("district", districtList.value!![i].name)
-//        }
-//        districtAdapter.notifyDataSetChanged()
-//        districtAdapter.notifyDataSetChanged()
-//    }
-
-//    private fun addWardList()
-//    {
-//        val wardList = viewModel.listWard
-//        deleteWardList()
-//        for (i in 0 until wardList.value!!.size)
-//        {
-//            wardAdapter.insert(wardList.value!![i].name, i)
-//        }
-//        wardAdapter.notifyDataSetChanged()
-//        wardAdapter.notifyDataSetChanged()
-//    }
-
-//    private fun deleteWardList()
-//    {
-//        val wardList = viewModel.listWard
-//        if (wardList.value != null) {
-//            for (i in 0 until wardList.value!!.size) {
-//                provinceAdapter.remove(wardList.value!![i].name)
-//            }
-//            provinceAdapter.notifyDataSetChanged()
-//            provinceAdapter.notifyDataSetChanged()
-//        }
-//    }
-
-//    private fun deleteDistrict()
-//    {
-//        val districtList = viewModel.listDistrict
-//        if (districtList.value!= null) {
-//            for (i in 0 until districtList.value!!.size) {
-//                districtAdapter.remove(districtList.value!![i].name)
-//            }
-//            districtAdapter.notifyDataSetChanged()
-//            districtAdapter.notifyDataSetChanged()
-//        }
-//    }
-
-//    private fun deleteProvince()
-//    {
-//        val provinceList = viewModel.listDistrict
-//        if (provinceList.value!= null) {
-//            for (i in 0 until provinceList.value!!.size) {
-//                districtAdapter.remove(provinceList.value!![i].name)
-//            }
-//            districtAdapter.notifyDataSetChanged()
-//            districtAdapter.notifyDataSetChanged()
-//        }
-//    }
-//
-//    private fun idOfProvince(position: Int): Long
-//    {
-//       return viewModel.listProvince.value!![position].id
-//    }
-//
-//    private fun idOfDistrict(position: Int): Long
-//    {
-//        return viewModel.listDistrict.value!![position].id
 //    }
 
 //    private fun onAddNewAddress()
@@ -361,7 +321,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 //            binding.etPhone.error = viewModel.cellNumberErrorMessage
 //        }
 //    }
-
+//
 //    fun setOnChange() {
 //        if (binding.btnEditAddAddress.text == "Edit") {
 //            binding.actvCity.addTextChangedListener {

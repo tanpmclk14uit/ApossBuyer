@@ -24,9 +24,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddressDialogViewModel @Inject constructor(
-    private val provinceRepository: ProvinceRepository,
-    private val districtRepository: DistrictRepository,
-    private val wardRepository: WardRepository,
     private val authRepository: AuthRepository,
     private val deliveryAddressRepository: DeliveryAddressRepository
 ) : ViewModel() {
@@ -38,9 +35,7 @@ class AddressDialogViewModel @Inject constructor(
     var cellNumber: MutableLiveData<String> = MutableLiveData()
     var isDefault: MutableLiveData<Boolean> = MutableLiveData(false)
     val listProvince = MutableLiveData<MutableList<Province>>()
-
     val listDistrict = MutableLiveData<MutableList<District>>()
-
     val listWard = MutableLiveData<MutableList<Ward>>()
 
     val listAddress = MutableLiveData<MutableList<Address>>()
@@ -50,71 +45,9 @@ class AddressDialogViewModel @Inject constructor(
 
 
     init {
-        loadProvince()
+        //loadProvince()
     }
 
-    fun isChangeName(newName: String): Boolean {
-        return address.value!!.name != newName
-    }
-
-    fun isChangeGender(newGender: String): Boolean {
-        val newGenderBool: Boolean = newGender == "Male"
-        return address.value!!.gender == newGenderBool
-    }
-
-    fun isChangeCity(newCity: String): Boolean {
-        return address.value!!.city == newCity
-    }
-
-    fun isChangeDistrict(newDistrict: String): Boolean {
-        return address.value!!.district == newDistrict
-    }
-
-    fun isChangeWard(newWard: String): Boolean {
-        return address.value!!.ward == newWard
-    }
-
-    fun isChangeAddressLane(newAddressLane: String): Boolean {
-        return address.value!!.addressLane == newAddressLane
-    }
-
-    fun isChangePhone(newPhone: String): Boolean {
-        return address.value!!.phoneNumber == newPhone
-    }
-
-    private fun loadUserAddress() {
-        listAddress.value = mutableListOf()
-        status.value = LoadingStatus.Loading
-        viewModelScope.launch {
-            try {
-                val token = authRepository.getCurrentAccessTokenFromRoom()
-                if (token != null) {
-                    val response =
-                        deliveryAddressRepository.deliveryAddressService.getAllDeliveryAddressService(
-                            token
-                        )
-                    if (response.isSuccessful) {
-                        val listDeliveryAddressDTO = response.body()
-                        listAddress.value = listDeliveryAddressDTO!!.stream().map {
-                            convertDeliveryAddressDTOToAddress(it)
-                        }.collect(Collectors.toList())
-                        status.value = LoadingStatus.Success
-                    } else {
-                        if (response.code() == 401) {
-                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
-                            if (refreshToken != null) {
-                                getNewAccessTokenFromRefreshToken(refreshToken)
-                                loadUserAddress()
-                            }
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                status.value = LoadingStatus.Fail
-                Log.e("Exception", e.toString())
-            }
-        }
-    }
 
     private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address {
         return Address(
@@ -130,50 +63,40 @@ class AddressDialogViewModel @Inject constructor(
         )
     }
 
-    fun onAddNewAddress(address: Address) {
-        val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
-        addingStatus.value = AddingStatus.Loading
-        viewModelScope.launch {
-            try {
-                val token = authRepository.getCurrentAccessTokenFromRoom()
-                if (token != null) {
-                    val response =
-                        deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(
-                            token,
-                            deliveryAddressDTO
-                        )
-                    if (response.isSuccessful) {
-                        addingStatus.value = AddingStatus.Success
-                        BridgeObject.addressListChange.value =
-                            !BridgeObject.addressListChange.value!!
-                        loadUserAddress()
-                    } else {
-                        if (response.code() == 401) {
-                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
-                            if (refreshToken != null) {
-                                getNewAccessTokenFromRefreshToken(refreshToken)
-                                onAddNewAddress(address)
-                            }
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                addingStatus.value = AddingStatus.Fail
-                Log.e("Exception", e.toString())
-            }
-        }
-    }
+//    fun onAddNewAddress(address: Address) {
+//        val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
+//        addingStatus.value = AddingStatus.Loading
+//        viewModelScope.launch {
+//            try {
+//                val token = authRepository.getCurrentAccessTokenFromRoom()
+//                if (token != null) {
+//                    val response =
+//                        deliveryAddressRepository.deliveryAddressService.addDeliveryAddressService(
+//                            token,
+//                            deliveryAddressDTO
+//                        )
+//                    if (response.isSuccessful) {
+//                        addingStatus.value = AddingStatus.Success
+//                        BridgeObject.addressListChange.value =
+//                            !BridgeObject.addressListChange.value!!
+//                        loadUserAddress()
+//                    } else {
+//                        if (response.code() == 401) {
+//                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
+//                            if (refreshToken != null) {
+//                                getNewAccessTokenFromRefreshToken(refreshToken)
+//                                onAddNewAddress(address)
+//                            }
+//                        }
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                addingStatus.value = AddingStatus.Fail
+//                Log.e("Exception", e.toString())
+//            }
+//        }
+//    }
 
-    private suspend fun getNewAccessTokenFromRefreshToken(refreshToken: String) {
-        viewModelScope.launch {
-            val newAccessTokenResponse = authRepository.getAccessTokenFromRefreshToken(refreshToken)
-            if (newAccessTokenResponse.isSuccessful) {
-                val newAccessToken =
-                    authRepository.getAccessTokenFromRefreshToken(refreshToken).body()!!
-                authRepository.updateAccessToken(newAccessToken)
-            }
-        }
-    }
 
     private fun convertAddressToDeliveryAddressDTO(address: Address): DeliveryAddressDTO {
         return DeliveryAddressDTO(
@@ -225,134 +148,61 @@ class AddressDialogViewModel @Inject constructor(
         return WardDTO(1, "Phường Phúc Xá", 1)
     }
 
-    fun onUpdateAddress(address: Address) {
-        val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
-        addingStatus.value = AddingStatus.Loading
-        viewModelScope.launch {
-            try {
-                val token = authRepository.getCurrentAccessTokenFromRoom()
-                if (token != null) {
-                    val response =
-                        deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(
-                            token,
-                            deliveryAddressDTO
-                        )
-                    if (response.isSuccessful) {
-                        addingStatus.value = AddingStatus.Success
-                        BridgeObject.addressListChange.value =
-                            !BridgeObject.addressListChange.value!!
-                    } else {
-                        if (response.code() == 401) {
-                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
-                            if (refreshToken != null) {
-                                getNewAccessTokenFromRefreshToken(refreshToken)
-                                onUpdateAddress(address)
-                            }
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                addingStatus.value = AddingStatus.Fail
-                Log.e("Exception", e.toString())
-            }
-        }
-    }
+//    fun onUpdateAddress(address: Address) {
+//        val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(address)
+//        addingStatus.value = AddingStatus.Loading
+//        viewModelScope.launch {
+//            try {
+//                val token = authRepository.getCurrentAccessTokenFromRoom()
+//                if (token != null) {
+//                    val response =
+//                        deliveryAddressRepository.deliveryAddressService.updateDeliveryAddressService(
+//                            token,
+//                            deliveryAddressDTO
+//                        )
+//                    if (response.isSuccessful) {
+//                        addingStatus.value = AddingStatus.Success
+//                        BridgeObject.addressListChange.value =
+//                            !BridgeObject.addressListChange.value!!
+//                    } else {
+//                        if (response.code() == 401) {
+//                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
+//                            if (refreshToken != null) {
+//                                getNewAccessTokenFromRefreshToken(refreshToken)
+//                                onUpdateAddress(address)
+//                            }
+//                        }
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                addingStatus.value = AddingStatus.Fail
+//                Log.e("Exception", e.toString())
+//            }
+//        }
+//    }
 
-    private fun isNameContainNumberOrSpecialCharacter(name: String): Boolean {
-        val hasNumber: Boolean = Pattern.compile(
-            "[0-9]"
-        ).matcher(name).find()
-        val hasSpecialCharacter: Boolean = Pattern.compile(
-            "[!@#$%&.,\"':;?*()_+=|<>{}\\[\\]~-]"
-        ).matcher(name).find()
-        return hasNumber || hasSpecialCharacter
-    }
 
-    fun isValidName(): Boolean {
-        return if (name.value!!.isBlank()) {
-            nameErrorMessage = "Name can not empty"
-            false
-        } else {
-            return if (isNameContainNumberOrSpecialCharacter(name.value!!)) {
-                nameErrorMessage = "Name can't contain special character"
-                false
-            } else {
-                nameErrorMessage = null
-                true
-            }
-        }
-    }
 
-    private fun isPhoneNumberRightFormat(str: String): Boolean {
-        val regex = "(84|0[35789])+([0-9]{8})\\b".toRegex()
-        return str.matches(regex)
-    }
+//    fun loadProvince() {
+//        listProvince.value = mutableListOf()
+//        status.value = LoadingStatus.Loading
+//        viewModelScope.launch {
+//            val response = provinceRepository.provinceService.getAllProvince()
+//            try {
+//                listProvince.value = response.body()!!.stream().map {
+//                    convertFromProvinceDTOToProvince(it)
+//                }.collect(Collectors.toList())
+//                status.value = LoadingStatus.Success
+//            } catch (e: Exception) {
+//                Log.e("Exception", e.message!!)
+//                status.value = LoadingStatus.Fail
+//            }
+//        }
+//    }
 
-    fun isValidPhoneNumber(): Boolean {
-        return if (cellNumber.value!!.isBlank()) {
-            cellNumberErrorMessage = "Phone number is require!"
-            false
-        } else {
-            return if (!isPhoneNumberRightFormat(cellNumber.value!!)) {
-                cellNumberErrorMessage = "Phone number in wrong format"
-                false
-            } else {
-                cellNumberErrorMessage = null
-                true
-            }
-        }
-    }
 
-    fun loadProvince() {
-        listProvince.value = mutableListOf()
-        status.value = LoadingStatus.Loading
-        viewModelScope.launch {
-            val response = provinceRepository.provinceService.getAllProvince()
-            try {
-                listProvince.value = response.body()!!.stream().map {
-                    convertFromProvinceDTOToProvince(it)
-                }.collect(Collectors.toList())
-                status.value = LoadingStatus.Success
-            } catch (e: Exception) {
-                Log.e("Exception", e.message!!)
-                status.value = LoadingStatus.Fail
-            }
-        }
-    }
 
-    fun loadDistrictByProvince(choseProvince: Long) {
-        listDistrict.value = mutableListOf()
-        status.value = LoadingStatus.Loading
-        viewModelScope.launch {
-            val response = districtRepository.districtService.getAllDistrictById(choseProvince)
-            try {
-                listDistrict.value = response.body()!!.stream().map {
-                    convertFromDistrictDTOToDistrict(it)
-                }.collect(Collectors.toList())
-                status.value = LoadingStatus.Success
-            } catch (e: Exception) {
-                Log.e("Exception", e.toString())
-                status.value = LoadingStatus.Fail
-            }
-        }
-    }
 
-    fun loadWardByDistrict(choseDistrict: Long) {
-        listWard.value = mutableListOf()
-        status.value = LoadingStatus.Loading
-        viewModelScope.launch {
-            val response = wardRepository.wardService.getAllWardById(choseDistrict)
-            try {
-                listWard.value = response.body()!!.stream().map {
-                    convertFromWardDTOToWard(it)
-                }.collect(Collectors.toList())
-                status.value = LoadingStatus.Success
-            } catch (e: Exception) {
-                Log.e("Exception", e.message!!)
-                status.value = LoadingStatus.Fail
-            }
-        }
-    }
 
     private fun convertFromProvinceDTOToProvince(provinceDTO: ProvinceDTO): Province {
         return Province(provinceDTO.id, provinceDTO.name)
@@ -378,38 +228,38 @@ class AddressDialogViewModel @Inject constructor(
         return WardDTO(ward.id, ward.name, ward.district)
     }
 
-    fun deleteDeliveryAddress(id: Long) {
-        addingStatus.value = AddingStatus.Loading
-        viewModelScope.launch {
-            try {
-                val token = authRepository.getCurrentAccessTokenFromRoom()
-                if (token != null) {
-                    val response =
-                        deliveryAddressRepository.deliveryAddressService.deleteDeliveryAddressService(
-                            token,
-                            id
-                        )
-                    if (response.isSuccessful) {
-                        addingStatus.value = AddingStatus.Success
-                        BridgeObject.addressListChange.value =
-                            !BridgeObject.addressListChange.value!!
-                        loadUserAddress()
-                    } else {
-                        if (response.code() == 401) {
-                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
-                            if (refreshToken != null) {
-                                getNewAccessTokenFromRefreshToken(refreshToken)
-                                deleteDeliveryAddress(id)
-                            }
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                addingStatus.value = AddingStatus.Fail
-                Log.e("Exception", e.toString())
-            }
-        }
-    }
+//    fun deleteDeliveryAddress(id: Long) {
+//        addingStatus.value = AddingStatus.Loading
+//        viewModelScope.launch {
+//            try {
+//                val token = authRepository.getCurrentAccessTokenFromRoom()
+//                if (token != null) {
+//                    val response =
+//                        deliveryAddressRepository.deliveryAddressService.deleteDeliveryAddressService(
+//                            token,
+//                            id
+//                        )
+//                    if (response.isSuccessful) {
+//                        addingStatus.value = AddingStatus.Success
+//                        BridgeObject.addressListChange.value =
+//                            !BridgeObject.addressListChange.value!!
+//                        loadUserAddress()
+//                    } else {
+//                        if (response.code() == 401) {
+//                            val refreshToken = authRepository.getCurrentRefreshTokenFromRoom()
+//                            if (refreshToken != null) {
+//                                getNewAccessTokenFromRefreshToken(refreshToken)
+//                                deleteDeliveryAddress(id)
+//                            }
+//                        }
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                addingStatus.value = AddingStatus.Fail
+//                Log.e("Exception", e.toString())
+//            }
+//        }
+//    }
 
     fun positionOfProvince(name: String): Int {
         var position = 0

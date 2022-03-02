@@ -253,7 +253,7 @@ class CartViewModel @Inject constructor(
         coroutineScope.launch {
             if (tokenDTO != null) {
                 val defaultAddressRespone =
-                    deliveryAddressRepository.deliveryAddressService.getDefaultAddress(
+                    deliveryAddressRepository.getUserDefaultAddress(
                         tokenDTO!!.getFullAccessToken()
                     )
                 if (defaultAddressRespone.code() == 200) {

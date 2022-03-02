@@ -40,9 +40,23 @@ class AuthRepository @Inject constructor(
     suspend fun signInWithSocialAccount(signInWithSocialDTO: SignInWithSocialDTO): Response<TokenDTO> {
         return authService.signInWithSocialAccount(signInWithSocialDTO)
     }
+    suspend fun loadNewAccessTokenSuccess(): Boolean{
+        var isSuccess = false;
+        val currentRefreshToken = getCurrentRefreshTokenFromRoom()
+        if(currentRefreshToken!=null){
+            val newAccessTokenResponse = getAccessTokenFromRefreshToken(currentRefreshToken)
+            if(newAccessTokenResponse.isSuccessful){
+                isSuccess = true
+                updateAccessToken(newAccessTokenResponse.body()!!)
+            }else{
+                isSuccess = false
+            }
+        }
+        return isSuccess
+    }
 
     //Account with room database
-    fun updateAccessToken(newAccessToken: String) {
+    private fun updateAccessToken(newAccessToken: String) {
         AccountDatabase.getInstance(context).accountDao.updateAccessToken(newAccessToken)
     }
 
@@ -58,7 +72,7 @@ class AuthRepository @Inject constructor(
             null;
         }
     }
-    fun getCurrentRefreshTokenFromRoom(): String? {
+    private fun getCurrentRefreshTokenFromRoom(): String? {
         return AccountDatabase.getInstance(context).accountDao.getAccount()?.refreshToken
     }
 

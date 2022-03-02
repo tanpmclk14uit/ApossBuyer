@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.AddressViewModel" />
+        <variable
+            name="view"
+            type="android.view.View" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -32,7 +35,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:text="@{viewModel.currentAddress.name}"
+                android:text="@={viewModel.currentAddress.name}"
                 android:autofillHints="name"
                 android:inputType="text"
                 android:id="@+id/et_name"
@@ -64,7 +67,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:text="@{viewModel.currentAddress.phoneNumber}"
+                        android:text="@={viewModel.currentAddress.phoneNumber}"
                         android:autofillHints="phone"
                         android:id="@+id/et_phone"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -232,7 +235,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:text="@{viewModel.currentAddress.addressLane}"
+                android:text="@={viewModel.currentAddress.addressLane}"
                 android:id="@+id/et_addressLane"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -246,19 +249,23 @@
                 tools:ignore="LabelFor" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:checked="@{viewModel.currentAddress.defaultAddress}"
+                android:checked="@={viewModel.currentAddress.defaultAddress}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/set_as_default_address">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
+
             <androidx.appcompat.widget.AppCompatButton
+                android:enabled="@{viewModel.validInformation}"
                 android:layout_width="match_parent"
-                android:visibility="gone"
+                android:id="@+id/submitButton"
+                android:visibility="@{viewModel.currentAddress.id == -1L? view.VISIBLE:view.GONE}"
                 android:layout_height="45dp"
+                android:layout_marginBottom="15dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:background="@drawable/bg_edit_address"
+                android:background="@{viewModel.validInformation? @drawable/bg_edit_address:@drawable/bg_disable_edit_address}"
                 android:text="@string/submit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -266,6 +273,7 @@
                 android:textStyle="bold" />
 
             <GridLayout
+                android:visibility="@{viewModel.currentAddress.id != -1L? view.VISIBLE:view.GONE}"
                 android:id="@+id/bottomButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
