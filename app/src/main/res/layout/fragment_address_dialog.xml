@@ -35,7 +35,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:text="@={viewModel.currentAddress.name}"
+                android:text="@={viewModel.newAddress.name}"
                 android:autofillHints="name"
                 android:inputType="text"
                 android:id="@+id/et_name"
@@ -67,7 +67,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:text="@={viewModel.currentAddress.phoneNumber}"
+                        android:text="@={viewModel.newAddress.phoneNumber}"
                         android:autofillHints="phone"
                         android:id="@+id/et_phone"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -235,7 +235,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:text="@={viewModel.currentAddress.addressLane}"
+                android:text="@={viewModel.newAddress.addressLane}"
                 android:id="@+id/et_addressLane"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -249,9 +249,10 @@
                 tools:ignore="LabelFor" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:checked="@={viewModel.currentAddress.defaultAddress}"
+                android:id="@+id/defaultCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.newAddress.defaultAddress}"
                 android:text="@string/set_as_default_address">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
@@ -260,7 +261,7 @@
                 android:enabled="@{viewModel.validInformation}"
                 android:layout_width="match_parent"
                 android:id="@+id/submitButton"
-                android:visibility="@{viewModel.currentAddress.id == -1L? view.VISIBLE:view.GONE}"
+                android:visibility="@{viewModel.newAddress.id == -1L? view.VISIBLE:view.GONE}"
                 android:layout_height="45dp"
                 android:layout_marginBottom="15dp"
                 android:layout_rowWeight="1"
@@ -273,7 +274,7 @@
                 android:textStyle="bold" />
 
             <GridLayout
-                android:visibility="@{viewModel.currentAddress.id != -1L? view.VISIBLE:view.GONE}"
+                android:visibility="@{viewModel.newAddress.id != -1L? view.VISIBLE:view.GONE}"
                 android:id="@+id/bottomButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -298,7 +299,9 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_edit_add_address"
+                    android:id="@+id/buttonEdit"
+                    android:enabled="@{viewModel.validInformation}"
+                    android:background="@{viewModel.validInformation? @drawable/bg_edit_address:@drawable/bg_disable_edit_address}"
                     android:layout_width="150dp"
                     android:layout_height="45dp"
                     android:layout_row="0"
@@ -306,7 +309,6 @@
                     android:layout_column="1"
                     android:layout_columnWeight="1"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/bg_edit_address"
                     android:text="@string/edit"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

@@ -2,14 +2,12 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressBinding
@@ -33,7 +31,7 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
 
         setAddressRecycleView()
@@ -58,7 +56,8 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     }
 
     override fun onEdit(address: Address) {
-        viewModel.currentAddress.value = address
+        viewModel.newAddress.value = address
+        viewModel.currentAddress = address.copy()
         findNavController().navigate(
             AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2()
         )
@@ -66,7 +65,8 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
 
     private fun setOnAddNewAddressClick() {
         binding.tvAddNewAddress.setOnClickListener {
-            viewModel.currentAddress.value = Address(-1)
+            viewModel.newAddress.value = Address(-1)
+            viewModel.currentAddress = Address(-1)
             findNavController().navigate(
                 AddressFragmentDirections.actionAddressFragmentToAddressDialogFragment2()
             )

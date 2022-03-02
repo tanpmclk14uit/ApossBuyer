@@ -58,7 +58,7 @@ class CheckOutFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.btnConfirm.setOnClickListener {
-            if (viewModel.defaultAddress.value!!.id == 0L && viewModel.defaultAddress.value!!.ward == "") {
+            if (viewModel.defaultAddress.value!!.id == 0L && viewModel.defaultAddress.value!!.ward.name == "") {
                 Toast.makeText(this.context, "Please choose default address", Toast.LENGTH_SHORT).show()
             }
             else {

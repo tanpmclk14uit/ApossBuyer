@@ -1,12 +1,14 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
@@ -37,53 +39,62 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
         setGenderAutomationText()
         setUpProvinceAutomationText()
         setUpDistrictAutomationText()
         setUpWardAutomationText()
-        setUpFirstState()
+        setUpDefaultAddressCheckChange()
+        // set up edit text: name, phone, address lane
         doOnTextChange()
-
-//        checkButtonMatchDialog()
-//        binding.btnEditAddAddress.setOnClickListener {
-//            onClickEditOrAdd()
-//        }
-//        binding.btnDelete.setOnClickListener {
-//            if (binding.btnDelete.text == "Cancel")
-//            {
-//                findNavController().navigate(AddressDialogFragmentDirections.actionAddressDialogFragment2ToAddressFragment())
-//            }
-//            else {
-//                onOpenDeleteDialog()
-//            }
-//        }
-//        onSetLinkOfEventForAddressChoose()
-//        onAddNewAddress()
-//        setCheckingCellPhone()
-//        setCheckingName()
+        // set up first state of dialog
+        setUpFirstState()
         return binding.root
     }
 
-
     @SuppressLint("SetTextI18n")
     private fun setUpFirstState() {
-        if (viewModel.currentAddress.value!!.id != -1L) {
+        viewModel.trackingValidInformation()
+        val currentAddress = viewModel.newAddress.value!!
+        if (currentAddress.id != -1L) {
             // edit address
             // set up gender check box
             binding.actvGender.setText(
-                viewModel.currentAddress.value!!.getGenderSmallString(),
+                currentAddress.getGenderSmallString(),
                 false
             )
-            // set up edit button
+            //set up city automation text
+            binding.actvCity.setText(currentAddress.city.name, false)
+            // set up district automation text
+            binding.actvDistrict.setText(currentAddress.district.name, false)
+            viewModel.loadDistrictsByProvinceId(currentAddress.city.id)
+            // set up ward automation text
+            binding.actvWard.setText(currentAddress.ward.name, false)
+            viewModel.loadWardsByDistrictId(currentAddress.district.id)
+            //set up edit button
+            binding.buttonEdit.setOnClickListener {
+                viewModel.onUpdateAddress()
+                this.dismiss()
+            }
+            // set up delete button
+            binding.btnDelete.setOnClickListener {
+                onOpenDeleteDialog()
+            }
         } else {
             //create new address
             //set up gender first box
             binding.actvGender.setText("Male", false)
             // set up submit button
             binding.submitButton.setOnClickListener {
-                Log.d("address", viewModel.currentAddress.value!!.toString())
+                viewModel.addNewAddress()
+                this.dismiss()
             }
+        }
+    }
+
+    private fun setUpDefaultAddressCheckChange() {
+        binding.defaultCheckBox.setOnCheckedChangeListener { _, _ ->
+            viewModel.trackingValidInformation()
         }
     }
 
@@ -93,7 +104,9 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)
         binding.actvGender.addTextChangedListener {
-            viewModel.currentAddress.value!!.setGenderFromString(it.toString());
+            viewModel.newAddress.value!!.setGenderFromString(it.toString())
+            // tracking valid button
+            viewModel.trackingValidInformation()
         }
     }
 
@@ -106,16 +119,16 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         }
         // on user select province
         binding.actvCity.doOnTextChanged { text, _, _, _ ->
-            val provinceId = viewModel.getIdOfProvince(text.toString())
-            if (provinceId != -1L) {
+            val province = viewModel.getProvinceFromName(text.toString())
+            if (province.id != -1L) {
                 //load all districts of selected province
-                viewModel.loadDistrictsByProvinceId(provinceId)
+                viewModel.loadDistrictsByProvinceId(province.id)
                 //clear old district value
                 binding.actvDistrict.setText("", false)
                 //clear old ward value
-                binding.actvWard.setText("",false)
+                binding.actvWard.setText("", false)
                 // set address value
-                viewModel.currentAddress.value!!.city = text.toString()
+                viewModel.newAddress.value!!.city = province
                 // tracking valid button
                 viewModel.trackingValidInformation()
             }
@@ -133,14 +146,14 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         }
         // on user select district
         binding.actvDistrict.doOnTextChanged { text, _, _, _ ->
-            val districtId = viewModel.getIdOfDistrict(text.toString())
-            if (districtId != -1L) {
+            val district = viewModel.getDistrictFromName(text.toString())
+            if (district.id != -1L) {
                 // load all wards of selected district
-                viewModel.loadWardsByDistrictId(districtId)
+                viewModel.loadWardsByDistrictId(district.id)
                 //clear old ward value
-                binding.actvWard.setText("",false)
+                binding.actvWard.setText("", false)
                 //set address value
-                viewModel.currentAddress.value!!.district = text.toString()
+                viewModel.newAddress.value!!.district = district
                 // tracking valid button
                 viewModel.trackingValidInformation()
             }
@@ -158,9 +171,12 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         }
         // on user select ward
         binding.actvWard.doOnTextChanged { text, _, _, _ ->
-            viewModel.currentAddress.value!!.ward = text.toString()
-            // tracking valid button
-            viewModel.trackingValidInformation()
+            val ward = viewModel.getWardFromName(text.toString())
+            if (ward.id != -1L) {
+                viewModel.newAddress.value!!.ward = ward
+                // tracking valid button
+                viewModel.trackingValidInformation()
+            }
         }
     }
 
@@ -189,162 +205,39 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun onOpenDeleteDialog() {
+        val dialogDelete = this.context?.let { Dialog(it) }
+        dialogDelete?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogDelete?.setContentView(R.layout.delete_permission_dialog)
 
-//    private fun onOpenDeleteDialog()
-//    {
-//        val dialogDelete = this.context?.let { Dialog(it) }
-//        dialogDelete?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialogDelete?.setContentView(R.layout.delete_permission_dialog)
-//
-//        val window = dialogDelete?.window ?: return
-//
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-//        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//
-//        val windowAttribute = window.attributes
-//
-//        windowAttribute.gravity = Gravity.CENTER
-//        window.attributes= windowAttribute
-//
-//        dialogDelete.setCancelable(false)
-//
-//        val btnDelete: AppCompatButton = dialogDelete.findViewById(R.id.btn_delete)
-//        val btnCancel: AppCompatButton = dialogDelete.findViewById(R.id.btn_cancel)
-//
-//        btnCancel.setOnClickListener {
-//            dialogDelete.dismiss()
-//        }
-//        btnDelete.isEnabled = true
-//        btnDelete.setOnClickListener {
-//            viewModel.deleteDeliveryAddress(args.defaultAddress.id)
-//            Toast.makeText(this.context, "Delete success", Toast.LENGTH_SHORT).show()
-//            dialogDelete.dismiss()
-//            requireActivity().onBackPressed()
-//        }
-//
-//        dialogDelete.show()
-//    }
+        val window = dialogDelete?.window ?: return
 
-//    @SuppressLint("SetTextI18n")
-//    private fun checkButtonMatchDialog()
-//    {
-//        if( args.defaultAddress.id == 0L) {
-//            binding.btnEditAddAddress.text = "Add new address"
-//            binding.btnDelete.text = "Cancel"
-//            binding.btnDelete.setOnClickListener {
-//                this.dismiss()
-//            }
-//        }
-//        else {
-//            binding.btnEditAddAddress.text = "Edit"
-//            binding.btnDelete.text = "Delete"
-//        }
-////        if (binding.btnEditAddAddress.text == "Edit") binding.btnEditAddAddress.isEnabled = false
-//    }
+        window.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-//    private fun onAddNewAddress()
-//    {
-//        if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != ""
-//            && binding.actvGender.text.toString() != "" && binding.actvWard.text.toString() != ""
-//            && binding.etName.text.toString() != "" && binding.etPhone.text.toString() != ""
-//            && binding.etAddressLane.text.toString()!="" ){
-//            val newAddress = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.text.toString()=="Male",
-//                binding.etPhone.text.toString(), binding.actvCity.text.toString(),
-//                binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
-//                binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
-//            viewModel.onAddNewAddress(newAddress)
-//            requireActivity().onBackPressed()
-//        }
-//        else if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != ""
-//            && binding.actvGender.hint != null && binding.actvWard.text.toString() != ""
-//            && binding.etName.text.toString() != "" && binding.etPhone.text.toString() != ""
-//            && binding.etAddressLane.text.toString()!= "" ) {
-//            val newAddress = Address(args.defaultAddress.id,binding.etName.text.toString(),binding.actvGender.hint.toString()=="Male",
-//                binding.etPhone.text.toString(), binding.actvCity.text.toString(),
-//                binding.actvDistrict.text.toString(), binding.actvWard.text.toString(),
-//                binding.etAddressLane.text.toString(), viewModel.isDefault.value!!)
-//            viewModel.onAddNewAddress(newAddress)
-//            requireActivity().onBackPressed()
-//        }
-//        else {
-//            Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT).show()
-//        }
-//    }
+        val windowAttribute = window.attributes
 
-//    private fun onClickEditOrAdd()
-//    {
-//        if (binding.btnEditAddAddress.text == "Edit") {
-//            Log.d("postingDefault", viewModel.isDefault.value!!.toString())
-//            if (binding.actvCity.text.toString() != "" && binding.actvDistrict.text.toString() != "" && binding.actvWard.text.toString() != "" &&
-//                binding.actvGender.text.toString() != ""
-//            ) {
-//                var newAddress: Address = Address(
-//                    args.defaultAddress.id,
-//                    binding.etName.text.toString(),
-//                    binding.actvGender.text.toString() == "Male",
-//                    binding.etPhone.text.toString(),
-//                    binding.actvCity.text.toString(),
-//                    binding.actvDistrict.text.toString(),
-//                    binding.actvWard.text.toString(),
-//                    binding.etAddressLane.text.toString(),
-//                    viewModel.isDefault.value!!
-//                )
-//                onUpdateAddress(newAddress)
-//                requireActivity().onBackPressed()
-//            } else {
-//                Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        } else onAddNewAddress()
-//    }
+        windowAttribute.gravity = Gravity.CENTER
+        window.attributes = windowAttribute
 
-//    private fun onUpdateAddress(address: Address)
-//    {
-//        viewModel.onUpdateAddress(address)
-//    }
-//
-//    private fun havingLegalToClick(isLegal: Boolean)
-//    {
-//        binding.btnEditAddAddress.isEnabled =  true
-//    }
-//
-//    private fun setCheckingName(){
-//        viewModel.name.observe(this.viewLifecycleOwner) {
-//            viewModel.isValidName()
-//            binding.etName.error = viewModel.nameErrorMessage
-//        }
-//    }
+        dialogDelete.setCancelable(false)
 
-//    private fun setCheckingCellPhone(){
-//        viewModel.cellNumber.observe(this.viewLifecycleOwner) {
-//            viewModel.isValidPhoneNumber()
-//            binding.etPhone.error = viewModel.cellNumberErrorMessage
-//        }
-//    }
-//
-//    fun setOnChange() {
-//        if (binding.btnEditAddAddress.text == "Edit") {
-//            binding.actvCity.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangeCity(it.toString()))
-//            }
-//            binding.actvGender.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangeGender(it.toString()))
-//            }
-//            binding.actvDistrict.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangeDistrict(it.toString()))
-//            }
-//            binding.actvWard.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangeWard(it.toString()))
-//            }
-//            binding.etAddressLane.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangeAddressLane(it.toString()))
-//            }
-//            binding.etName.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangeName(it.toString()))
-//            }
-//            binding.etPhone.addTextChangedListener {
-//                havingLegalToClick(viewModel.isChangePhone(it.toString()))
-//            }
-//        }
-//    }
+        val btnDelete: AppCompatButton = dialogDelete.findViewById(R.id.btn_delete)
+        val btnCancel: AppCompatButton = dialogDelete.findViewById(R.id.btn_cancel)
+
+        btnCancel.setOnClickListener {
+            dialogDelete.dismiss()
+        }
+        btnDelete.isEnabled = true
+        btnDelete.setOnClickListener {
+            viewModel.deleteDeliveryAddress()
+            Toast.makeText(this.context, "Delete success", Toast.LENGTH_SHORT).show()
+            dialogDelete.dismiss()
+            requireActivity().onBackPressed()
+        }
+        dialogDelete.show()
+    }
 }

@@ -278,15 +278,16 @@ class CartViewModel @Inject constructor(
         }
     }
 
+
     private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address {
         return Address(
             id = deliveryAddressDTO.id,
             name = deliveryAddressDTO.name,
             gender = deliveryAddressDTO.gender,
             phoneNumber = deliveryAddressDTO.phoneNumber,
-            city = deliveryAddressDTO.province.name,
-            district = deliveryAddressDTO.district.name,
-            ward = deliveryAddressDTO.ward.name,
+            city = Province(deliveryAddressDTO.province.id, deliveryAddressDTO.province.name) ,
+            district = District(deliveryAddressDTO.district.id, deliveryAddressDTO.district.name,deliveryAddressDTO.district.province),
+            ward = Ward(deliveryAddressDTO.ward.id, deliveryAddressDTO.ward.name, deliveryAddressDTO.ward.district),
             isDefaultAddress = deliveryAddressDTO.isDefault,
             addressLane = deliveryAddressDTO.addressLane
         )

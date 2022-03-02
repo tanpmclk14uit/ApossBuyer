@@ -40,6 +40,17 @@ class DeliveryAddressRepository @Inject constructor() {
         return wardService.getAllWardById(districtId)
     }
 
+    suspend fun addNewUserAddress(token: String, addressDTO: DeliveryAddressDTO): Response<String>{
+        return deliveryAddressService.addDeliveryAddressService(token, addressDTO)
+    }
+
+    suspend fun updateUserAddress(token:String, addressDTO: DeliveryAddressDTO): Response<String>{
+        return deliveryAddressService.updateDeliveryAddressService(token, addressDTO)
+    }
+    suspend fun deleteUserAddressById(token: String, addressId: Long): Response<String>{
+        return deliveryAddressService.deleteDeliveryAddressService(token, addressId)
+    }
+
 
 
 }

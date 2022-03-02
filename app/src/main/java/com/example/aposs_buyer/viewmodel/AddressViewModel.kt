@@ -9,6 +9,9 @@ import com.example.aposs_buyer.model.District
 import com.example.aposs_buyer.model.Province
 import com.example.aposs_buyer.model.Ward
 import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
+import com.example.aposs_buyer.model.dto.DistrictDTO
+import com.example.aposs_buyer.model.dto.ProvinceDTO
+import com.example.aposs_buyer.model.dto.WardDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.utils.DeliveryAddressStatus
@@ -26,7 +29,8 @@ class AddressViewModel @Inject constructor(
 
     val listAddress = MutableLiveData<MutableList<Address>>()
     val status = MutableLiveData<DeliveryAddressStatus>()
-    var currentAddress = MutableLiveData<Address>()
+    var newAddress = MutableLiveData<Address>()
+    lateinit var currentAddress: Address
     var validInformation = MutableLiveData<Boolean>()
     val listProvince = MutableLiveData<MutableList<Province>>()
     val listDistrict = MutableLiveData<MutableList<District>>()
@@ -43,22 +47,111 @@ class AddressViewModel @Inject constructor(
         loadProvince()
     }
 
-    fun getIdOfProvince(provinceName: String): Long {
-        for (province in listProvince.value!!) {
-            if (province.name == provinceName) {
-                return province.id
+    fun addNewAddress() {
+        val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
+        viewModelScope.launch {
+            try {
+                val token = authRepository.getCurrentAccessTokenFromRoom()
+                if (token != null) {
+                    val response =
+                        deliveryAddressRepository.addNewUserAddress(
+                            token,
+                            deliveryAddressDTO
+                        )
+                    if (response.isSuccessful) {
+                        loadUserAddress()
+                    } else {
+                        if (response.code() == 401) {
+                            if (authRepository.loadNewAccessTokenSuccess()) {
+                                addNewAddress()
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Exception", e.toString())
             }
         }
-        return -1
     }
 
-    fun getIdOfDistrict(districtName: String): Long {
-        for (district in listDistrict.value!!) {
-            if (district.name == districtName) {
-                return district.id
+    fun onUpdateAddress() {
+        val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
+        viewModelScope.launch {
+            try {
+                val token = authRepository.getCurrentAccessTokenFromRoom()
+                if (token != null) {
+                    val response =
+                        deliveryAddressRepository.updateUserAddress(
+                            token,
+                            deliveryAddressDTO
+                        )
+                    if (response.isSuccessful) {
+                        loadUserAddress()
+                    } else {
+                        if (response.code() == 401) {
+                            if (authRepository.loadNewAccessTokenSuccess()) {
+                                onUpdateAddress()
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Exception", e.toString())
             }
         }
-        return -1
+    }
+
+    fun deleteDeliveryAddress() {
+        viewModelScope.launch {
+            try {
+                val token = authRepository.getCurrentAccessTokenFromRoom()
+                if (token != null) {
+                    val response =
+                        deliveryAddressRepository.deleteUserAddressById(
+                            token,
+                            currentAddress.id
+                        )
+                    if (response.isSuccessful) {
+                        loadUserAddress()
+                    } else {
+                        if (response.code() == 401) {
+                            if (authRepository.loadNewAccessTokenSuccess()) {
+                                deleteDeliveryAddress()
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Exception", e.toString())
+            }
+        }
+    }
+
+    fun getProvinceFromName(provinceName: String): Province {
+        for (province in listProvince.value!!) {
+            if (province.name == provinceName) {
+                return province
+            }
+        }
+        return Province()
+    }
+
+    fun getDistrictFromName(districtName: String): District {
+        for (district in listDistrict.value!!) {
+            if (district.name == districtName) {
+                return district
+            }
+        }
+        return District()
+    }
+
+    fun getWardFromName(wardName: String): Ward {
+        for (ward in listWard.value!!) {
+            if (ward.name == wardName) {
+                return ward
+            }
+        }
+        return Ward()
     }
 
     private fun loadProvince() {
@@ -135,14 +228,16 @@ class AddressViewModel @Inject constructor(
         }
     }
 
+
     fun trackingValidInformation() {
-        val currentAddress = currentAddress.value!!
-        validInformation.value = (StringValidator.getNameError(currentAddress.name) == null
-                && StringValidator.getPhoneNumberError(currentAddress.phoneNumber) == null
-                && currentAddress.city.isNotBlank()
-                && currentAddress.district.isNotBlank()
-                && currentAddress.ward.isNotBlank()
-                && currentAddress.addressLane.isNotBlank())
+        val newAddress = newAddress.value!!
+        validInformation.value = (StringValidator.getNameError(newAddress.name) == null
+                && StringValidator.getPhoneNumberError(newAddress.phoneNumber) == null
+                && newAddress.city.name.isNotBlank()
+                && newAddress.district.name.isNotBlank()
+                && newAddress.ward.name.isNotBlank()
+                && newAddress.addressLane.isNotBlank())
+                && !newAddress.equal(currentAddress)
     }
 
     private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address {
@@ -151,12 +246,37 @@ class AddressViewModel @Inject constructor(
             name = deliveryAddressDTO.name,
             gender = deliveryAddressDTO.gender,
             phoneNumber = deliveryAddressDTO.phoneNumber,
-            city = deliveryAddressDTO.province.name,
-            district = deliveryAddressDTO.district.name,
-            ward = deliveryAddressDTO.ward.name,
+            city = Province(deliveryAddressDTO.province.id, deliveryAddressDTO.province.name),
+            district = District(
+                deliveryAddressDTO.district.id,
+                deliveryAddressDTO.district.name,
+                deliveryAddressDTO.district.province
+            ),
+            ward = Ward(
+                deliveryAddressDTO.ward.id,
+                deliveryAddressDTO.ward.name,
+                deliveryAddressDTO.ward.district
+            ),
             isDefaultAddress = deliveryAddressDTO.isDefault,
             addressLane = deliveryAddressDTO.addressLane
         )
     }
 
+    private fun convertAddressToDeliveryAddressDTO(address: Address): DeliveryAddressDTO {
+        return DeliveryAddressDTO(
+            id = address.id,
+            name = address.name,
+            gender = address.gender,
+            addressLane = address.addressLane,
+            phoneNumber = address.phoneNumber,
+            isDefault = address.isDefaultAddress,
+            ward = WardDTO(address.ward.id, address.ward.name, address.ward.district),
+            district = DistrictDTO(
+                address.district.id,
+                address.district.name,
+                address.district.province
+            ),
+            province = ProvinceDTO(address.city.id, address.city.name)
+        )
+    }
 }
