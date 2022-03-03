@@ -249,12 +249,12 @@
                 tools:ignore="LabelFor" />
 
             <CheckBox
+                android:visibility="@{viewModel.currentAddress.defaultAddress? view.GONE: view.visibility}"
                 android:id="@+id/defaultCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.checkChange}"
                 android:text="@string/set_as_default_address">
-
             </CheckBox>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -274,6 +274,7 @@
                 android:textStyle="bold" />
 
             <GridLayout
+                android:paddingTop="@{viewModel.currentAddress.defaultAddress? @dimen/padding_button_space: 0}"
                 android:visibility="@{viewModel.newAddress.id != -1L? view.VISIBLE:view.GONE}"
                 android:id="@+id/bottomButton"
                 android:layout_width="match_parent"

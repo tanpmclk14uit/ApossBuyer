@@ -80,6 +80,8 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 viewModel.onUpdateAddress()
                 this.dismiss()
             }
+            //set up first state of "address default" check box
+            viewModel.checkChange.value = currentAddress.isDefaultAddress
             // set up delete button
             binding.btnDelete.setOnClickListener {
                 onOpenDeleteDialog()
@@ -93,6 +95,8 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 viewModel.addNewAddress()
                 this.dismiss()
             }
+            //set up first state of "address default" check box
+            viewModel.checkChange.value = true
         }
     }
 

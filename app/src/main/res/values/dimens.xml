@@ -4,4 +4,5 @@
     <dimen name="product_font_size">12sp</dimen>
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
+    <dimen name="padding_button_space">15dp</dimen>
 </resources>
