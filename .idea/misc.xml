@@ -127,9 +127,10 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_cart_second.xml" value="0.1476851851851852" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_detail_product.xml" value="0.16801801801801802" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_main.xml" value="0.29379485014774165" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_notification.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_order.xml" value="0.2" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_rating.xml" value="0.2975630611372381" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/activity_user_detail.xml" value="0.25" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/dialog_loading.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_about_us.xml" value="0.1824074074074074" />
@@ -149,7 +150,7 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_detail_product.xml" value="0.30709275136399067" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_favorite.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_full_screen_image.xml" value="0.33" />
-        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_home.xml" value="0.19114583333333332" />
+        <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_kind.xml" value="0.32592592592592595" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/layout/fragment_message.xml" value="0.33" />

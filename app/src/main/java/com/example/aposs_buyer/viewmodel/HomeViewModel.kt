@@ -9,8 +9,6 @@ import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RankingProduct
-import com.example.aposs_buyer.model.dto.DetailCategoryDTO
-import com.example.aposs_buyer.model.dto.ProductDTO
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.CategoryRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
@@ -18,10 +16,6 @@ import com.example.aposs_buyer.utils.CategoryStatus
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.ProductsStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -35,14 +29,18 @@ class HomeViewModel @Inject constructor(
     //category data
     private var _categories = MutableLiveData<ArrayList<Category>>()
     val categories: LiveData<ArrayList<Category>> get() = _categories
+
     private var _displayCategory = MutableLiveData<Category>()
     val displayCategory: LiveData<Category> get() = _displayCategory
+
     var displayCategoryPurchase = MutableLiveData<String>()
     var displayCategoryProducts = MutableLiveData<String>()
 
     //ranking data
     private var _rankingProducts = MutableLiveData<ArrayList<RankingProduct>>()
     val rankingProducts: LiveData<ArrayList<RankingProduct>> get() = _rankingProducts
+
+
     private var _currentProductKind = MutableLiveData<String>()
     val currentProductKind: LiveData<String> get() = _currentProductKind
 
@@ -50,16 +48,12 @@ class HomeViewModel @Inject constructor(
     private var _products = MutableLiveData<List<HomeProduct>>()
     val products: LiveData<List<HomeProduct>> get() = _products
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     private var currentPage = 1
     private var isLastPage = false
     private var _status = MutableLiveData<ProductsStatus>()
     val status: LiveData<ProductsStatus> get()= _status
 
     private var _categoryStatus = MutableLiveData<CategoryStatus>()
-    val categoryStatus: LiveData<CategoryStatus> get()= _categoryStatus
 
     init {
         loadCategoriesData()
@@ -76,9 +70,9 @@ class HomeViewModel @Inject constructor(
     fun loadProducts() {
         if (!isLastPage && _status.value!= ProductsStatus.Loading) {
             _status.value = ProductsStatus.Loading
-            coroutineScope.launch {
+            viewModelScope.launch {
                 val getProductDeferred =
-                    productRepository.productService.getProductsAsync(currentPage);
+                    productRepository.productService.getProductsAsync(currentPage)
                 try {
                     val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
                     val productsInCurrentPage = productResponseDTO.content.stream()
@@ -100,10 +94,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     private fun loadCategoriesData() {
         _categoryStatus.value = CategoryStatus.Loading

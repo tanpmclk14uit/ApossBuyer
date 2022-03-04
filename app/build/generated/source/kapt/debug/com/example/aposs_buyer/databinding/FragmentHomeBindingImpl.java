@@ -49,9 +49,9 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (androidx.cardview.widget.CardView) bindings[18]
             , (androidx.cardview.widget.CardView) bindings[17]
             , (android.widget.TextView) bindings[13]
+            , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (android.widget.TextView) bindings[3]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[15]
-            , (androidx.viewpager2.widget.ViewPager2) bindings[1]
             , (me.relex.circleindicator.CircleIndicator3) bindings[2]
             , (android.widget.ImageView) bindings[21]
             , (android.widget.TextView) bindings[19]
@@ -70,8 +70,8 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             , (android.widget.TextView) bindings[4]
             , (android.widget.TextView) bindings[14]
             );
+        this.categoriesViewPager.setTag(null);
         this.categoryName.setTag(null);
-        this.imageViewPager.setTag(null);
         this.indicator.setTag(null);
         this.mboundView0 = (androidx.coordinatorlayout.widget.CoordinatorLayout) bindings[0];
         this.mboundView0.setTag(null);
@@ -420,17 +420,17 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             }
         }
         // batch finished
+        if ((dirtyFlags & 0xc10L) != 0) {
+            // api target 1
+
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindCategoriesViewPager(this.categoriesViewPager, viewModelCategoriesGetValue);
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindIndicatorSize(this.indicator, viewModelCategoriesSize);
+        }
         if ((dirtyFlags & 0xc01L) != 0) {
             // api target 1
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.categoryName, viewModelDisplayCategoryName);
             androidx.databinding.adapters.RatingBarBindingAdapter.setRating(this.rating, viewModelDisplayCategoryRating);
-        }
-        if ((dirtyFlags & 0xc10L) != 0) {
-            // api target 1
-
-            com.example.aposs_buyer.utils.BindingAdapterKt.bindCategoriesViewPager(this.imageViewPager, viewModelCategoriesGetValue);
-            com.example.aposs_buyer.utils.BindingAdapterKt.bindIndicatorSize(this.indicator, viewModelCategoriesSize);
         }
         if ((dirtyFlags & 0xc40L) != 0) {
             // api target 1

@@ -15,7 +15,6 @@ import com.example.aposs_buyer.model.dto.WardDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.utils.DeliveryAddressStatus
-import com.example.aposs_buyer.utils.LoadingState
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.StringValidator
 import dagger.hilt.android.lifecycle.HiltViewModel

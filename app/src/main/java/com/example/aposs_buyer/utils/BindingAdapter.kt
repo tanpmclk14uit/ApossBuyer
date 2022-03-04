@@ -2,23 +2,18 @@ package com.example.aposs_buyer.utils
 
 import android.graphics.Color
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.uicontroler.adapter.*
 import me.relex.circleindicator.CircleIndicator3
-import kotlin.collections.ArrayList
-import android.graphics.BitmapFactory
-
-import android.graphics.Bitmap
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 
 
 @BindingAdapter("image")
@@ -40,7 +35,6 @@ fun bindImagePath(imageView: ImageView, image: Uri?)
         .apply(
             RequestOptions().placeholder(R.drawable.animation_loading)
         )
-//        .error(RequestOptions().placeholder(R.drawable.ic_baseline_error_24))
         .transition(BitmapTransitionOptions.withCrossFade())
         .into(imageView)
     imageView.scaleType= ImageView.ScaleType.CENTER_CROP

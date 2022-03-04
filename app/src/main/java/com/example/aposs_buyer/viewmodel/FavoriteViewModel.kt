@@ -12,7 +12,6 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor() : ViewModel() {
 
-    private val TAG = "FavoriteViewModel"
     private var _favoriteProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     val products: LiveData<ArrayList<FavoriteProduct>> get() = _favoriteProducts
     private var _availableProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
@@ -52,7 +51,7 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
     }
 
     fun addAvailableProductToCart(product: FavoriteProduct) {
-        Log.d(TAG, "Add available product id: ${product.id} to cart")
+       // call server and add favorite product to cart
     }
 
     private fun loadFavoriteProducts(): ArrayList<FavoriteProduct> {

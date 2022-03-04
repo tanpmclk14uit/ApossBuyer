@@ -30,6 +30,7 @@ class AllFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface, Fragm
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_favorite, container, false)
         binding.lifecycleOwner = this
