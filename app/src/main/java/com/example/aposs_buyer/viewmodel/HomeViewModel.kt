@@ -12,9 +12,8 @@ import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.CategoryRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
-import com.example.aposs_buyer.utils.CategoryStatus
 import com.example.aposs_buyer.utils.Converter
-import com.example.aposs_buyer.utils.ProductsStatus
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
@@ -50,26 +49,26 @@ class HomeViewModel @Inject constructor(
 
     private var currentPage = 1
     private var isLastPage = false
-    private var _status = MutableLiveData<ProductsStatus>()
-    val status: LiveData<ProductsStatus> get()= _status
+    private var _status = MutableLiveData<LoadingStatus>()
+    val status: LiveData<LoadingStatus> get()= _status
 
-    private var _categoryStatus = MutableLiveData<CategoryStatus>()
+    private var _categoryStatus = MutableLiveData<LoadingStatus>()
 
     init {
         loadCategoriesData()
-        if(_categoryStatus.value ==  CategoryStatus.Success)
+        if(_categoryStatus.value ==  LoadingStatus.Success)
         {
             setUpDisplayCategory(0)
         }
         _rankingProducts.value = loadRankingData()
         _products.value = ArrayList()
-        _status.value = ProductsStatus.Success
+        _status.value = LoadingStatus.Success
         loadProducts()
     }
 
     fun loadProducts() {
-        if (!isLastPage && _status.value!= ProductsStatus.Loading) {
-            _status.value = ProductsStatus.Loading
+        if (!isLastPage && _status.value!= LoadingStatus.Loading) {
+            _status.value = LoadingStatus.Loading
             viewModelScope.launch {
                 val getProductDeferred =
                     productRepository.productService.getProductsAsync(currentPage)
@@ -85,10 +84,10 @@ class HomeViewModel @Inject constructor(
                     } else {
                         currentPage++
                     }
-                    _status.value = ProductsStatus.Success
+                    _status.value = LoadingStatus.Success
                 } catch (e: Exception) {
                     Log.d("exception", e.toString())
-                    _status.value = ProductsStatus.Fail
+                    _status.value = LoadingStatus.Fail
                 }
             }
         }
@@ -96,18 +95,18 @@ class HomeViewModel @Inject constructor(
 
 
     private fun loadCategoriesData() {
-        _categoryStatus.value = CategoryStatus.Loading
+        _categoryStatus.value = LoadingStatus.Loading
         viewModelScope.launch {
             val listDetailCategoryDTO = categoryRepository.categoryService.getAllCategory()
             try {
                 _categories.value = ArrayList(listDetailCategoryDTO.stream().map {
                     Converter.convertDetailCategoryDTOToCategory(it)
                 }.collect(Collectors.toList()))
-                _categoryStatus.value = CategoryStatus.Success
+                _categoryStatus.value = LoadingStatus.Success
             }
             catch (e:java.lang.Exception){
                 Log.e("Exception", e.toString())
-                _categoryStatus.value = CategoryStatus.Fail
+                _categoryStatus.value = LoadingStatus.Fail
             }
         }
     }

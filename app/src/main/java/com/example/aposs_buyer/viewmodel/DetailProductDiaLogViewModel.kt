@@ -16,7 +16,7 @@ import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
-import com.example.aposs_buyer.utils.LoadingState
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
@@ -294,11 +294,11 @@ class DetailProductDiaLogViewModel @Inject constructor(
         setSelectedProductMinValue()
     }
 
-    var loadingStatus = MutableLiveData<LoadingState>()
+    var loadingStatus = MutableLiveData<LoadingStatus>()
     fun holdProduct(): Boolean {
         var result = false
         if (tokenDTO != null) {
-            loadingStatus.value = LoadingState.Loading
+            loadingStatus.value = LoadingStatus.Loading
             val listOrderItemDTO: MutableList<OrderItemDTO> = mutableListOf()
             listOrderItemDTO.add(convertToOrderItemDTO(toCartItem(productTypeCart.value!!)))
             runBlocking {

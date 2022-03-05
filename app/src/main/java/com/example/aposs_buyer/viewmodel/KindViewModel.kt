@@ -10,7 +10,7 @@ import com.example.aposs_buyer.model.Kind
 import com.example.aposs_buyer.model.dto.KindDTO
 import com.example.aposs_buyer.responsitory.KindRepository
 import com.example.aposs_buyer.utils.Converter
-import com.example.aposs_buyer.utils.KindStatus
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class KindViewModel @Inject constructor(private val kindRepository: KindRepository): ViewModel() {
 
-    private val _status = MutableLiveData<KindStatus>()
+    private val _status = MutableLiveData<LoadingStatus>()
 
     private val selectedCategoryId = MutableLiveData<Long>()
 
@@ -52,7 +52,7 @@ class KindViewModel @Inject constructor(private val kindRepository: KindReposito
 
     private fun loadProduct(selectedCategory: Long)
     {
-        _status.value = KindStatus.Loading
+        _status.value = LoadingStatus.Loading
         coroutineScope.launch {
             val listKindDTO = kindRepository.kindService.getAllKind()
             try {
@@ -65,12 +65,12 @@ class KindViewModel @Inject constructor(private val kindRepository: KindReposito
                 _listKind.value = listSelectedKindDTO.stream().map {
                     Converter.convertFromKindDTOToKind(it)
                 }.collect(Collectors.toList())
-                _status.value = KindStatus.Success
+                _status.value = LoadingStatus.Success
             }
             catch (e: Exception)
             {
                 Log.e("exception", e.toString())
-                _status.value = KindStatus.Fail
+                _status.value = LoadingStatus.Fail
             }
         }
     }

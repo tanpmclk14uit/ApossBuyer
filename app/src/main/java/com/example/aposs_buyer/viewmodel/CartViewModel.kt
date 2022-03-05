@@ -14,13 +14,12 @@ import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
-import com.example.aposs_buyer.utils.LoadingState
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -33,49 +32,67 @@ class CartViewModel @Inject constructor(
     private val deliveryAddressRepository: DeliveryAddressRepository,
 ) : ViewModel() {
 
+    private var cartItemsDTO: List<CartDTO> = ArrayList()
+
     private val _lstCartItem = MutableLiveData<ArrayList<CartItem>>()
     val lstCartItem: LiveData<ArrayList<CartItem>> get() = _lstCartItem
 
     private val _choseList = MutableLiveData<ArrayList<CartItem>>()
     val choseList: LiveData<ArrayList<CartItem>> get() = _choseList
 
-    val total = MutableLiveData<String>()
-    private val totalInt = MutableLiveData<Int>()
-    val size = MutableLiveData<Int>()
-    val choseSize = MutableLiveData<Int>()
+    val total = MutableLiveData<Int>()
+
     val defaultAddress = MutableLiveData<Address>()
     private val defaultAddressDTO = MutableLiveData<DeliveryAddressDTO>()
 
-    var loadingStatus = MutableLiveData<LoadingState>()
+    var loadingStatus = MutableLiveData<LoadingStatus>()
 
     init {
         loadCartList()
-        _lstCartItem.value = ArrayList()
         _choseList.value = ArrayList()
     }
 
-    private fun calculateTotal(): String {
-        return if (_lstCartItem.value != null) {
-            var sum = 0
-            for (i in 0 until _lstCartItem.value!!.size) {
-                if (_lstCartItem.value!![i].isChoose) {
-                    sum += _lstCartItem.value!![i].price * _lstCartItem.value!![i].amount
+    fun loadCartList() {
+        viewModelScope.launch {
+            loadingStatus.value = LoadingStatus.Loading
+            val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
+            if (!currentAccessToken.isNullOrBlank()) {
+                val allCartItemsResponse =
+                    cartRepository.getAllCart(currentAccessToken)
+                if (allCartItemsResponse.isSuccessful) {
+                    cartItemsDTO = allCartItemsResponse.body()!!
+                    _lstCartItem.value = cartItemsDTO.stream().map {
+                        toCartItem(it)
+                    }.collect(Collectors.toList()).toCollection(ArrayList())
+                    loadingStatus.value = LoadingStatus.Success
+                    total.value = calculateTotal()
+                    _choseList.value = getChoseCartItems()
+                    return@launch
+                } else {
+                    if (allCartItemsResponse.code() == 401) {
+                        if (authRepository.loadNewAccessTokenSuccess()) {
+                            loadCartList()
+                        } else {
+                            loadingStatus.value = LoadingStatus.Fail
+                        }
+                    }
                 }
             }
-            totalInt.value = sum
-            val formatter = DecimalFormat("#,###")
-            val formattedNumber: String = formatter.format(sum)
-            "$formattedNumber VNĐ"
-        } else "0 VNĐ"
+        }
+    }
+
+    private fun calculateTotal(): Int {
+        return if (choseList.value != null) {
+            var sum = 0
+            for (cartItem in _choseList.value!!) {
+                sum += cartItem.amount * cartItem.price
+            }
+            return sum
+        } else 0
     }
 
     fun reCalculateTotal() {
         total.value = calculateTotal()
-        size.value = _lstCartItem.value!!.size
-    }
-
-    fun setChoseSize() {
-        choseSize.value = _choseList.value!!.size
     }
 
     fun removeItem(position: Int) {
@@ -84,17 +101,9 @@ class CartViewModel @Inject constructor(
         deleteCartItem(cartItem.id)
     }
 
-    fun setNewChose() {
-        _choseList.value = getChose()
-    }
-
-    private fun getChose(): ArrayList<CartItem> {
-        val choseList: ArrayList<CartItem> = arrayListOf()
-        for (i in 0 until _lstCartItem.value!!.size) {
-            if (_lstCartItem.value!![i].isChoose)
-                choseList.add(_lstCartItem.value!![i])
-        }
-        return choseList
+    private fun getChoseCartItems(): ArrayList<CartItem> {
+        return _lstCartItem.value!!.stream().filter { it.isChoose }.collect(Collectors.toList())
+            .toCollection(ArrayList())
     }
 
     private fun toCartItem(cartDTO: CartDTO): CartItem {
@@ -111,7 +120,6 @@ class CartViewModel @Inject constructor(
         )
     }
 
-    private var cartItemsDTO: List<CartDTO> = ArrayList()
 
     private fun deleteCartItem(id: Long) {
         viewModelScope.launch {
@@ -147,11 +155,9 @@ class CartViewModel @Inject constructor(
                         cartDTO
                     )
                 if (updateResponse.isSuccessful) {
-                    Log.d("cart", updateResponse.body().toString())
                     return@launch
                 } else {
                     if (updateResponse.code() == 401) {
-                        Log.d("cart", "Expire access token")
                         if (authRepository.loadNewAccessTokenSuccess()) {
                             updateCartItem(cartDTO)
                         }
@@ -182,7 +188,7 @@ class CartViewModel @Inject constructor(
             orderTime = Calendar.getInstance().time,
             orderStatus = OrderStatus.Pending,
             orderItemDTOList = listOrderItemDTO,
-            totalPrice = totalInt.value!!,
+            totalPrice = total.value!!,
             address = defaultAddress.value!!.getFullAddress(),
             cancelReason = null
         )
@@ -275,41 +281,11 @@ class CartViewModel @Inject constructor(
         )
     }
 
-    fun loadCartList() {
-        viewModelScope.launch {
-            loadingStatus.value = LoadingState.Loading
-            val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
-            if (!currentAccessToken.isNullOrBlank()) {
-                val allCartItemsResponse =
-                    cartRepository.getAllCart(currentAccessToken)
-                if (allCartItemsResponse.isSuccessful) {
-                    cartItemsDTO = allCartItemsResponse.body()!!
-                    _lstCartItem.value = cartItemsDTO.stream().map {
-                        toCartItem(it)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
-                    loadingStatus.value = LoadingState.Success
-                    total.value = calculateTotal()
-                    size.value = _lstCartItem.value!!.size
-                    _choseList.value = getChose()
-                    choseSize.value = _choseList.value!!.size
-                    return@launch
-                } else {
-                    if (allCartItemsResponse.code() == 401) {
-                        if (authRepository.loadNewAccessTokenSuccess()) {
-                            loadCartList()
-                        } else {
-                            loadingStatus.value = LoadingState.Fail
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     fun isHoldProductSuccess(): Boolean {
         var result = false
-        loadingStatus.value = LoadingState.Loading
-        val listOrderItemDTO = getChose().stream().map {
+        loadingStatus.value = LoadingStatus.Loading
+        val listOrderItemDTO = getChoseCartItems().stream().map {
             convertToOrderItemDTO(it)
         }.collect(Collectors.toList())
         val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
@@ -343,8 +319,8 @@ class CartViewModel @Inject constructor(
 
     fun reduceHold() {
         viewModelScope.launch {
-            loadingStatus.value = LoadingState.Loading
-            val listOrderItemDTO = getChose().stream().map {
+            loadingStatus.value = LoadingStatus.Loading
+            val listOrderItemDTO = getChoseCartItems().stream().map {
                 convertToOrderItemDTO(it)
             }.collect(Collectors.toList())
             val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
@@ -355,13 +331,13 @@ class CartViewModel @Inject constructor(
                         currentAccessToken
                     )
                 if (reduceHoldResponse.isSuccessful) {
-                    loadingStatus.value = LoadingState.Success
+                    loadingStatus.value = LoadingStatus.Success
                 } else {
                     if (reduceHoldResponse.code() == 401) {
                         if (authRepository.loadNewAccessTokenSuccess()) {
                             isHoldProductSuccess()
                         } else {
-                            loadingStatus.value = LoadingState.Fail
+                            loadingStatus.value = LoadingStatus.Fail
                         }
 
                     }

@@ -112,7 +112,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
     public boolean setVariable(int variableId, @Nullable Object variable)  {
         boolean variableSet = true;
         if (BR.status == variableId) {
-            setStatus((com.example.aposs_buyer.utils.ProductsStatus) variable);
+            setStatus((com.example.aposs_buyer.utils.LoadingStatus) variable);
         }
         else if (BR.view == variableId) {
             setView((android.view.View) variable);
@@ -126,7 +126,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             return variableSet;
     }
 
-    public void setStatus(@Nullable com.example.aposs_buyer.utils.ProductsStatus Status) {
+    public void setStatus(@Nullable com.example.aposs_buyer.utils.LoadingStatus Status) {
         this.mStatus = Status;
     }
     public void setView(@Nullable android.view.View View) {
@@ -157,7 +157,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
             case 5 :
                 return onChangeViewModelDisplayCategoryProducts((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
             case 6 :
-                return onChangeViewModelStatus((androidx.lifecycle.LiveData<com.example.aposs_buyer.utils.ProductsStatus>) object, fieldId);
+                return onChangeViewModelStatus((androidx.lifecycle.LiveData<com.example.aposs_buyer.utils.LoadingStatus>) object, fieldId);
             case 7 :
                 return onChangeViewModelCurrentProductKind((androidx.lifecycle.LiveData<java.lang.String>) object, fieldId);
         }
@@ -217,7 +217,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         }
         return false;
     }
-    private boolean onChangeViewModelStatus(androidx.lifecycle.LiveData<com.example.aposs_buyer.utils.ProductsStatus> ViewModelStatus, int fieldId) {
+    private boolean onChangeViewModelStatus(androidx.lifecycle.LiveData<com.example.aposs_buyer.utils.LoadingStatus> ViewModelStatus, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x40L;
@@ -261,9 +261,9 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         java.lang.String viewModelDisplayCategoryPurchaseGetValue = null;
         java.lang.String viewModelDisplayCategoryProductsGetValue = null;
         androidx.lifecycle.MutableLiveData<java.lang.String> viewModelDisplayCategoryProducts = null;
-        androidx.lifecycle.LiveData<com.example.aposs_buyer.utils.ProductsStatus> viewModelStatus = null;
+        androidx.lifecycle.LiveData<com.example.aposs_buyer.utils.LoadingStatus> viewModelStatus = null;
         java.lang.String viewModelDisplayCategoryName = null;
-        com.example.aposs_buyer.utils.ProductsStatus viewModelStatusGetValue = null;
+        com.example.aposs_buyer.utils.LoadingStatus viewModelStatusGetValue = null;
         com.example.aposs_buyer.viewmodel.HomeViewModel viewModel = mViewModel;
         androidx.lifecycle.LiveData<java.lang.String> viewModelCurrentProductKind = null;
 
@@ -389,8 +389,8 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
                     }
 
 
-                    // read viewModel.status.getValue() == ProductsStatus.Loading
-                    viewModelStatusStatusLoading = (viewModelStatusGetValue) == (com.example.aposs_buyer.utils.ProductsStatus.Loading);
+                    // read viewModel.status.getValue() == LoadingStatus.Loading
+                    viewModelStatusStatusLoading = (viewModelStatusGetValue) == (com.example.aposs_buyer.utils.LoadingStatus.Loading);
                 if((dirtyFlags & 0xc40L) != 0) {
                     if(viewModelStatusStatusLoading) {
                             dirtyFlags |= 0x2000L;
@@ -401,7 +401,7 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
                 }
 
 
-                    // read viewModel.status.getValue() == ProductsStatus.Loading ? View.VISIBLE : View.GONE
+                    // read viewModel.status.getValue() == LoadingStatus.Loading ? View.VISIBLE : View.GONE
                     viewModelStatusStatusLoadingViewVISIBLEViewGONE = ((viewModelStatusStatusLoading) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
             }
             if ((dirtyFlags & 0xc80L) != 0) {
@@ -481,8 +481,8 @@ public class FragmentHomeBindingImpl extends FragmentHomeBinding  {
         flag 9 (0xaL): view
         flag 10 (0xbL): viewModel
         flag 11 (0xcL): null
-        flag 12 (0xdL): viewModel.status.getValue() == ProductsStatus.Loading ? View.VISIBLE : View.GONE
-        flag 13 (0xeL): viewModel.status.getValue() == ProductsStatus.Loading ? View.VISIBLE : View.GONE
+        flag 12 (0xdL): viewModel.status.getValue() == LoadingStatus.Loading ? View.VISIBLE : View.GONE
+        flag 13 (0xeL): viewModel.status.getValue() == LoadingStatus.Loading ? View.VISIBLE : View.GONE
     flag mapping end*/
     //end
 }

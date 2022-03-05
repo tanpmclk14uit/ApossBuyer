@@ -3,7 +3,6 @@ package com.example.aposs_buyer.uicontroler.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
-import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.utils.DialogType
-import com.example.aposs_buyer.utils.LoadingState
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -146,28 +144,28 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
     }
 
     private fun onDetailProductChange() {
-        viewModel.productDetailLoadingState.observe(viewLifecycleOwner, {
-            if (it == LoadingState.Loading) {
+        viewModel.productDetailLoadingState.observe(viewLifecycleOwner) {
+            if (it == LoadingStatus.Loading) {
                 binding.detailProgress.visibility = View.VISIBLE
             } else {
                 binding.detailProgress.visibility = View.GONE
-                if (it == LoadingState.Fail) {
+                if (it == LoadingStatus.Fail) {
                     Toast.makeText(this.requireContext(), "Loading fail", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun onRatingProductChange() {
-        viewModel.productRatingLoadingState.observe(viewLifecycleOwner, {
-            if (it == LoadingState.Loading) {
+        viewModel.productRatingLoadingState.observe(viewLifecycleOwner) {
+            if (it == LoadingStatus.Loading) {
                 binding.ratingExtraModule.visibility = View.VISIBLE
                 binding.ratingLoadingProgress.visibility = View.VISIBLE
                 binding.ratingModule.visibility = View.GONE
                 binding.ratingMessage.text = "Loading..."
             } else {
-                if (it == LoadingState.Success) {
+                if (it == LoadingStatus.Success) {
                     if (viewModel.selectedProductRating.value != null && viewModel.selectedProductRating.value!!.isNotEmpty()) {
                         binding.ratingModule.visibility = View.VISIBLE
                         binding.ratingExtraModule.visibility = View.GONE
@@ -184,7 +182,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
                     binding.ratingMessage.text = "Loading error!!"
                 }
             }
-        })
+        }
     }
 
     override fun notifySelectedStringValueChange(propertyId: Long) {

@@ -15,7 +15,7 @@
 
         <variable
             name="status"
-            type="com.example.aposs_buyer.utils.ProductsStatus" />
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

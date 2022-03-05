@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.utils
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.net.Uri
 import android.view.View
@@ -14,6 +15,7 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.uicontroler.adapter.*
 import me.relex.circleindicator.CircleIndicator3
+import java.text.DecimalFormat
 
 
 @BindingAdapter("image")
@@ -274,4 +276,12 @@ fun bindStatusIcon(imageView: ImageView, data: OrderStatus?){
 fun bindDeliveringStateRecyclerView(recyclerView: RecyclerView, data: List<OrderDeliveringState>?){
     val adapter = recyclerView.adapter as OrderDeliveringStateAdapter
     adapter.submitList(data)
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("currencyTextData")
+fun bindCurrencyTextView(textView: TextView, data: Int){
+    val formatter = DecimalFormat("#,###")
+    val formattedNumber: String = formatter.format(data)
+    textView.text = "$formattedNumber VNĐ"
 }

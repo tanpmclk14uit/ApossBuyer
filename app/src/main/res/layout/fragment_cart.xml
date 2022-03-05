@@ -15,7 +15,7 @@
 
         <variable
             name="loadingStatus"
-            type="com.example.aposs_buyer.utils.LoadingState" />
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
     </data>
 
     <FrameLayout
@@ -187,20 +187,20 @@
                         android:gravity="end">
 
                         <TextView
+                            currencyTextData="@{viewModel.total}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@={viewModel.total}"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <Button
-                    android:enabled="@{viewModel.choseList.size()>0}"
                     android:id="@+id/btn_go_to_check_out"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/bg_button_checkout"
+                    android:enabled="@{viewModel.choseList.size()>0}"
                     android:text="@string/check_out"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -8,7 +8,7 @@ import com.example.aposs_buyer.model.DetailCategory
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.dto.DetailCategoryDTO
 import com.example.aposs_buyer.responsitory.CategoryRepository
-import com.example.aposs_buyer.utils.CategoryStatus
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
     private val _lstCategory = MutableLiveData<MutableList<DetailCategory>>()
     val lstCategory: LiveData<MutableList<DetailCategory>> get() = _lstCategory
 
-    private val _status = MutableLiveData<CategoryStatus>()
+    private val _status = MutableLiveData<LoadingStatus>()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -35,18 +35,18 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
 
     private fun loadCategory()
     {
-        _status.value = CategoryStatus.Loading
+        _status.value = LoadingStatus.Loading
         coroutineScope.launch {
             val lstDetailCategoryDTO = categoryRepository.categoryService.getAllCategory()
             try {
                 _lstCategory.value = lstDetailCategoryDTO.stream().map{
                     detailCategoryDTO -> convertFromDetailCategoryDTOToDetailCategory(detailCategoryDTO)
                 }.collect(Collectors.toList())
-                _status.value = CategoryStatus.Success
+                _status.value = LoadingStatus.Success
             }
             catch (e: Exception){
                 Log.e("exception", e.toString())
-                _status.value = CategoryStatus.Fail
+                _status.value = LoadingStatus.Fail
             }
         }
     }

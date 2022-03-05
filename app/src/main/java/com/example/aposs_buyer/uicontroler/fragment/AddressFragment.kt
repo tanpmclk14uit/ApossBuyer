@@ -14,7 +14,7 @@ import com.example.aposs_buyer.databinding.FragmentAddressBinding
 import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.AddressAdapter
-import com.example.aposs_buyer.utils.DeliveryAddressStatus
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.AddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,7 +49,7 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
 
     private fun observeStatus(){
         viewModel.status.observe(viewLifecycleOwner) {
-            if (viewModel.status.value!! == DeliveryAddressStatus.Success) {
+            if (viewModel.status.value!! == LoadingStatus.Success) {
                 addressAdapter.submitList(viewModel.listAddress.value)
             }
         }

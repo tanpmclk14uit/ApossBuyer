@@ -1,22 +1,16 @@
 package com.example.aposs_buyer.viewmodel
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.*
-import com.example.aposs_buyer.responsitory.AuthRepository
-import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
-import com.example.aposs_buyer.responsitory.database.AccountDatabase
-import com.example.aposs_buyer.utils.LoadingState
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
 import java.util.stream.Collectors
 import javax.inject.Inject
 
@@ -53,8 +47,8 @@ class DetailProductViewModel @Inject constructor(
     val selectedProductRatingFilter = MutableLiveData<ArrayList<ProductRating>>()
     val selectedProductTotalReviewFilter = MutableLiveData<String>()
 
-    val productDetailLoadingState = MutableLiveData<LoadingState>()
-    val productRatingLoadingState = MutableLiveData<LoadingState>()
+    val productDetailLoadingState = MutableLiveData<LoadingStatus>()
+    val productRatingLoadingState = MutableLiveData<LoadingStatus>()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -160,16 +154,16 @@ class DetailProductViewModel @Inject constructor(
     }
 
     private fun loadProductRatingById(id: Long) {
-        productRatingLoadingState.value = LoadingState.Loading
+        productRatingLoadingState.value = LoadingStatus.Loading
         coroutineScope.launch {
             val ratingResponseDTO = productRepository.loadProductRatingById(id)
             if (ratingResponseDTO.isSuccessful) {
                 _selectedProductRating.value = ratingResponseDTO.body()!!.stream().map {
                     mapToProductRating(it!!)
                 }.collect(Collectors.toList()).toCollection(ArrayList())
-                productRatingLoadingState.value = LoadingState.Success
+                productRatingLoadingState.value = LoadingStatus.Success
             }else{
-                productRatingLoadingState.value = LoadingState.Fail
+                productRatingLoadingState.value = LoadingStatus.Fail
             }
         }
     }
@@ -256,7 +250,7 @@ class DetailProductViewModel @Inject constructor(
     }
 
     private fun loadSelectedProductById(id: Long) {
-        productDetailLoadingState.value = LoadingState.Loading
+        productDetailLoadingState.value = LoadingStatus.Loading
         coroutineScope.launch {
             val productResponse = productRepository.loadProductById(id)
             if (productResponse.isSuccessful) {
@@ -267,13 +261,13 @@ class DetailProductViewModel @Inject constructor(
                     loadProductRatingById(selectedProductId)
                 }else{
                     _selectedProductRating.value = ArrayList()
-                    productRatingLoadingState.value = LoadingState.Success
+                    productRatingLoadingState.value = LoadingStatus.Success
                 }
                 loadSelectedProductStringPropertyById(selectedProductId, _selectedProduct.value!!.availableQuantities)
                 loadSelectedProductColorPropertyById(selectedProductId, _selectedProduct.value!!.availableQuantities)
-                productDetailLoadingState.value = LoadingState.Success
+                productDetailLoadingState.value = LoadingStatus.Success
             } else {
-                productDetailLoadingState.value = LoadingState.Fail
+                productDetailLoadingState.value = LoadingStatus.Fail
             }
         }
     }

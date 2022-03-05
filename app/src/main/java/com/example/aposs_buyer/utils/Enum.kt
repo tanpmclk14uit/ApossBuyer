@@ -16,31 +16,6 @@ enum class OrderStatus{
     Pending, Confirmed, Delivering, Success, Cancel
 }
 
-enum class ProductsStatus{
-    Loading, Success, Fail
-}
-
-enum class CategoryStatus{
-    Loading, Success, Fail
-}
-
-enum class KindStatus{
-    Loading, Success, Fail
-}
-
-enum class LoadingState{
-    Loading, Success, Fail
-}
-
-
-enum class DeliveryAddressStatus{
-    Loading, Success, Fail
-}
-
 enum class LoadingStatus{
-    Loading, Success, Fail
-}
-
-enum class AddingStatus{
     Loading, Success, Fail
 }

@@ -15,7 +15,7 @@
 
         <variable
             name="status"
-            type="com.example.aposs_buyer.utils.DeliveryAddressStatus" />
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
     </data>
 
     <RelativeLayout
