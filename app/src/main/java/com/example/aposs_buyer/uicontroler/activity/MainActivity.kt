@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.uicontroler.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
@@ -8,6 +9,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityMainBinding
+import com.example.aposs_buyer.model.dto.TokenDTO
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     private var exit: Boolean = false
 
-
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -45,7 +47,13 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.cart -> {
-                    navController.navigate(R.id.cartFragment)
+                    if (isUserLoggedIn()) {
+                        navController.navigate(R.id.cartFragment)
+                    } else {
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        this.finish()
+                    }
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.person -> {
@@ -55,4 +63,8 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this).accountDao.getAccount() != null
+    }
 }

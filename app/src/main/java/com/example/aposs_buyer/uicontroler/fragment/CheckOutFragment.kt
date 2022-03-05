@@ -84,7 +84,7 @@ class CheckOutFragment : Fragment() {
         val accountDao = AccountDatabase.getInstance(this.requireContext()).accountDao
         val account = accountDao.getAccount()
         if(account != null){
-            viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
+            //viewModel.tokenDTO = TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
         }else{
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)

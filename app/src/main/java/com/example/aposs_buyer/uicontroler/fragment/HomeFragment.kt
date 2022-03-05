@@ -39,10 +39,13 @@ class HomeFragment : Fragment(),
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
-        // set up app bar
+        // set up app bar: search, notification, logo button
         setUpAppBarSection()
+        // set up categories, show all button
         setUpCategoriesSection()
+        // set up ranking
         setUpRankingSection()
+        // set up more product
         setUpViewMoreProductSection()
         return binding.root
     }

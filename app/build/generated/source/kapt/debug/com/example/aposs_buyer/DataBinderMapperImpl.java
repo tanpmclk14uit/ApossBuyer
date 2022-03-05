@@ -828,7 +828,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(24);
+    static final SparseArray<String> sKeys = new SparseArray<String>(25);
 
     static {
       sKeys.put(0, "_all");
@@ -841,20 +841,21 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put(7, "image");
       sKeys.put(8, "imgCategory");
       sKeys.put(9, "kind");
-      sKeys.put(10, "messageItem");
-      sKeys.put(11, "notification");
-      sKeys.put(12, "order");
-      sKeys.put(13, "orderDeliveringState");
-      sKeys.put(14, "product");
-      sKeys.put(15, "property");
-      sKeys.put(16, "rankingProduct");
-      sKeys.put(17, "rateImage");
-      sKeys.put(18, "rateNowItem");
-      sKeys.put(19, "ratedItem");
-      sKeys.put(20, "rating");
-      sKeys.put(21, "status");
-      sKeys.put(22, "view");
-      sKeys.put(23, "viewModel");
+      sKeys.put(10, "loadingStatus");
+      sKeys.put(11, "messageItem");
+      sKeys.put(12, "notification");
+      sKeys.put(13, "order");
+      sKeys.put(14, "orderDeliveringState");
+      sKeys.put(15, "product");
+      sKeys.put(16, "property");
+      sKeys.put(17, "rankingProduct");
+      sKeys.put(18, "rateImage");
+      sKeys.put(19, "rateNowItem");
+      sKeys.put(20, "ratedItem");
+      sKeys.put(21, "rating");
+      sKeys.put(22, "status");
+      sKeys.put(23, "view");
+      sKeys.put(24, "viewModel");
     }
   }
 

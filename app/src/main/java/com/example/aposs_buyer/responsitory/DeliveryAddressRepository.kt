@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class DeliveryAddressRepository @Inject constructor() {
 
-    private val deliveryAddressService : DeliveryAddressService by lazy {
+    private val deliveryAddressService: DeliveryAddressService by lazy {
         RetrofitInstance.retrofit.create(DeliveryAddressService::class.java)
     }
     private val provinceService: ProvinceService by lazy {
@@ -22,35 +22,38 @@ class DeliveryAddressRepository @Inject constructor() {
     private val districtService: DistrictService by lazy {
         RetrofitInstance.retrofit.create(DistrictService::class.java)
     }
-    suspend fun getAllUserAddressByAccessToken(token: String): Response<List<DeliveryAddressDTO>>{
+
+    suspend fun getAllUserAddressByAccessToken(token: String): Response<List<DeliveryAddressDTO>> {
         return deliveryAddressService.getAllDeliveryAddressService(token)
     }
-    suspend fun getUserDefaultAddress(token: String):Response<DeliveryAddressDTO>{
+
+    suspend fun getUserDefaultAddress(token: String): Response<DeliveryAddressDTO> {
         return deliveryAddressService.getDefaultAddress(token)
     }
 
-    suspend fun getAllProvince():Response<List<ProvinceDTO>>{
+    suspend fun getAllProvince(): Response<List<ProvinceDTO>> {
         return provinceService.getAllProvince()
     }
-    suspend fun getAllDistrictOfProvinceById(provinceId: Long):Response<List<DistrictDTO>>{
+
+    suspend fun getAllDistrictOfProvinceById(provinceId: Long): Response<List<DistrictDTO>> {
         return districtService.getAllDistrictById(provinceId)
     }
 
-    suspend fun getAllWardsOfDistrictById(districtId: Long): Response<List<WardDTO>>{
+    suspend fun getAllWardsOfDistrictById(districtId: Long): Response<List<WardDTO>> {
         return wardService.getAllWardById(districtId)
     }
 
-    suspend fun addNewUserAddress(token: String, addressDTO: DeliveryAddressDTO): Response<String>{
+    suspend fun addNewUserAddress(token: String, addressDTO: DeliveryAddressDTO): Response<String> {
         return deliveryAddressService.addDeliveryAddressService(token, addressDTO)
     }
 
-    suspend fun updateUserAddress(token:String, addressDTO: DeliveryAddressDTO): Response<String>{
+    suspend fun updateUserAddress(token: String, addressDTO: DeliveryAddressDTO): Response<String> {
         return deliveryAddressService.updateDeliveryAddressService(token, addressDTO)
     }
-    suspend fun deleteUserAddressById(token: String, addressId: Long): Response<String>{
+
+    suspend fun deleteUserAddressById(token: String, addressId: Long): Response<String> {
         return deliveryAddressService.deleteDeliveryAddressService(token, addressId)
     }
-
 
 
 }

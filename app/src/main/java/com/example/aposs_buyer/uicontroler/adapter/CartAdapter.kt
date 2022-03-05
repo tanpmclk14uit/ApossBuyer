@@ -11,26 +11,25 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemCartBinding
 import com.example.aposs_buyer.model.CartItem
 
-class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: OnChoose): ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
+class CartAdapter(private val changeAmount: ChangeAmount,private val onClickListener: CartAdapter.OnClickListener) :
+    ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
 
-
-    interface ChangeAmount{
+    interface ChangeAmount {
         fun onChangeAmount()
     }
 
-    interface OnChoose{
-        fun onChose(position: Int)
+    open class OnClickListener(val clickListener: (cartItem: CartItem) -> Unit) {
+        fun onClick(cartItem: CartItem) = clickListener(cartItem)
     }
-    class CartViewHolder(val binding: ItemCartBinding): RecyclerView.ViewHolder(binding.root)
-    {
+
+    class CartViewHolder(val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(cartItem: CartItem) {
             binding.cartItem = cartItem
             binding.executePendingBindings()
         }
     }
 
-    object DiffCallBack: DiffUtil.ItemCallback<CartItem>()
-    {
+    object DiffCallBack : DiffUtil.ItemCallback<CartItem>() {
         override fun areItemsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return oldItem == newItem
         }
@@ -43,7 +42,8 @@ class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ItemCartBinding  = DataBindingUtil.inflate(layoutInflater, R.layout.item_cart, parent, false)
+        val binding: ItemCartBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.item_cart, parent, false)
         return CartViewHolder(binding)
     }
 
@@ -63,24 +63,22 @@ class CartAdapter(private val changeAmount: ChangeAmount, private val onChoose: 
         }
     }
 
-    private fun onAddAmount(position: Int)
-    {
-        getItem(position).amount ++
+    private fun onAddAmount(position: Int) {
+        getItem(position).amount++
         changeAmount.onChangeAmount()
     }
 
-    private fun onChoose(position: Int)
-    {
-        getItem(position).isChoose = !getItem(position).isChoose
-        onChoose.onChose(position)
-    }
-
-    private fun onReduceAmount(position: Int)
-    {
+    private fun onReduceAmount(position: Int) {
         if (getItem(position).amount > 1) {
             getItem(position).amount--
             changeAmount.onChangeAmount()
         }
+    }
+
+    private fun onChoose(position: Int) {
+        getItem(position).isChoose = !getItem(position).isChoose
+        notifyItemChanged(position)
+        onClickListener.clickListener(getItem(position))
     }
 
 }

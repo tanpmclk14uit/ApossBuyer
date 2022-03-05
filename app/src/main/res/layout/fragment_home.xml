@@ -226,7 +226,7 @@
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textSize="14sp"
-                            android:textStyle="bold"></TextView>
+                            android:textStyle="bold"/>
                     </androidx.cardview.widget.CardView>
 
                     <me.relex.circleindicator.CircleIndicator3

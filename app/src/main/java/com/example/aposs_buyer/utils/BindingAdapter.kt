@@ -188,6 +188,13 @@ fun bindRecycleView(recyclerView: RecyclerView, lstCart: ArrayList<CartItem>, is
         adapter.submitList(lstCart)
     }
 }
+@BindingAdapter("userCartData")
+fun bindCardRecycleView(recyclerView: RecyclerView, listCart: List<CartItem>?){
+    val adapter = recyclerView.adapter as CartAdapter
+    adapter.submitList(listCart)
+}
+
+
 @BindingAdapter("setToggleColor")
 fun bindColorToImageBackground(toggleButton: ToggleButton, data: String?){
     val myColor: Int = Color.parseColor(data)
