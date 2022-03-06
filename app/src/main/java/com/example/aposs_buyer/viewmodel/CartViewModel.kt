@@ -41,11 +41,12 @@ class CartViewModel @Inject constructor(
     val choseList: LiveData<ArrayList<CartItem>> get() = _choseList
 
     val total = MutableLiveData<Int>()
+    var loadingStatus = MutableLiveData<LoadingStatus>()
 
+    //
     val defaultAddress = MutableLiveData<Address>()
     private val defaultAddressDTO = MutableLiveData<DeliveryAddressDTO>()
 
-    var loadingStatus = MutableLiveData<LoadingStatus>()
 
     init {
         loadCartList()

@@ -110,6 +110,8 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
                 ).show()
             }
         }
+        // set up total bill view
+
     }
 
     override fun onChangeAmount() {
