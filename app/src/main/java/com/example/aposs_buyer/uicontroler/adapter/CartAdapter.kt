@@ -11,7 +11,10 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemCartBinding
 import com.example.aposs_buyer.model.CartItem
 
-class CartAdapter(private val changeAmount: ChangeAmount,private val onClickListener: CartAdapter.OnClickListener) :
+class CartAdapter(
+    private val changeAmount: ChangeAmount,
+    private val onClickListener: CartAdapter.OnClickListener
+) :
     ListAdapter<CartItem, CartAdapter.CartViewHolder>(DiffCallBack) {
 
     interface ChangeAmount {
@@ -27,6 +30,7 @@ class CartAdapter(private val changeAmount: ChangeAmount,private val onClickList
             binding.cartItem = cartItem
             binding.executePendingBindings()
         }
+
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<CartItem>() {

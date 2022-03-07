@@ -85,6 +85,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
             }
         }
     }
+
     private fun toCartItem(cartDTO: CartDTO): CartItem {
         val image = Image(cartDTO.imageUrl)
         return CartItem(
@@ -98,21 +99,17 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
             product = cartDTO.productId,
         )
     }
+
     private fun dialogTypeButton() {
         binding.dialogButton.setOnClickListener {
             if (checkValidPropertyProduct()) {
                 if (dialogType == DialogType.CheckOutDialog) {
-                    if( isLogin()) {
+                    if (isLogin()) {
                         if (viewModelDialog.holdProduct()) {
                             Log.d("checkoutBussiness", "change page")
-                            findNavController().navigate(
-                                ProductDetailDialogFragmentDirections.actionProductDetailDialogFragmentToCheckOutFragment(
-                                    toCartItem(viewModelDialog.productTypeCart.value!!)
-                                )
-                            )
+                            // go to check out
                             this.dismiss()
-                        }
-                        else {
+                        } else {
                             Toast.makeText(
                                 this.context,
                                 "Current having not enough quantity",
@@ -121,9 +118,13 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
                         }
                     }
                 } else {
-                    if(isLogin()){
+                    if (isLogin()) {
                         viewModelDialog.addToCart()
-                        Toast.makeText(requireContext(), "Add to cart successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Add to cart successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         this.dismiss()
                     }
                 }
@@ -190,7 +191,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dialogType= args.dialogType
+        dialogType = args.dialogType
     }
 
 
@@ -207,14 +208,15 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     override fun notifySelectedStringValueChange(propertyId: Long) {
         viewModelDialog.notifySelectedStringPropertyChange(propertyId)
     }
-    private fun isLogin(): Boolean{
+
+    private fun isLogin(): Boolean {
         val accountDao = AccountDatabase.getInstance(this.requireContext()).accountDao
         val account = accountDao.getAccount()
-        return if(account != null){
+        return if (account != null) {
             viewModelDialog.tokenDTO =
                 TokenDTO(accessToken = account.accessToken, account.tokenType, account.refreshToken)
             true
-        }else{
+        } else {
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
             requireActivity().finish()

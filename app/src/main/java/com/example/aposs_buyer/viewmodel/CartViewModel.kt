@@ -14,6 +14,7 @@ import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
+import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +41,9 @@ class CartViewModel @Inject constructor(
     private val _choseList = MutableLiveData<ArrayList<CartItem>>()
     val choseList: LiveData<ArrayList<CartItem>> get() = _choseList
 
-    val total = MutableLiveData<Int>()
+    var total = 0
+    val totalCurrency = MutableLiveData<String>()
+    val checkOutEnable = MutableLiveData<Boolean>()
     var loadingStatus = MutableLiveData<LoadingStatus>()
 
     //
@@ -66,8 +69,10 @@ class CartViewModel @Inject constructor(
                         toCartItem(it)
                     }.collect(Collectors.toList()).toCollection(ArrayList())
                     loadingStatus.value = LoadingStatus.Success
-                    total.value = calculateTotal()
                     _choseList.value = getChoseCartItems()
+                    trackingEnableCheckOutButton()
+                    total = calculateTotal()
+                    totalCurrency.value = Converter.convertFromIntToCurrencyString(total)
                     return@launch
                 } else {
                     if (allCartItemsResponse.code() == 401) {
@@ -93,7 +98,8 @@ class CartViewModel @Inject constructor(
     }
 
     fun reCalculateTotal() {
-        total.value = calculateTotal()
+        total = calculateTotal()
+        totalCurrency.value = Converter.convertFromIntToCurrencyString(total)
     }
 
     fun removeItem(position: Int) {
@@ -105,6 +111,10 @@ class CartViewModel @Inject constructor(
     private fun getChoseCartItems(): ArrayList<CartItem> {
         return _lstCartItem.value!!.stream().filter { it.isChoose }.collect(Collectors.toList())
             .toCollection(ArrayList())
+    }
+
+    fun trackingEnableCheckOutButton() {
+        checkOutEnable.value = getChoseCartItems().isNotEmpty()
     }
 
     private fun toCartItem(cartDTO: CartDTO): CartItem {
@@ -133,6 +143,7 @@ class CartViewModel @Inject constructor(
                     )
                 if (deleteResponse.isSuccessful) {
                     Log.d("cart", deleteResponse.body().toString())
+                    loadCartList()
                     return@launch
                 } else {
                     if (deleteResponse.code() == 401) {
@@ -189,7 +200,7 @@ class CartViewModel @Inject constructor(
             orderTime = Calendar.getInstance().time,
             orderStatus = OrderStatus.Pending,
             orderItemDTOList = listOrderItemDTO,
-            totalPrice = total.value!!,
+            totalPrice = total,
             address = defaultAddress.value!!.getFullAddress(),
             cancelReason = null
         )

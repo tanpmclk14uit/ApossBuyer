@@ -67,7 +67,13 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
     private fun setUpCartsView() {
         //set up cart adapter
         cartAdapter = CartAdapter(this, CartAdapter.OnClickListener {
+            if (it.isChoose) {
+                viewModel.choseList.value!!.add(it)
+            } else {
+                viewModel.choseList.value!!.remove(it)
+            }
             viewModel.reCalculateTotal()
+            viewModel.trackingEnableCheckOutButton()
         })
         binding.rcCart.adapter = cartAdapter
         // set up swipe cart item to delete
@@ -87,10 +93,9 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 //Remove swiped item from list and notify the RecyclerView
                 val position = viewHolder.layoutPosition
-                viewModel.removeItem(position)
                 cartAdapter.notifyItemRemoved(position)
                 cartAdapter.notifyItemRangeChanged(position, viewModel.lstCartItem.value!!.size)
-                viewModel.reCalculateTotal()
+                viewModel.removeItem(position)
             }
         }
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
@@ -101,7 +106,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
         // set up button check out
         binding.btnGoToCheckOut.setOnClickListener {
             if (viewModel.isHoldProductSuccess()) {
-                findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckOutFragment())
+                // go to check out activity
             } else {
                 Toast.makeText(
                     this.context,
@@ -110,8 +115,6 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
                 ).show()
             }
         }
-        // set up total bill view
-
     }
 
     override fun onChangeAmount() {

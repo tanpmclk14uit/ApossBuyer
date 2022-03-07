@@ -1,6 +1,5 @@
 package com.example.aposs_buyer.uicontroler.fragment
 
-import android.R.attr
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,26 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentRatingBinding
 import com.example.aposs_buyer.uicontroler.adapter.AddingRatingImageAdapter
-import com.example.aposs_buyer.uicontroler.adapter.RateImageAdapter
 import com.example.aposs_buyer.viewmodel.RatingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 import android.content.Intent
-import android.provider.MediaStore
-import kotlin.reflect.jvm.internal.impl.load.java.Constant
-import android.R.attr.data
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 
-import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RateImage
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 
 
 @AndroidEntryPoint
@@ -69,8 +60,7 @@ class RatingFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.clCart.setOnClickListener {
-            val intent = Intent(this.context, CartSecondActivity::class.java)
-            startActivity(intent)
+            // go to cart
         }
         return binding.root
     }

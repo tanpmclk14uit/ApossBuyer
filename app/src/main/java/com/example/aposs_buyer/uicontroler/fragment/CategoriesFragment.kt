@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCategoriesBinding
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.DetailCategoryAdapter
 import com.example.aposs_buyer.viewmodel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
         binding.lifecycleOwner= this
@@ -38,12 +37,12 @@ class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
             requireActivity().onBackPressed()
         }
         binding.clCart.setOnClickListener {
-            val intent = Intent(this.context, CartSecondActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this.context, CartSecondActivity::class.java)
+//            startActivity(intent)
         }
         return binding.root
     }
     override fun onClick(id: Long, name: String ) {
-        findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToKindFragment(id, name))
+       // go to kind
     }
 }

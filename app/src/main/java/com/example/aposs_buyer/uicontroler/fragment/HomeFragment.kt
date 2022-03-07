@@ -9,7 +9,6 @@ import android.view.ViewTreeObserver
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentHomeBinding
@@ -97,18 +96,13 @@ class HomeFragment : Fragment(),
         //set up categories adapter
         binding.categoriesViewPager.adapter =
             CategoriesViewPagerAdapter(CategoriesViewPagerAdapter.OnClickListener { id, name ->
-                findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToKindFragment(
-                        id,
-                        name
-                    )
-                )
+                // go to kind
             })
         // set up categories indicator
         binding.indicator.setViewPager(binding.categoriesViewPager)
         // set up show all categories button
         binding.tvShowAllCategory.setOnClickListener {
-            val intent = Intent(this.context, CategoryActivity::class.java)
+            val intent = Intent(this.context, CategoriesActivity::class.java)
             startActivity(intent)
         }
         // set up categories transform animation

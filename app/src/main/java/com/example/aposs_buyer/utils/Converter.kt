@@ -1,4 +1,5 @@
 package com.example.aposs_buyer.utils
+
 import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
@@ -6,7 +7,7 @@ import com.example.aposs_buyer.model.Kind
 import com.example.aposs_buyer.model.dto.DetailCategoryDTO
 import com.example.aposs_buyer.model.dto.KindDTO
 import com.example.aposs_buyer.model.dto.ProductDTO
-import com.example.aposs_buyer.viewmodel.HomeViewModel
+import java.text.DecimalFormat
 import java.util.stream.Collectors
 
 object Converter {
@@ -31,6 +32,7 @@ object Converter {
             mainImage = Image(categoryDTO.images[0])
         )
     }
+
     fun <T> concatenate(vararg lists: List<T>): List<T> {
         val result: MutableList<T> = ArrayList()
         for (list in lists) {
@@ -46,9 +48,10 @@ object Converter {
         }
         return result
     }
+
     fun convertFromKindDTOToKind(kindDTO: KindDTO): Kind {
-        val listHomeProduct = kindDTO.products.stream().map {
-                productDTO -> convertProductDTOtoHomeProduct(productDTO)
+        val listHomeProduct = kindDTO.products.stream().map { productDTO ->
+            convertProductDTOtoHomeProduct(productDTO)
         }.collect(Collectors.toList())
         return Kind(
             id = kindDTO.id,
@@ -60,5 +63,11 @@ object Converter {
             Products = listHomeProduct,
             category = kindDTO.category
         )
+    }
+
+    fun convertFromIntToCurrencyString(money: Int): String {
+        val formatter = DecimalFormat("#,###")
+        val formattedNumber: String = formatter.format(money)
+        return "$formattedNumber VNĐ"
     }
 }

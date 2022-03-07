@@ -32,4 +32,13 @@
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
+    <style name="Theme.Apossbuyer.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Apossbuyer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Apossbuyer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

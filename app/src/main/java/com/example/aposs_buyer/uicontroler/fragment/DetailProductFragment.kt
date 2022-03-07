@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
+import com.example.aposs_buyer.uicontroler.activity.CartActivity
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.utils.DialogType
@@ -77,8 +77,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
 
     private fun setUpToNavigateCart() {
         binding.clCart.setOnClickListener {
-            val intent = Intent(this.context, CartSecondActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this.context, CartActivity::class.java))
         }
     }
 

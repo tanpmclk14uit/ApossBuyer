@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/cancelOrderConfirmFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.CancelOrderConfirmFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CancelOrderSuccessFragment"
         android:label="fragment_cancel_order_confirm"
         tools:layout="@layout/fragment_cancel_order_confirm" >
         <action

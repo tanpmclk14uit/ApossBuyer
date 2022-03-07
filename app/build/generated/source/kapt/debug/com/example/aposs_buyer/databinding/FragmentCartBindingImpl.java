@@ -26,8 +26,6 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     // views
     @NonNull
     private final android.widget.FrameLayout mboundView0;
-    @NonNull
-    private final android.widget.TextView mboundView4;
     // variables
     // values
     // listeners
@@ -50,15 +48,15 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
             , (com.google.android.material.textfield.TextInputLayout) bindings[8]
             , (android.widget.TextView) bindings[11]
             , (android.widget.RelativeLayout) bindings[7]
+            , (android.widget.TextView) bindings[4]
             );
         this.btnGoToCheckOut.setTag(null);
         this.loadingMessage.setTag(null);
         this.loadingProgress.setTag(null);
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.mboundView4 = (android.widget.TextView) bindings[4];
-        this.mboundView4.setTag(null);
         this.rcCart.setTag(null);
+        this.totalPrice.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();
@@ -67,7 +65,7 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x80L;
+                mDirtyFlags = 0x100L;
         }
         requestRebind();
     }
@@ -88,6 +86,9 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         if (BR.loadingStatus == variableId) {
             setLoadingStatus((com.example.aposs_buyer.utils.LoadingStatus) variable);
         }
+        else if (BR.converter == variableId) {
+            setConverter((com.example.aposs_buyer.utils.Converter) variable);
+        }
         else if (BR.view == variableId) {
             setView((android.view.View) variable);
         }
@@ -103,13 +104,16 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     public void setLoadingStatus(@Nullable com.example.aposs_buyer.utils.LoadingStatus LoadingStatus) {
         this.mLoadingStatus = LoadingStatus;
     }
+    public void setConverter(@Nullable com.example.aposs_buyer.utils.Converter Converter) {
+        this.mConverter = Converter;
+    }
     public void setView(@Nullable android.view.View View) {
         this.mView = View;
     }
     public void setViewModel(@Nullable com.example.aposs_buyer.viewmodel.CartViewModel ViewModel) {
         this.mViewModel = ViewModel;
         synchronized(this) {
-            mDirtyFlags |= 0x40L;
+            mDirtyFlags |= 0x80L;
         }
         notifyPropertyChanged(BR.viewModel);
         super.requestRebind();
@@ -123,9 +127,9 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
             case 1 :
                 return onChangeViewModelLoadingStatus((androidx.lifecycle.MutableLiveData<com.example.aposs_buyer.utils.LoadingStatus>) object, fieldId);
             case 2 :
-                return onChangeViewModelTotal((androidx.lifecycle.MutableLiveData<java.lang.Integer>) object, fieldId);
+                return onChangeViewModelTotalCurrency((androidx.lifecycle.MutableLiveData<java.lang.String>) object, fieldId);
             case 3 :
-                return onChangeViewModelChoseList((androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.CartItem>>) object, fieldId);
+                return onChangeViewModelCheckOutEnable((androidx.lifecycle.MutableLiveData<java.lang.Boolean>) object, fieldId);
         }
         return false;
     }
@@ -147,7 +151,7 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         }
         return false;
     }
-    private boolean onChangeViewModelTotal(androidx.lifecycle.MutableLiveData<java.lang.Integer> ViewModelTotal, int fieldId) {
+    private boolean onChangeViewModelTotalCurrency(androidx.lifecycle.MutableLiveData<java.lang.String> ViewModelTotalCurrency, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x4L;
@@ -156,7 +160,7 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         }
         return false;
     }
-    private boolean onChangeViewModelChoseList(androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.CartItem>> ViewModelChoseList, int fieldId) {
+    private boolean onChangeViewModelCheckOutEnable(androidx.lifecycle.MutableLiveData<java.lang.Boolean> ViewModelCheckOutEnable, int fieldId) {
         if (fieldId == BR._all) {
             synchronized(this) {
                     mDirtyFlags |= 0x8L;
@@ -173,33 +177,31 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        int androidxDatabindingViewDataBindingSafeUnboxViewModelTotalGetValue = 0;
         androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.CartItem>> viewModelLstCartItem = null;
+        java.lang.String viewModelTotalCurrencyGetValue = null;
+        boolean androidxDatabindingViewDataBindingSafeUnboxViewModelCheckOutEnableGetValue = false;
         boolean viewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse = false;
-        int viewModelChoseListSize = 0;
         boolean viewModelLstCartItemSizeInt0 = false;
         boolean ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse1 = false;
         androidx.lifecycle.MutableLiveData<com.example.aposs_buyer.utils.LoadingStatus> viewModelLoadingStatus = null;
-        boolean viewModelChoseListSizeInt0 = false;
         boolean viewModelLoadingStatusLoadingStatusSuccess = false;
         boolean viewModelLoadingStatusLoadingStatusLoading = false;
-        java.util.ArrayList<com.example.aposs_buyer.model.CartItem> viewModelChoseListGetValue = null;
+        androidx.lifecycle.MutableLiveData<java.lang.String> viewModelTotalCurrency = null;
+        java.lang.Boolean viewModelCheckOutEnableGetValue = null;
+        androidx.lifecycle.MutableLiveData<java.lang.Boolean> viewModelCheckOutEnable = null;
         com.example.aposs_buyer.utils.LoadingStatus viewModelLoadingStatusGetValue = null;
         java.util.ArrayList<com.example.aposs_buyer.model.CartItem> viewModelLstCartItemGetValue = null;
-        androidx.lifecycle.MutableLiveData<java.lang.Integer> viewModelTotal = null;
-        androidx.lifecycle.LiveData<java.util.ArrayList<com.example.aposs_buyer.model.CartItem>> viewModelChoseList = null;
         int viewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalseViewVISIBLEViewGONE = 0;
         int ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalseViewVISIBLEViewGONE1 = 0;
         boolean ViewModelLstCartItemSizeInt01 = false;
-        java.lang.Integer viewModelTotalGetValue = null;
         com.example.aposs_buyer.viewmodel.CartViewModel viewModel = mViewModel;
         int viewModelLoadingStatusLoadingStatusLoadingViewVISIBLEViewGONE = 0;
         int viewModelLstCartItemSize = 0;
 
-        if ((dirtyFlags & 0xcfL) != 0) {
+        if ((dirtyFlags & 0x18fL) != 0) {
 
 
-            if ((dirtyFlags & 0xc1L) != 0) {
+            if ((dirtyFlags & 0x181L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.lstCartItem
@@ -213,7 +215,7 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
                         viewModelLstCartItemGetValue = viewModelLstCartItem.getValue();
                     }
             }
-            if ((dirtyFlags & 0xc3L) != 0) {
+            if ((dirtyFlags & 0x183L) != 0) {
 
                     if (viewModel != null) {
                         // read viewModel.loadingStatus
@@ -230,26 +232,26 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
 
                     // read viewModel.loadingStatus.getValue() == LoadingStatus.Success
                     viewModelLoadingStatusLoadingStatusSuccess = (viewModelLoadingStatusGetValue) == (com.example.aposs_buyer.utils.LoadingStatus.Success);
-                if((dirtyFlags & 0xc3L) != 0) {
+                if((dirtyFlags & 0x183L) != 0) {
                     if(viewModelLoadingStatusLoadingStatusSuccess) {
+                            dirtyFlags |= 0x400L;
+                            dirtyFlags |= 0x1000L;
+                    }
+                    else {
                             dirtyFlags |= 0x200L;
                             dirtyFlags |= 0x800L;
                     }
-                    else {
-                            dirtyFlags |= 0x100L;
-                            dirtyFlags |= 0x400L;
-                    }
                 }
-                if ((dirtyFlags & 0xc2L) != 0) {
+                if ((dirtyFlags & 0x182L) != 0) {
 
                         // read viewModel.loadingStatus.getValue() == LoadingStatus.Loading
                         viewModelLoadingStatusLoadingStatusLoading = (viewModelLoadingStatusGetValue) == (com.example.aposs_buyer.utils.LoadingStatus.Loading);
-                    if((dirtyFlags & 0xc2L) != 0) {
+                    if((dirtyFlags & 0x182L) != 0) {
                         if(viewModelLoadingStatusLoadingStatusLoading) {
-                                dirtyFlags |= 0x20000L;
+                                dirtyFlags |= 0x40000L;
                         }
                         else {
-                                dirtyFlags |= 0x10000L;
+                                dirtyFlags |= 0x20000L;
                         }
                     }
 
@@ -258,52 +260,42 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
                         viewModelLoadingStatusLoadingStatusLoadingViewVISIBLEViewGONE = ((viewModelLoadingStatusLoadingStatusLoading) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
                 }
             }
-            if ((dirtyFlags & 0xc4L) != 0) {
+            if ((dirtyFlags & 0x184L) != 0) {
 
                     if (viewModel != null) {
-                        // read viewModel.total
-                        viewModelTotal = viewModel.getTotal();
+                        // read viewModel.totalCurrency
+                        viewModelTotalCurrency = viewModel.getTotalCurrency();
                     }
-                    updateLiveDataRegistration(2, viewModelTotal);
+                    updateLiveDataRegistration(2, viewModelTotalCurrency);
 
 
-                    if (viewModelTotal != null) {
-                        // read viewModel.total.getValue()
-                        viewModelTotalGetValue = viewModelTotal.getValue();
+                    if (viewModelTotalCurrency != null) {
+                        // read viewModel.totalCurrency.getValue()
+                        viewModelTotalCurrencyGetValue = viewModelTotalCurrency.getValue();
                     }
-
-
-                    // read androidx.databinding.ViewDataBinding.safeUnbox(viewModel.total.getValue())
-                    androidxDatabindingViewDataBindingSafeUnboxViewModelTotalGetValue = androidx.databinding.ViewDataBinding.safeUnbox(viewModelTotalGetValue);
             }
-            if ((dirtyFlags & 0xc8L) != 0) {
+            if ((dirtyFlags & 0x188L) != 0) {
 
                     if (viewModel != null) {
-                        // read viewModel.choseList
-                        viewModelChoseList = viewModel.getChoseList();
+                        // read viewModel.checkOutEnable
+                        viewModelCheckOutEnable = viewModel.getCheckOutEnable();
                     }
-                    updateLiveDataRegistration(3, viewModelChoseList);
+                    updateLiveDataRegistration(3, viewModelCheckOutEnable);
 
 
-                    if (viewModelChoseList != null) {
-                        // read viewModel.choseList.getValue()
-                        viewModelChoseListGetValue = viewModelChoseList.getValue();
-                    }
-
-
-                    if (viewModelChoseListGetValue != null) {
-                        // read viewModel.choseList.getValue().size()
-                        viewModelChoseListSize = viewModelChoseListGetValue.size();
+                    if (viewModelCheckOutEnable != null) {
+                        // read viewModel.checkOutEnable.getValue()
+                        viewModelCheckOutEnableGetValue = viewModelCheckOutEnable.getValue();
                     }
 
 
-                    // read viewModel.choseList.getValue().size() > 0
-                    viewModelChoseListSizeInt0 = (viewModelChoseListSize) > (0);
+                    // read androidx.databinding.ViewDataBinding.safeUnbox(viewModel.checkOutEnable.getValue())
+                    androidxDatabindingViewDataBindingSafeUnboxViewModelCheckOutEnableGetValue = androidx.databinding.ViewDataBinding.safeUnbox(viewModelCheckOutEnableGetValue);
             }
         }
         // batch finished
 
-        if ((dirtyFlags & 0xa00L) != 0) {
+        if ((dirtyFlags & 0x1400L) != 0) {
 
                 if (viewModel != null) {
                     // read viewModel.lstCartItem
@@ -323,38 +315,38 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
                     viewModelLstCartItemSize = viewModelLstCartItemGetValue.size();
                 }
 
-            if ((dirtyFlags & 0x800L) != 0) {
+            if ((dirtyFlags & 0x1000L) != 0) {
 
                     // read viewModel.lstCartItem.getValue().size() > 0
                     viewModelLstCartItemSizeInt0 = (viewModelLstCartItemSize) > (0);
             }
-            if ((dirtyFlags & 0x200L) != 0) {
+            if ((dirtyFlags & 0x400L) != 0) {
 
                     // read viewModel.lstCartItem.getValue().size() == 0
                     ViewModelLstCartItemSizeInt01 = (viewModelLstCartItemSize) == (0);
             }
         }
 
-        if ((dirtyFlags & 0xc3L) != 0) {
+        if ((dirtyFlags & 0x183L) != 0) {
 
                 // read viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false
                 viewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse = ((viewModelLoadingStatusLoadingStatusSuccess) ? (ViewModelLstCartItemSizeInt01) : (false));
                 // read viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false
                 ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse1 = ((viewModelLoadingStatusLoadingStatusSuccess) ? (viewModelLstCartItemSizeInt0) : (false));
-            if((dirtyFlags & 0xc3L) != 0) {
+            if((dirtyFlags & 0x183L) != 0) {
                 if(viewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse) {
+                        dirtyFlags |= 0x4000L;
+                }
+                else {
                         dirtyFlags |= 0x2000L;
                 }
-                else {
-                        dirtyFlags |= 0x1000L;
-                }
             }
-            if((dirtyFlags & 0xc3L) != 0) {
+            if((dirtyFlags & 0x183L) != 0) {
                 if(ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse1) {
-                        dirtyFlags |= 0x8000L;
+                        dirtyFlags |= 0x10000L;
                 }
                 else {
-                        dirtyFlags |= 0x4000L;
+                        dirtyFlags |= 0x8000L;
                 }
             }
 
@@ -365,31 +357,31 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
                 ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalseViewVISIBLEViewGONE1 = ((ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalse1) ? (android.view.View.VISIBLE) : (android.view.View.GONE));
         }
         // batch finished
-        if ((dirtyFlags & 0xc8L) != 0) {
+        if ((dirtyFlags & 0x188L) != 0) {
             // api target 1
 
-            this.btnGoToCheckOut.setEnabled(viewModelChoseListSizeInt0);
+            this.btnGoToCheckOut.setEnabled(androidxDatabindingViewDataBindingSafeUnboxViewModelCheckOutEnableGetValue);
         }
-        if ((dirtyFlags & 0xc3L) != 0) {
+        if ((dirtyFlags & 0x183L) != 0) {
             // api target 1
 
             this.loadingMessage.setVisibility(viewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalseViewVISIBLEViewGONE);
             this.rcCart.setVisibility(ViewModelLoadingStatusLoadingStatusSuccessViewModelLstCartItemSizeInt0BooleanFalseViewVISIBLEViewGONE1);
         }
-        if ((dirtyFlags & 0xc2L) != 0) {
+        if ((dirtyFlags & 0x182L) != 0) {
             // api target 1
 
             this.loadingProgress.setVisibility(viewModelLoadingStatusLoadingStatusLoadingViewVISIBLEViewGONE);
         }
-        if ((dirtyFlags & 0xc4L) != 0) {
-            // api target 1
-
-            com.example.aposs_buyer.utils.BindingAdapterKt.bindCurrencyTextView(this.mboundView4, androidxDatabindingViewDataBindingSafeUnboxViewModelTotalGetValue);
-        }
-        if ((dirtyFlags & 0xc1L) != 0) {
+        if ((dirtyFlags & 0x181L) != 0) {
             // api target 1
 
             com.example.aposs_buyer.utils.BindingAdapterKt.bindCardRecycleView(this.rcCart, viewModelLstCartItemGetValue);
+        }
+        if ((dirtyFlags & 0x184L) != 0) {
+            // api target 1
+
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.totalPrice, viewModelTotalCurrencyGetValue);
         }
     }
     // Listener Stub Implementations
@@ -399,22 +391,23 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     /* flag mapping
         flag 0 (0x1L): viewModel.lstCartItem
         flag 1 (0x2L): viewModel.loadingStatus
-        flag 2 (0x3L): viewModel.total
-        flag 3 (0x4L): viewModel.choseList
+        flag 2 (0x3L): viewModel.totalCurrency
+        flag 3 (0x4L): viewModel.checkOutEnable
         flag 4 (0x5L): loadingStatus
-        flag 5 (0x6L): view
-        flag 6 (0x7L): viewModel
-        flag 7 (0x8L): null
-        flag 8 (0x9L): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false
+        flag 5 (0x6L): converter
+        flag 6 (0x7L): view
+        flag 7 (0x8L): viewModel
+        flag 8 (0x9L): null
         flag 9 (0xaL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false
-        flag 10 (0xbL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false
+        flag 10 (0xbL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false
         flag 11 (0xcL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false
-        flag 12 (0xdL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false ? View.VISIBLE : View.GONE
+        flag 12 (0xdL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false
         flag 13 (0xeL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false ? View.VISIBLE : View.GONE
-        flag 14 (0xfL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false ? View.VISIBLE : View.GONE
+        flag 14 (0xfL): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() == 0 : false ? View.VISIBLE : View.GONE
         flag 15 (0x10L): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false ? View.VISIBLE : View.GONE
-        flag 16 (0x11L): viewModel.loadingStatus.getValue() == LoadingStatus.Loading ? View.VISIBLE : View.GONE
+        flag 16 (0x11L): viewModel.loadingStatus.getValue() == LoadingStatus.Success ? viewModel.lstCartItem.getValue().size() > 0 : false ? View.VISIBLE : View.GONE
         flag 17 (0x12L): viewModel.loadingStatus.getValue() == LoadingStatus.Loading ? View.VISIBLE : View.GONE
+        flag 18 (0x13L): viewModel.loadingStatus.getValue() == LoadingStatus.Loading ? View.VISIBLE : View.GONE
     flag mapping end*/
     //end
 }

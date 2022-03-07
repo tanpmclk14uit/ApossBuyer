@@ -10,10 +10,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentProductRatingBinding
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.RatingAdapter
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 
@@ -41,7 +39,7 @@ class ProductRatingFragment : Fragment() {
 
     private fun setUpNavigateToCart(){
         binding.cart.setOnClickListener {
-            startActivity(Intent(this.context, CartSecondActivity::class.java))
+            // go to cart
         }
     }
     private fun setUpRatingComponent() {

@@ -9,107 +9,25 @@
         tools:layout="@layout/fragment_home"
         android:id="@+id/homeFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_detailProductFragment"
-            app:destination="@id/detailProductFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_kindFragment"
-            app:destination="@id/kindFragment" />
-    </fragment>
+        android:label="HomeFragment" />
     <fragment
         tools:layout="@layout/fragment_favorite"
         android:id="@+id/favoriteFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.FavoriteFragment"
-        android:label="FavoriteFragment" >
-        <action
-            android:id="@+id/action_favoriteFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-    </fragment>
+        android:label="FavoriteFragment" />
     <fragment
         tools:layout="@layout/fragment_cart"
         android:id="@+id/cartFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.CartFragment"
-        android:label="CartFragment" >
-        <action
-            android:id="@+id/action_cartFragment_to_checkOutFragment"
-            app:destination="@id/checkOutFragment" />
-        <action
-            android:id="@+id/action_cartFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-    </fragment>
+        android:label="CartFragment" />
     <fragment
         tools:layout="@layout/fragment_message"
         android:id="@+id/messageFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.MessageFragment"
-        android:label="MessageFragment" >
-        <action
-            android:id="@+id/action_messageFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-    </fragment>
+        android:label="MessageFragment" />
     <fragment
         tools:layout="@layout/fragment_person"
         android:id="@+id/personFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.PersonFragment"
         android:label="PersonFragment" />
-    <fragment
-        tools:layout="@layout/fragment_detail_product"
-        android:id="@+id/detailProductFragment2"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.DetailProductFragment"
-        android:label="DetailProductFragment" />
-    <fragment
-        android:id="@+id/checkOutFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutFragment"
-        android:label="CheckOutFragment" >
-        <action
-            android:id="@+id/action_checkOutFragment_to_finishCheckOutFragment"
-            app:destination="@id/finishCheckOutFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/finishCheckOutFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.FinishCheckOutFragment"
-        android:label="fragment_finish_check_out"
-        tools:layout="@layout/fragment_finish_check_out" >
-    </fragment>
-    <fragment
-        android:id="@+id/aboutUsFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.AboutUsFragment"
-        android:label="AboutUsFragment" />
-    <fragment
-        android:id="@+id/kindFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.KindFragment"
-        android:label="KindFragment" >
-        <argument
-            android:name="category_id"
-            app:argType="long"
-            android:defaultValue="-1L" />
-        <argument
-            android:name="category_name"
-            app:argType="string"
-            android:defaultValue="" />
-        <action
-            android:id="@+id/action_kindFragment_to_productOfKindFragment"
-            app:destination="@id/productOfKindFragment" />
-        <action
-            android:id="@+id/action_kindFragment_to_homeFragment2"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/productOfKindFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.ProductOfKindFragment"
-        android:label="ProductOfKindFragment" >
-        <argument
-            android:name="kind_id"
-            app:argType="long"
-            android:defaultValue="-1L" />
-        <argument
-            android:name="kind_name"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_productOfKindFragment_to_kindFragment"
-            app:destination="@id/kindFragment" />
-    </fragment>
 </navigation>

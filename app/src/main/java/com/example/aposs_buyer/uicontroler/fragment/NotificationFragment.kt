@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentNotificationBinding
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.NotificationAdapter
 import com.example.aposs_buyer.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,11 +49,11 @@ class NotificationFragment : Fragment(), NotificationAdapter.NotificationInterfa
 
     private fun setCartButton() {
         binding.cart.setOnClickListener {
-            startActivity(Intent(this.context, CartSecondActivity::class.java))
+            //startActivity(Intent(this.context, CartSecondActivity::class.java))
         }
     }
 
     override fun onSeeNowClick(id: Long) {
-        findNavController().navigate(NotificationFragmentDirections.actionNotificationFragmentToDetailOrderFragment(id))
+       // go to order
     }
 }

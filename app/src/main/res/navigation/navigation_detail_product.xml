@@ -27,9 +27,6 @@
             app:argType="long"
             android:defaultValue="-1L" />
         <action
-            android:id="@+id/action_detailProductFragment_to_cartFragment2"
-            app:destination="@id/cartFragment2" />
-        <action
             android:id="@+id/action_detailProductFragment_to_productDetailDialogFragment"
             app:destination="@id/productDetailDialogFragment" />
     </fragment>
@@ -54,43 +51,12 @@
         <action
             android:id="@+id/action_productRatingFragment_to_detailProductFragment"
             app:destination="@id/detailProductFragment" />
-        <action
-            android:id="@+id/action_productRatingFragment_to_cartFragment2"
-            app:destination="@id/cartFragment2" />
-    </fragment>
-    <fragment
-        tools:layout="@layout/fragment_cart"
-        android:id="@+id/cartFragment2"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.CartFragment"
-        android:label="CartFragment" />
-    <fragment
-        tools:layout="@layout/fragment_check_out"
-        android:id="@+id/checkOutFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutFragment"
-        android:label="CheckOutFragment" >
-        <argument
-            android:name="item"
-            app:argType="com.example.aposs_buyer.model.CartItem"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_checkOutFragment_to_finishCheckOutFragment"
-            app:destination="@id/finishCheckOutFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/finishCheckOutFragment"
-        android:name="com.example.aposs_buyer.uicontroler.fragment.FinishCheckOutFragment"
-        android:label="fragment_finish_check_out"
-        tools:layout="@layout/fragment_finish_check_out" >
     </fragment>
     <dialog
         tools:layout="@layout/fragment_product_detail_dialog_list_dialog"
         android:id="@+id/productDetailDialogFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.ProductDetailDialogFragment"
         android:label="ProductDetailDialogFragment" >
-        <action
-            android:id="@+id/action_productDetailDialogFragment_to_checkOutFragment"
-            app:destination="@id/checkOutFragment" />
         <argument
             android:name="dialogType"
             app:argType="com.example.aposs_buyer.utils.DialogType"

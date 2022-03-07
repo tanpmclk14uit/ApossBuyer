@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentRateNowBinding
 import com.example.aposs_buyer.model.RateNowItem
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 import com.example.aposs_buyer.uicontroler.adapter.RateNowAdapter
 import com.example.aposs_buyer.viewmodel.RateNowViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,8 +37,7 @@ class RateNowFragment : Fragment(), RateNowAdapter.OnItemClick {
             requireActivity().onBackPressed()
         }
         binding.clCart.setOnClickListener {
-            val intent = Intent(this.context, CartSecondActivity::class.java)
-            startActivity(intent)
+            // go to cart
         }
         return binding.root
     }

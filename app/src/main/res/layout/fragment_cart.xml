@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.CartViewModel" />
@@ -16,6 +15,10 @@
         <variable
             name="loadingStatus"
             type="com.example.aposs_buyer.utils.LoadingStatus" />
+
+        <variable
+            name="converter"
+            type="com.example.aposs_buyer.utils.Converter" />
     </data>
 
     <FrameLayout
@@ -188,10 +191,9 @@
 
                         <TextView
                             android:id="@+id/totalPrice"
-                            android:text="@{viewModel.total.toString()}"
-                            currencyTextData="@{viewModel.total}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{viewModel.totalCurrency}"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -202,7 +204,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/bg_button_checkout"
-                    android:enabled="@{viewModel.choseList.size()>0}"
+                    android:enabled="@{viewModel.checkOutEnable}"
                     android:text="@string/check_out"
                     android:textStyle="bold" />
             </LinearLayout>

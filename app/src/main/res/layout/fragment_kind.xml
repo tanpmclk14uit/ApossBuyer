@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewModel"
-            type="com.example.aposs_buyer.viewmodel.KindViewModel" />
+            type="com.example.aposs_buyer.viewmodel.ProductOfKindViewModel" />
     </data>
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/back_ground"
+        android:orientation="vertical"
         tools:context=".uicontroler.fragment.KindFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -22,11 +24,13 @@
             android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:elevation="0dp"
             app:liftOnScroll="false">
+
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:expandedTitleGravity="top"
                 app:layout_scrollFlags="noScroll">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,6 +55,7 @@
                             android:orientation="vertical"
                             android:paddingBottom="15dp">
 
+
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -59,13 +64,11 @@
 
                                 <ImageView
                                     android:id="@+id/img_back"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:layout_alignParentStart="true"
                                     android:layout_marginTop="10dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:contentDescription="@string/image"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/ic_back_white"/>
+                                    android:src="@drawable/ic_back_white" />
 
                                 <TextView
                                     android:id="@+id/title"
@@ -74,44 +77,61 @@
                                     android:layout_alignParentTop="true"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginEnd="50dp"
-                                    android:text="@{viewModel.selectedCategoryName}"
+                                    android:text="@{viewModel.selectedKindName}"
                                     android:textColor="@color/white"
                                     android:textSize="30sp"
                                     android:textStyle="bold" />
 
-                                <androidx.coordinatorlayout.widget.CoordinatorLayout
-                                    android:layout_width="33dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_alignParentEnd="true">
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="27dp"
+                                    android:layout_height="27dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginTop="5dp">
+
                                     <ImageView
-                                        android:layout_width="26dp"
-                                        android:layout_height="26dp"
-                                        android:layout_gravity="bottom|left"
+                                        android:id="@+id/cart"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="20dp"
                                         android:contentDescription="@string/image"
-                                        app:tint="@color/white"
+                                        android:scaleType="centerCrop"
                                         android:src="@drawable/ic_cart"
-                                        android:id="@+id/img_cart"
-                                        tools:ignore="RtlHardcoded" />
-                                    <TextView
-                                        android:layout_gravity="right|top"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:tint="@color/white" />
+
+                                    <androidx.cardview.widget.CardView
                                         android:layout_width="14dp"
                                         android:layout_height="14dp"
-                                        android:background="@drawable/bg_quantity_in_cart"
-                                        android:textSize="10dp"
-                                        android:text="1"
-                                        android:textAlignment="center"
-                                        android:textColor="@color/white"
-                                        tools:ignore="RtlCompat" />
-                                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                                        android:background="@color/red"
+                                        android:backgroundTint="@color/red"
+                                        app:cardCornerRadius="10dp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:autoSizeMinTextSize="7sp"
+                                            android:gravity="center"
+                                            android:text="@string/defaultCartNumber"
+                                            android:textColor="@color/white"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp,SpUsage" />
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <com.google.android.material.textfield.TextInputLayout
-                                    android:layout_marginTop="9dp"
                                     android:id="@+id/search_bar"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                                     android:layout_width="match_parent"
                                     android:layout_height="38dp"
                                     android:layout_below="@+id/title"
+                                    android:layout_marginTop="5dp"
                                     app:boxStrokeColor="@color/disable_pray"
                                     app:boxStrokeWidth="1dp"
                                     app:boxStrokeWidthFocused="2dp"
@@ -185,17 +205,22 @@
                         </LinearLayout>
                     </androidx.appcompat.widget.Toolbar>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="160dp"
-                    android:layout_marginHorizontal="10dp">
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="145dp">
+
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rc_kind"
+                        android:id="@+id/rc_products"
+                        listProduct="@{viewModel.productKind}"
+                        app:spanCount="2"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        listKind="@{viewModel.listKind}"
-                        tools:listitem="@layout/item_kind"/>
+                        android:layout_marginTop="10dp"
+                        tools:listitem="@layout/item_product" />
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>

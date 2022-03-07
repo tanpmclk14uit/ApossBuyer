@@ -2,20 +2,16 @@ package com.example.aposs_buyer.uicontroler.fragment
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.Person
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.DatePicker
-import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -25,7 +21,6 @@ import com.example.aposs_buyer.viewmodel.UserDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import com.example.aposs_buyer.model.Person.convert
-import com.example.aposs_buyer.uicontroler.activity.CartSecondActivity
 
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
@@ -65,7 +60,7 @@ class UserDetailFragment : Fragment() {
         }
 
         binding.imgCart.setOnClickListener {
-            startActivity(Intent(this.context, CartSecondActivity::class.java))
+            // go to cart
         }
         return binding.root
     }
