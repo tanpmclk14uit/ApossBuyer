@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCartBinding
 import com.example.aposs_buyer.uicontroler.activity.AboutUsActivity
+import com.example.aposs_buyer.uicontroler.activity.CheckOutActivity
 import com.example.aposs_buyer.uicontroler.activity.NotificationActivity
 import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
@@ -105,15 +106,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
     private fun setUpCheckOutBottomBar() {
         // set up button check out
         binding.btnGoToCheckOut.setOnClickListener {
-            if (viewModel.isHoldProductSuccess()) {
-                // go to check out activity
-            } else {
-                Toast.makeText(
-                    this.context,
-                    "Current having not enough quantity",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            startActivity(Intent(this.context, CheckOutActivity::class.java))
         }
     }
 

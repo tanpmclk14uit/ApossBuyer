@@ -12,13 +12,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentOrderBinding
+import com.example.aposs_buyer.uicontroler.activity.CartActivity
 import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.uicontroler.adapter.OrderAdapter
 import com.example.aposs_buyer.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderFragment  : Fragment(), OrderAdapter.OrderInterface {
+class OrderFragment : Fragment(), OrderAdapter.OrderInterface {
 
     private lateinit var binding: FragmentOrderBinding
 
@@ -32,7 +33,7 @@ class OrderFragment  : Fragment(), OrderAdapter.OrderInterface {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_order, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        orderAdapter = OrderAdapter(OrderAdapter.OnClickListener{
+        orderAdapter = OrderAdapter(OrderAdapter.OnClickListener {
             toOrderDetail(it.id)
             viewModel.setCurrentOrder(it)
         }, this)
@@ -43,50 +44,56 @@ class OrderFragment  : Fragment(), OrderAdapter.OrderInterface {
         toCart()
         return binding.root
     }
-    private fun toCart(){
+
+    private fun toCart() {
         binding.cart.setOnClickListener {
-            // go to cart
+            startActivity(Intent(this.context, CartActivity::class.java))
         }
     }
 
-    private fun setBackPress(){
+    private fun setBackPress() {
         binding.back.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
-    private fun toOrderDetail(orderId: Long){
-        findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToDetailOrderFragment(orderId))
+
+    private fun toOrderDetail(orderId: Long) {
+        findNavController().navigate(
+            OrderFragmentDirections.actionOrderFragmentToDetailOrderFragment(
+                orderId
+            )
+        )
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun onCurrentOrderChange(){
+    private fun onCurrentOrderChange() {
         viewModel.currentListOrder.observe(this.viewLifecycleOwner, {
             orderAdapter.submitList(viewModel.currentListOrder.value)
             binding.orders.adapter!!.notifyDataSetChanged()
-            if(viewModel.currentListOrder.value!!.isEmpty()){
+            if (viewModel.currentListOrder.value!!.isEmpty()) {
                 binding.emptyOrder.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.emptyOrder.visibility = View.GONE
             }
         })
     }
 
-    private fun setBottomBar(){
+    private fun setBottomBar() {
         binding.bottomBar.setOnItemSelectedListener {
-            when(it.title.toString()){
-                "Pending" ->{
+            when (it.title.toString()) {
+                "Pending" -> {
                     viewModel.loadPendingOrder()
                 }
-                "Confirmed" ->{
+                "Confirmed" -> {
                     viewModel.loadConfirmedOrder()
                 }
-                "Delivering" ->{
+                "Delivering" -> {
                     viewModel.loadDeliveringOrder()
                 }
-                "Success" ->{
+                "Success" -> {
                     viewModel.loadSuccessOrder()
                 }
-                "Cancel"->{
+                "Cancel" -> {
                     viewModel.loadCancelOrder()
                 }
             }

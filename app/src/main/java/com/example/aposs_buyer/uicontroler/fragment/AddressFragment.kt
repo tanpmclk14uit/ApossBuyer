@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressBinding
 import com.example.aposs_buyer.model.Address
+import com.example.aposs_buyer.uicontroler.activity.CartActivity
 import com.example.aposs_buyer.uicontroler.adapter.AddressAdapter
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.AddressViewModel
@@ -41,12 +42,12 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
         return binding.root
     }
 
-    private fun setAddressRecycleView(){
+    private fun setAddressRecycleView() {
         addressAdapter = AddressAdapter(this)
         binding.rcAddress.adapter = addressAdapter
     }
 
-    private fun observeStatus(){
+    private fun observeStatus() {
         viewModel.status.observe(viewLifecycleOwner) {
             if (viewModel.status.value!! == LoadingStatus.Success) {
                 addressAdapter.submitList(viewModel.listAddress.value)
@@ -79,6 +80,8 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
     }
 
     private fun setOnCartClick() {
-        // go to cart
+        binding.clCart.setOnClickListener {
+            startActivity(Intent(this.context, CartActivity::class.java))
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.dto.CartDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
+import com.example.aposs_buyer.uicontroler.activity.CheckOutActivity
 import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.ColorDetailPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.ColorPropertyAdapter
@@ -105,17 +106,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
             if (checkValidPropertyProduct()) {
                 if (dialogType == DialogType.CheckOutDialog) {
                     if (isLogin()) {
-                        if (viewModelDialog.holdProduct()) {
-                            Log.d("checkoutBussiness", "change page")
-                            // go to check out
-                            this.dismiss()
-                        } else {
-                            Toast.makeText(
-                                this.context,
-                                "Current having not enough quantity",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                        startActivity(Intent(this.context, CheckOutActivity::class.java))
                     }
                 } else {
                     if (isLogin()) {

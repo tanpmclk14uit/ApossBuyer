@@ -24,6 +24,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RateImage
+import com.example.aposs_buyer.uicontroler.activity.CartActivity
 
 
 @AndroidEntryPoint
@@ -38,14 +39,15 @@ class RatingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rating, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         viewModel.setCurrentRatingItem(args.currentRateItem)
         binding.rcRateImg.adapter = addingRatingImageAdapter
-        binding.rcRateImg.layoutManager = LinearLayoutManager(binding.rcRateImg.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rcRateImg.layoutManager =
+            LinearLayoutManager(binding.rcRateImg.context, LinearLayoutManager.HORIZONTAL, false)
         binding.lnAddImg.setOnClickListener {
             openGallery()
         }
@@ -60,7 +62,7 @@ class RatingFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.clCart.setOnClickListener {
-            // go to cart
+            startActivity(Intent(this.context, CartActivity::class.java))
         }
         return binding.root
     }
@@ -89,8 +91,7 @@ class RatingFragment : Fragment() {
         }
     }
 
-    private fun checkValidToAdd()
-    {
+    private fun checkValidToAdd() {
         if (viewModel.listChoseImage.value!!.size == 3) {
             binding.lnAddImg.isEnabled = false
             binding.lnAddImg.visibility = View.GONE
@@ -98,8 +99,7 @@ class RatingFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setDisplayAmount()
-    {
+    private fun setDisplayAmount() {
         binding.tvAmount.text = "${viewModel.listChoseImage.value!!.size}/3"
     }
 }
