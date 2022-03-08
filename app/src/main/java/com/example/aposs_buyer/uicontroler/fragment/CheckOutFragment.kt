@@ -49,7 +49,6 @@ class CheckOutFragment : Fragment() {
         binding.rcCheckOut.adapter = checkOutAdapter
         binding.rcCheckOut.layoutManager = LinearLayoutManager(binding.rcCheckOut.context, LinearLayoutManager.VERTICAL, false)
         binding.imgBack.setOnClickListener {
-            viewModel.reduceHold()
             requireActivity().onBackPressed()
         }
         binding.btnConfirm.setOnClickListener {

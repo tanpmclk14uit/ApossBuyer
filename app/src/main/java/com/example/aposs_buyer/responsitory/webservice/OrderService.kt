@@ -14,18 +14,6 @@ interface OrderService {
         @Header("Authorization") token: String,
     ): Response<String>
 
-    @PUT("order/hold")
-    suspend fun holdProduct(
-        @Body listOrderItemDTO: List<OrderItemDTO>,
-        @Header("Authorization") token: String,
-    ): Response<String>
-
-    @PUT("order/reduceHold")
-    suspend fun reduceHold(
-        @Body listOrderItemDTO: List<OrderItemDTO>,
-        @Header("Authorization") token: String,
-    ): Response<String>
-
     @GET("order/all-order-by")
     suspend fun getAllOrderByStatus(
         @Query("status") orderStatus: OrderStatus,

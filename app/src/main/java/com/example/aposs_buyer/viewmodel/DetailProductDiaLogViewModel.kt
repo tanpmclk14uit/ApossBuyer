@@ -295,50 +295,6 @@ class DetailProductDiaLogViewModel @Inject constructor(
     }
 
     var loadingStatus = MutableLiveData<LoadingStatus>()
-    fun holdProduct(): Boolean {
-        var result = false
-        if (tokenDTO != null) {
-            loadingStatus.value = LoadingStatus.Loading
-            val listOrderItemDTO: MutableList<OrderItemDTO> = mutableListOf()
-            listOrderItemDTO.add(convertToOrderItemDTO(toCartItem(productTypeCart.value!!)))
-            runBlocking {
-                val holdResponse = async {
-                    orderRepository.orderService.holdProduct(
-                        listOrderItemDTO,
-                        tokenDTO!!.getFullAccessToken()
-                    )
-                }
-                runBlocking {
-                    when (holdResponse.await().code()) {
-                        200 -> {
-                            result = true
-                            Log.d("checkoutBussiness", "success")
-                        }
-                        401 -> {
-                            val accessTokenResponse =
-                                authRepository.getAccessTokenFromRefreshToken(tokenDTO!!.refreshToken)
-                            Log.d("checkoutBussiness", tokenDTO!!.accessToken)
-                            if (accessTokenResponse.code() == 200) {
-                                tokenDTO!!.accessToken = accessTokenResponse.body()!!
-                                AccountDatabase.getInstance(context).accountDao.updateAccessToken(
-                                    tokenDTO!!.accessToken
-                                )
-                                Log.d("checkoutBussiness", tokenDTO!!.accessToken)
-                                holdProduct()
-                            }
-                            Log.d("checkoutBussiness", "expired")
-                        }
-                        else -> {
-                            result = false
-
-                        }
-                    }
-                }
-            }
-        }
-
-        return result
-    }
 
     private fun toCartItem(cartDTO: CartDTO): CartItem {
         val image = Image(cartDTO.imageUrl)
