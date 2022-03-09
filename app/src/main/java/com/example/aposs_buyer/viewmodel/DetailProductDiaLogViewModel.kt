@@ -77,6 +77,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
         productTypeCart.value = cartDto
         _selectedProduct.value = selectedProduct
         _selectedProductImages.value = selectedProductImages
+        _selectedProductQuantitiesDiaLog.value = selectedProduct.availableQuantities
     }
 
 
@@ -87,6 +88,7 @@ class DetailProductDiaLogViewModel @Inject constructor(
         )
         _selectedProductStringPropertyDiaLog.value = viewModel.selectedProductStringProperty.value
         _selectedProductColorPropertyDiaLog.value = viewModel.selectedProductColorProperty.value
+
         setSelectedProductMinValue()
         validatePropertyValue()
 
@@ -194,40 +196,30 @@ class DetailProductDiaLogViewModel @Inject constructor(
     }
 
     private fun setSelectedProductMinValue() {
-        var stringMin =0;
-        var colorMin =0;
+        var quantity = selectedProductQuantitiesDiaLog.value!!
         val stringProperty = selectedProductStringPropertyDiaLog.value
         val colorProperty = selectedProductColorPropertyDiaLog.value
+
         if (stringProperty != null && stringProperty.isNotEmpty()) {
-            stringMin = stringProperty[0].valueCountSummarize
-            for (property in selectedProductStringPropertyDiaLog.value!!) {
-                if (property.valueCountSummarize < stringMin) {
-                    stringMin = property.valueCountSummarize
+            for (property in stringProperty) {
+                if (property.valueCountSummarize !=0 && property.valueCountSummarize < quantity) {
+                    quantity = property.valueCountSummarize
                 }
             }
         }
         if (colorProperty != null && colorProperty.isNotEmpty()) {
-            colorMin = colorProperty[0].valueCountSummarize
-            for (property in selectedProductColorPropertyDiaLog.value!!) {
-                if (property.valueCountSummarize < colorMin) {
-                    colorMin = property.valueCountSummarize
+            for (property in colorProperty) {
+                if (property.valueCountSummarize !=0 && property.valueCountSummarize < quantity) {
+                    quantity = property.valueCountSummarize
                 }
             }
         }
-        if(stringMin!=0 && stringMin < colorMin){
-            selectedProductQuantitiesDiaLog.value = colorMin
-        }
-        if(colorMin !=0 && colorMin <= stringMin){
-            selectedProductQuantitiesDiaLog.value = stringMin
-        }
-        if(stringMin ==0 && colorMin ==0){
-            selectedProductQuantitiesDiaLog.value = selectedProduct.value!!.availableQuantities
-        }
+        selectedProductQuantitiesDiaLog.value = quantity
         validatePropertyValue()
     }
 
     private fun convertPropertyToString(): String {
-        if(selectedProductQuantitiesDiaLog.value == selectedProduct.value!!.availableQuantities){
+        if (selectedProductQuantitiesDiaLog.value == selectedProduct.value!!.availableQuantities) {
             return " "
         }
         var sampleProperty = ""

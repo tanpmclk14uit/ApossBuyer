@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.*
 import com.example.aposs_buyer.responsitory.ProductRepository
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class DetailProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private var selectedProductId: Long = 0
 
@@ -50,13 +51,10 @@ class DetailProductViewModel @Inject constructor(
     val productDetailLoadingState = MutableLiveData<LoadingStatus>()
     val productRatingLoadingState = MutableLiveData<LoadingStatus>()
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
 
     fun setSelectedProductId(id: Long) {
         selectedProductId = id
-        if (selectedProductId != (-1).toLong()) {
+        if (selectedProductId != -1L) {
             loadSelectedProductById(selectedProductId)
             loadListImageByID(selectedProductId)
         }
@@ -74,7 +72,6 @@ class DetailProductViewModel @Inject constructor(
                 minSelect = property.valueCountSummarize
             }
         }
-
         _selectedProductQuantities.value = minSelect
     }
 
@@ -155,31 +152,33 @@ class DetailProductViewModel @Inject constructor(
 
     private fun loadProductRatingById(id: Long) {
         productRatingLoadingState.value = LoadingStatus.Loading
-        coroutineScope.launch {
+        viewModelScope.launch {
             val ratingResponseDTO = productRepository.loadProductRatingById(id)
             if (ratingResponseDTO.isSuccessful) {
                 _selectedProductRating.value = ratingResponseDTO.body()!!.stream().map {
                     mapToProductRating(it!!)
                 }.collect(Collectors.toList()).toCollection(ArrayList())
                 productRatingLoadingState.value = LoadingStatus.Success
-            }else{
+            } else {
                 productRatingLoadingState.value = LoadingStatus.Fail
             }
         }
     }
 
     private fun loadProductsByKind(kindId: Long) {
-        coroutineScope.launch {
+        viewModelScope.launch {
             val productByKindIdResponseDTO = productRepository.loadProductByKindId(kindId)
-            if(productByKindIdResponseDTO.isSuccessful){
-                if(productByKindIdResponseDTO.body()!= null){
-                    _sameKindProducts.value = productByKindIdResponseDTO.body()!!.content.stream().map {
-                        mapToHomeProduct(it!!)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
+            if (productByKindIdResponseDTO.isSuccessful) {
+                if (productByKindIdResponseDTO.body() != null) {
+                    _sameKindProducts.value =
+                        productByKindIdResponseDTO.body()!!.content.stream().map {
+                            mapToHomeProduct(it!!)
+                        }.collect(Collectors.toList()).toCollection(ArrayList())
                 }
             }
         }
     }
+
     private fun mapToHomeProduct(productDTO: ProductDTO): HomeProduct {
         return HomeProduct(
             id = productDTO.id,
@@ -190,17 +189,23 @@ class DetailProductViewModel @Inject constructor(
             purchased = productDTO.purchased
         )
     }
-    private fun loadSelectedProductColorPropertyById(id: Long, productQuantity: Int)  {
-        coroutineScope.launch {
+
+    private fun loadSelectedProductColorPropertyById(id: Long, productQuantity: Int) {
+        viewModelScope.launch {
             val productStringResponseDTO = productRepository.loadProductColorPropertyById(id)
-            if(productStringResponseDTO.isSuccessful){
-                _selectedProductColorProperty.value =  productStringResponseDTO.body()!!.stream().map {
-                    mapToProperty(it!!, productQuantity)
-                }.collect(Collectors.toList()).toCollection(ArrayList())
+            if (productStringResponseDTO.isSuccessful) {
+                _selectedProductColorProperty.value =
+                    productStringResponseDTO.body()!!.stream().map {
+                        mapToProperty(it!!, productQuantity)
+                    }.collect(Collectors.toList()).toCollection(ArrayList())
             }
         }
     }
-    private fun mapToPropertyValue(productPropertyValueDTO: ProductPropertyValueDTO, propertyId: Long): PropertyValue{
+
+    private fun mapToPropertyValue(
+        productPropertyValueDTO: ProductPropertyValueDTO,
+        propertyId: Long
+    ): PropertyValue {
         return PropertyValue(
             productPropertyValueDTO.id,
             productPropertyValueDTO.name,
@@ -211,7 +216,11 @@ class DetailProductViewModel @Inject constructor(
             false
         )
     }
-    private fun mapToProperty(productPropertyDTO: ProductPropertyDTO, productQuantity: Int): ProductDetailProperty{
+
+    private fun mapToProperty(
+        productPropertyDTO: ProductPropertyDTO,
+        productQuantity: Int
+    ): ProductDetailProperty {
         val productPropertyValues: List<PropertyValue> = productPropertyDTO.valueDTOS.stream().map {
             mapToPropertyValue(it, productPropertyDTO.id)
         }.collect(Collectors.toList())
@@ -224,12 +233,14 @@ class DetailProductViewModel @Inject constructor(
     }
 
     private fun loadSelectedProductStringPropertyById(id: Long, productQuantity: Int) {
-        coroutineScope.launch {
+        viewModelScope.launch {
             val productStringResponseDTO = productRepository.loadProductStringPropertyById(id)
-            if(productStringResponseDTO.isSuccessful){
-                _selectedProductStringProperty.value =  productStringResponseDTO.body()!!.stream().map {
-                    mapToProperty(it!!, productQuantity)
-                }.collect(Collectors.toList()).toCollection(ArrayList())
+            if (productStringResponseDTO.isSuccessful) {
+                _selectedProductStringProperty.value =
+                    productStringResponseDTO.body()!!
+                        .filter { productPropertyDTO -> productPropertyDTO.id != 0L }.stream().map {
+                        mapToProperty(it!!, productQuantity)
+                    }.collect(Collectors.toList()).toCollection(ArrayList())
             }
         }
     }
@@ -251,20 +262,26 @@ class DetailProductViewModel @Inject constructor(
 
     private fun loadSelectedProductById(id: Long) {
         productDetailLoadingState.value = LoadingStatus.Loading
-        coroutineScope.launch {
+        viewModelScope.launch {
             val productResponse = productRepository.loadProductById(id)
             if (productResponse.isSuccessful) {
                 _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
                 _selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
-               loadProductsByKind(productResponse.body()!!.kindId)
-                if(_selectedProduct.value!!.totalReview != 0){
+                loadProductsByKind(productResponse.body()!!.kindId)
+                if (_selectedProduct.value!!.totalReview != 0) {
                     loadProductRatingById(selectedProductId)
-                }else{
+                } else {
                     _selectedProductRating.value = ArrayList()
                     productRatingLoadingState.value = LoadingStatus.Success
                 }
-                loadSelectedProductStringPropertyById(selectedProductId, _selectedProduct.value!!.availableQuantities)
-                loadSelectedProductColorPropertyById(selectedProductId, _selectedProduct.value!!.availableQuantities)
+                loadSelectedProductStringPropertyById(
+                    selectedProductId,
+                    _selectedProduct.value!!.availableQuantities
+                )
+                loadSelectedProductColorPropertyById(
+                    selectedProductId,
+                    _selectedProduct.value!!.availableQuantities
+                )
                 productDetailLoadingState.value = LoadingStatus.Success
             } else {
                 productDetailLoadingState.value = LoadingStatus.Fail
@@ -277,7 +294,7 @@ class DetailProductViewModel @Inject constructor(
     }
 
     private fun loadListImageByID(id: Long) {
-        coroutineScope.launch {
+        viewModelScope.launch {
             val productImageResponse = productRepository.loadProductImageByProductId(id)
             if (productImageResponse.isSuccessful) {
                 _selectedProductImages.value = productImageResponse.body()!!.stream().map {

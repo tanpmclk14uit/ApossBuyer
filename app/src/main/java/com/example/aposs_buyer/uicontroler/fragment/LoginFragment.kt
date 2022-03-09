@@ -109,7 +109,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun onLoginStateChange() {
-        viewModel.loginState.observe(this.viewLifecycleOwner, {
+        viewModel.loginState.observe(this.viewLifecycleOwner) {
             if (it == LoginState.Wait) {
                 dialog.dismissDialog()
             } else {
@@ -135,21 +135,21 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
     }
 
     private fun setCheckingEmail() {
-        viewModel.email.observe(this.viewLifecycleOwner, {
+        viewModel.email.observe(this.viewLifecycleOwner) {
             viewModel.isValidEmail()
             binding.emailLayout.error = viewModel.emailErrorMessage;
-        })
+        }
     }
 
     private fun setCheckingPassword() {
-        viewModel.password.observe(this.viewLifecycleOwner, {
+        viewModel.password.observe(this.viewLifecycleOwner) {
             viewModel.isValidPassword()
             binding.passwordLayout.error = viewModel.passwordErrorMessage
-        })
+        }
     }
 
     private fun setSignUpButton() {
@@ -165,8 +165,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun toastMessageChange() {
-        viewModel.toastMessage.observe(this.viewLifecycleOwner, {
+        viewModel.toastMessage.observe(this.viewLifecycleOwner) {
             Toast.makeText(this.requireContext(), it, Toast.LENGTH_SHORT).show()
-        })
+        }
     }
 }

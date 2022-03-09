@@ -29,7 +29,7 @@ class SignInViewModel @Inject constructor(
     var emailErrorMessage: String? = ""
     var passwordErrorMessage: String? = ""
     var loginState: MutableLiveData<LoginState> = MutableLiveData()
-        var token: TokenDTO? = null
+    var token: TokenDTO? = null
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -49,7 +49,7 @@ class SignInViewModel @Inject constructor(
         loginState.value = LoginState.Loading
         coroutineScope.launch {
             val response = authRepository.signIn(email, password)
-            if (response.code()== 200) {
+            if (response.code() == 200) {
                 token = response.body()
                 loginState.value = LoginState.Success
                 toastMessage.value = "Login success"
@@ -60,17 +60,18 @@ class SignInViewModel @Inject constructor(
             }
         }
     }
-    fun signInWithSocialAccount(socialDTO: SignInWithSocialDTO){
+
+    fun signInWithSocialAccount(socialDTO: SignInWithSocialDTO) {
         loginState.value = LoginState.Loading
         coroutineScope.launch {
             val response = authRepository.signInWithSocialAccount(socialDTO)
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 token = response.body()
                 email.value = socialDTO.email
-                password.value =""
+                password.value = ""
                 loginState.value = LoginState.Success
                 toastMessage.value = "Login success"
-            }else{
+            } else {
                 loginState.value = LoginState.Wait
                 val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
                 toastMessage.value = jsonError.getString("message")

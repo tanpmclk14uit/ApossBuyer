@@ -143,14 +143,16 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     }
 
     private fun onAvailableQuantitiesChange() {
-        viewModelDialog.selectedProductQuantitiesDiaLog.observe(this, {
+        viewModelDialog.selectedProductQuantitiesDiaLog.observe(
+            this
+        ) {
             if (viewModelDialog.productTypeCart.value!!.quantity > viewModelDialog.selectedProductQuantitiesDiaLog.value!!) {
                 viewModelDialog.productTypeCart.value!!.quantity =
                     viewModelDialog.selectedProductQuantitiesDiaLog.value!!
                 viewModelDialog.productTypeCartAmount.value =
                     viewModelDialog.productTypeCart.value!!.quantity
             }
-        })
+        }
     }
 
     private fun onAddAmount() {
