@@ -152,7 +152,7 @@
                             android:scaleType="centerCrop"
                             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                             android:background="@drawable/bg_edit_info"
-                            image="@{viewModel.person.image.imageUri}" />
+                            imagesPath="@{viewModel.person.image.imageUri}" />
                     </LinearLayout>
                 </LinearLayout>
 

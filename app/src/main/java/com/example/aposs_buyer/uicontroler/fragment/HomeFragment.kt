@@ -95,8 +95,11 @@ class HomeFragment : Fragment(),
     private fun setUpCategoriesSection() {
         //set up categories adapter
         binding.categoriesViewPager.adapter =
-            CategoriesViewPagerAdapter(CategoriesViewPagerAdapter.OnClickListener { id, name ->
-                startActivity(Intent(this.context, CategoryActivity::class.java))
+            CategoriesViewPagerAdapter(CategoriesViewPagerAdapter.OnClickListener {
+                // on category click
+                val intent = Intent(this.context, CategoryActivity::class.java)
+                intent.putExtra("category", it)
+                startActivity(intent)
             })
         // set up categories indicator
         binding.indicator.setViewPager(binding.categoriesViewPager)

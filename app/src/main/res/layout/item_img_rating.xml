@@ -10,7 +10,7 @@
     android:layout_height="wrap_content"
     android:layout_marginRight="8dp">
     <ImageView
-        image="@{rateImage.rateImage.imageUri}"
+        imagesPath="@{rateImage.rateImage.imageUri}"
         android:layout_width="65dp"
         android:layout_height="65dp"/>
 </LinearLayout>

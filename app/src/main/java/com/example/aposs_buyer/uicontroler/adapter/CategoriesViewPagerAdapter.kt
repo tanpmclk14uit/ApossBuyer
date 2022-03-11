@@ -15,8 +15,8 @@ import com.example.aposs_buyer.model.Image
 class CategoriesViewPagerAdapter(val onClickListener: OnClickListener) :
     ListAdapter<Category, CategoriesViewPagerAdapter.CategoryViewHolder>(DiffCallBack) {
 
-    class OnClickListener(val clickListener: (id: Long, name: String) -> Unit) {
-        fun onClick(id: Long, name: String) = clickListener(id, name)
+    class OnClickListener(val clickListener: (category: Category) -> Unit) {
+        fun onClick(category: Category) = clickListener(category)
     }
 
     companion object DiffCallBack : DiffUtil.ItemCallback<Category>() {
@@ -50,7 +50,7 @@ class CategoriesViewPagerAdapter(val onClickListener: OnClickListener) :
         val currentCategory = getItem(position)
         holder.bind(currentCategory.mainImage)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(currentCategory.id, currentCategory.name)
+            onClickListener.onClick(currentCategory)
         }
     }
 }

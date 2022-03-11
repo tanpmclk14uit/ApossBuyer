@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentKindBinding
@@ -22,6 +23,7 @@ class KindFragment() : Fragment() {
     private lateinit var binding: FragmentKindBinding
 
     private val viewModel: ProductOfKindViewModel by viewModels()
+    private val args: KindFragmentArgs by navArgs()
     private lateinit var homeProductAdapter: HomeProductAdapter
 
     override fun onCreateView(
@@ -32,11 +34,10 @@ class KindFragment() : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_kind, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-//        if (args.kindId != -1L)
-//        {
-//            viewModel.setSelectedKindIdAndName(args.kindId, args.kindName)
-//            viewModel.setSelectedProductsKind()
-//        }
+        if (args.kind.id != -1L) {
+            viewModel.setSelectedKindIdAndName(args.kind.id, args.kind.name)
+            viewModel.setSelectedProductsKind()
+        }
 
         homeProductAdapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
             val intent = Intent(this.context, DetailProductActivity::class.java)

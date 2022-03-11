@@ -182,7 +182,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
 
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, viewModelPersonName);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, viewModelPersonEmail);
-            com.example.aposs_buyer.utils.BindingAdapterKt.bindImage(this.mboundView3, viewModelPersonImageImageUri);
+            com.example.aposs_buyer.utils.BindingAdapterKt.bindImagePath(this.mboundView3, viewModelPersonImageImageUri);
         }
     }
     // Listener Stub Implementations

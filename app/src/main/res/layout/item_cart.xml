@@ -43,7 +43,7 @@
 
             <ImageView
                 android:id="@+id/image"
-                image="@{cartItem.image.imageUri}"
+                imagesPath="@{cartItem.image.imageUri}"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginHorizontal="10dp"

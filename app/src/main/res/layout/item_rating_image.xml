@@ -14,7 +14,7 @@
 
         <ImageView
             android:scaleType="centerCrop"
-            image="@{image.imageUri}"
+            imagesPath="@{image.imageUri}"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="5dp"

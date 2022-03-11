@@ -1,5 +1,9 @@
 package com.example.aposs_buyer.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Kind(
     var id: Long,
     val name: String,
@@ -9,5 +13,5 @@ data class Kind(
     val Products: List<HomeProduct>,
     val image: Image,
     val category: Long,
-)
+) : Parcelable
 

@@ -23,7 +23,7 @@ class DetailProductActivity : AppCompatActivity() {
         findNavController(R.id.fragmentContainerView)
             .setGraph(
                 R.navigation.navigation_detail_product,
-                DetailProductFragmentArgs(selectedProductId).toBundle()
+                DetailProductFragmentArgs(selectedProductId).toBundle(),
             )
     }
 }

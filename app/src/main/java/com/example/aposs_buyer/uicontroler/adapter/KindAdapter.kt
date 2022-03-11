@@ -10,7 +10,7 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemKindBinding
 import com.example.aposs_buyer.model.Kind
 
-class KindAdapter(var onClickListener: OnClickListenerInterface) :
+class KindAdapter(var onClickListener: OnClickListener) :
     ListAdapter<Kind, KindAdapter.KindViewHolder>(DiffCallBack) {
     class KindViewHolder(
         val binding: ItemKindBinding
@@ -19,6 +19,10 @@ class KindAdapter(var onClickListener: OnClickListenerInterface) :
             binding.kind = kind
             binding.executePendingBindings()
         }
+    }
+
+    class OnClickListener(val clickListener: (kind: Kind) -> Unit) {
+        fun onClick(kind: Kind) = clickListener(kind)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<Kind>() {
@@ -39,13 +43,10 @@ class KindAdapter(var onClickListener: OnClickListenerInterface) :
     }
 
     override fun onBindViewHolder(holder: KindViewHolder, position: Int) {
-        holder.bind(getItem(position))
-        holder.binding.root.setOnClickListener {
-            onClickListener.onClick(getItem(position).id, getItem(position).name)
+        val currentKind = getItem(position)
+        holder.bind(currentKind)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(currentKind)
         }
-    }
-
-    interface OnClickListenerInterface {
-        fun onClick(id: Long, name: String)
     }
 }

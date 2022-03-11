@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    image="@{rankingProduct.image.imageUri}"
+                    imagesPath="@{rankingProduct.image.imageUri}"
                     android:scaleType="centerCrop"
                     android:id="@+id/image"
                     android:src="@mipmap/ic_launcher_w"

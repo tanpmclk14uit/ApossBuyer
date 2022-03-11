@@ -134,7 +134,7 @@
                 android:paddingHorizontal="20dp">
 
                 <ImageView
-                    image="@{viewModel.currentRatingItem.image.imageUri}"
+                    imagesPath="@{viewModel.currentRatingItem.image.imageUri}"
                     android:layout_width="63dp"
                     android:layout_height="63dp"
                     android:layout_gravity="center" />

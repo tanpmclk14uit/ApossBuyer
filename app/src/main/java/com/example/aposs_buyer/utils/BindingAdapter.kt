@@ -16,16 +16,6 @@ import com.example.aposs_buyer.uicontroler.adapter.*
 import me.relex.circleindicator.CircleIndicator3
 
 
-@BindingAdapter("image")
-fun bindImage(imageView: ImageView, image: Uri?) {
-    Glide.with(imageView.context)
-        .load(image)
-        .apply(
-            RequestOptions().placeholder(R.drawable.animation_loading)
-        )
-        .into(imageView)
-    imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-}
 
 @BindingAdapter("imagesPath")
 fun bindImagePath(imageView: ImageView, image: Uri?) {

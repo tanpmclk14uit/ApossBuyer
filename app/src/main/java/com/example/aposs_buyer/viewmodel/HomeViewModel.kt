@@ -10,7 +10,7 @@ import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RankingProduct
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
-import com.example.aposs_buyer.responsitory.CategoryRepository
+import com.example.aposs_buyer.responsitory.CategoriesRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoriesRepository: CategoriesRepository
 ) : ViewModel() {
 
     //category data
@@ -50,14 +50,13 @@ class HomeViewModel @Inject constructor(
     private var currentPage = 1
     private var isLastPage = false
     private var _status = MutableLiveData<LoadingStatus>()
-    val status: LiveData<LoadingStatus> get()= _status
+    val status: LiveData<LoadingStatus> get() = _status
 
     private var _categoryStatus = MutableLiveData<LoadingStatus>()
 
     init {
-        loadCategoriesData()
-        if(_categoryStatus.value ==  LoadingStatus.Success)
-        {
+        loadAllCategories()
+        if (_categoryStatus.value == LoadingStatus.Success) {
             setUpDisplayCategory(0)
         }
         _rankingProducts.value = loadRankingData()
@@ -67,7 +66,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadProducts() {
-        if (!isLastPage && _status.value!= LoadingStatus.Loading) {
+        if (!isLastPage && _status.value != LoadingStatus.Loading) {
             _status.value = LoadingStatus.Loading
             viewModelScope.launch {
                 val getProductDeferred =
@@ -75,10 +74,12 @@ class HomeViewModel @Inject constructor(
                 try {
                     val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
                     val productsInCurrentPage = productResponseDTO.content.stream()
-                        .map { productDTO -> Converter.convertProductDTOtoHomeProduct(productDTO) }.collect(
+                        .map { productDTO -> Converter.convertProductDTOtoHomeProduct(productDTO) }
+                        .collect(
                             Collectors.toList()
                         )
-                    _products.value = Converter.concatenate(_products.value!!, productsInCurrentPage)
+                    _products.value =
+                        Converter.concatenate(_products.value!!, productsInCurrentPage)
                     if (productResponseDTO.last) {
                         isLastPage = true
                     } else {
@@ -93,19 +94,23 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
-    private fun loadCategoriesData() {
+    private fun loadAllCategories() {
         _categoryStatus.value = LoadingStatus.Loading
         viewModelScope.launch {
-            val listDetailCategoryDTO = categoryRepository.categoryService.getAllCategory()
             try {
-                _categories.value = ArrayList(listDetailCategoryDTO.stream().map {
-                    Converter.convertDetailCategoryDTOToCategory(it)
-                }.collect(Collectors.toList()))
-                _categoryStatus.value = LoadingStatus.Success
-            }
-            catch (e:java.lang.Exception){
-                Log.e("Exception", e.toString())
+                val allCategoriesResponse = categoriesRepository.loadALlCategories()
+                if (allCategoriesResponse.isSuccessful) {
+                    _categories.value =
+                        ArrayList(allCategoriesResponse.body()!!.stream().map {
+                            Converter.convertDetailCategoryDTOToCategory(it)
+                        }.collect(Collectors.toList()))
+                    _categoryStatus.value = LoadingStatus.Success
+                } else {
+                    _categoryStatus.value = LoadingStatus.Fail
+                }
+
+            } catch (e: java.lang.Exception) {
+                Log.e("exception", e.toString())
                 _categoryStatus.value = LoadingStatus.Fail
             }
         }

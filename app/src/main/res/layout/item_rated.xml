@@ -34,7 +34,7 @@
 
                     <ImageView
                         android:scaleType="centerCrop"
-                        image="@{ratedItem.productImage.imageUri}"
+                        imagesPath="@{ratedItem.productImage.imageUri}"
                         android:layout_width="63dp"
                         android:layout_height="63dp"
                         android:layout_gravity="center" />

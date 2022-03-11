@@ -14,15 +14,18 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemCategoryBinding
 import com.example.aposs_buyer.model.DetailCategory
 
-class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryViewPagerAdapter.ImageClickListener, ListAdapter<DetailCategory, DetailCategoryAdapter.CategoryViewHolder>(DiffCallBack) {
+class DetailCategoryAdapter(var clickListener: ClickListener) :
+    DetailCategoryViewPagerAdapter.ImageClickListener,
+    ListAdapter<DetailCategory, DetailCategoryAdapter.CategoryViewHolder>(DiffCallBack) {
 
-    interface ClickListener{
+    interface ClickListener {
         fun onClick(id: Long, name: String)
     }
 
-    class  CategoryViewHolder(val binding: ItemCategoryBinding, imageClickListener: ClickListener): RecyclerView.ViewHolder(binding.root)
-    {
-        private val  detailCategoryViewPagerAdapter = DetailCategoryViewPagerAdapter(imageClickListener)
+    class CategoryViewHolder(val binding: ItemCategoryBinding, imageClickListener: ClickListener) :
+        RecyclerView.ViewHolder(binding.root) {
+        private val detailCategoryViewPagerAdapter =
+            DetailCategoryViewPagerAdapter(imageClickListener)
         private var categoriesLeftToRight: Boolean = true
         private val mHandler: Handler = Handler()
         private val categoriesRunnable: Runnable = Runnable() {
@@ -37,15 +40,14 @@ class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryVie
             }
         }
 
-      fun bind(category: DetailCategory)
-      {
-          binding.category = category
-          detailCategoryViewPagerAdapter.detailCategory = category
-          binding.imageViewPager.adapter = detailCategoryViewPagerAdapter
-          binding.executePendingBindings()
-      }
+        fun bind(category: DetailCategory) {
+            binding.category = category
+            detailCategoryViewPagerAdapter.detailCategory = category
+            binding.imageViewPager.adapter = detailCategoryViewPagerAdapter
+            binding.executePendingBindings()
+        }
 
-         fun setUpViewPagerCallBack() {
+        fun setUpViewPagerCallBack() {
             binding.imageViewPager.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -64,7 +66,7 @@ class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryVie
         }
     }
 
-    object DiffCallBack: DiffUtil.ItemCallback<DetailCategory>() {
+    object DiffCallBack : DiffUtil.ItemCallback<DetailCategory>() {
         override fun areItemsTheSame(oldItem: DetailCategory, newItem: DetailCategory): Boolean {
             return oldItem == newItem
         }
@@ -80,7 +82,8 @@ class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryVie
         viewType: Int
     ): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ItemCategoryBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_category, parent, false)
+        val binding: ItemCategoryBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.item_category, parent, false)
 
         return CategoryViewHolder(binding, clickListener)
     }
@@ -100,13 +103,12 @@ class DetailCategoryAdapter(var clickListener: ClickListener): DetailCategoryVie
         unit = holder.itemView.setOnClickListener {
             name = getItem(position).name
             id = getItem(position).id
-            clickListener.onClick(getItem(position).id, getItem(position).name )
+            clickListener.onClick(getItem(position).id, getItem(position).name)
         }
         holder.setUpViewPagerCallBack()
     }
 
-    override fun onImageClick()
-    {
+    override fun onImageClick() {
         clickListener.onClick(id, name)
     }
 }

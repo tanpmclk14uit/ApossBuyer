@@ -4,68 +4,57 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.aposs_buyer.model.DetailCategory
-import com.example.aposs_buyer.model.Image
-import com.example.aposs_buyer.model.dto.DetailCategoryDTO
+import androidx.lifecycle.viewModelScope
+import com.example.aposs_buyer.model.Kind
 import com.example.aposs_buyer.responsitory.CategoryRepository
+import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val categoryRepository: CategoryRepository): ViewModel() {
-
-    private val _lstCategory = MutableLiveData<MutableList<DetailCategory>>()
-    val lstCategory: LiveData<MutableList<DetailCategory>> get() = _lstCategory
+class CategoryViewModel @Inject constructor(private val categoryRepository: CategoryRepository) :
+    ViewModel() {
 
     private val _status = MutableLiveData<LoadingStatus>()
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val selectedCategoryId = MutableLiveData<Long>()
 
-    init {
-        loadCategory()
+    private val _listKind = MutableLiveData<MutableList<Kind>>()
+    val listKind: LiveData<MutableList<Kind>> get() = _listKind
+
+    val selectedCategoryName = MutableLiveData<String>()
+
+    fun setSelectedCategory() {
+        loadAllKindsOfSelectedCategoryById(selectedCategoryId.value!!)
     }
 
-    private fun loadCategory()
-    {
+    fun setSelectedKindIdAndName(selectedCategory: Long, selectedName: String) {
+        selectedCategoryId.value = selectedCategory
+        selectedCategoryName.value = selectedName
+    }
+
+    private fun loadAllKindsOfSelectedCategoryById(selectedCategory: Long) {
         _status.value = LoadingStatus.Loading
-        coroutineScope.launch {
-            val lstDetailCategoryDTO = categoryRepository.categoryService.getAllCategory()
+        viewModelScope.launch {
             try {
-                _lstCategory.value = lstDetailCategoryDTO.stream().map{
-                    detailCategoryDTO -> convertFromDetailCategoryDTOToDetailCategory(detailCategoryDTO)
-                }.collect(Collectors.toList())
-                _status.value = LoadingStatus.Success
-            }
-            catch (e: Exception){
+                val allKindsOfSelectedCategoryResponse =
+                    categoryRepository.loadAllKindOfCategoryByCategoryId(selectedCategory)
+                if (allKindsOfSelectedCategoryResponse.isSuccessful) {
+                    _listKind.value = allKindsOfSelectedCategoryResponse.body()!!.stream().map {
+                        Converter.convertFromKindDTOToKind(it)
+                    }.collect(Collectors.toList())
+                    _status.value = LoadingStatus.Success
+                } else {
+                    _status.value = LoadingStatus.Fail
+                }
+            } catch (e: Exception) {
                 Log.e("exception", e.toString())
                 _status.value = LoadingStatus.Fail
             }
         }
-    }
-
-    private fun convertFromDetailCategoryDTOToDetailCategory(detailCategoryDTO: DetailCategoryDTO): DetailCategory
-    {
-        val images: MutableList<Image> = mutableListOf()
-        for(item in detailCategoryDTO.images)
-        {
-            images.add(Image(item))
-        }
-        return DetailCategory(
-            id = detailCategoryDTO.id,
-            name = detailCategoryDTO.name,
-            totalProduct = detailCategoryDTO.totalProducts,
-            totalPurchase = detailCategoryDTO.totalPurchases,
-            rating = detailCategoryDTO.rating,
-            images = images
-        )
     }
 
 }

@@ -39,7 +39,7 @@
 
         <ImageView
             android:scaleType="centerCrop"
-            image="@{kind.image.imageUri}"
+            imagesPath="@{kind.image.imageUri}"
             android:contentDescription="@string/image"
             android:layout_width="match_parent"
             android:layout_height="120dp"/>

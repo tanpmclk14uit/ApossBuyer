@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_category">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_category"
+    app:startDestination="@id/categoryFragment">
 
+    <fragment
+        android:id="@+id/kindFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.KindFragment"
+        android:label="KindFragment"
+        tools:layout="@layout/fragment_kind" >
+        <argument
+            android:name="kind"
+            app:argType="com.example.aposs_buyer.model.Kind" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CategoryFragment"
+        android:label="CategoryFragment"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragment_to_kindFragment"
+            app:destination="@id/kindFragment" />
+        <argument
+            android:name="category"
+            app:argType="com.example.aposs_buyer.model.Category" />
+    </fragment>
 </navigation>

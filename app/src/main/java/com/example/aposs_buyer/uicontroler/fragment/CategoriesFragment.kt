@@ -11,17 +11,18 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCategoriesBinding
+import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
 import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
 import com.example.aposs_buyer.uicontroler.adapter.DetailCategoryAdapter
-import com.example.aposs_buyer.viewmodel.CategoryViewModel
+import com.example.aposs_buyer.viewmodel.CategoriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
 
     private lateinit var binding: FragmentCategoriesBinding
-    private val viewModel: CategoryViewModel by viewModels()
+    private val viewModel: CategoriesViewModel by viewModels()
     private val categoryAdapter = DetailCategoryAdapter(this)
 
     override fun onCreateView(
@@ -45,6 +46,9 @@ class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
     }
 
     override fun onClick(id: Long, name: String) {
-        startActivity(Intent(this.context, CategoryActivity::class.java))
+        val currentCategory = Category(id, name)
+        val intent = Intent(this.context, CategoryActivity::class.java)
+        intent.putExtra("category", currentCategory)
+        startActivity(intent)
     }
 }

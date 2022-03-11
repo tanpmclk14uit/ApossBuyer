@@ -21,7 +21,7 @@
             <ImageView
                 android:layout_centerVertical="true"
                 android:id="@+id/image"
-                image="@{billingItem.image.imageUri}"
+                imagesPath="@{billingItem.image.imageUri}"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentStart="true"
