@@ -1,11 +1,9 @@
 package com.example.aposs_buyer.uicontroler.adapter
 
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,20 +12,22 @@ import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ItemCategoryBinding
 import com.example.aposs_buyer.model.DetailCategory
 
-class DetailCategoryAdapter(var clickListener: ClickListener) :
-    DetailCategoryViewPagerAdapter.ImageClickListener,
+class DetailCategoryAdapter(var clickListener: OnItemClickListener) :
     ListAdapter<DetailCategory, DetailCategoryAdapter.CategoryViewHolder>(DiffCallBack) {
 
-    interface ClickListener {
-        fun onClick(id: Long, name: String)
+
+    open class OnItemClickListener(private val clickListener: (detailCategory: DetailCategory) -> Unit) {
+        fun onItemClick(detailCategory: DetailCategory) = clickListener(detailCategory)
     }
 
-    class CategoryViewHolder(val binding: ItemCategoryBinding, imageClickListener: ClickListener) :
+    class CategoryViewHolder(
+        val binding: ItemCategoryBinding,
+        private val itemClickListener: OnItemClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        private val detailCategoryViewPagerAdapter =
-            DetailCategoryViewPagerAdapter(imageClickListener)
+        private lateinit var detailCategoryViewPagerAdapter: DetailCategoryViewPagerAdapter
         private var categoriesLeftToRight: Boolean = true
-        private val mHandler: Handler = Handler()
+        private val handler = Handler()
         private val categoriesRunnable: Runnable = Runnable() {
             kotlin.run {
                 if (categoriesLeftToRight) {
@@ -42,17 +42,26 @@ class DetailCategoryAdapter(var clickListener: ClickListener) :
 
         fun bind(category: DetailCategory) {
             binding.category = category
-            detailCategoryViewPagerAdapter.detailCategory = category
+            detailCategoryViewPagerAdapter =
+                DetailCategoryViewPagerAdapter(DetailCategoryViewPagerAdapter.OnImageItemClickListener {
+                    itemClickListener.onItemClick(category)
+                })
             binding.imageViewPager.adapter = detailCategoryViewPagerAdapter
+            binding.indicator.setViewPager(binding.imageViewPager)
+            setUpViewPagerCallBack()
             binding.executePendingBindings()
         }
 
-        fun setUpViewPagerCallBack() {
+        fun onDestroy() {
+            handler.removeCallbacks(categoriesRunnable)
+        }
+
+        private fun setUpViewPagerCallBack() {
             binding.imageViewPager.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    mHandler.removeCallbacks(categoriesRunnable)
+                    handler.removeCallbacks(categoriesRunnable)
                     if (binding.imageViewPager.currentItem == binding.category!!.images.size - 1) {
                         categoriesLeftToRight = false
                     } else {
@@ -60,7 +69,7 @@ class DetailCategoryAdapter(var clickListener: ClickListener) :
                             categoriesLeftToRight = true
                         }
                     }
-                    mHandler.postDelayed(categoriesRunnable, 4000)
+                    handler.postDelayed(categoriesRunnable, 4000)
                 }
             })
         }
@@ -88,27 +97,20 @@ class DetailCategoryAdapter(var clickListener: ClickListener) :
         return CategoryViewHolder(binding, clickListener)
     }
 
-    private var id: Long = 0
-    private lateinit var name: String
-    private lateinit var unit: Unit
 
     override fun onBindViewHolder(
         holder: CategoryViewHolder,
         position: Int
     ) {
-        holder.bind(getItem(position))
-        name = getItem(position).name
-        id = getItem(position).id
-        holder.binding.indicator.setViewPager(holder.binding.imageViewPager)
-        unit = holder.itemView.setOnClickListener {
-            name = getItem(position).name
-            id = getItem(position).id
-            clickListener.onClick(getItem(position).id, getItem(position).name)
+        val currentItem = getItem(position)
+        holder.bind(currentItem)
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClick(currentItem)
         }
-        holder.setUpViewPagerCallBack()
     }
 
-    override fun onImageClick() {
-        clickListener.onClick(id, name)
+    override fun onViewDetachedFromWindow(holder: CategoryViewHolder) {
+        holder.onDestroy()
+        super.onViewDetachedFromWindow(holder)
     }
 }

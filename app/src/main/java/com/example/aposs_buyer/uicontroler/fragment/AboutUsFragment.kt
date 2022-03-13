@@ -17,13 +17,11 @@ import com.example.aposs_buyer.viewmodel.AboutUsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
+class AboutUsFragment : Fragment() {
 
     private val viewModel: AboutUsViewModel by viewModels()
     private lateinit var binding: FragmentAboutUsBinding
-    private val detailCategoryViewPagerAdapter = DetailCategoryViewPagerAdapter(this)
     private var categoriesLeftToRight: Boolean = true
-    private val mHandler: Handler = Handler()
     private val categoriesRunnable: Runnable = Runnable() {
         kotlin.run {
             if (categoriesLeftToRight) {
@@ -45,6 +43,10 @@ class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_about_us, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        val detailCategoryViewPagerAdapter =
+            DetailCategoryViewPagerAdapter(DetailCategoryViewPagerAdapter.OnImageItemClickListener {
+
+            })
         binding.imageViewPager.adapter = detailCategoryViewPagerAdapter
         binding.indicator.setViewPager(binding.imageViewPager)
         setUpViewPagerCallBack()
@@ -59,7 +61,7 @@ class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                mHandler.removeCallbacks(categoriesRunnable)
+                view!!.handler.removeCallbacks(categoriesRunnable)
                 if (binding.imageViewPager.currentItem == viewModel.listImage.value!!.size - 1) {
                     categoriesLeftToRight = false
                 } else {
@@ -67,12 +69,8 @@ class AboutUsFragment : Fragment(), DetailCategoryAdapter.ClickListener {
                         categoriesLeftToRight = true
                     }
                 }
-                mHandler.postDelayed(categoriesRunnable, 4000)
+                view!!.handler.postDelayed(categoriesRunnable, 4000)
             }
         })
-    }
-
-    override fun onClick(id: Long, name: String) {
-
     }
 }

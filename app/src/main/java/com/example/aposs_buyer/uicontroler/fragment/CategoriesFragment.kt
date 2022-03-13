@@ -19,11 +19,10 @@ import com.example.aposs_buyer.viewmodel.CategoriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
+class CategoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoriesBinding
     private val viewModel: CategoriesViewModel by viewModels()
-    private val categoryAdapter = DetailCategoryAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,24 +30,34 @@ class CategoriesFragment : Fragment(), DetailCategoryAdapter.ClickListener {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.rcCategory.adapter = categoryAdapter
-        binding.rcCategory.layoutManager =
-            LinearLayoutManager(binding.rcCategory.context, LinearLayoutManager.VERTICAL, false)
-        binding.imgBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
-        binding.clCart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
-        }
+        setUpAppBar()
+        setUpCategories()
         return binding.root
     }
 
-    override fun onClick(id: Long, name: String) {
-        val currentCategory = Category(id, name)
-        val intent = Intent(this.context, CategoryActivity::class.java)
-        intent.putExtra("category", currentCategory)
-        startActivity(intent)
+    private fun setUpAppBar() {
+        // set back button
+        binding.imgBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        // set icon cart
+        binding.clCart.setOnClickListener {
+            startActivity(Intent(this.context, CartActivity::class.java))
+        }
+
+    }
+
+    private fun setUpCategories() {
+        // create adapter
+        val categoryAdapter = DetailCategoryAdapter(DetailCategoryAdapter.OnItemClickListener {
+            // set on item click listener
+            val currentCategory = Category(it.id, it.name)
+            val intent = Intent(this.context, CategoryActivity::class.java)
+            intent.putExtra("category", currentCategory)
+            startActivity(intent)
+        })
+        binding.rcCategory.adapter = categoryAdapter
     }
 }

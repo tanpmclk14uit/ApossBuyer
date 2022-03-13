@@ -11,25 +11,24 @@ import com.example.aposs_buyer.databinding.ItemViewPagerDetailCategoryBinding
 import com.example.aposs_buyer.model.DetailCategory
 import com.example.aposs_buyer.model.Image
 
-class DetailCategoryViewPagerAdapter(var clickListener: DetailCategoryAdapter.ClickListener): ListAdapter<Image, DetailCategoryViewPagerAdapter.DetailCategoryViewPagerViewHolder>(DiffCallBack) {
+class DetailCategoryViewPagerAdapter(var imageItemClickListener: OnImageItemClickListener) :
+    ListAdapter<Image, DetailCategoryViewPagerAdapter.DetailCategoryViewPagerViewHolder>(
+        DiffCallBack
+    ) {
 
-    var detailCategory =  DetailCategory(0, "", 0, 0,0f, mutableListOf())
-
-    interface ImageClickListener{
-        fun onImageClick()
+    open class OnImageItemClickListener(val imageItemClick: () -> Unit) {
+        fun onImageItemClick() = imageItemClick()
     }
 
-    class DetailCategoryViewPagerViewHolder(val binding: ItemViewPagerDetailCategoryBinding): RecyclerView.ViewHolder(binding.root)
-    {
-        fun bind(image: Image)
-        {
+    class DetailCategoryViewPagerViewHolder(val binding: ItemViewPagerDetailCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(image: Image) {
             binding.image = image
             binding.executePendingBindings()
         }
     }
 
-    object DiffCallBack: DiffUtil.ItemCallback<Image>()
-    {
+    object DiffCallBack : DiffUtil.ItemCallback<Image>() {
         override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean {
             return oldItem == newItem
         }
@@ -44,14 +43,19 @@ class DetailCategoryViewPagerAdapter(var clickListener: DetailCategoryAdapter.Cl
         viewType: Int
     ): DetailCategoryViewPagerViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ItemViewPagerDetailCategoryBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_view_pager_detail_category, parent, false)
+        val binding: ItemViewPagerDetailCategoryBinding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.item_view_pager_detail_category,
+            parent,
+            false
+        )
         return DetailCategoryViewPagerViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: DetailCategoryViewPagerViewHolder, position: Int) {
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            clickListener.onClick(detailCategory.id, detailCategory.name)
+            imageItemClickListener.onImageItemClick()
         }
     }
 }
