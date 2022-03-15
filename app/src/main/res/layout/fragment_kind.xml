@@ -7,10 +7,18 @@
 
         <variable
             name="viewModel"
-            type="com.example.aposs_buyer.viewmodel.ProductOfKindViewModel" />
+            type="com.example.aposs_buyer.viewmodel.KindViewModel" />
+
+        <variable
+            name="status"
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/back_ground"
@@ -18,6 +26,7 @@
         tools:context=".uicontroler.fragment.KindFragment">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/back_ground"
@@ -99,21 +108,23 @@
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:visibility="@{viewModel.status == status.Loading? view.VISIBLE:view.GONE}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_products"
+            listProduct="@{viewModel.productKind}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/appBarLayout"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rc_products"
-                listProduct="@{viewModel.productKind}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/item_product" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:visibility="@{viewModel.status == status.Success? view.VISIBLE:view.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_product" />
+    </RelativeLayout>
 </layout>

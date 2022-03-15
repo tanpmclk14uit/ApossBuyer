@@ -8,6 +8,14 @@
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.CategoryViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="status"
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
     </data>
 
     <RelativeLayout
@@ -100,20 +108,24 @@
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:visibility="@{viewModel.status == status.Loading? view.VISIBLE:view.GONE}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_kind"
+            listKind="@{viewModel.listKind}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/appBarLayout"
+            android:layout_below="@id/appBarLayout"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rc_kind"
-                tools:itemCount="1"
-                listKind="@{viewModel.listKind}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_kind" />
-        </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.status == status.Success? view.VISIBLE:view.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_kind" />
     </RelativeLayout>
 </layout>

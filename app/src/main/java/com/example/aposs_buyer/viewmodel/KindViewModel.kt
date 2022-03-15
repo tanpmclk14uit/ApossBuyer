@@ -7,13 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
+import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductOfKindViewModel @Inject constructor(
+class KindViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : ViewModel() {
 
@@ -24,16 +25,19 @@ class ProductOfKindViewModel @Inject constructor(
     private val _productsKind = MutableLiveData<MutableList<HomeProduct>>()
     val productKind: LiveData<MutableList<HomeProduct>> get() = _productsKind
 
+    val status = MutableLiveData<LoadingStatus>()
+
     fun setSelectedKindIdAndName(id: Long, name: String) {
         selectedKindName.value = name
         _selectedKindId.value = id
     }
 
-    fun setSelectedProductsKind() {
+    fun setSelectedProductKind() {
         loadProductsByKind(_selectedKindId.value!!)
     }
 
     private fun loadProductsByKind(kindId: Long) {
+        status.value = LoadingStatus.Loading
         viewModelScope.launch {
             val productByKindIdResponseDTO = productRepository.loadProductByKindId(kindId)
             if (productByKindIdResponseDTO.isSuccessful) {
@@ -44,7 +48,10 @@ class ProductOfKindViewModel @Inject constructor(
                                 it
                             )
                         }.collect(Collectors.toList()).toCollection(ArrayList())
+                    status.value = LoadingStatus.Success
                 }
+            } else {
+                status.value = LoadingStatus.Fail
             }
         }
     }

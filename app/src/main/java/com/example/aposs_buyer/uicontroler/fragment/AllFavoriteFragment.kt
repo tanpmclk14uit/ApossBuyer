@@ -33,7 +33,7 @@ class AllFavoriteFragment : FavoriteRecyclerViewAdapter.FavoriteInterface, Fragm
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_all_favorite, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
         adapter = FavoriteRecyclerViewAdapter(this, FavoriteRecyclerViewAdapter.OnClickListener{
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)

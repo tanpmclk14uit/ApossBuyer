@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentCategoriesBinding
 import com.example.aposs_buyer.model.Category
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
 import com.example.aposs_buyer.uicontroler.activity.CategoryActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.adapter.DetailCategoryAdapter
 import com.example.aposs_buyer.viewmodel.CategoriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,7 @@ class CategoriesFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
+
         setUpAppBar()
         setUpCategories()
         return binding.root
@@ -44,9 +47,16 @@ class CategoriesFragment : Fragment() {
         }
         // set icon cart
         binding.clCart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
         }
+    }
 
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
     }
 
     private fun setUpCategories() {

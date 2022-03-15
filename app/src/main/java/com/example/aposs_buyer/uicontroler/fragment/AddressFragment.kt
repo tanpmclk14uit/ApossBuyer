@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentAddressBinding
 import com.example.aposs_buyer.model.Address
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.adapter.AddressAdapter
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.AddressViewModel
@@ -81,7 +83,15 @@ class AddressFragment : Fragment(), AddressAdapter.OnAddressCLickListener {
 
     private fun setOnCartClick() {
         binding.clCart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
         }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
     }
 }

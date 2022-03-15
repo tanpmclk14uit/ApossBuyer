@@ -12,7 +12,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentOrderBinding
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.activity.RatingActivity
 import com.example.aposs_buyer.uicontroler.adapter.OrderAdapter
 import com.example.aposs_buyer.viewmodel.OrderViewModel
@@ -47,8 +49,16 @@ class OrderFragment : Fragment(), OrderAdapter.OrderInterface {
 
     private fun toCart() {
         binding.cart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
         }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
     }
 
     private fun setBackPress() {

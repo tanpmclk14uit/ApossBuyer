@@ -14,7 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
 import com.example.aposs_buyer.utils.DialogType
@@ -77,8 +79,16 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
 
     private fun setUpToNavigateCart() {
         binding.clCart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
         }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
     }
 
     private fun setUpRatingComponent() {

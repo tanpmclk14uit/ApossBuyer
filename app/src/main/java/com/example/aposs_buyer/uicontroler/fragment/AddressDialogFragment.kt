@@ -111,7 +111,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUpDefaultAddressCheckChange() {
-        viewModel.checkChange.observe(viewLifecycleOwner){
+        viewModel.checkChange.observe(viewLifecycleOwner) {
             viewModel.newAddress.value!!.isDefaultAddress = it
             viewModel.trackingValidInformation()
         }

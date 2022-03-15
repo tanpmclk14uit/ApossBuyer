@@ -24,7 +24,9 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RateImage
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 
 
 @AndroidEntryPoint
@@ -62,9 +64,17 @@ class RatingFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.clCart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
         }
         return binding.root
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
     }
 
 

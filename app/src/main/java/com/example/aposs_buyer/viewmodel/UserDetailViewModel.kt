@@ -12,7 +12,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
-class UserDetailViewModel @Inject constructor() :ViewModel() {
+class UserDetailViewModel @Inject constructor() : ViewModel() {
 
     private val _currentUser = MutableLiveData<Person>()
     val currentUser: LiveData<Person> get() = _currentUser
@@ -24,35 +24,39 @@ class UserDetailViewModel @Inject constructor() :ViewModel() {
         name.value = _currentUser.value!!.name
     }
 
-    private fun loadCurrentUser(): Person
-    {
+    private fun loadCurrentUser(): Person {
         val imgURL3 =
             "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
-        return Person(1, Image(imgURL3),"Phạm Minh Tân","tan.lk16.cla@gmai.com", Date(2001, 7, 23), true)
+        return Person(
+            1,
+            Image(imgURL3),
+            "Phạm Minh Tân",
+            "tan.lk16.cla@gmai.com",
+            Date(2001, 7, 23),
+            true
+        )
     }
 
-    fun isChangeName(newFirstName: String): Boolean
-    {
+    fun isChangeName(newFirstName: String): Boolean {
         return currentUser.value!!.name != newFirstName
     }
-    fun isChangeEmail(newEmail: String): Boolean
-    {
+
+    fun isChangeEmail(newEmail: String): Boolean {
         return currentUser.value!!.email != newEmail
     }
 
-    fun isChangeBirthday(newBirthDay: String): Boolean
-    {
+    fun isChangeBirthday(newBirthDay: String): Boolean {
         return currentUser.value!!.getBirthdayByString() != newBirthDay
     }
 
-    fun isChangeGender(newGender: String): Boolean
-    {
+    fun isChangeGender(newGender: String): Boolean {
         return currentUser.value!!.getGenderString() != newGender
     }
 
     fun onSave(newUserInfo: Person) {
         _currentUser.value = newUserInfo
     }
+
     private fun isNameContainNumberOrSpecialCharacter(name: String): Boolean {
         val hasNumber: Boolean = Pattern.compile(
             "[0-9]"
@@ -62,6 +66,7 @@ class UserDetailViewModel @Inject constructor() :ViewModel() {
         ).matcher(name).find()
         return hasNumber || hasSpecialCharacter
     }
+
     var nameErrorMessage: String? = ""
     fun isValidName(): Boolean {
         return if (name.value!!.isBlank()) {

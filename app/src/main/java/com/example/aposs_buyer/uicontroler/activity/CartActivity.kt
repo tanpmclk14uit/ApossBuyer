@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ActivityCartBinding
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,8 +30,8 @@ class CartActivity : CartAdapter.ChangeAmount, AppCompatActivity() {
         // set up check out button and total bill view
         setUpCheckOutBottomBar()
         setContentView(binding.root)
-
     }
+
 
     private fun setUpAppBar() {
         // set up notification

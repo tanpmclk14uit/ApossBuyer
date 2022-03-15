@@ -18,7 +18,7 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(private val categoryRepository: CategoryRepository) :
     ViewModel() {
 
-    private val _status = MutableLiveData<LoadingStatus>()
+    val status = MutableLiveData<LoadingStatus>()
 
     private val selectedCategoryId = MutableLiveData<Long>()
 
@@ -37,7 +37,7 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
     }
 
     private fun loadAllKindsOfSelectedCategoryById(selectedCategory: Long) {
-        _status.value = LoadingStatus.Loading
+        status.value = LoadingStatus.Loading
         viewModelScope.launch {
             try {
                 val allKindsOfSelectedCategoryResponse =
@@ -46,13 +46,13 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
                     _listKind.value = allKindsOfSelectedCategoryResponse.body()!!.stream().map {
                         Converter.convertFromKindDTOToKind(it)
                     }.collect(Collectors.toList())
-                    _status.value = LoadingStatus.Success
+                    status.value = LoadingStatus.Success
                 } else {
-                    _status.value = LoadingStatus.Fail
+                    status.value = LoadingStatus.Fail
                 }
             } catch (e: Exception) {
                 Log.e("exception", e.toString())
-                _status.value = LoadingStatus.Fail
+                status.value = LoadingStatus.Fail
             }
         }
     }

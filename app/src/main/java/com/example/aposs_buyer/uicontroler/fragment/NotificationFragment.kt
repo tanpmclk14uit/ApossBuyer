@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentNotificationBinding
+import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
+import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.activity.OrderActivity
 import com.example.aposs_buyer.uicontroler.adapter.NotificationAdapter
 import com.example.aposs_buyer.viewmodel.NotificationViewModel
@@ -51,9 +53,18 @@ class NotificationFragment : Fragment(), NotificationAdapter.NotificationInterfa
 
     private fun setCartButton() {
         binding.cart.setOnClickListener {
-            startActivity(Intent(this.context, CartActivity::class.java))
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
         }
     }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
+    }
+
 
     override fun onSeeNowClick(id: Long) {
         startActivity(Intent(this.context, OrderActivity::class.java))
