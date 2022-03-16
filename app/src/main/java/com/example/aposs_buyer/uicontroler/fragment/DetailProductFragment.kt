@@ -44,15 +44,33 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         if (selectedProductId != -1L) {
             viewModel.setSelectedProductId(selectedProductId)
         }
-        setBackButton()
+        setUpAppBar()
         setUpProductProperty()
         setUpSameKindProduct()
-        setUpRatingComponent()
-        setUpToNavigateCart()
+        setUpRatingSession()
         setUpBottomSheetDialog()
         onDetailProductChange()
         onRatingProductChange()
         return binding.root
+    }
+
+    private fun setUpAppBar() {
+        // set up back button
+        binding.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        // set up cart button
+        binding.clCart.setOnClickListener {
+            if (isUserLoggedIn()) {
+                startActivity(Intent(this.context, CartActivity::class.java))
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
+        }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
     }
 
     private fun setUpBottomSheetDialog() {
@@ -77,21 +95,8 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         }
     }
 
-    private fun setUpToNavigateCart() {
-        binding.clCart.setOnClickListener {
-            if (isUserLoggedIn()) {
-                startActivity(Intent(this.context, CartActivity::class.java))
-            } else {
-                startActivity(Intent(this.context, LoginActivity::class.java))
-            }
-        }
-    }
 
-    private fun isUserLoggedIn(): Boolean {
-        return AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
-    }
-
-    private fun setUpRatingComponent() {
+    private fun setUpRatingSession() {
         val ratingAdapter = RatingAdapter()
         binding.ratings.adapter = ratingAdapter
         binding.showAllRating.setOnClickListener {
@@ -129,12 +134,6 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
             })
         binding.images.setPageTransformer(ZoomOutPageTransformer())
         binding.images.adapter = imagesAdapter
-    }
-
-    private fun setBackButton() {
-        binding.back.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
     }
 
 

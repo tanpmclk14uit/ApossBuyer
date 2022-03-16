@@ -1,38 +1,37 @@
 package com.example.aposs_buyer.model
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.example.aposs_buyer.utils.OrderStatus
+import kotlinx.parcelize.Parcelize
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
+@Parcelize
 data class Order(
     val id: Long,
-    val orderTime: Date,
-    val status: OrderStatus,
-    val address: String,
-    var billingItems: ArrayList<OrderBillingItem>,
-    val totalPrice: Int
-){
-    private var cancelReason: String ="";
-    fun totalPriceToString(): String{
+    val orderTime: Date = Date(),
+    val status: OrderStatus = OrderStatus.Pending,
+    val address: String = "",
+    var billingItems: List<OrderBillingItem> = mutableListOf(),
+    val totalPrice: Int = 0,
+    var cancelReason: String = ""
+) : Parcelable {
+
+    fun totalPriceToString(): String {
         val formatter = DecimalFormat("#,###")
         val formattedNumber: String = formatter.format(totalPrice)
         return "$formattedNumber VNĐ"
     }
+
     @SuppressLint("SimpleDateFormat")
-    fun getTimeString(): String{
+    fun getTimeString(): String {
         val simpleDate = SimpleDateFormat("HH:mm dd/MM/yyyy")
         return simpleDate.format(orderTime)
     }
-    fun getStatusString():String{
+
+    fun getStatusString(): String {
         return status.toString()
-    }
-    fun getCancelReason(): String{
-        return cancelReason
-    }
-    fun setCancelReason(cancelReason: String){
-        this.cancelReason = cancelReason
     }
 }

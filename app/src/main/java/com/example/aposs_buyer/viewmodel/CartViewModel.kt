@@ -8,19 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.CartDTO
 import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
-import com.example.aposs_buyer.model.dto.OrderDTO
-import com.example.aposs_buyer.model.dto.OrderItemDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
-import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -29,7 +24,6 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     private val authRepository: AuthRepository,
-    private val orderRepository: OrderRepository,
     private val deliveryAddressRepository: DeliveryAddressRepository,
 ) : ViewModel() {
 
@@ -157,22 +151,18 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    private fun updateCartItem(cartDTO: CartDTO) {
-        viewModelScope.launch {
-            val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
-            if (currentAccessToken != null) {
-                val updateResponse =
-                    cartRepository.updateCart(
-                        currentAccessToken,
-                        cartDTO
-                    )
-                if (updateResponse.isSuccessful) {
-                    return@launch
-                } else {
-                    if (updateResponse.code() == 401) {
-                        if (authRepository.loadNewAccessTokenSuccess()) {
-                            updateCartItem(cartDTO)
-                        }
+    private suspend fun updateCartItem(cartDTO: CartDTO) {
+        val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
+        if (currentAccessToken != null) {
+            val updateResponse =
+                cartRepository.updateCart(
+                    currentAccessToken,
+                    cartDTO
+                )
+            if (!updateResponse.isSuccessful) {
+                if (updateResponse.code() == 401) {
+                    if (authRepository.loadNewAccessTokenSuccess()) {
+                        updateCartItem(cartDTO)
                     }
                 }
             }
@@ -180,90 +170,66 @@ class CartViewModel @Inject constructor(
     }
 
     fun updateCart() {
-        for (cartItem: CartItem in _lstCartItem.value!!) {
-            for (cartItemDTO: CartDTO in cartItemsDTO) {
-                if (cartItemDTO.id == cartItem.id && (cartItem.isChoose != cartItemDTO.select || cartItem.amount != cartItemDTO.quantity)) {
-                    cartItemDTO.select = cartItem.isChoose
-                    cartItemDTO.quantity = cartItem.amount
-                    updateCartItem(cartItemDTO)
+        runBlocking {
+            withContext(NonCancellable) {
+                for (cartItem: CartItem in _lstCartItem.value!!) {
+                    for (cartItemDTO: CartDTO in cartItemsDTO) {
+                        if (cartItemDTO.id == cartItem.id && (cartItem.isChoose != cartItemDTO.select || cartItem.amount != cartItemDTO.quantity)) {
+                            cartItemDTO.select = cartItem.isChoose
+                            cartItemDTO.quantity = cartItem.amount
+                            updateCartItem(cartItemDTO)
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun makeNewOrder(): OrderDTO {
-        val listOrderItemDTO = _choseList.value!!.stream().map {
-            convertToOrderItemDTO(it)
+    private fun convertToOrderBillingItem(cartItem: CartItem): OrderBillingItem {
+        return OrderBillingItem(
+            id = 0,
+            name = cartItem.name,
+            property = cartItem.property,
+            price = cartItem.price,
+            image = cartItem.image,
+            amount = cartItem.amount,
+            product = cartItem.product,
+        )
+    }
+
+    fun makeNewOrder(): Order {
+        runBlocking {
+            loadDefaultAddress()
+        }
+        val orderBillingItem = _choseList.value!!.stream().map {
+            convertToOrderBillingItem(it)
         }.collect(Collectors.toList())
-        return OrderDTO(
+        return Order(
             id = -1L,
             orderTime = Calendar.getInstance().time,
-            orderStatus = OrderStatus.Pending,
-            orderItemDTOList = listOrderItemDTO,
+            status = OrderStatus.Pending,
+            billingItems = orderBillingItem,
             totalPrice = total,
-            address = defaultAddress.value!!.getFullAddress(),
-            cancelReason = null
+            address = defaultAddress.value!!.getFullAddress()
         )
     }
 
-    fun addNewOrder() {
-        viewModelScope.launch {
-            val orderDTO = makeNewOrder()
-            val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
-            if (currentAccessToken != null) {
-                val response = orderRepository.orderService.addNewOrder(
-                    orderDTO,
+    private suspend fun loadDefaultAddress() {
+        val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
+        if (!currentAccessToken.isNullOrBlank()) {
+            val defaultAddressResponse =
+                deliveryAddressRepository.getUserDefaultAddress(
                     currentAccessToken
                 )
-                if (response.isSuccessful) {
-                    Log.d("checkout", "done")
-                    for (i: Int in 0 until choseList.value!!.size) {
-                        deleteCartItem(choseList.value!![i].id)
-                    }
-                    _choseList.value = ArrayList()
-                    return@launch
-                } else {
-                    if (response.code() == 401) {
-                        if (authRepository.loadNewAccessTokenSuccess()) {
-                            addNewOrder()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun convertToOrderItemDTO(orderItem: CartItem): OrderItemDTO {
-        return OrderItemDTO(
-            id = 0,
-            name = orderItem.name,
-            property = orderItem.property,
-            price = orderItem.price,
-            imageUrl = orderItem.image.imgURL,
-            quantity = orderItem.amount,
-            product = orderItem.product,
-        )
-    }
-
-    fun loadDefaultAddress() {
-        viewModelScope.launch {
-            val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
-            if (!currentAccessToken.isNullOrBlank()) {
-                val defaultAddressResponse =
-                    deliveryAddressRepository.getUserDefaultAddress(
-                        currentAccessToken
-                    )
-                if (defaultAddressResponse.isSuccessful) {
-                    val defaultAddressDTOResponseBody = defaultAddressResponse.body()
-                    defaultAddressDTO.value = defaultAddressDTOResponseBody!!
-                    defaultAddress.value =
-                        convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
-                    return@launch
-                } else {
-                    if (defaultAddressResponse.code() == 401) {
-                        if (authRepository.loadNewAccessTokenSuccess()) {
-                            loadDefaultAddress()
-                        }
+            if (defaultAddressResponse.isSuccessful) {
+                val defaultAddressDTOResponseBody = defaultAddressResponse.body()
+                defaultAddressDTO.value = defaultAddressDTOResponseBody!!
+                defaultAddress.value =
+                    convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
+            } else {
+                if (defaultAddressResponse.code() == 401) {
+                    if (authRepository.loadNewAccessTokenSuccess()) {
+                        loadDefaultAddress()
                     }
                 }
             }

@@ -86,7 +86,10 @@ class CartActivity : CartAdapter.ChangeAmount, AppCompatActivity() {
     private fun setUpCheckOutBottomBar() {
         // set up button check out
         binding.btnGoToCheckOut.setOnClickListener {
-            startActivity(Intent(this, CheckOutActivity::class.java))
+            val order = viewModel.makeNewOrder()
+            val intent = Intent(this, CheckOutActivity::class.java)
+            intent.putExtra("order", order)
+            startActivity(intent)
         }
     }
 

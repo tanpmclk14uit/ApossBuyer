@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
@@ -106,7 +104,10 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
     private fun setUpCheckOutBottomBar() {
         // set up button check out
         binding.btnGoToCheckOut.setOnClickListener {
-            startActivity(Intent(this.context, CheckOutActivity::class.java))
+            val order = viewModel.makeNewOrder()
+            val intent = Intent(this.context, CheckOutActivity::class.java)
+            intent.putExtra("order", order)
+            startActivity(intent)
         }
     }
 
