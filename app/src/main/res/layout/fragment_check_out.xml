@@ -60,43 +60,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginHorizontal="10dp"
-                        android:layout_toStartOf="@id/cl_cart"
                         android:layout_toEndOf="@id/img_back"
                         android:gravity="center"
                         android:text="@string/check_out"
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold" />
-
-                    <androidx.coordinatorlayout.widget.CoordinatorLayout
-                        android:id="@+id/cl_cart"
-                        android:layout_width="33dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="26dp"
-                            android:layout_gravity="bottom|left"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/ic_cart"
-                            app:tint="@color/white"
-                            tools:ignore="RtlHardcoded" />
-
-                        <TextView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="end|top"
-                            android:background="@drawable/bg_quantity_in_cart"
-                            android:text="@string/defaultCartNumber"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="RtlCompat,SmallSp" />
-                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>

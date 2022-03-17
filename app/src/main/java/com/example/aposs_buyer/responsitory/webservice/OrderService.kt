@@ -12,7 +12,7 @@ interface OrderService {
     suspend fun addNewOrder(
         @Body orderDTO: OrderDTO,
         @Header("Authorization") token: String,
-    ): Response<String>
+    ): Response<Unit>
 
     @GET("order/all-order-by")
     suspend fun getAllOrderByStatus(
@@ -23,7 +23,7 @@ interface OrderService {
     @GET("order/order-by-id/{id}")
     suspend fun getOrderById(
         @Header("Authorization") accessToken: String,
-        @Path (value = "id") id: Long
+        @Path(value = "id") id: Long
     ): Response<OrderDTO>
 
     @PUT("order/cancel-order-customer/{id}")

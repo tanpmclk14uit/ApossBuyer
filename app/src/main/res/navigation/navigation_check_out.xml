@@ -13,5 +13,13 @@
         <argument
             android:name="currentOrder"
             app:argType="com.example.aposs_buyer.model.Order" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_checkOutSuccessFragment"
+            app:destination="@id/checkOutSuccessFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/checkOutSuccessFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutSuccessFragment"
+        android:label="fragment_finish_check_out"
+        tools:layout="@layout/fragment_finish_check_out" />
 </navigation>

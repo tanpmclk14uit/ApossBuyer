@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".uicontroler.fragment.CheckOutSuccessFragment">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -9,72 +10,76 @@
         <ImageView
             android:layout_width="704dp"
             android:layout_height="307dp"
-            android:scaleType="fitXY"
             android:layout_gravity="center"
             android:layout_marginBottom="100dp"
-            android:src="@drawable/ic_bg_above"/>
+            android:contentDescription="@string/check_out"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_bg_above" />
+
         <ImageView
             android:layout_width="604dp"
             android:layout_height="201dp"
             android:layout_gravity="center"
             android:layout_marginTop="125dp"
-            android:src="@drawable/ic_bg_below"/>
+            android:contentDescription="@string/check_out"
+            android:src="@drawable/ic_bg_below" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/aposs_name"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/aposs_name" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
-            android:layout_marginBottom="30dp">
+            android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/img_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_checkout_success"/>
+                android:contentDescription="@string/check_out"
+                android:src="@drawable/ic_checkout_success" />
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/your_order_placed"
                 android:textAllCaps="true"
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your order placed"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="25sp"/>
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
             <TextView
-                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your order has been placed successfully. You can visit"
+                android:text="@string/check_out_success_message"
+                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="14dp"/>
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="my order to check the delivery process"
-                android:textColor="@color/white"
-                android:textSize="14dp"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Continue shopping"
-            android:textSize="16dp"
-            android:layout_marginBottom="20dp"
             android:layout_gravity="bottom"
-            android:textColor="@color/white"
             android:layout_marginHorizontal="20dp"
-            android:background="@drawable/bg_confirm_check_out"/>
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_confirm_check_out"
+            android:text="@string/continue_shopping"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

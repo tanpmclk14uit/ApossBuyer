@@ -141,4 +141,6 @@
     <string name="purchased">Purchased</string>
     <string name="product">Product</string>
     <string name="confirm">Confirm</string>
+    <string name="your_order_placed">Your order placed</string>
+    <string name="check_out_success_message">Your order has been placed successfully.\nYou can visit my order to check the delivery process</string>
 </resources>
