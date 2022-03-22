@@ -9,6 +9,10 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aposs_buyer.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
 
@@ -16,12 +20,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_main)
         supportActionBar?.hide()
-        Handler().postDelayed(
-            {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                finish()
-            },
-            2000
-        )
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(2000)
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
+        }
     }
 }

@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.OrderViewModel" />
+
+        <variable
+            name="status"
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/back_ground"
         android:layout_height="match_parent"
+        android:background="@color/back_ground"
         tools:context=".uicontroler.fragment.OrderFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -56,6 +67,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:layout_toStartOf="@+id/cartLayout"
+                            android:layout_toEndOf="@+id/back"
+                            android:gravity="center"
                             android:text="@string/my_orders"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -63,6 +77,7 @@
                             android:textStyle="bold" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cartLayout"
                             android:layout_width="27dp"
                             android:layout_height="27dp"
                             android:layout_alignParentEnd="true"
@@ -117,70 +132,83 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
-            android:visibility="gone"
-            android:orientation="vertical"
             android:id="@+id/emptyOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:elevation="2dp"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            android:visibility="@{(viewModel.loadingStatus == status.Success &amp;&amp; viewModel.orders.size == 0)? view.VISIBLE:view.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/image"
-                android:src="@drawable/ic_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:src="@drawable/ic_empty" />
+
             <LinearLayout
-                android:layout_marginTop="20dp"
-                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
                 <TextView
-                    android:textSize="16sp"
-                    android:textColor="@color/dark_pray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/your_order_is_empty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="@color/dark_pray"
+                    android:textSize="16sp" />
+
                 <TextView
-                    android:textStyle="bold"
-                    android:layout_marginStart="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/active_button"
-                    android:text="@string/go_to_buy_now"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/go_to_buy_now"
+                    android:textColor="@color/active_button"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:visibility="visible"
-            android:id="@+id/orders"
-            tools:listitem="@layout/item_order"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            orderData="@{viewModel.displayListOrder}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="@{viewModel.loadingStatus == status.Loading?view.VISIBLE:view.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/orders" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orders"
+            orderData="@{viewModel.orders}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="7dp"
             android:layout_marginTop="110dp"
             android:layout_marginBottom="60dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:orientation="vertical"
+            android:visibility="@{viewModel.loadingStatus == status.Success?view.VISIBLE:view.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_order" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomBar"
-            app:menu="@menu/menu_order_item"
-            app:itemRippleColor="@color/white"
-            app:itemTextColor="@color/white"
-            app:itemIconTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/light_green"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:itemIconTint="@color/white"
+            app:itemRippleColor="@color/white"
+            app:itemTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/menu_order_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

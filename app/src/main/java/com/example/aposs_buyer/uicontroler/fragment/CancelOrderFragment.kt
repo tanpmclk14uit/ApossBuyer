@@ -44,7 +44,7 @@ class CancelOrderFragment : Fragment() {
     private fun setOnConfirmPress(){
         binding.confirmButton.setOnClickListener {
             if(viewModel.cancelReason.value!!.isNotBlank()){
-                viewModel.cancelOrder()
+//                viewModel.cancelOrder()
                 findNavController().navigate(CancelOrderFragmentDirections.actionCancelOrderFragmentToCancelOrderConfirmFragment())
             }else{
                 Toast.makeText(this.context, "Please fill reason", Toast.LENGTH_SHORT).show()

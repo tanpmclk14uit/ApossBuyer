@@ -41,30 +41,30 @@ class CancelOrderViewModel @Inject constructor(
     fun setOrderId(id: Long){
         orderId =id
     }
-    fun cancelOrder(){
-        _loadStatus.value = LoadingStatus.Loading
-        val account: Account = AccountDatabase.getInstance(context).accountDao.getAccount()!!
-        var tokenDTO = TokenDTO(accessToken = account.accessToken, tokenType = account.tokenType, refreshToken = account.refreshToken)
-        coroutineScope.launch {
-            val response = orderRepository.orderService.cancelOrder(orderId, cancelReason.value!!, tokenDTO.getFullAccessToken())
-            if (response.code() == 200)
-            {
-                _loadStatus.value = LoadingStatus.Success
-            }
-            else if (response.code() == 401){
-                val accessTokenResponse =
-                    authRepository.getAccessTokenFromRefreshToken(tokenDTO.refreshToken)
-                if (accessTokenResponse.code() == 200) {
-                    tokenDTO.accessToken = accessTokenResponse.body()!!
-                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
-                        tokenDTO.accessToken
-                    )
-                    cancelOrder()
-                }
-            }
-            else {
-                _loadStatus.value = LoadingStatus.Fail
-            }
-        }
-    }
+//    fun cancelOrder(){
+//        _loadStatus.value = LoadingStatus.Loading
+//        val account: Account = AccountDatabase.getInstance(context).accountDao.getAccount()!!
+//        var tokenDTO = TokenDTO(accessToken = account.accessToken, tokenType = account.tokenType, refreshToken = account.refreshToken)
+//        coroutineScope.launch {
+////            val response = orderRepository.orderService.cancelOrder(orderId, cancelReason.value!!, tokenDTO.getFullAccessToken())
+//            if (response.code() == 200)
+//            {
+//                _loadStatus.value = LoadingStatus.Success
+//            }
+//            else if (response.code() == 401){
+//                val accessTokenResponse =
+//                    authRepository.getAccessTokenFromRefreshToken(tokenDTO.refreshToken)
+//                if (accessTokenResponse.code() == 200) {
+//                    tokenDTO.accessToken = accessTokenResponse.body()!!
+//                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
+//                        tokenDTO.accessToken
+//                    )
+//                    cancelOrder()
+//                }
+//            }
+//            else {
+//                _loadStatus.value = LoadingStatus.Fail
+//            }
+//        }
+//    }
 }

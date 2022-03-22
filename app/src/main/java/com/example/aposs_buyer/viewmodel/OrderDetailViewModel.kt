@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.Order
 import com.example.aposs_buyer.model.OrderBillingItem
@@ -32,9 +33,8 @@ import kotlin.collections.ArrayList
 
 @HiltViewModel
 class OrderDetailViewModel @Inject constructor(
-    val orderRepository: OrderRepository,
-    val authRepository: AuthRepository,
-    @ApplicationContext val context: Context
+    private val orderRepository: OrderRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     private var _detailOrder: MutableLiveData<Order> = MutableLiveData()
@@ -44,55 +44,16 @@ class OrderDetailViewModel @Inject constructor(
         MutableLiveData()
     val orderDeliveringState: LiveData<ArrayList<OrderDeliveringState>> get() = _orderDeliveringState
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     private var _loadStatus = MutableLiveData<LoadingStatus>()
     val loadStatus: LiveData<LoadingStatus> get() = _loadStatus
 
     fun setCurrentOrder(order: Order) {
         _detailOrder.value = order
         _orderDeliveringState.value = loadOrderDeliveringState(order.id)
-
     }
 
-    fun setDetailOrderById(id: Long) {
-        loadDetailOrderById(id)
-        _orderDeliveringState.value = loadOrderDeliveringState(id)
-        Log.d("OrderDetailViewModel", "Order: $id")
-    }
 
-    private fun loadDetailOrderById(id: Long) {
-        val account = AccountDatabase.getInstance(context).accountDao.getAccount()
-        val token =
-            TokenDTO(accessToken = account!!.accessToken, account.tokenType, account.refreshToken)
-        _loadStatus.value = LoadingStatus.Loading
-        coroutineScope.launch {
-            var respond =
-                orderRepository.orderService.getOrderById(token.getFullAccessToken(), id)
-            if (respond.code() == 200) {
-                val orderDTO = respond.body()
-                _detailOrder.value = convertToOrder(orderDTO!!)
-                Log.d("DetailOrder", _detailOrder.value.toString())
-                _loadStatus.value = LoadingStatus.Success
-            }
-            if (respond.code() == 401) {
-                val accessTokenResponse =
-                    authRepository.getAccessTokenFromRefreshToken(token.refreshToken)
-                if (accessTokenResponse.code() == 200) {
-                    token.accessToken = accessTokenResponse.body()!!
-                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
-                        token.accessToken
-                    )
-                    loadDetailOrderById(id)
-                }
-            } else {
-                _loadStatus.value = LoadingStatus.Fail
-            }
-        }
-    }
-    private fun convertToOrderItem(orderItemDTO: OrderItemDTO): OrderBillingItem
-    {
+    private fun convertToOrderItem(orderItemDTO: OrderItemDTO): OrderBillingItem {
         return OrderBillingItem(
             id = orderItemDTO.id,
             product = orderItemDTO.product,
@@ -104,8 +65,7 @@ class OrderDetailViewModel @Inject constructor(
         )
     }
 
-    private fun convertToOrder(orderDTO: OrderDTO): Order
-    {
+    private fun convertToOrder(orderDTO: OrderDTO): Order {
         return Order(
             id = orderDTO.id,
             orderTime = orderDTO.orderTime,
@@ -117,6 +77,7 @@ class OrderDetailViewModel @Inject constructor(
             address = orderDTO.address
         )
     }
+
     private fun loadOrderDeliveringState(id: Long): ArrayList<OrderDeliveringState> {
         val sample: ArrayList<OrderDeliveringState> = ArrayList()
         sample.add(OrderDeliveringState(1, "Placed order", Date()))
@@ -126,28 +87,27 @@ class OrderDetailViewModel @Inject constructor(
         return sample
     }
 
-    fun successOrder(id: Long){
+    fun receivedOrder() {
         _loadStatus.value = LoadingStatus.Loading
-        val account: Account = AccountDatabase.getInstance(context).accountDao.getAccount()!!
-        var tokenDTO = TokenDTO(accessToken = account.accessToken, tokenType = account.tokenType, refreshToken = account.refreshToken)
-        coroutineScope.launch {
-            val response = orderRepository.orderService.successOrder(id, tokenDTO.getFullAccessToken())
-            if (response.code() == 200)
-            {
-                _loadStatus.value = LoadingStatus.Success
-            }
-            else if (response.code() == 401){
-                val accessTokenResponse =
-                    authRepository.getAccessTokenFromRefreshToken(tokenDTO.refreshToken)
-                if (accessTokenResponse.code() == 200) {
-                    tokenDTO.accessToken = accessTokenResponse.body()!!
-                    AccountDatabase.getInstance(context).accountDao.updateAccessToken(
-                        tokenDTO.accessToken
-                    )
-                    successOrder(id)
+        viewModelScope.launch {
+            val token = authRepository.getCurrentAccessTokenFromRoom()
+            if (!token.isNullOrBlank()) {
+                val response =
+                    orderRepository.putOrderStatusToSuccess(detailOrder.value!!.id, token)
+                if (response.isSuccessful) {
+                    _loadStatus.value = LoadingStatus.Success
+                } else {
+                    if (response.code() == 401) {
+                        if (authRepository.loadNewAccessTokenSuccess()) {
+                            receivedOrder()
+                        } else {
+                            _loadStatus.value = LoadingStatus.Fail
+                        }
+                    } else {
+                        _loadStatus.value = LoadingStatus.Fail
+                    }
                 }
-            }
-            else {
+            } else {
                 _loadStatus.value = LoadingStatus.Fail
             }
         }

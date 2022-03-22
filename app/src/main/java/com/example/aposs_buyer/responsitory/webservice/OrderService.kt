@@ -34,8 +34,8 @@ interface OrderService {
     ): Response<String>
 
     @PUT("order/success-order-customer/{id}")
-    suspend fun successOrder(
+    suspend fun putOrderStatusToSuccess(
         @Path(value = "id") id: Long,
         @Header("Authorization") accessToken: String,
-    ): Response<String>
+    ): Response<Unit>
 }

@@ -16,7 +16,6 @@ import com.example.aposs_buyer.uicontroler.adapter.*
 import me.relex.circleindicator.CircleIndicator3
 
 
-
 @BindingAdapter("imagesPath")
 fun bindImagePath(imageView: ImageView, image: Uri?) {
     Glide.with(imageView.context)
@@ -28,6 +27,26 @@ fun bindImagePath(imageView: ImageView, image: Uri?) {
         .transition(BitmapTransitionOptions.withCrossFade())
         .into(imageView)
     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+}
+
+@BindingAdapter("limitBillingItemData")
+fun bindBillingItemOfOrderItemRecycleView(
+    recyclerView: RecyclerView,
+    data: List<OrderBillingItem>?
+) {
+    val limitBillingItem = 2;
+    val adapter = recyclerView.adapter as BillingItemsAdapter
+    if (data!!.size >= limitBillingItem) {
+        adapter.submitList(data.subList(0, limitBillingItem))
+    } else {
+        adapter.submitList(data)
+    }
+}
+
+@BindingAdapter("billingItemData")
+fun bindBillingItemRecyclerView(recyclerView: RecyclerView, data: List<OrderBillingItem>?) {
+    val adapter = recyclerView.adapter as BillingItemsAdapter
+    adapter.submitList(data)
 }
 
 @BindingAdapter("categoriesData")
@@ -238,11 +257,6 @@ fun bindNotificationRecyclerView(recyclerView: RecyclerView, data: List<Notifica
     adapter.submitList(data)
 }
 
-@BindingAdapter("billingItemData")
-fun bindBillingItemRecyclerView(recyclerView: RecyclerView, data: List<OrderBillingItem>?) {
-    val adapter = recyclerView.adapter as BillingItemsAdapter
-    adapter.submitList(data)
-}
 
 @BindingAdapter("orderData")
 fun bindOrderRecyclerView(recyclerView: RecyclerView, data: List<Order>?) {
