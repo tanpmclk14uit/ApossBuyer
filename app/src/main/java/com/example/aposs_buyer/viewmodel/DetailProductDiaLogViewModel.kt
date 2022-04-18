@@ -248,42 +248,11 @@ class DetailProductDiaLogViewModel @Inject constructor(
     }
 
     fun notifySelectedStringPropertyChange(propertyId: Long) {
-        var newQuantities = 0
-        for (property in _selectedProductStringPropertyDiaLog.value!!) {
-            if (property.id == propertyId) {
-                for (value in property.values) {
-                    if (value.isChosen) {
-                        newQuantities += value.count
-                    }
-                }
-                if (newQuantities == 0) {
-                    property.valueCountSummarize = 11
-                } else {
-                    property.valueCountSummarize = newQuantities
-                }
-            }
-        }
-        validatePropertyValue()
-        setSelectedProductMinValue()
+       // load property
     }
 
     fun notifySelectedColorPropertyChange(propertyId: Long) {
-        var newQuantities = 0
-        for (property in _selectedProductColorPropertyDiaLog.value!!) {
-            if (property.id == propertyId) {
-                for (value in property.values) {
-                    if (value.isChosen) {
-                        newQuantities += value.count
-                    }
-                }
-                if (newQuantities == 0) {
-                    property.valueCountSummarize = 11
-                } else {
-                    property.valueCountSummarize = newQuantities
-                }
-            }
-        }
-        setSelectedProductMinValue()
+        // load property
     }
 
     var loadingStatus = MutableLiveData<LoadingStatus>()

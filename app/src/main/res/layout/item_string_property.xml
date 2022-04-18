@@ -13,13 +13,12 @@
         android:paddingEnd="5dp"
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <ToggleButton
+            android:textColor="@{property.chosen? @color/yellow:@color/black}"
             android:id="@+id/propertyValue"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
-            android:alpha="@{property.count==0? 0.5f: 1f}"
-            android:enabled="@{property.count==0? Boolean.FALSE: Boolean.TRUE}"
             android:checked="@={property.chosen}"
             android:text="@{property.value}"
             android:textOn="@{property.value}"

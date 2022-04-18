@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.util.stream.Collectors
 import javax.inject.Inject
+import kotlin.streams.toList
 
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
@@ -51,6 +52,8 @@ class DetailProductViewModel @Inject constructor(
     val productDetailLoadingState = MutableLiveData<LoadingStatus>()
     val productRatingLoadingState = MutableLiveData<LoadingStatus>()
 
+    private val currentSelectedValues = ArrayList<PropertyValue>()
+
 
     fun setSelectedProductId(id: Long) {
         selectedProductId = id
@@ -75,42 +78,54 @@ class DetailProductViewModel @Inject constructor(
         _selectedProductQuantities.value = minSelect
     }
 
-    fun notifySelectedStringPropertyChange(propertyId: Long) {
-        var newQuantities = 0
-        for (property in _selectedProductStringProperty.value!!) {
-            if (property.id == propertyId) {
-                for (value in property.values) {
-                    if (value.isChosen) {
-                        newQuantities += value.count
-                    }
-                }
-                if (newQuantities == 0) {
-                    property.valueCountSummarize = 11
-                } else {
-                    property.valueCountSummarize = newQuantities
-                }
+    fun notifySelectedPropertyChange(property: PropertyValue) {
+        if (property.isChosen) {
+            if (isValueOfTheSamePropertyExist(property)) {
+                removeExistedValue(property)
             }
+            currentSelectedValues.add(property)
+        } else {
+            currentSelectedValues.remove(property)
         }
-        setSelectedProductMinValue()
+        if (currentSelectedValues.isNotEmpty()) {
+            loadQuantityOfProductByProductIdAndListProperty(
+                selectedProductId,
+                currentSelectedValues.stream().map { it -> it.id }.toList()
+            )
+        } else {
+            selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
+        }
+
     }
 
-    fun notifySelectedColorPropertyChange(propertyId: Long) {
-        var newQuantities = 0
-        for (property in _selectedProductColorProperty.value!!) {
-            if (property.id == propertyId) {
-                for (value in property.values) {
-                    if (value.isChosen) {
-                        newQuantities += value.count
-                    }
-                }
-                if (newQuantities == 0) {
-                    property.valueCountSummarize = 11
-                } else {
-                    property.valueCountSummarize = newQuantities
-                }
+    private fun loadQuantityOfProductByProductIdAndListProperty(
+        productId: Long,
+        propertyIds: List<Long>
+    ) {
+        viewModelScope.launch {
+            val quantityResponse = productRepository.getQuantityOfProductByProductIdAndPropertyValues(productId, propertyIds)
+            if(quantityResponse.isSuccessful){
+                selectedProductQuantities.value = quantityResponse.body()
             }
         }
-        setSelectedProductMinValue()
+    }
+
+    private fun isValueOfTheSamePropertyExist(property: PropertyValue): Boolean {
+        for (value in currentSelectedValues) {
+            if (value.propertyId == property.propertyId) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun removeExistedValue(property: PropertyValue) {
+        for (value in currentSelectedValues) {
+            if (value.propertyId == property.propertyId) {
+                currentSelectedValues.remove(value)
+                return
+            }
+        }
     }
 
     fun loadFilterProductRating(filter: String) {
@@ -211,8 +226,6 @@ class DetailProductViewModel @Inject constructor(
             productPropertyValueDTO.name,
             propertyId,
             productPropertyValueDTO.value,
-            productPropertyValueDTO.additionalPrice,
-            productPropertyValueDTO.quantity,
             false
         )
     }
@@ -239,8 +252,8 @@ class DetailProductViewModel @Inject constructor(
                 _selectedProductStringProperty.value =
                     productStringResponseDTO.body()!!
                         .filter { productPropertyDTO -> productPropertyDTO.id != 0L }.stream().map {
-                        mapToProperty(it!!, productQuantity)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
+                            mapToProperty(it!!, productQuantity)
+                        }.collect(Collectors.toList()).toCollection(ArrayList())
             }
         }
     }

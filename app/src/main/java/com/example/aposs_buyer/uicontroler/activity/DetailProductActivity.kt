@@ -2,6 +2,7 @@ package com.example.aposs_buyer.uicontroler.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.ActivityDetailProductBinding
@@ -20,10 +21,11 @@ class DetailProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val selectedProductId: Long = intent.getLongExtra("productID", -1)
-        findNavController(R.id.fragmentContainerView)
-            .setGraph(
-                R.navigation.navigation_detail_product,
-                DetailProductFragmentArgs(selectedProductId).toBundle(),
-            )
+        findNavController(R.id.fragmentContainerViewDetail).setGraph(
+            R.navigation.navigation_detail_product,
+            DetailProductFragmentArgs(selectedProductId).toBundle(),
+        )
+
+
     }
 }

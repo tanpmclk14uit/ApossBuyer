@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemColorPropertyBinding
 import com.example.aposs_buyer.model.PropertyValue
+import okhttp3.internal.notify
 
 class ColorDetailPropertyAdapter(private val propertyColorValueSelected: PropertyColorValueSelected) :
     ListAdapter<PropertyValue, ColorDetailPropertyAdapter.ColorDetailPropertyViewHolder>(
@@ -14,7 +15,7 @@ class ColorDetailPropertyAdapter(private val propertyColorValueSelected: Propert
     ) {
 
     interface PropertyColorValueSelected {
-        fun notifySelectedColorValueChange(propertyId: Long)
+        fun notifySelectedColorValueChange(propertyValue: PropertyValue)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<PropertyValue>() {
@@ -52,8 +53,19 @@ class ColorDetailPropertyAdapter(private val propertyColorValueSelected: Propert
         val currentPropertyValue = getItem(position)
         holder.bind(currentPropertyValue)
         holder.binding.color.setOnClickListener {
-            propertyColorValueSelected.notifySelectedColorValueChange(currentPropertyValue.propertyId)
+            propertyColorValueSelected.notifySelectedColorValueChange(currentPropertyValue)
+            unChooseAllItemExcept(currentPropertyValue)
             notifyItemChanged(position)
         }
     }
+    private fun unChooseAllItemExcept(currentPropertyValue: PropertyValue){
+        val currentListItem = currentList
+        for((currentPosition, value) in currentListItem.withIndex()){
+            if(value.isChosen && value.id != currentPropertyValue.id){
+                value.isChosen = false
+                notifyItemChanged(currentPosition)
+            }
+        }
+    }
+
 }

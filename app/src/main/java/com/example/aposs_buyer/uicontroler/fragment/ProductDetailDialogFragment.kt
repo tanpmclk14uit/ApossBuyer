@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.databinding.FragmentProductDetailDialogListDialogBinding
 import com.example.aposs_buyer.model.CartItem
 import com.example.aposs_buyer.model.Image
+import com.example.aposs_buyer.model.PropertyValue
 import com.example.aposs_buyer.model.dto.CartDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
@@ -194,12 +195,12 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
         _binding = null
     }
 
-    override fun notifySelectedColorValueChange(propertyId: Long) {
-        viewModelDialog.notifySelectedColorPropertyChange(propertyId)
+    override fun notifySelectedColorValueChange(propertyValue: PropertyValue) {
+        TODO("Not yet implemented")
     }
 
-    override fun notifySelectedStringValueChange(propertyId: Long) {
-        viewModelDialog.notifySelectedStringPropertyChange(propertyId)
+    override fun notifySelectedStringValueChange(propertyValue: PropertyValue) {
+        TODO("Not yet implemented")
     }
 
     private fun isLogin(): Boolean {

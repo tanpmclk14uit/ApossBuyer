@@ -13,7 +13,7 @@ class StringDetailPropertyAdapter (private val propertySelect: PropertyStringVal
         DiffCallBack
     ) {
     interface PropertyStringValueSelected{
-        fun notifySelectedStringValueChange(propertyId: Long)
+        fun notifySelectedStringValueChange(propertyValue: PropertyValue)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<PropertyValue>() {
@@ -51,8 +51,18 @@ class StringDetailPropertyAdapter (private val propertySelect: PropertyStringVal
         val currentPropertyValue = getItem(position)
         holder.bind(currentPropertyValue)
         holder.binding.propertyValue.setOnClickListener {
-            propertySelect.notifySelectedStringValueChange(currentPropertyValue.propertyId)
+            propertySelect.notifySelectedStringValueChange(currentPropertyValue)
+            unChooseAllItemExcept(currentPropertyValue)
             notifyItemChanged(position)
+        }
+    }
+    private fun unChooseAllItemExcept(currentPropertyValue: PropertyValue){
+        val currentListItem = currentList
+        for((currentPosition, value) in currentListItem.withIndex()){
+            if(value.isChosen && value.id != currentPropertyValue.id){
+                value.isChosen = false
+                notifyItemChanged(currentPosition)
+            }
         }
     }
 }

@@ -48,4 +48,10 @@ interface ProductAPIService {
     suspend fun getProductRatingsById(
         @Path(value = "id") id: Long,
     ): Response<List<ProductRatingDTO>>
+
+    @GET("products/{id}/property-values/quantity")
+    suspend fun getProductQuantityByProductIdAndPropertyValue(
+        @Path("id") id: Long,
+        @Query("valueIds") valueIds: List<Long>
+    ): Response<Int>
 }

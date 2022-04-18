@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
+import com.example.aposs_buyer.model.PropertyValue
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
 import com.example.aposs_buyer.uicontroler.activity.LoginActivity
@@ -193,13 +194,12 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         }
     }
 
-    override fun notifySelectedStringValueChange(propertyId: Long) {
-        viewModel.notifySelectedStringPropertyChange(propertyId)
+    override fun notifySelectedColorValueChange(propertyValue: PropertyValue) {
+        viewModel.notifySelectedPropertyChange(propertyValue)
     }
 
-    override fun notifySelectedColorValueChange(propertyId: Long) {
-        viewModel.notifySelectedColorPropertyChange(propertyId)
+    override fun notifySelectedStringValueChange(propertyValue: PropertyValue) {
+        viewModel.notifySelectedPropertyChange(propertyValue)
     }
-
 }
 

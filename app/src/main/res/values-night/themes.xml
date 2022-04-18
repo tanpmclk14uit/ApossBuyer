@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Apossbuyer" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Apossbuyer" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/light_green</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -8,12 +8,35 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:windowFullscreen">true</item>
-        <item name="android:statusBarColor"
-            tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
         <!--     default text style-->
         <item name="android:textSize">14sp</item>
         <item name="android:screenOrientation">locked</item>
+        <item name="android:statusBarColor">@color/light_green</item>
+        <item name="colorAccent">@color/yellow</item>
     </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+
+        <item name="android:typeface">monospace</item>
+        <item name="android:background">@drawable/bg_ln_bottom_address</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:typeface">monospace</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+    <style name="Theme.Apossbuyer.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Apossbuyer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Apossbuyer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
