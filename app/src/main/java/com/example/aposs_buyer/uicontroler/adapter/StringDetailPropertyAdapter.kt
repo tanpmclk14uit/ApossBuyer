@@ -51,8 +51,8 @@ class StringDetailPropertyAdapter (private val propertySelect: PropertyStringVal
         val currentPropertyValue = getItem(position)
         holder.bind(currentPropertyValue)
         holder.binding.propertyValue.setOnClickListener {
-            propertySelect.notifySelectedStringValueChange(currentPropertyValue)
             unChooseAllItemExcept(currentPropertyValue)
+            propertySelect.notifySelectedStringValueChange(currentPropertyValue)
             notifyItemChanged(position)
         }
     }

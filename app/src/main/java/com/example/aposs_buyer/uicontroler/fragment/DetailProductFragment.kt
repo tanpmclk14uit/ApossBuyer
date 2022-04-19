@@ -80,19 +80,29 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
 
     private fun callBottomSheet() {
         binding.addToCart.setOnClickListener {
-            findNavController().navigate(
-                DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(
-                    DialogType.CartDialog
+            if (isUserLoggedIn()) {
+                findNavController().navigate(
+                    DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(
+                        DialogType.CartDialog
+                    )
                 )
-            )
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
+
 
         }
         binding.buyNow.setOnClickListener {
-            findNavController().navigate(
-                DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(
-                    DialogType.CheckOutDialog
+            if (isUserLoggedIn()) {
+                findNavController().navigate(
+                    DetailProductFragmentDirections.actionDetailProductFragmentToProductDetailDialogFragment(
+                        DialogType.CheckOutDialog
+                    )
                 )
-            )
+            } else {
+                startActivity(Intent(this.context, LoginActivity::class.java))
+            }
+
         }
     }
 

@@ -60,4 +60,10 @@ interface ProductAPIService {
         @Path("id") id: Long,
         @Query("valueIds") valueIds: List<Long>
     ): Response<Int>
+
+    @GET("products/{id}/property-values/set")
+    suspend fun getSetIdByByProductIdAndListProperty(
+        @Path("id") id: Long,
+        @Query("valueIds") valueIds: List<Long>
+    ): Response<Long>
 }

@@ -53,15 +53,16 @@ class ColorDetailPropertyAdapter(private val propertyColorValueSelected: Propert
         val currentPropertyValue = getItem(position)
         holder.bind(currentPropertyValue)
         holder.binding.color.setOnClickListener {
-            propertyColorValueSelected.notifySelectedColorValueChange(currentPropertyValue)
             unChooseAllItemExcept(currentPropertyValue)
+            propertyColorValueSelected.notifySelectedColorValueChange(currentPropertyValue)
             notifyItemChanged(position)
         }
     }
-    private fun unChooseAllItemExcept(currentPropertyValue: PropertyValue){
+
+    private fun unChooseAllItemExcept(currentPropertyValue: PropertyValue) {
         val currentListItem = currentList
-        for((currentPosition, value) in currentListItem.withIndex()){
-            if(value.isChosen && value.id != currentPropertyValue.id){
+        for ((currentPosition, value) in currentListItem.withIndex()) {
+            if (value.isChosen && value.id != currentPropertyValue.id) {
                 value.isChosen = false
                 notifyItemChanged(currentPosition)
             }

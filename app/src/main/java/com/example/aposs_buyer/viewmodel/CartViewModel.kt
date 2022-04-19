@@ -121,7 +121,7 @@ class CartViewModel @Inject constructor(
             amount = cartDTO.quantity,
             property = cartDTO.property,
             isChoose = cartDTO.select,
-            product = cartDTO.productId,
+            product = cartDTO.setId,
         )
     }
 

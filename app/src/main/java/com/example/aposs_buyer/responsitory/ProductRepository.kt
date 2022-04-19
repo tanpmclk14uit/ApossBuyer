@@ -57,5 +57,15 @@ class ProductRepository @Inject constructor() {
         )
     }
 
+    suspend fun getSetIdByByProductIdAndListProperty(
+        productId: Long,
+        propertyValues: List<Long>
+    ): Response<Long> {
+        return productService.getSetIdByByProductIdAndListProperty(
+            productId,
+            propertyValues
+        )
+    }
+
 
 }

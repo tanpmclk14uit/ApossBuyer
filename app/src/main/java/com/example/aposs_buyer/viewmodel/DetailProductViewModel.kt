@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.*
+import com.example.aposs_buyer.responsitory.AuthRepository
+import com.example.aposs_buyer.responsitory.CartRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
@@ -20,6 +22,8 @@ import kotlin.streams.toList
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
+    private val cartRepository: CartRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private var selectedProductId: Long = 0
@@ -56,6 +60,12 @@ class DetailProductViewModel @Inject constructor(
 
     private val currentSelectedValues = ArrayList<PropertyValue>()
 
+    var propertyValue = MutableLiveData<String>()
+    var isPropertyValueError = MutableLiveData<Boolean>()
+    var cartAmount = MutableLiveData<Int>()
+
+    val addToCartStatus = MutableLiveData<LoadingStatus>()
+
 
     fun setSelectedProductId(id: Long) {
         selectedProductId = id
@@ -63,6 +73,64 @@ class DetailProductViewModel @Inject constructor(
             loadSelectedProductById(selectedProductId)
             loadListImageByID(selectedProductId)
         }
+        cartAmount.value = 1
+    }
+
+    private fun makeCart(setId: Long): CartDTO {
+        return CartDTO(
+            setId = setId,
+            quantity = cartAmount.value!!,
+            select = true
+        )
+    }
+
+    fun addNewCart() {
+        viewModelScope.launch {
+            val setId = loadSetIdByByProductIdAndListProperty()
+            if (setId != -1L) {
+                val cartDTO = makeCart(setId)
+                saveCart(cartDTO)
+            } else {
+                addToCartStatus.value = LoadingStatus.Fail
+            }
+        }
+    }
+
+    private suspend fun saveCart(cartDTO: CartDTO) {
+        addToCartStatus.value = LoadingStatus.Loading
+        val accessToken = authRepository.getCurrentAccessTokenFromRoom()
+        if (!accessToken.isNullOrBlank()) {
+            val addNewCartResponse = cartRepository.addNewCart(
+                accessToken,
+                cartDTO
+            )
+            if (addNewCartResponse.isSuccessful) {
+                addToCartStatus.value = LoadingStatus.Success
+            } else {
+                if (addNewCartResponse.code() == 401) {
+                    if (authRepository.loadNewAccessTokenSuccess()) {
+                        saveCart(cartDTO)
+                    } else {
+                        addToCartStatus.value = LoadingStatus.Fail
+                    }
+                } else {
+                    addToCartStatus.value = LoadingStatus.Fail
+                }
+            }
+        } else {
+            addToCartStatus.value = LoadingStatus.Fail
+        }
+    }
+
+    private suspend fun loadSetIdByByProductIdAndListProperty(): Long {
+        val setResponse = productRepository.getSetIdByByProductIdAndListProperty(
+            selectedProductId,
+            currentSelectedValues.stream().map { it.id }.toList()
+        )
+        if (setResponse.isSuccessful) {
+            return setResponse.body() ?: -1L
+        }
+        return -1L
     }
 
 
@@ -76,6 +144,8 @@ class DetailProductViewModel @Inject constructor(
             currentSelectedValues.remove(property)
         }
         if (currentSelectedValues.isNotEmpty()) {
+            propertyValue.value = makeStringProperty()
+            isPropertyValueError.value = false
             loadQuantityOfProductByProductIdAndListProperty(
                 selectedProductId,
                 currentSelectedValues.stream().map { it.id }.toList()
@@ -88,9 +158,46 @@ class DetailProductViewModel @Inject constructor(
             selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
             selectedProductPrice.value =
                 Converter.convertFromIntToCurrencyString(_selectedProduct.value!!.price)
+            propertyValue.value = "Select property to continue"
+            isPropertyValueError.value = true
         }
-
     }
+
+    fun validatePropertyValue() {
+        if (isSpecialPropertyHaveNoneValueSelected()) {
+            propertyValue.value = "Select property to continue"
+            isPropertyValueError.value = true
+        } else {
+            propertyValue.value = makeStringProperty()
+            isPropertyValueError.value = false
+        }
+    }
+
+    private fun makeStringProperty(): String {
+        var sampleProperty = ""
+        for (property in selectedProductStringProperty.value!!) {
+            for (value in property.values) {
+                if (value.isChosen) {
+                    sampleProperty += property.name
+                    sampleProperty += ": "
+                    sampleProperty += value.name
+                    sampleProperty += ", "
+                }
+            }
+        }
+        for (property in selectedProductColorProperty.value!!) {
+            for (value in property.values) {
+                if (value.isChosen) {
+                    sampleProperty += property.name
+                    sampleProperty += ": "
+                    sampleProperty += value.name
+                    sampleProperty += ", "
+                }
+            }
+        }
+        return sampleProperty
+    }
+
 
     private fun loadQuantityOfProductByProductIdAndListProperty(
         productId: Long,
@@ -104,9 +211,40 @@ class DetailProductViewModel @Inject constructor(
                 )
             if (quantityResponse.isSuccessful) {
                 selectedProductQuantities.value = quantityResponse.body()
+                if (selectedProductQuantities.value!! < cartAmount.value!!) {
+                    cartAmount.value = selectedProductQuantities.value
+                }
             }
         }
     }
+
+    fun isSpecialPropertyHaveNoneValueSelected(): Boolean {
+        var totalChose: Int
+        for (property in selectedProductStringProperty.value!!) {
+            totalChose = 0
+            for (value in property.values) {
+                if (value.isChosen) {
+                    totalChose++
+                }
+            }
+            if (totalChose == 0) {
+                return true
+            }
+        }
+        for (property in selectedProductColorProperty.value!!) {
+            totalChose = 0
+            for (value in property.values) {
+                if (value.isChosen) {
+                    totalChose++
+                }
+            }
+            if (totalChose == 0) {
+                return true
+            }
+        }
+        return false
+    }
+
 
     private fun loadPriceOfProductByProductIdAndListProperty(
         productId: Long,
@@ -296,7 +434,8 @@ class DetailProductViewModel @Inject constructor(
             if (productResponse.isSuccessful) {
                 _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
                 _selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
-                selectedProductPrice.value = Converter.convertFromIntToCurrencyString(_selectedProduct.value!!.price)
+                selectedProductPrice.value =
+                    Converter.convertFromIntToCurrencyString(_selectedProduct.value!!.price)
                 loadProductsByKind(productResponse.body()!!.kindId)
                 if (_selectedProduct.value!!.totalReview != 0) {
                     loadProductRatingById(selectedProductId)
