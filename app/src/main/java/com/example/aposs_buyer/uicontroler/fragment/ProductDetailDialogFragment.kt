@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.databinding.FragmentProductDetailDialogListDialogBinding
+import com.example.aposs_buyer.model.Order
 import com.example.aposs_buyer.model.PropertyValue
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CheckOutActivity
@@ -17,10 +18,13 @@ import com.example.aposs_buyer.uicontroler.adapter.ColorDetailPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.ColorPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.StringDetailPropertyAdapter
 import com.example.aposs_buyer.uicontroler.adapter.StringPropertyAdapter
+import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
 import com.example.aposs_buyer.utils.DialogType
+import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class ProductDetailDialogFragment : BottomSheetDialogFragment(),
@@ -34,7 +38,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
 
     private val args: ProductDetailDialogFragmentArgs by navArgs()
     private lateinit var dialogType: DialogType
-
+    private lateinit var loadingDialog: LoadingDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +47,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.validatePropertyValue()
+        loadingDialog = LoadingDialog(this.requireActivity())
         setUpDialogButton()
         setUpProductProperty()
         setupDecreaseAmount()
@@ -83,10 +88,23 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     private fun dialogTypeButton() {
         binding.dialogButton.setOnClickListener {
             if (checkValidPropertyProduct() && checkValidAmount()) {
+                loadingDialog.startLoading()
                 if (dialogType == DialogType.CheckOutDialog) {
-                    startActivity(Intent(this.context, CheckOutActivity::class.java))
+                    val order: Order?
+                    runBlocking {
+                        order = viewModel.makeOrder()
+                    }
+                    loadingDialog.dismissDialog()
+                    val intent = Intent(this.context, CheckOutActivity::class.java)
+                    if (order != null) {
+                        intent.putExtra("order", order)
+                        startActivity(intent)
+                    }
                 } else {
-                    viewModel.addNewCart()
+                    runBlocking {
+                        viewModel.addNewCart()
+                    }
+                    loadingDialog.dismissDialog()
                     Toast.makeText(
                         requireContext(),
                         "Add to cart successfully",

@@ -10,20 +10,25 @@ import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.*
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.CartRepository
+import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
+import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 import kotlin.streams.toList
 
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val cartRepository: CartRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val deliveryAddressRepository: DeliveryAddressRepository
 ) : ViewModel() {
 
     private var selectedProductId: Long = 0
@@ -63,6 +68,7 @@ class DetailProductViewModel @Inject constructor(
     var propertyValue = MutableLiveData<String>()
     var isPropertyValueError = MutableLiveData<Boolean>()
     var cartAmount = MutableLiveData<Int>()
+    private var currentAdditionalPrice = 0
 
     val addToCartStatus = MutableLiveData<LoadingStatus>()
 
@@ -74,6 +80,78 @@ class DetailProductViewModel @Inject constructor(
             loadListImageByID(selectedProductId)
         }
         cartAmount.value = 1
+    }
+
+    fun makeOrder(): Order? {
+        val address: Address?
+        val setId: Long
+        runBlocking {
+            address = loadDefaultAddress()
+            setId = loadSetIdByByProductIdAndListProperty()
+        }
+        if (address != null && setId != -1L) {
+            val orderBillingItem = mutableListOf<OrderBillingItem>(
+                OrderBillingItem(
+                    cartId = -1,
+                    setId = setId,
+                    quantity = cartAmount.value!!,
+                    image = selectedProductImages.value!![0],
+                    name = selectedProduct.value!!.name,
+                    price = selectedProduct.value!!.price + currentAdditionalPrice,
+                    property = propertyValue.value!!
+                )
+            )
+            return Order(
+                billingItems = orderBillingItem,
+                address = address.getFullAddress(),
+                totalPrice = (selectedProduct.value!!.price + currentAdditionalPrice) * cartAmount.value!!
+            )
+        }
+        return null
+    }
+
+    private suspend fun loadDefaultAddress(): Address? {
+        val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
+        if (!currentAccessToken.isNullOrBlank()) {
+            val defaultAddressResponse =
+                deliveryAddressRepository.getUserDefaultAddress(
+                    currentAccessToken
+                )
+            if (defaultAddressResponse.isSuccessful) {
+                val defaultAddressDTOResponseBody = defaultAddressResponse.body()
+                val defaultAddressDTO = defaultAddressDTOResponseBody!!
+                return convertDeliveryAddressDTOToAddress(defaultAddressDTO)
+            } else {
+                if (defaultAddressResponse.code() == 401) {
+                    if (authRepository.loadNewAccessTokenSuccess()) {
+                        loadDefaultAddress()
+                    }
+                }
+            }
+        }
+        return null
+    }
+
+    private fun convertDeliveryAddressDTOToAddress(deliveryAddressDTO: DeliveryAddressDTO): Address {
+        return Address(
+            id = deliveryAddressDTO.id,
+            name = deliveryAddressDTO.name,
+            gender = deliveryAddressDTO.gender,
+            phoneNumber = deliveryAddressDTO.phoneNumber,
+            city = Province(deliveryAddressDTO.province.id, deliveryAddressDTO.province.name),
+            district = District(
+                deliveryAddressDTO.district.id,
+                deliveryAddressDTO.district.name,
+                deliveryAddressDTO.district.province
+            ),
+            ward = Ward(
+                deliveryAddressDTO.ward.id,
+                deliveryAddressDTO.ward.name,
+                deliveryAddressDTO.ward.district
+            ),
+            isDefaultAddress = deliveryAddressDTO.isDefault,
+            addressLane = deliveryAddressDTO.addressLane
+        )
     }
 
     private fun makeCart(setId: Long): CartDTO {
@@ -127,10 +205,15 @@ class DetailProductViewModel @Inject constructor(
             selectedProductId,
             currentSelectedValues.stream().map { it.id }.toList()
         )
-        if (setResponse.isSuccessful) {
-            return setResponse.body() ?: -1L
+        return if (setResponse.isSuccessful) {
+            setResponse.body() ?: -1L
+        } else {
+            val setDefaultResponse = productRepository.getSetIdByByProductIdAndListProperty(
+                selectedProductId,
+                mutableListOf<Long>(0)
+            )
+            setDefaultResponse.body() ?: -1L
         }
-        return -1L
     }
 
 
@@ -257,8 +340,9 @@ class DetailProductViewModel @Inject constructor(
                     propertyIds
                 )
             if (additionalPriceResponse.isSuccessful) {
+                currentAdditionalPrice = additionalPriceResponse.body()!!
                 selectedProductPrice.value =
-                    Converter.convertFromIntToCurrencyString(selectedProduct.value!!.price + additionalPriceResponse.body()!!)
+                    Converter.convertFromIntToCurrencyString(selectedProduct.value!!.price + currentAdditionalPrice)
             }
         }
     }

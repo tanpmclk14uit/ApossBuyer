@@ -9,6 +9,7 @@ import java.text.DecimalFormat
 data class CartItem(
     val id: Long,
     val product: Long,
+    val setId: Long,
     val image: Image,
     val name: String,
     val price: Int,

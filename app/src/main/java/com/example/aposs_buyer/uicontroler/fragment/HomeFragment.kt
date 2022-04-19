@@ -44,13 +44,13 @@ class HomeFragment : Fragment(),
         setUpCategoriesSection()
         // set up ranking
         setUpRankingSection()
-        // set up more product
+        // set up more setId
         setUpViewMoreProductSection()
         return binding.root
     }
 
     private fun setUpViewMoreProductSection() {
-        // set up product adapter
+        // set up setId adapter
         binding.products.adapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)

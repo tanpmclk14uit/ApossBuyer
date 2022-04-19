@@ -192,7 +192,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
                         binding.ratingModule.visibility = View.GONE
                         binding.ratingExtraModule.visibility = View.VISIBLE
                         binding.ratingLoadingProgress.visibility = View.GONE
-                        binding.ratingMessage.text = "Be the first person rate this product!!"
+                        binding.ratingMessage.text = "Be the first person rate this setId!!"
                     }
                 } else {
                     binding.ratingModule.visibility = View.GONE

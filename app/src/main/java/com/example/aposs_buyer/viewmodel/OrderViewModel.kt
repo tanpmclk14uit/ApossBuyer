@@ -68,11 +68,11 @@ class OrderViewModel @Inject constructor(
     private fun convertToOrderItem(orderItemDTO: OrderItemDTO): OrderBillingItem {
         return OrderBillingItem(
             id = orderItemDTO.id,
-            product = orderItemDTO.product,
+            setId = orderItemDTO.setId,
             price = orderItemDTO.price,
             property = orderItemDTO.property,
             image = Image(orderItemDTO.imageUrl),
-            amount = orderItemDTO.quantity,
+            quantity = orderItemDTO.quantity,
             name = orderItemDTO.name
         )
     }

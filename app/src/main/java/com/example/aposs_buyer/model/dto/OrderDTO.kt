@@ -7,11 +7,11 @@ import javax.annotation.Nullable
 
 
 data class OrderDTO(
-    var id: Long,
-    var orderTime: Date,
-    var orderStatus: OrderStatus,
+    var id: Long=-1,
+    var orderTime: Date= Date(),
+    var orderStatus: OrderStatus = OrderStatus.Pending,
     var address: String,
-    var totalPrice: Int,
-    var cancelReason: String?,
+    var totalPrice: Int =0,
+    var cancelReason: String?=null,
     var orderItemDTOList: List<OrderItemDTO>,
 )

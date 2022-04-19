@@ -51,7 +51,7 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
     }
 
     fun addAvailableProductToCart(product: FavoriteProduct) {
-       // call server and add favorite product to cart
+       // call server and add favorite setId to cart
     }
 
     private fun loadFavoriteProducts(): ArrayList<FavoriteProduct> {

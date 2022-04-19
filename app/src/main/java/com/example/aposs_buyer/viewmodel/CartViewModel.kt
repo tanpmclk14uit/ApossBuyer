@@ -121,7 +121,8 @@ class CartViewModel @Inject constructor(
             amount = cartDTO.quantity,
             property = cartDTO.property,
             isChoose = cartDTO.select,
-            product = cartDTO.setId,
+            setId = cartDTO.setId,
+            product = -1L
         )
     }
 
@@ -192,8 +193,9 @@ class CartViewModel @Inject constructor(
             property = cartItem.property,
             price = cartItem.price,
             image = cartItem.image,
-            amount = cartItem.amount,
-            product = cartItem.product,
+            quantity = cartItem.amount,
+            setId = cartItem.setId,
+            cartId = cartItem.id,
         )
     }
 
@@ -206,7 +208,6 @@ class CartViewModel @Inject constructor(
         }.collect(Collectors.toList())
         return Order(
             id = -1L,
-            orderTime = Calendar.getInstance().time,
             status = OrderStatus.Pending,
             billingItems = orderBillingItem,
             totalPrice = total,

@@ -6,13 +6,14 @@ import java.text.DecimalFormat
 
 @Parcelize
 data class OrderBillingItem(
-    val id: Long,
-    val product: Long,
-    val image: Image,
-    val name: String,
-    val price: Int,
-    var amount: Int,
-    var property: String
+    val id: Long=-1,
+    val cartId: Long =-1,
+    val setId: Long,
+    val image: Image = Image(""),
+    val name: String ="",
+    val price: Int =0,
+    var quantity: Int,
+    var property: String ="",
 ) : Parcelable {
     fun priceToString(): String {
         val formatter = DecimalFormat("#,###")
@@ -21,11 +22,11 @@ data class OrderBillingItem(
     }
 
     fun amountToString(): String {
-        return "$amount x "
+        return "$quantity x "
     }
 
     private fun getTotalPrice(): Int {
-        return amount * price
+        return quantity * price
     }
 
     fun getTotalPriceToString(): String {

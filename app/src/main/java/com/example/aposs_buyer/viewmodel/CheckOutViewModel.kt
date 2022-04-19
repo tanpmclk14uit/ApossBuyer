@@ -59,13 +59,9 @@ class CheckOutViewModel @Inject constructor(
 
     private fun convertBillingItemToOrderItemDTO(billingItem: OrderBillingItem): OrderItemDTO {
         return OrderItemDTO(
-            id = billingItem.id,
-            name = billingItem.name,
-            imageUrl = billingItem.image.imgURL,
-            price = billingItem.price,
-            product = billingItem.product,
-            property = billingItem.property,
-            quantity = billingItem.amount
+            cartId = billingItem.cartId,
+            setId = billingItem.setId,
+            quantity = billingItem.quantity
         )
     }
 
@@ -73,12 +69,7 @@ class CheckOutViewModel @Inject constructor(
         val orderItemDTOs =
             order.billingItems.stream().map { convertBillingItemToOrderItemDTO(it) }.toList()
         return OrderDTO(
-            id = order.id,
             address = order.address,
-            orderTime = order.orderTime,
-            orderStatus = order.status,
-            totalPrice = order.totalPrice,
-            cancelReason = order.cancelReason,
             orderItemDTOList = orderItemDTOs
         )
 

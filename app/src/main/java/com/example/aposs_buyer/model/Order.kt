@@ -10,7 +10,7 @@ import java.util.*
 
 @Parcelize
 data class Order(
-    val id: Long,
+    val id: Long =-1,
     val orderTime: Date = Date(),
     val status: OrderStatus = OrderStatus.Pending,
     val address: String = "",

@@ -1,7 +1,5 @@
 package com.example.aposs_buyer.viewmodel
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,18 +10,10 @@ import com.example.aposs_buyer.model.OrderBillingItem
 import com.example.aposs_buyer.model.OrderDeliveringState
 import com.example.aposs_buyer.model.dto.OrderDTO
 import com.example.aposs_buyer.model.dto.OrderItemDTO
-import com.example.aposs_buyer.model.dto.TokenDTO
-import com.example.aposs_buyer.model.entity.Account
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
-import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.utils.LoadingStatus
-import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.stream.Collectors
@@ -56,11 +46,11 @@ class OrderDetailViewModel @Inject constructor(
     private fun convertToOrderItem(orderItemDTO: OrderItemDTO): OrderBillingItem {
         return OrderBillingItem(
             id = orderItemDTO.id,
-            product = orderItemDTO.product,
+            setId = orderItemDTO.setId,
             price = orderItemDTO.price,
             property = orderItemDTO.property,
             image = Image(orderItemDTO.imageUrl),
-            amount = orderItemDTO.quantity,
+            quantity = orderItemDTO.quantity,
             name = orderItemDTO.name
         )
     }

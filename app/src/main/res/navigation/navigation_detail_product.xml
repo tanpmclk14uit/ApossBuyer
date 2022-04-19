@@ -26,7 +26,7 @@
             android:name="id"
             app:argType="long"
             android:defaultValue="-1L" />
-        <action
+         <action
             android:id="@+id/action_detailProductFragment_to_productDetailDialogFragment"
             app:destination="@id/productDetailDialogFragment" />
     </fragment>
