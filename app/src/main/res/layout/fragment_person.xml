@@ -52,17 +52,11 @@
                         android:orientation="vertical"
                         android:paddingBottom="15dp">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/ic_logo" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="50dp"
                             >
 
                             <TextView

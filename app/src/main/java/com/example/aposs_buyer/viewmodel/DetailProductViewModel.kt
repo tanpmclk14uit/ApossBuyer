@@ -63,20 +63,6 @@ class DetailProductViewModel @Inject constructor(
         }
     }
 
-    private fun setSelectedProductMinValue() {
-        var minSelect = selectedProductStringProperty.value!![0].valueCountSummarize
-        for (property in _selectedProductStringProperty.value!!) {
-            if (property.valueCountSummarize < minSelect) {
-                minSelect = property.valueCountSummarize
-            }
-        }
-        for (property in _selectedProductColorProperty.value!!) {
-            if (property.valueCountSummarize < minSelect) {
-                minSelect = property.valueCountSummarize
-            }
-        }
-        _selectedProductQuantities.value = minSelect
-    }
 
     fun notifySelectedPropertyChange(property: PropertyValue) {
         if (property.isChosen) {
