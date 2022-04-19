@@ -9,9 +9,7 @@ data class RankingProduct(
     val name: String,
     val price: Int,
     val rating: Float,
-    var isFavorite: Boolean,
     val totalPurchase: Int,
-    var kind: String
 ){
     fun priceToString(): String{
         val formatter: NumberFormat = DecimalFormat("#,###")

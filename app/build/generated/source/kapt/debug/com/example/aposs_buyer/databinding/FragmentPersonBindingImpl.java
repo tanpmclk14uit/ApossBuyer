@@ -14,59 +14,49 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.title, 4);
-        sViewsWithIds.put(R.id.img_notification, 5);
-        sViewsWithIds.put(R.id.ln_havingAccount, 6);
-        sViewsWithIds.put(R.id.linearLayout, 7);
-        sViewsWithIds.put(R.id.linearLayout2, 8);
-        sViewsWithIds.put(R.id.ln_edit_info, 9);
-        sViewsWithIds.put(R.id.btn_Address, 10);
-        sViewsWithIds.put(R.id.order, 11);
-        sViewsWithIds.put(R.id.btn_rating, 12);
-        sViewsWithIds.put(R.id.signOut, 13);
-        sViewsWithIds.put(R.id.ln_noAccount, 14);
-        sViewsWithIds.put(R.id.signIn, 15);
+        sViewsWithIds.put(R.id.title, 1);
+        sViewsWithIds.put(R.id.img_notification, 2);
+        sViewsWithIds.put(R.id.ln_havingAccount, 3);
+        sViewsWithIds.put(R.id.linearLayout, 4);
+        sViewsWithIds.put(R.id.userName, 5);
+        sViewsWithIds.put(R.id.linearLayout2, 6);
+        sViewsWithIds.put(R.id.ln_edit_info, 7);
+        sViewsWithIds.put(R.id.btn_Address, 8);
+        sViewsWithIds.put(R.id.order, 9);
+        sViewsWithIds.put(R.id.btn_rating, 10);
+        sViewsWithIds.put(R.id.signOut, 11);
+        sViewsWithIds.put(R.id.ln_noAccount, 12);
+        sViewsWithIds.put(R.id.signIn, 13);
     }
     // views
     @NonNull
     private final android.widget.FrameLayout mboundView0;
-    @NonNull
-    private final android.widget.TextView mboundView1;
-    @NonNull
-    private final android.widget.TextView mboundView2;
-    @NonNull
-    private final com.google.android.material.imageview.ShapeableImageView mboundView3;
     // variables
     // values
     // listeners
     // Inverse Binding Event Handlers
 
     public FragmentPersonBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 16, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 14, sIncludes, sViewsWithIds));
     }
     private FragmentPersonBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
-        super(bindingComponent, root, 1
+        super(bindingComponent, root, 0
+            , (androidx.appcompat.widget.AppCompatButton) bindings[8]
             , (androidx.appcompat.widget.AppCompatButton) bindings[10]
-            , (androidx.appcompat.widget.AppCompatButton) bindings[12]
-            , (android.widget.ImageView) bindings[5]
-            , (android.widget.LinearLayout) bindings[7]
-            , (android.widget.LinearLayout) bindings[8]
-            , (android.widget.LinearLayout) bindings[9]
+            , (android.widget.ImageView) bindings[2]
+            , (android.widget.LinearLayout) bindings[4]
             , (android.widget.LinearLayout) bindings[6]
-            , (android.widget.LinearLayout) bindings[14]
-            , (androidx.appcompat.widget.AppCompatButton) bindings[11]
-            , (androidx.appcompat.widget.AppCompatButton) bindings[15]
+            , (android.widget.LinearLayout) bindings[7]
+            , (android.widget.LinearLayout) bindings[3]
+            , (android.widget.LinearLayout) bindings[12]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[9]
             , (androidx.appcompat.widget.AppCompatButton) bindings[13]
-            , (android.widget.TextView) bindings[4]
+            , (androidx.appcompat.widget.AppCompatButton) bindings[11]
+            , (android.widget.TextView) bindings[1]
+            , (android.widget.TextView) bindings[5]
             );
         this.mboundView0 = (android.widget.FrameLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.mboundView1 = (android.widget.TextView) bindings[1];
-        this.mboundView1.setTag(null);
-        this.mboundView2 = (android.widget.TextView) bindings[2];
-        this.mboundView2.setTag(null);
-        this.mboundView3 = (com.google.android.material.imageview.ShapeableImageView) bindings[3];
-        this.mboundView3.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();
@@ -75,7 +65,7 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
     @Override
     public void invalidateAll() {
         synchronized(this) {
-                mDirtyFlags = 0x4L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
@@ -104,27 +94,11 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
 
     public void setViewModel(@Nullable com.example.aposs_buyer.viewmodel.PersonViewModel ViewModel) {
         this.mViewModel = ViewModel;
-        synchronized(this) {
-            mDirtyFlags |= 0x2L;
-        }
-        notifyPropertyChanged(BR.viewModel);
-        super.requestRebind();
     }
 
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
-            case 0 :
-                return onChangeViewModelPerson((androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Person>) object, fieldId);
-        }
-        return false;
-    }
-    private boolean onChangeViewModelPerson(androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Person> ViewModelPerson, int fieldId) {
-        if (fieldId == BR._all) {
-            synchronized(this) {
-                    mDirtyFlags |= 0x1L;
-            }
-            return true;
         }
         return false;
     }
@@ -136,63 +110,15 @@ public class FragmentPersonBindingImpl extends FragmentPersonBinding  {
             dirtyFlags = mDirtyFlags;
             mDirtyFlags = 0;
         }
-        com.example.aposs_buyer.model.Person viewModelPersonGetValue = null;
-        com.example.aposs_buyer.model.Image viewModelPersonImage = null;
-        java.lang.String viewModelPersonName = null;
-        java.lang.String viewModelPersonEmail = null;
-        androidx.lifecycle.LiveData<com.example.aposs_buyer.model.Person> viewModelPerson = null;
-        android.net.Uri viewModelPersonImageImageUri = null;
-        com.example.aposs_buyer.viewmodel.PersonViewModel viewModel = mViewModel;
-
-        if ((dirtyFlags & 0x7L) != 0) {
-
-
-
-                if (viewModel != null) {
-                    // read viewModel.person
-                    viewModelPerson = viewModel.getPerson();
-                }
-                updateLiveDataRegistration(0, viewModelPerson);
-
-
-                if (viewModelPerson != null) {
-                    // read viewModel.person.getValue()
-                    viewModelPersonGetValue = viewModelPerson.getValue();
-                }
-
-
-                if (viewModelPersonGetValue != null) {
-                    // read viewModel.person.getValue().image
-                    viewModelPersonImage = viewModelPersonGetValue.getImage();
-                    // read viewModel.person.getValue().Name
-                    viewModelPersonName = viewModelPersonGetValue.getName();
-                    // read viewModel.person.getValue().email
-                    viewModelPersonEmail = viewModelPersonGetValue.getEmail();
-                }
-
-
-                if (viewModelPersonImage != null) {
-                    // read viewModel.person.getValue().image.imageUri
-                    viewModelPersonImageImageUri = viewModelPersonImage.getImageUri();
-                }
-        }
         // batch finished
-        if ((dirtyFlags & 0x7L) != 0) {
-            // api target 1
-
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView1, viewModelPersonName);
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView2, viewModelPersonEmail);
-            com.example.aposs_buyer.utils.BindingAdapterKt.bindImagePath(this.mboundView3, viewModelPersonImageImageUri);
-        }
     }
     // Listener Stub Implementations
     // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
     /* flag mapping
-        flag 0 (0x1L): viewModel.person
-        flag 1 (0x2L): viewModel
-        flag 2 (0x3L): null
+        flag 0 (0x1L): viewModel
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
 }

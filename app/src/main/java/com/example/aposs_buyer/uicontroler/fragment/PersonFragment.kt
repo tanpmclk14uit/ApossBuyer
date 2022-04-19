@@ -32,12 +32,13 @@ class PersonFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_person, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        viewModel.isSignIn.value =
-            AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount() != null
+        val account = AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount()
+        viewModel.isSignIn.value = account != null
         viewModel.isSignIn.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 binding.lnNoAccount.visibility = View.GONE
                 binding.lnHavingAccount.visibility = View.VISIBLE
+                binding.userName.text = account!!.userName
             } else {
                 binding.lnNoAccount.visibility = View.VISIBLE
                 binding.lnHavingAccount.visibility = View.GONE

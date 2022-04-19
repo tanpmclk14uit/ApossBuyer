@@ -23,6 +23,9 @@ interface ProductAPIService {
         @Query("sortDir") sortDir: String = "asc",
     ): Deferred<ProductResponseDTO>
 
+    @GET("products/top5")
+    suspend fun getRakingProducts(): Response<ProductResponseDTO>
+
     @GET("products/{id}")
     suspend fun getProductById(
         @Path(value = "id") id: Long

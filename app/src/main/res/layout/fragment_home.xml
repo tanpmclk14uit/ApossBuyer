@@ -222,7 +222,7 @@
                             android:layout_gravity="center"
                             android:ellipsize="end"
                             android:maxWidth="140dp"
-                            android:text="@{viewModel.currentProductKind}"
+                            android:text="@string/top_purchased"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textSize="14sp"

@@ -97,7 +97,7 @@ fun bindIndicatorSize(indicator: CircleIndicator3, size: Int) {
 }
 
 @BindingAdapter("rankingData")
-fun bindRankingViewPager(viewPager2: ViewPager2, data: ArrayList<RankingProduct>?) {
+fun bindRankingViewPager(viewPager2: ViewPager2, data: List<RankingProduct>?) {
     val adapter = viewPager2.adapter as RankingViewPagerAdapter
     adapter.submitList(data)
 }

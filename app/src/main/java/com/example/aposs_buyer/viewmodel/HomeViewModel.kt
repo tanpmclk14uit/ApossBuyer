@@ -9,6 +9,7 @@ import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.model.RankingProduct
+import com.example.aposs_buyer.model.dto.ProductDTO
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.CategoriesRepository
 import com.example.aposs_buyer.responsitory.ProductRepository
@@ -36,12 +37,9 @@ class HomeViewModel @Inject constructor(
     var displayCategoryProducts = MutableLiveData<String>()
 
     //ranking data
-    private var _rankingProducts = MutableLiveData<ArrayList<RankingProduct>>()
-    val rankingProducts: LiveData<ArrayList<RankingProduct>> get() = _rankingProducts
+    private var _rankingProducts = MutableLiveData<List<RankingProduct>>()
+    val rankingProducts: LiveData<List<RankingProduct>> get() = _rankingProducts
 
-
-    private var _currentProductKind = MutableLiveData<String>()
-    val currentProductKind: LiveData<String> get() = _currentProductKind
 
     // products data
     private var _products = MutableLiveData<List<HomeProduct>>()
@@ -59,10 +57,10 @@ class HomeViewModel @Inject constructor(
         if (_categoryStatus.value == LoadingStatus.Success) {
             setUpDisplayCategory(0)
         }
-        _rankingProducts.value = loadRankingData()
         _products.value = ArrayList()
         _status.value = LoadingStatus.Success
         loadProducts()
+        loadRankingData()
     }
 
     fun loadProducts() {
@@ -116,68 +114,28 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun loadRankingData(): ArrayList<RankingProduct> {
-        val sampleRankingProducts = ArrayList<RankingProduct>()
-        val imgURl1 =
-            "https://www.tennisgearhub.com/wp-content/uploads/2020/09/Wilson-Mens-Hurry-Professional-25-Pickleball-Footwear-Racquetball-BlueWhitePurple-13.jpg"
-        val imgURL2 =
-            "https://th.bing.com/th/id/OIP.U6PJxFUyX6Nigx3Sv2ObpgHaHa?pid=ImgDet&w=2000&h=2000&rs=1"
-        val imgURL3 =
-            "https://leep.imgix.net/2021/01/bong-cai-trang-giup-giam-can_001.jpg?auto=compress&fm=pjpg&ixlib=php-1.2.1"
-        val imgURL4 = "https://api.duniagames.co.id/api/content/upload/file/9607962621588584775.JPG"
-        val imgRankingProduct1 = Image(imgURl1)
-        val imgRankingProduct2 = Image(imgURL2)
-        val imgRankingProduct3 = Image(imgURL3)
-        val imgRankingProduct4 = Image(imgURL4)
-        sampleRankingProducts.add(
-            RankingProduct(
-                1,
-                imgRankingProduct1,
-                "Wilson Mens Hurry Professional",
-                958000,
-                4f,
-                true,
-                1080,
-                "Sport Shoe"
-            )
+    private fun loadRankingData() {
+        viewModelScope.launch {
+            val rakingProductResponse = productRepository.loadRakingProduct()
+            if (rakingProductResponse.isSuccessful) {
+                _rankingProducts.value = rakingProductResponse.body()!!.content.map { productDTO ->
+                    mapProductToRankingProduct(productDTO)
+                }.toList()
+            } else {
+                _rankingProducts.value = mutableListOf()
+            }
+        }
+    }
+
+    private fun mapProductToRankingProduct(productDTO: ProductDTO): RankingProduct {
+        return RankingProduct(
+            id = productDTO.id,
+            image = Image(productDTO.image),
+            name = productDTO.name,
+            price = productDTO.price,
+            rating = productDTO.rating.toFloat(),
+            totalPurchase = productDTO.purchased
         )
-        sampleRankingProducts.add(
-            RankingProduct(
-                2,
-                imgRankingProduct3,
-                "White broccoli",
-                46000,
-                4.5f,
-                false,
-                1572,
-                "Diet food"
-            )
-        )
-        sampleRankingProducts.add(
-            RankingProduct(
-                3,
-                imgRankingProduct2,
-                "Wilson Mens shirt",
-                582000,
-                5f,
-                false,
-                1452,
-                "Sport Shirt"
-            )
-        )
-        sampleRankingProducts.add(
-            RankingProduct(
-                4,
-                imgRankingProduct4,
-                "Laptop asus Vivo Book",
-                1958000,
-                4.5f,
-                true,
-                1312,
-                "Laptop Asus"
-            )
-        )
-        return sampleRankingProducts
     }
 
     fun setUpDisplayCategory(currentPosition: Int) {
@@ -185,9 +143,5 @@ class HomeViewModel @Inject constructor(
         _displayCategory.value = currentCategory
         displayCategoryPurchase.value = String.format("%s purchased", currentCategory.totalPurchase)
         displayCategoryProducts.value = String.format("%s products", currentCategory.totalProduct)
-    }
-
-    fun setCurrentProductKind(currentPosition: Int) {
-        _currentProductKind.value = rankingProducts.value!![currentPosition].kind
     }
 }

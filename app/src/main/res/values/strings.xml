@@ -145,4 +145,5 @@
     <string name="check_out_success_message">Your order has been placed successfully.\nYou can visit my order to check the delivery process</string>
     <string name="received">Received</string>
     <string name="are_you_sure_that_you_ve_already_received_this_order">Are you sure that you\'ve already received this order ?</string>
+    <string name="top_purchased">Top purchased</string>
 </resources>

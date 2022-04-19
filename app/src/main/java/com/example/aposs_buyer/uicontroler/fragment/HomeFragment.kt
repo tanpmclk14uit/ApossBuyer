@@ -166,7 +166,6 @@ class HomeFragment : Fragment(),
                     }
                 }
                 view?.handler?.postDelayed(rankingRunnable, 4000)
-                viewModel.setCurrentProductKind(binding.rankingViewPager.currentItem)
             }
         })
         // set up raking animation

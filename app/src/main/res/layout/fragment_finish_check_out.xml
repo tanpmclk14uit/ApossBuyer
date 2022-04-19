@@ -7,31 +7,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="704dp"
-            android:layout_height="307dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="100dp"
-            android:contentDescription="@string/check_out"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_bg_above" />
 
-        <ImageView
-            android:layout_width="604dp"
-            android:layout_height="201dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="125dp"
-            android:contentDescription="@string/check_out"
-            android:src="@drawable/ic_bg_below" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="15dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/aposs_name" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textAllCaps="true"
+                android:textColor="@color/light_green"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
+                android:text="@string/slogan"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_pray" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/check_out"
-                android:src="@drawable/ic_checkout_success" />
+                android:src="@drawable/ic_app" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/your_order_placed"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/light_green"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -64,7 +64,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/check_out_success_message"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/light_green"
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>

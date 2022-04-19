@@ -13,6 +13,10 @@ class ProductRepository @Inject constructor() {
         RetrofitInstance.retrofit.create(ProductAPIService::class.java)
     }
 
+    suspend fun loadRakingProduct(): Response<ProductResponseDTO> {
+        return productService.getRakingProducts()
+    }
+
     suspend fun loadProductById(id: Long): Response<ProductDetailDTO> {
         return productService.getProductById(id)
     }
