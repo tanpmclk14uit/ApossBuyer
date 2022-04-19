@@ -47,5 +47,15 @@ class ProductRepository @Inject constructor() {
         )
     }
 
+    suspend fun getAdditionalPriceOfPropertyValuesAndProductId(
+        productId: Long,
+        propertyValues: List<Long>
+    ): Response<Int> {
+        return productService.getAdditionalPriceOfPropertyValuesAndProductId(
+            productId,
+            propertyValues
+        )
+    }
+
 
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.*
 import com.example.aposs_buyer.model.dto.*
 import com.example.aposs_buyer.responsitory.ProductRepository
+import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -19,8 +20,7 @@ import kotlin.streams.toList
 @HiltViewModel
 class DetailProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-
-    ) : ViewModel() {
+) : ViewModel() {
 
     private var selectedProductId: Long = 0
 
@@ -41,6 +41,8 @@ class DetailProductViewModel @Inject constructor(
 
     private val _selectedProductRating = MutableLiveData<ArrayList<ProductRating>>()
     val selectedProductRating: MutableLiveData<ArrayList<ProductRating>> get() = _selectedProductRating
+
+    val selectedProductPrice = MutableLiveData<String>()
 
     private var _sameKindProducts = MutableLiveData<ArrayList<HomeProduct>>()
     val sameKindProducts: LiveData<ArrayList<HomeProduct>> get() = _sameKindProducts
@@ -76,10 +78,16 @@ class DetailProductViewModel @Inject constructor(
         if (currentSelectedValues.isNotEmpty()) {
             loadQuantityOfProductByProductIdAndListProperty(
                 selectedProductId,
-                currentSelectedValues.stream().map { it -> it.id }.toList()
+                currentSelectedValues.stream().map { it.id }.toList()
+            )
+            loadPriceOfProductByProductIdAndListProperty(
+                selectedProductId,
+                currentSelectedValues.stream().map { it.id }.toList()
             )
         } else {
             selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
+            selectedProductPrice.value =
+                Converter.convertFromIntToCurrencyString(_selectedProduct.value!!.price)
         }
 
     }
@@ -89,9 +97,30 @@ class DetailProductViewModel @Inject constructor(
         propertyIds: List<Long>
     ) {
         viewModelScope.launch {
-            val quantityResponse = productRepository.getQuantityOfProductByProductIdAndPropertyValues(productId, propertyIds)
-            if(quantityResponse.isSuccessful){
+            val quantityResponse =
+                productRepository.getQuantityOfProductByProductIdAndPropertyValues(
+                    productId,
+                    propertyIds
+                )
+            if (quantityResponse.isSuccessful) {
                 selectedProductQuantities.value = quantityResponse.body()
+            }
+        }
+    }
+
+    private fun loadPriceOfProductByProductIdAndListProperty(
+        productId: Long,
+        propertyIds: List<Long>
+    ) {
+        viewModelScope.launch {
+            val additionalPriceResponse =
+                productRepository.getAdditionalPriceOfPropertyValuesAndProductId(
+                    productId,
+                    propertyIds
+                )
+            if (additionalPriceResponse.isSuccessful) {
+                selectedProductPrice.value =
+                    Converter.convertFromIntToCurrencyString(selectedProduct.value!!.price + additionalPriceResponse.body()!!)
             }
         }
     }
@@ -203,6 +232,7 @@ class DetailProductViewModel @Inject constructor(
         }
     }
 
+
     private fun mapToPropertyValue(
         productPropertyValueDTO: ProductPropertyValueDTO,
         propertyId: Long
@@ -266,6 +296,7 @@ class DetailProductViewModel @Inject constructor(
             if (productResponse.isSuccessful) {
                 _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
                 _selectedProductQuantities.value = _selectedProduct.value!!.availableQuantities
+                selectedProductPrice.value = Converter.convertFromIntToCurrencyString(_selectedProduct.value!!.price)
                 loadProductsByKind(productResponse.body()!!.kindId)
                 if (_selectedProduct.value!!.totalReview != 0) {
                     loadProductRatingById(selectedProductId)

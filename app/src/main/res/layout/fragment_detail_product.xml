@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:gravity="center"
-                            android:text="@{viewModel.selectedProduct.priceToString()}"
+                            android:text="@{viewModel.selectedProductPrice.toString()}"
                             android:textColor="@color/active_button"
                             android:textSize="16sp"
                             android:textStyle="bold" />
