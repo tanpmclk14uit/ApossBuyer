@@ -151,7 +151,7 @@
             android:textAllCaps="false"
             android:text="@string/continue_shopping"
             android:textColor="@color/white"
-            android:background="@color/active_button"
+            android:background="@color/light_green"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
