@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.databinding.ItemColorPropertyBinding
 import com.example.aposs_buyer.model.PropertyValue
-import okhttp3.internal.notify
+
 
 class ColorDetailPropertyAdapter(private val propertyColorValueSelected: PropertyColorValueSelected) :
     ListAdapter<PropertyValue, ColorDetailPropertyAdapter.ColorDetailPropertyViewHolder>(
