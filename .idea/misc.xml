@@ -233,6 +233,7 @@
         <entry key="app/src/main/res/layout/fragment_address_dialog.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_all_favorite.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_check_out.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/fragment_check_out_dialog.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/fragment_choose_address.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_detail_product.xml" value="0.20777160983346551" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />

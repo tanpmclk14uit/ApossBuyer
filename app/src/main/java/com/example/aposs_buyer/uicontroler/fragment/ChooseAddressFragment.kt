@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentChooseAddressBinding
 import com.example.aposs_buyer.model.Address
@@ -36,6 +37,11 @@ class ChooseAddressFragment : Fragment(), ChooseAddressAdapter.OnChooseAddress {
         onEditButtonClick()
         onSubmitClick()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        addressViewModel.loadUserAddress()
     }
     private fun onBackButtonClick(){
         binding.imgBack.setOnClickListener{
