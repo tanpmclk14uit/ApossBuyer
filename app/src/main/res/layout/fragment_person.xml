@@ -174,6 +174,7 @@
                     android:background="@drawable/bg_account_box">
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_Address"
+                        android:drawableTint="@color/light_green"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_person_button"
@@ -189,6 +190,7 @@
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"/>
                     <androidx.appcompat.widget.AppCompatButton
+                        android:drawableTint="@color/light_green"
                         android:id="@+id/order"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -205,6 +207,7 @@
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"/>
                     <androidx.appcompat.widget.AppCompatButton
+                        android:drawableTint="@color/light_green"
                         android:id="@+id/btn_rating"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -221,6 +224,7 @@
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"/>
                     <androidx.appcompat.widget.AppCompatButton
+                        android:drawableTint="@color/light_green"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAllCaps="false"
@@ -236,6 +240,7 @@
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"/>
                     <androidx.appcompat.widget.AppCompatButton
+                        android:drawableTint="@color/light_green"
                         android:id="@+id/signOut"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

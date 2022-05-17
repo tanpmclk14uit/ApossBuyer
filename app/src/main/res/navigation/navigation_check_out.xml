@@ -16,10 +16,18 @@
         <action
             android:id="@+id/action_checkOutFragment_to_checkOutSuccessFragment"
             app:destination="@id/checkOutSuccessFragment" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_chooseAddressFragment"
+            app:destination="@id/chooseAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/checkOutSuccessFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.CheckOutSuccessFragment"
         android:label="fragment_finish_check_out"
         tools:layout="@layout/fragment_finish_check_out" />
+    <fragment
+        android:id="@+id/chooseAddressFragment"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.ChooseAddressFragment"
+        android:label="fragment_choose_address"
+        tools:layout="@layout/fragment_choose_address" />
 </navigation>

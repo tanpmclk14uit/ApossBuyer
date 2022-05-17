@@ -13,7 +13,7 @@ data class Order(
     val id: Long =-1,
     val orderTime: Date = Date(),
     val status: OrderStatus = OrderStatus.Pending,
-    val address: String = "",
+    var address: String = "",
     var billingItems: List<OrderBillingItem> = mutableListOf(),
     val totalPrice: Int = 0,
     var cancelReason: String? = null

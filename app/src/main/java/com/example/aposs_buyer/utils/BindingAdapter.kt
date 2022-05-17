@@ -293,3 +293,8 @@ fun bindDeliveringStateRecyclerView(recyclerView: RecyclerView, data: List<Order
     adapter.submitList(data)
 }
 
+@BindingAdapter("chooseAddress")
+fun bindChooseAddressRecyclerView(recyclerView: RecyclerView, data: List<Address>?){
+    val adapter = recyclerView.adapter as ChooseAddressAdapter
+    adapter.submitList(data)
+}

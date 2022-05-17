@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,14 +20,13 @@ import com.example.aposs_buyer.uicontroler.dialog.LoadingDialog
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.CheckOutViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class CheckOutFragment : Fragment() {
 
     private lateinit var binding: FragmentCheckOutBinding
     private val args: CheckOutFragmentArgs by navArgs()
-    private val viewModel: CheckOutViewModel by viewModels()
+    private val viewModel: CheckOutViewModel by activityViewModels()
     private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
@@ -49,6 +49,7 @@ class CheckOutFragment : Fragment() {
     private fun setUpAddress() {
         binding.imgEditAddress.setOnClickListener {
             // go to select select address
+            findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToChooseAddressFragment())
         }
     }
 

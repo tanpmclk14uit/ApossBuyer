@@ -114,7 +114,7 @@
     <string name="set_as_default_address">Set as default address</string>
     <string name="my_address">My address</string>
     <string name="default_cart_number">1</string>
-    <string name="default_address_guide">Tap to select default address</string>
+    <string name="default_address_guide">Tap to select address</string>
     <string name="add_new_address_guide">Tap to add new address</string>
     <string name="loading_failed_x_x">Loading failed x.x</string>
     <string name="name_tag">Name</string>
@@ -146,4 +146,5 @@
     <string name="received">Received</string>
     <string name="are_you_sure_that_you_ve_already_received_this_order">Are you sure that you\'ve already received this order ?</string>
     <string name="top_purchased">Top purchased</string>
+    <string name="choose_address">Choose address</string>
 </resources>

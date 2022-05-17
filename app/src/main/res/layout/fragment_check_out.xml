@@ -105,7 +105,8 @@
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="@string/edit"
-                    android:src="@drawable/ic_pencil" />
+                    android:src="@drawable/ic_pencil"
+                    app:tint="@color/light_green" />
             </RelativeLayout>
 
             <View

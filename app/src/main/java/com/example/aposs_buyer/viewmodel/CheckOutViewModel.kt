@@ -3,6 +3,7 @@ package com.example.aposs_buyer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.Order
 import com.example.aposs_buyer.model.OrderBillingItem
 import com.example.aposs_buyer.model.dto.OrderDTO
@@ -25,6 +26,10 @@ class CheckOutViewModel @Inject constructor(
     val checkOutStatus = MutableLiveData<LoadingStatus>()
     fun setCurrentOrder(order: Order) {
         currentOrder.value = order
+    }
+
+    fun setNewAddress(address: Address){
+        currentOrder.value!!.address = address.getFullAddress()
     }
 
     fun addNewOrder() {
