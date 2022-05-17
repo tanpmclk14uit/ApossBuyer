@@ -4,6 +4,13 @@
         <variable
             name="addressViewModel"
             type="com.example.aposs_buyer.viewmodel.AddressViewModel" />
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="status"
+            type="com.example.aposs_buyer.utils.LoadingStatus" />
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -83,18 +90,48 @@
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chooseAddress"
-            chooseAddress="@{addressViewModel.listAddress}"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/submit"
-            android:layout_below="@id/appBarLayout"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_choose_address" />
+            android:layout_above="@id/submit"
+            android:layout_below="@id/appBarLayout"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="@{addressViewModel.status == status.Loading?view.VISIBLE: view.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:visibility="@{addressViewModel.status == status.Fail? view.VISIBLE: view.GONE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/loading_failed_x_x"
+                android:textSize="20sp"
+                app:drawableTopCompat="@drawable/ic_empty" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chooseAddress"
+                chooseAddress="@{addressViewModel.listAddress}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_choose_address" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/submit"

@@ -213,7 +213,7 @@ class AddressViewModel @Inject constructor(
     }
 
 
-    private fun loadUserAddress() {
+    fun loadUserAddress() {
         listAddress.value = mutableListOf()
         status.value = LoadingStatus.Loading
         viewModelScope.launch {
