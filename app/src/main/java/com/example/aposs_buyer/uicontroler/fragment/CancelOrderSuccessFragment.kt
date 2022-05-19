@@ -26,16 +26,10 @@ class CancelOrderSuccessFragment : Fragment() {
             container,
             false
         )
-        setOnBackPress()
         setContinueButton()
         return binding.root
     }
 
-    private fun setOnBackPress() {
-        binding.back.setOnClickListener {
-            findNavController().navigate(CancelOrderSuccessFragmentDirections.actionCancelOrderConfirmFragmentToOrderFragment())
-        }
-    }
 
     private fun setContinueButton() {
         binding.continueShopping.setOnClickListener {

@@ -760,6 +760,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="chooseAddressFragment2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="735" />
+                            <option name="y" value="-346" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="detailOrderFragment">
                     <value>
                       <LayoutPositions>
@@ -772,6 +784,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_detailOrderFragment_to_cancelOrderFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_detailOrderFragment_to_chooseAddressFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>

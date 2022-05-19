@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.responsitory
 
+import com.example.aposs_buyer.model.Address
 import com.example.aposs_buyer.model.dto.OrderDTO
 import com.example.aposs_buyer.responsitory.webservice.OrderService
 import com.example.aposs_buyer.responsitory.webservice.RetrofitInstance
@@ -28,4 +29,12 @@ class OrderRepository @Inject constructor() {
     suspend fun putOrderStatusToSuccess(orderId: Long, accessToken: String): Response<Unit> {
         return orderService.putOrderStatusToSuccess(orderId, accessToken)
     }
+
+    suspend fun cancelOrder(orderId: Long,reason: String, accessToken: String): Response<Unit>{
+        return orderService.cancelOrder(orderId, reason, accessToken)
+    }
+    suspend fun changeOrderAddress(orderId: Long, newAddress: String, accessToken: String): Response<Unit>{
+        return orderService.changeOrderAddress(orderId,newAddress,accessToken)
+    }
+
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
@@ -31,11 +31,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessClick {
 
     private lateinit var binding: FragmentDetailOrderBinding
-    private val viewModel: OrderDetailViewModel by viewModels()
+    private val viewModel: OrderDetailViewModel by activityViewModels()
     private lateinit var orderDetailBillingItem: BillingItemsAdapter
     private lateinit var dialog: YesNoOrderSuccessStatusDialog
     private lateinit var loadingDialog: LoadingDialog
     private val args: DetailOrderFragmentArgs by navArgs()
+    companion object DetailOrderContext{
+        const val context ="Order"
+    }
 
     private lateinit var orderDeliveringStateAdapter: OrderDeliveringStateAdapter
 
@@ -88,7 +91,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
 
     private fun setUpAddress() {
         binding.editAddress.setOnClickListener {
-            // go to choose address
+            findNavController().navigate(DetailOrderFragmentDirections.actionDetailOrderFragmentToChooseAddressFragment(DetailOrderContext.context))
         }
     }
 

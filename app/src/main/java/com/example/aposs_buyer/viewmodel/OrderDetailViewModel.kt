@@ -15,6 +15,7 @@ import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -36,6 +37,8 @@ class OrderDetailViewModel @Inject constructor(
 
     private var _loadStatus = MutableLiveData<LoadingStatus>()
     val loadStatus: LiveData<LoadingStatus> get() = _loadStatus
+
+    var changeAddressStatus = MutableLiveData<LoadingStatus>()
 
     fun setCurrentOrder(order: Order) {
         _detailOrder.value = order
@@ -66,6 +69,38 @@ class OrderDetailViewModel @Inject constructor(
             status = orderDTO.orderStatus,
             address = orderDTO.address
         )
+    }
+
+    fun changeAddress(newAddress: String) {
+        runBlocking {
+            viewModelScope.launch {
+                val accessToken = authRepository.getCurrentAccessTokenFromRoom()
+                changeAddressStatus.value = LoadingStatus.Loading
+                if (!accessToken.isNullOrBlank()) {
+                    val response = orderRepository.changeOrderAddress(
+                        _detailOrder.value!!.id,
+                        newAddress,
+                        accessToken
+                    )
+                    if (response.isSuccessful) {
+                        changeAddressStatus.value = LoadingStatus.Success
+                        _detailOrder.value!!.address = newAddress
+                    } else {
+                        if (response.code() == 401) {
+                            if (authRepository.loadNewAccessTokenSuccess()) {
+                                changeAddress(newAddress)
+                            } else {
+                                changeAddressStatus.value = LoadingStatus.Fail
+                            }
+                        } else {
+                            changeAddressStatus.value = LoadingStatus.Fail
+                        }
+                    }
+                } else {
+                    changeAddressStatus.value = LoadingStatus.Fail
+                }
+            }
+        }
     }
 
     private fun loadOrderDeliveringState(id: Long): ArrayList<OrderDeliveringState> {

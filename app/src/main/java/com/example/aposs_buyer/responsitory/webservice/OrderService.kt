@@ -26,16 +26,23 @@ interface OrderService {
         @Path(value = "id") id: Long
     ): Response<OrderDTO>
 
-    @PUT("order/cancel-order-customer/{id}")
+    @PUT("order/{id}/cancel")
     suspend fun cancelOrder(
         @Path(value = "id") id: Long,
         @Body cancelReason: String,
         @Header("Authorization") accessToken: String,
-    ): Response<String>
+    ): Response<Unit>
 
     @PUT("order/success-order-customer/{id}")
     suspend fun putOrderStatusToSuccess(
         @Path(value = "id") id: Long,
+        @Header("Authorization") accessToken: String,
+    ): Response<Unit>
+
+    @PUT("order/{id}/address")
+    suspend fun changeOrderAddress(
+        @Path(value = "id") id: Long,
+        @Body newAddress: String,
         @Header("Authorization") accessToken: String,
     ): Response<Unit>
 }

@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.R
@@ -28,7 +27,9 @@ class CheckOutFragment : Fragment() {
     private val args: CheckOutFragmentArgs by navArgs()
     private val viewModel: CheckOutViewModel by activityViewModels()
     private lateinit var loadingDialog: LoadingDialog
-
+    companion object CheckOutContext{
+        const val context = "Check out"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +50,9 @@ class CheckOutFragment : Fragment() {
     private fun setUpAddress() {
         binding.imgEditAddress.setOnClickListener {
             // go to select select address
-            findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToChooseAddressFragment())
+            findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToChooseAddressFragment(
+                CheckOutContext.context
+            ))
         }
     }
 

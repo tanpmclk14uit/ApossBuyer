@@ -29,5 +29,9 @@
         android:id="@+id/chooseAddressFragment"
         android:name="com.example.aposs_buyer.uicontroler.fragment.ChooseAddressFragment"
         android:label="fragment_choose_address"
-        tools:layout="@layout/fragment_choose_address" />
+        tools:layout="@layout/fragment_choose_address" >
+        <argument
+            android:name="context"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -225,6 +225,7 @@
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round_w.xml" value="0.1615" />
         <entry key="..\:/Do An 1/ApossBuyer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_w.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/bg_active_button.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/bg_confirm_check_out.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/bg_edit_address.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/bg_light_screen.xml" value="0.153" />
         <entry key="app/src/main/res/layout/activity_about_us.xml" value="0.1621376811594203" />
@@ -232,17 +233,25 @@
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_address_dialog.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_all_favorite.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/fragment_cancel_order.xml" value="0.208" />
+        <entry key="app/src/main/res/layout/fragment_cancel_order_confirm.xml" value="0.208" />
         <entry key="app/src/main/res/layout/fragment_check_out.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_check_out_dialog.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/fragment_choose_address.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/fragment_detail_order.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/fragment_detail_product.xml" value="0.20777160983346551" />
+        <entry key="app/src/main/res/layout/fragment_finish_check_out.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_kind.xml" value="0.25495495495495496" />
         <entry key="app/src/main/res/layout/fragment_person.xml" value="0.1111111111111111" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25495495495495496" />
         <entry key="app/src/main/res/layout/fragment_success.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_address.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/item_cart.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/item_choose_address.xml" value="0.2671171171171171" />
         <entry key="app/src/main/res/layout/item_color_property.xml" value="0.268018018018018" />
+        <entry key="app/src/main/res/layout/item_order.xml" value="0.268018018018018" />
+        <entry key="app/src/main/res/layout/item_order_biling.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/item_rated.xml" value="0.10277777777777777" />
       </map>
     </option>
