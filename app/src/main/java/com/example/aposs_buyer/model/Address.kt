@@ -13,41 +13,41 @@ data class Address(
     var isDefaultAddress: Boolean = false
 ) {
     fun setGenderFromString(genderString: String) {
-        this.gender = genderString == "Male"
+        this.gender = genderString == "Nam"
     }
 
     fun getNameString(): String {
-        return "Name: $name"
+        return "Họ và tên: $name"
     }
 
     fun getGenderString(): String {
-        if (gender) return "Gender: Male"
-        return "Gender: Female"
+        if (gender) return "Giới tính: Nam"
+        return "Giới tính: Nữ"
     }
 
     fun getGenderSmallString(): String {
-        if (gender) return "Male"
-        return "Female"
+        if (gender) return "Nam"
+        return "Nữ"
     }
 
     fun getPhoneNumberString(): String {
-        return "Phone: $phoneNumber"
+        return "Số điện thoại: $phoneNumber"
     }
 
     fun getCityString(): String {
-        return "City: ${city.name}"
+        return "${city.name}"
     }
 
     fun getDistrictString(): String {
-        return "District: ${district.name}"
+        return "${district.name}"
     }
 
     fun getWardString(): String {
-        return "Ward: ${ward.name}"
+        return "${ward.name}"
     }
 
     fun getAddressLaneString(): String {
-        return "Address lane: $addressLane"
+        return "Chi tiết: $addressLane"
     }
 
     fun getFullAddress(): String {

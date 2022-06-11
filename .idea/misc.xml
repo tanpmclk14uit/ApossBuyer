@@ -230,6 +230,7 @@
         <entry key="app/src/main/res/drawable/bg_light_screen.xml" value="0.153" />
         <entry key="app/src/main/res/layout/activity_about_us.xml" value="0.1621376811594203" />
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/fragment_address.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_address_dialog.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/fragment_all_favorite.xml" value="0.2006340579710145" />

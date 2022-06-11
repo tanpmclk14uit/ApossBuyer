@@ -7,164 +7,179 @@
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.AboutUsViewModel" />
     </data>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:background="@drawable/bg_about_us"
+    android:background="@color/light_green"
     tools:context=".uicontroler.fragment.AboutUsFragment">
 
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/slogan"
+            android:textAllCaps="true"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
     <ImageView
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/aposs_name"
-        android:layout_gravity="top|left"/>
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_app"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+
     <LinearLayout
-        android:layout_marginTop="115dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
-        android:layout_marginHorizontal="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="196dp"
-        android:shadowColor="@color/white"
-        app:cardCornerRadius="7dp"
-        app:cardElevation="4dp">
-        <!--Put automatic page view here-->
-        <androidx.viewpager2.widget.ViewPager2
-            detailCategoryImages="@{viewModel.listImage}"
-            android:id="@+id/imageViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </androidx.cardview.widget.CardView>
-        <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            indicatorSize="@{viewModel.listImage.size()}"
-            app:ci_drawable="@drawable/bg_cycle_indicator"
-            app:ci_drawable_unselected="@drawable/bg_cycle_unselected_indicator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_gravity="center"
-        android:layout_marginTop="240dp"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="35dp"
-        android:elevation="5dp"
-        android:background="@drawable/bg_information_about_us"
+        android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/bg_information_about_us"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/rl_back_to_before"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:layout_editor_absoluteX="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Application provide online"
+            android:text="@string/app_name"
             android:textColor="#5D5E60"
             android:textSize="21dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="shopping service"
-            android:textColor="#5D5E60"
-            android:textSize="21dp"
-            android:textStyle="bold"/>
-        <TextView
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Address:"
-            android:textStyle="bold"
             android:textColor="#5D5E60"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C1: 128/2 LA galaxy, Ben Luc, Long An"
             android:textColor="#5D5E60"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C2: 111/8 Cau Giay, Dong Anh, Ha Noi "
             android:textColor="#5D5E60"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email: "
-                android:textStyle="bold"
                 android:textColor="#5D5E60"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="email@gmail.com"
                 android:textColor="#5D5E60"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone number: "
-                android:textStyle="bold"
                 android:textColor="#5D5E60"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 0123 456 789"
                 android:textColor="#5D5E60"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Facebook: "
-                android:textStyle="bold"
                 android:textColor="#5D5E60"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="facebook.com/aposs"
+                android:text="facebook.com/fengshui"
                 android:textColor="#5D5E60"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rl_back_to_before"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="30dp"
         android:layout_gravity="bottom|center"
-        android:background="@drawable/bg_btn_back_about_us">
+        android:background="@drawable/bg_btn_back_about_us"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
         <ImageView
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_about_us"/>
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_back_about_us" />
     </RelativeLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

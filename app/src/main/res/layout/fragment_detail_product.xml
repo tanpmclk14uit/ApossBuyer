@@ -391,7 +391,7 @@
                             android:layout_height="50dp"/>
                         <TextView
                             android:id="@+id/ratingMessage"
-                            android:text="Be the first person rate this product!!"
+                            android:text="Hãy trở thành người đầu tiên đánh giá sản phầm này!"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>

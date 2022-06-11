@@ -1,150 +1,151 @@
 <resources>
     <string name="app_name">Feng Shui House</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home">HOME</string>
-    <string name="favorite">Favorite</string>
-    <string name="cart">Cart</string>
-    <string name="message">Message</string>
-    <string name="person">Person</string>
+    <string name="home">Trang chủ</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="cart">Giỏ hàng</string>
+    <string name="message">Tin nhắn</string>
+    <string name="person">Cá nhân</string>
     <string name="about_us">About us</string>
-    <string name="image">image</string>
-    <string name="default_price">Price: </string>
-    <string name="purchase">550 purchased</string>
-    <string name="Category">Categories</string>
-    <string name="show_all">Show all</string>
-    <string name="products">1257 products</string>
-    <string name="ranking">Ranking</string>
-    <string name="more">More</string>
-    <string name="type_here">Type message here</string>
-    <string name="contact">Feel free to contact us now</string>
-    <string name="cart_empty">Nothing to check out You may like to take a look in our categories</string>
-    <string name="cart_empty_2">Nothing to check out\nYou may like to take a look in our categories</string>
-    <string name="account">Account</string>
+    <string name="image">hình ảnh</string>
+    <string name="default_price">Giá: </string>
+    <string name="purchase">550 lượt mua</string>
+    <string name="Category">Danh mục</string>
+    <string name="show_all">Tất cả</string>
+    <string name="products">1257 sản phẩm</string>
+    <string name="ranking">Xếp hạng</string>
+    <string name="more">Sản phẩm khác</string>
+    <string name="type_here">Soạn tin nhắn</string>
+    <string name="contact">Liên lạc với chúng tôi ngay</string>
+    <string name="cart_empty">Không có gì ở giỏ hàng, xem thêm các sản phẩm khác nhé</string>
+    <string name="cart_empty_2">Không có gì ở giỏ hàng\nXem thêm các sản phẩm khác nhé</string>
+    <string name="account">Tài khoản</string>
     <string name="defaultCartNumber">1</string>
-    <string name="add_to_cart">Add to cart</string>
-    <string name="buy_now">Buy now</string>
-    <string name="available_quantities">Available quantities:</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="buy_now">Mua ngay</string>
+    <string name="available_quantities">Số lượng có sẵn:</string>
     <string name="available_quantities_number">480</string>
-    <string name="detail">Detail:</string>
+    <string name="detail">Chi tiết:</string>
     <string name="sample_details">Albert Einstein (/ˈaɪnstaɪn/ EYEN-styne;[4] German: [ˈalbɛʁt ˈʔaɪnʃtaɪn] (About this soundlisten); 14 March 1879 – 18 April 1955) was a German-born theoretical physicist,[5] widely acknowledged to be one of the greatest physicists of all time. Einstein is best known for developing the theory of relativity, but he also made important contributions to the development of the theory of quantum mechanics. Relativity and quantum mechanics are together the two pillars of modern physics.[3][6] His mass–energy equivalence formula E = mc2, which arises from relativity theory, has been dubbed "the world's most famous equation".[7] His work is also known for its influence on the philosophy of science.[8][9] He received the 1921 Nobel Prize in Physics "for his services to theoretical physics, and especially for his discovery of the law of the photoelectric effect",[10] a pivotal step in the development of quantum theory. His intellectual achievements and originality resulted in "Einstein" becoming synonymous with "genius".[11]</string>
-    <string name="show_less">Show less</string>
-    <string name="rating">Rating</string>
+    <string name="show_less">Ít hơn</string>
+    <string name="rating">Đánh giá</string>
     <string name="rating_sample">4.2</string>
-    <string name="reviews">1084 reviews</string>
-    <string name="the_same_kind">THE SAME KIND</string>
+    <string name="reviews">1084 đánh giá</string>
+    <string name="the_same_kind">SẢN PHẨM THÊM LOẠI</string>
     <string name="time_sample">13:12</string>
-    <string name="all">All</string>
-    <string name="cancel">Cancel</string>
-    <string name="amount">Amount:</string>
-    <string name="categories">Categories</string>
-    <string name="search">Search</string>
+    <string name="all">Tất cả</string>
+    <string name="cancel">Hủy</string>
+    <string name="amount">Tổng:</string>
+    <string name="categories">Các danh mục</string>
+    <string name="search">Tìm kiếm</string>
 
     <string-array name="filter">
         <item>ALL</item>
-        <item>Image</item>
-        <item>5 star</item>
-        <item>4 star</item>
-        <item>3 star</item>
-        <item>2 star</item>
-        <item>1 star</item>
+        <item>Hình ảnh</item>
+        <item>5 sao</item>
+        <item>4 sao</item>
+        <item>3 sao</item>
+        <item>2 sao</item>
+        <item>1 sao</item>
     </string-array>
     <string name="my_details">My details</string>
-    <string name="slogan">Grasp destiny, explore heaven\'s plan</string>
-    <string name="do_not_have_account">Don\'t have an account?</string>
-    <string name="sign_up">Sign up</string>
-    <string name="sign_in">Sign in</string>
+    <string name="slogan">Nắm bắt vận mệnh, khai phá thiên cơ</string>
+    <string name="do_not_have_account">Chưa có tài khoản?</string>
+    <string name="sign_up">Đăng kí</string>
+    <string name="sign_in">Đăng nhập</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Forgot Password</string>
-    <string name="or_sign_in_with">Or Sign In with</string>
-    <string name="already_have_an_account">Already have an account?</string>
-    <string name="or_sign_up_with">Or Sign Up with</string>
-    <string name="full_name">Full name</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="your_account_has_been_verified_successfully">Your Account \nHas Been Verified Successfully</string>
-    <string name="please_verify">Please verify</string>
-    <string name="your">your</string>
-    <string name="cell_number">Cell number</string>
-    <string name="verify_content_text">Please click active in the email\nsent to your register email</string>
-    <string name="via_sms_message">via SMS message or</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="or_sign_in_with">Hoặc đăng nhập với</string>
+    <string name="already_have_an_account">Đã có tài khoản?</string>
+    <string name="or_sign_up_with">Hoặc đăng kí với</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="your_account_has_been_verified_successfully">Tài khoản của bạn \nđã xác nhận thành công</string>
+    <string name="please_verify">Xác nhận tài khoản</string>
+    <string name="your">của bạn</string>
+    <string name="cell_number">Số điện thoại</string>
+    <string name="verify_content_text">Hãy ấn nút kích hoạt\ntrong email chúng tôi gửi đến bạn</string>
+    <string name="via_sms_message">Quan tin nhắc hoặc</string>
     <string name="change">
         <u>
-            Change
+            Thay đổi
         </u>
     </string>
-    <string name="your_number">your number.</string>
+    <string name="your_number">số điện thoại.</string>
     <string name="resend_otp">
         <u>
-            Resend active email
+            gửi lại email xác nhận
         </u>
     </string>
     <string name="notify_time">7:17 10/10/2021</string>
-    <string name="see_now">See now</string>
-    <string name="notification">Notification</string>
-    <string name="my_orders">My orders</string>
-    <string name="pending">Pending</string>
-    <string name="delivering">Delivering</string>
-    <string name="confirmed">Confirmed</string>
-    <string name="pass_order">Success</string>
-    <string name="tap_to_view_detail">Tap to view detail</string>
-    <string name="cancel_order">Cancel order</string>
-    <string name="order_time">Order time:</string>
-    <string name="status">Status:</string>
-    <string name="address">Address</string>
-    <string name="billing_items">Billing items</string>
-    <string name="rating_now">Rating now</string>
-    <string name="order_detail">Order detail</string>
-    <string name="your_order_is_empty">Your order is empty</string>
-    <string name="go_to_buy_now">go to buy now!</string>
+    <string name="see_now">Xem ngay</string>
+    <string name="notification">Thông báo</string>
+    <string name="my_orders">Đơn của tôi</string>
+    <string name="pending">Đang chờ</string>
+    <string name="delivering">Đang giao</string>
+    <string name="confirmed">Xác nhận</string>
+    <string name="pass_order">Thành công</string>
+    <string name="tap_to_view_detail">Chọn để xem chi tiết</string>
+    <string name="cancel_order">Hủy đơn hàng</string>
+    <string name="order_time">Thời gian đặt:</string>
+    <string name="status">Trạng thái:</string>
+    <string name="address">Địa chỉ</string>
+    <string name="billing_items">Chi tiết đơn</string>
+    <string name="rating_now">Đánh giá ngay</string>
+    <string name="order_detail">Chi tiết đơn hàng</string>
+    <string name="your_order_is_empty">Đơn hàng đang trống</string>
+    <string name="go_to_buy_now">đi đến mua ngay!</string>
     <string name="items">Items</string>
-    <string name="you_want_to">You want to</string>
-    <string name="order">order :(</string>
-    <string name="order_cancel_text">Please let us know reason\nto make future shopping experiences\nbetter for you.</string>
-    <string name="your_reason_here">Your reason here</string>
-    <string name="your_order_cancel_successfully">Your order cancel successfully</string>
-    <string name="order_confirm_text">We apologize for any\ninconvenience may was caused\nfor your experience</string>
-    <string name="continue_shopping">Continue shopping</string>
+    <string name="you_want_to">Bạn muốn</string>
+    <string name="order">đơn hàng :(</string>
+    <string name="order_cancel_text">Hãy cho chúng tôi biết lý do\nđể cải thiện dịch vụ mua sắm\ntốt hơn cho bạn!.</string>
+    <string name="your_reason_here">Điền lý do của bạn</string>
+    <string name="your_order_cancel_successfully">Bạn đã hủy đơn hàng thành công</string>
+    <string name="order_confirm_text">Chúng tôi thành thật xin lỗi\ncho những trãi nghiệm không\ntốt của bạn</string>
+    <string name="continue_shopping">Tiếp tục mua sắm</string>
     <string name="check_out_policy">By placing your order you agree to our terms and conditions, privacy and returns policies and consent to some of your data being stored by Aposs which may be used to make future shopping experiences better for you.</string>
-    <string name="total">Total:</string>
+    <string name="total">Tổng:</string>
     <string name="see_all_items_in_detail">
-        <u>See all items in detail</u>
+        <u>Xem toàn bộ tại chi tiết</u>
     </string>
-    <string name="write_your_comment_here">Write your comment here!</string>
-    <string name="add_image">Add image</string>
-    <string name="set_as_default_address">Set as default address</string>
-    <string name="my_address">My address</string>
+    <string name="write_your_comment_here">Viết bình luận của bạn ở đây!</string>
+    <string name="add_image">Thêm hình ảnh</string>
+    <string name="set_as_default_address">Lưu như địa chỉ mặc định</string>
+    <string name="my_address">Địa chỉ của tôi</string>
     <string name="default_cart_number">1</string>
-    <string name="default_address_guide">Tap to select address</string>
-    <string name="add_new_address_guide">Tap to add new address</string>
-    <string name="loading_failed_x_x">Loading failed x.x</string>
-    <string name="name_tag">Name</string>
-    <string name="phone_tag">Phone</string>
-    <string name="gender_tag">Gender</string>
-    <string name="city_tag">City</string>
-    <string name="district_tag">District</string>
-    <string name="ward_tag">Ward</string>
-    <string name="address_lane_tag">Address lane</string>
-    <string name="delete">Delete</string>
-    <string name="edit">Edit</string>
-    <string name="submit">Submit</string>
-    <string name="check_out">Check out</string>
+    <string name="default_address_guide">Ấn để chọn địa chỉ</string>
+    <string name="add_new_address_guide">Thêm địa chỉ</string>
+    <string name="loading_failed_x_x">Tải thất bại x.x</string>
+    <string name="name_tag">Họ và tên</string>
+    <string name="phone_tag">Số điện thoại</string>
+    <string name="gender_tag">Giới tính</string>
+    <string name="city_tag">Thành phố/ tỉnh</string>
+    <string name="district_tag">Quận/ huyện</string>
+    <string name="ward_tag">Phường/ xã</string>
+    <string name="address_lane_tag">Chi tiết</string>
+    <string name="delete">Xóa</string>
+    <string name="edit">Sửa</string>
+    <string name="submit">Lưu</string>
+    <string name="check_out">Thanh toán</string>
     <string name="title_activity_cart">CartActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="next">Tiếp theo</string>
+    <string name="previous">Trước đó</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="sort_by">Sort by:</string>
-    <string name="purchased">Purchased</string>
-    <string name="product">Product</string>
-    <string name="confirm">Confirm</string>
-    <string name="your_order_placed">Your order placed</string>
-    <string name="check_out_success_message">Your order has been placed successfully.\nYou can visit my order to check the delivery process</string>
-    <string name="received">Received</string>
-    <string name="are_you_sure_that_you_ve_already_received_this_order">Are you sure that you\'ve already received this order ?</string>
-    <string name="top_purchased">Top purchased</string>
-    <string name="choose_address">Choose address</string>
+    <string name="sort_by">Xem theo:</string>
+    <string name="purchased">Lượt mua</string>
+    <string name="product">Sản phẩm</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="your_order_placed">Đặt hàng thành công</string>
+    <string name="check_out_success_message">Đặt hàng thành công.\nBạn có thể đi đến đơn hàng để kiếm tra tình trạng giao hàng</string>
+    <string name="received">Đã nhận</string>
+    <string name="are_you_sure_that_you_ve_already_received_this_order">Bạn có chắc chắn đã nhận được đơn hàng này?</string>
+    <string name="top_purchased">Top lượt mua</string>
+    <string name="choose_address">Chọn địa chỉ</string>
+
 </resources>
