@@ -10,6 +10,7 @@ import com.example.aposs_buyer.databinding.ActivityAboutUsBindingImpl;
 import com.example.aposs_buyer.databinding.ActivityCartBindingImpl;
 import com.example.aposs_buyer.databinding.ActivityCategoriesBindingImpl;
 import com.example.aposs_buyer.databinding.ActivityCategoryBindingImpl;
+import com.example.aposs_buyer.databinding.ActivityCheckCompatibilityBindingImpl;
 import com.example.aposs_buyer.databinding.ActivityCheckOutBindingImpl;
 import com.example.aposs_buyer.databinding.ActivityDetailProductBindingImpl;
 import com.example.aposs_buyer.databinding.ActivityMainBindingImpl;
@@ -101,157 +102,160 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ACTIVITYCATEGORY = 4;
 
-  private static final int LAYOUT_ACTIVITYCHECKOUT = 5;
+  private static final int LAYOUT_ACTIVITYCHECKCOMPATIBILITY = 5;
 
-  private static final int LAYOUT_ACTIVITYDETAILPRODUCT = 6;
+  private static final int LAYOUT_ACTIVITYCHECKOUT = 6;
 
-  private static final int LAYOUT_ACTIVITYMAIN = 7;
+  private static final int LAYOUT_ACTIVITYDETAILPRODUCT = 7;
 
-  private static final int LAYOUT_ACTIVITYRATING = 8;
+  private static final int LAYOUT_ACTIVITYMAIN = 8;
 
-  private static final int LAYOUT_ACTIVITYUSERDETAIL = 9;
+  private static final int LAYOUT_ACTIVITYRATING = 9;
 
-  private static final int LAYOUT_DIALOGYESNOORDERSUCCESSSTATUS = 10;
+  private static final int LAYOUT_ACTIVITYUSERDETAIL = 10;
 
-  private static final int LAYOUT_DISTRICTLISTITEM = 11;
+  private static final int LAYOUT_DIALOGYESNOORDERSUCCESSSTATUS = 11;
 
-  private static final int LAYOUT_FRAGMENTABOUTUS = 12;
+  private static final int LAYOUT_DISTRICTLISTITEM = 12;
 
-  private static final int LAYOUT_FRAGMENTADDRESS = 13;
+  private static final int LAYOUT_FRAGMENTABOUTUS = 13;
 
-  private static final int LAYOUT_FRAGMENTADDRESSDIALOG = 14;
+  private static final int LAYOUT_FRAGMENTADDRESS = 14;
 
-  private static final int LAYOUT_FRAGMENTALLFAVORITE = 15;
+  private static final int LAYOUT_FRAGMENTADDRESSDIALOG = 15;
 
-  private static final int LAYOUT_FRAGMENTAVAILABLEFAVORITE = 16;
+  private static final int LAYOUT_FRAGMENTALLFAVORITE = 16;
 
-  private static final int LAYOUT_FRAGMENTCANCELORDER = 17;
+  private static final int LAYOUT_FRAGMENTAVAILABLEFAVORITE = 17;
 
-  private static final int LAYOUT_FRAGMENTCANCELORDERCONFIRM = 18;
+  private static final int LAYOUT_FRAGMENTCANCELORDER = 18;
 
-  private static final int LAYOUT_FRAGMENTCART = 19;
+  private static final int LAYOUT_FRAGMENTCANCELORDERCONFIRM = 19;
 
-  private static final int LAYOUT_FRAGMENTCATEGORIES = 20;
+  private static final int LAYOUT_FRAGMENTCART = 20;
 
-  private static final int LAYOUT_FRAGMENTCATEGORY = 21;
+  private static final int LAYOUT_FRAGMENTCATEGORIES = 21;
 
-  private static final int LAYOUT_FRAGMENTCHECKOUT = 22;
+  private static final int LAYOUT_FRAGMENTCATEGORY = 22;
 
-  private static final int LAYOUT_FRAGMENTCHECKOUTDIALOG = 23;
+  private static final int LAYOUT_FRAGMENTCHECKOUT = 23;
 
-  private static final int LAYOUT_FRAGMENTCHOOSEADDRESS = 24;
+  private static final int LAYOUT_FRAGMENTCHECKOUTDIALOG = 24;
 
-  private static final int LAYOUT_FRAGMENTDETAILORDER = 25;
+  private static final int LAYOUT_FRAGMENTCHOOSEADDRESS = 25;
 
-  private static final int LAYOUT_FRAGMENTDETAILPRODUCT = 26;
+  private static final int LAYOUT_FRAGMENTDETAILORDER = 26;
 
-  private static final int LAYOUT_FRAGMENTFAVORITE = 27;
+  private static final int LAYOUT_FRAGMENTDETAILPRODUCT = 27;
 
-  private static final int LAYOUT_FRAGMENTFINISHCHECKOUT = 28;
+  private static final int LAYOUT_FRAGMENTFAVORITE = 28;
 
-  private static final int LAYOUT_FRAGMENTFULLSCREENIMAGE = 29;
+  private static final int LAYOUT_FRAGMENTFINISHCHECKOUT = 29;
 
-  private static final int LAYOUT_FRAGMENTHOME = 30;
+  private static final int LAYOUT_FRAGMENTFULLSCREENIMAGE = 30;
 
-  private static final int LAYOUT_FRAGMENTKIND = 31;
+  private static final int LAYOUT_FRAGMENTHOME = 31;
 
-  private static final int LAYOUT_FRAGMENTLOGIN = 32;
+  private static final int LAYOUT_FRAGMENTKIND = 32;
 
-  private static final int LAYOUT_FRAGMENTMESSAGE = 33;
+  private static final int LAYOUT_FRAGMENTLOGIN = 33;
 
-  private static final int LAYOUT_FRAGMENTNOTIFICATION = 34;
+  private static final int LAYOUT_FRAGMENTMESSAGE = 34;
 
-  private static final int LAYOUT_FRAGMENTORDER = 35;
+  private static final int LAYOUT_FRAGMENTNOTIFICATION = 35;
 
-  private static final int LAYOUT_FRAGMENTPERSON = 36;
+  private static final int LAYOUT_FRAGMENTORDER = 36;
 
-  private static final int LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG = 37;
+  private static final int LAYOUT_FRAGMENTPERSON = 37;
 
-  private static final int LAYOUT_FRAGMENTPRODUCTRATING = 38;
+  private static final int LAYOUT_FRAGMENTPRODUCTDETAILDIALOGLISTDIALOG = 38;
 
-  private static final int LAYOUT_FRAGMENTRATENOW = 39;
+  private static final int LAYOUT_FRAGMENTPRODUCTRATING = 39;
 
-  private static final int LAYOUT_FRAGMENTRATED = 40;
+  private static final int LAYOUT_FRAGMENTRATENOW = 40;
 
-  private static final int LAYOUT_FRAGMENTRATING = 41;
+  private static final int LAYOUT_FRAGMENTRATED = 41;
 
-  private static final int LAYOUT_FRAGMENTSEARCH = 42;
+  private static final int LAYOUT_FRAGMENTRATING = 42;
 
-  private static final int LAYOUT_FRAGMENTSIGNUP = 43;
+  private static final int LAYOUT_FRAGMENTSEARCH = 43;
 
-  private static final int LAYOUT_FRAGMENTUSERDETAIL = 44;
+  private static final int LAYOUT_FRAGMENTSIGNUP = 44;
 
-  private static final int LAYOUT_FRAGMENTVERIFY = 45;
+  private static final int LAYOUT_FRAGMENTUSERDETAIL = 45;
 
-  private static final int LAYOUT_ITEMADDRESS = 46;
+  private static final int LAYOUT_FRAGMENTVERIFY = 46;
 
-  private static final int LAYOUT_ITEMCART = 47;
+  private static final int LAYOUT_ITEMADDRESS = 47;
 
-  private static final int LAYOUT_ITEMCATEGORY = 48;
+  private static final int LAYOUT_ITEMCART = 48;
 
-  private static final int LAYOUT_ITEMCHECKOUT = 49;
+  private static final int LAYOUT_ITEMCATEGORY = 49;
 
-  private static final int LAYOUT_ITEMCHECKOUTCONFIRM = 50;
+  private static final int LAYOUT_ITEMCHECKOUT = 50;
 
-  private static final int LAYOUT_ITEMCHOOSEADDRESS = 51;
+  private static final int LAYOUT_ITEMCHECKOUTCONFIRM = 51;
 
-  private static final int LAYOUT_ITEMCOLORPROPERTY = 52;
+  private static final int LAYOUT_ITEMCHOOSEADDRESS = 52;
 
-  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 53;
+  private static final int LAYOUT_ITEMCOLORPROPERTY = 53;
 
-  private static final int LAYOUT_ITEMFAVORITE = 54;
+  private static final int LAYOUT_ITEMDETAILPRODUCTIMAGEVIEWPAGER = 54;
 
-  private static final int LAYOUT_ITEMIMGADDRATING = 55;
+  private static final int LAYOUT_ITEMFAVORITE = 55;
 
-  private static final int LAYOUT_ITEMIMGRATING = 56;
+  private static final int LAYOUT_ITEMIMGADDRATING = 56;
 
-  private static final int LAYOUT_ITEMKIND = 57;
+  private static final int LAYOUT_ITEMIMGRATING = 57;
 
-  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 58;
+  private static final int LAYOUT_ITEMKIND = 58;
 
-  private static final int LAYOUT_ITEMNEEDRATING = 59;
+  private static final int LAYOUT_ITEMLEFTSIDEMESSAGE = 59;
 
-  private static final int LAYOUT_ITEMNOTIFICATION = 60;
+  private static final int LAYOUT_ITEMNEEDRATING = 60;
 
-  private static final int LAYOUT_ITEMORDER = 61;
+  private static final int LAYOUT_ITEMNOTIFICATION = 61;
 
-  private static final int LAYOUT_ITEMORDERBILING = 62;
+  private static final int LAYOUT_ITEMORDER = 62;
 
-  private static final int LAYOUT_ITEMORDERDELIVERINGSTATE = 63;
+  private static final int LAYOUT_ITEMORDERBILING = 63;
 
-  private static final int LAYOUT_ITEMPRODUCT = 64;
+  private static final int LAYOUT_ITEMORDERDELIVERINGSTATE = 64;
 
-  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 65;
+  private static final int LAYOUT_ITEMPRODUCT = 65;
 
-  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 66;
+  private static final int LAYOUT_ITEMPRODUCTCOLORPROPERTY = 66;
 
-  private static final int LAYOUT_ITEMRAKING = 67;
+  private static final int LAYOUT_ITEMPRODUCTSTRINGPROPERTY = 67;
 
-  private static final int LAYOUT_ITEMRATED = 68;
+  private static final int LAYOUT_ITEMRAKING = 68;
 
-  private static final int LAYOUT_ITEMRATING = 69;
+  private static final int LAYOUT_ITEMRATED = 69;
 
-  private static final int LAYOUT_ITEMRATINGIMAGE = 70;
+  private static final int LAYOUT_ITEMRATING = 70;
 
-  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 71;
+  private static final int LAYOUT_ITEMRATINGIMAGE = 71;
 
-  private static final int LAYOUT_ITEMSTRINGPROPERTY = 72;
+  private static final int LAYOUT_ITEMRIGHTSIDEMESSAGE = 72;
 
-  private static final int LAYOUT_ITEMVIEWPAGERDETAILCATEGORY = 73;
+  private static final int LAYOUT_ITEMSTRINGPROPERTY = 73;
 
-  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 74;
+  private static final int LAYOUT_ITEMVIEWPAGERDETAILCATEGORY = 74;
 
-  private static final int LAYOUT_PROVINCELISTITEM = 75;
+  private static final int LAYOUT_ITEMVIEWPAPERCATEGORIES = 75;
 
-  private static final int LAYOUT_WARDLISTITEM = 76;
+  private static final int LAYOUT_PROVINCELISTITEM = 76;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(76);
+  private static final int LAYOUT_WARDLISTITEM = 77;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(77);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_about_us, LAYOUT_ACTIVITYABOUTUS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_cart, LAYOUT_ACTIVITYCART);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_categories, LAYOUT_ACTIVITYCATEGORIES);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_category, LAYOUT_ACTIVITYCATEGORY);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_check_compatibility, LAYOUT_ACTIVITYCHECKCOMPATIBILITY);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_check_out, LAYOUT_ACTIVITYCHECKOUT);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_detail_product, LAYOUT_ACTIVITYDETAILPRODUCT);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.aposs_buyer.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
@@ -352,6 +356,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
           return new ActivityCategoryBindingImpl(component, view);
         }
         throw new IllegalArgumentException("The tag for activity_category is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ACTIVITYCHECKCOMPATIBILITY: {
+        if ("layout/activity_check_compatibility_0".equals(tag)) {
+          return new ActivityCheckCompatibilityBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for activity_check_compatibility is invalid. Received: " + tag);
       }
       case  LAYOUT_ACTIVITYCHECKOUT: {
         if ("layout/activity_check_out_0".equals(tag)) {
@@ -623,12 +633,6 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_check_out is invalid. Received: " + tag);
       }
-      case  LAYOUT_ITEMCHECKOUTCONFIRM: {
-        if ("layout/item_check_out_confirm_0".equals(tag)) {
-          return new ItemCheckOutConfirmBindingImpl(component, view);
-        }
-        throw new IllegalArgumentException("The tag for item_check_out_confirm is invalid. Received: " + tag);
-      }
     }
     return null;
   }
@@ -636,6 +640,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   private final ViewDataBinding internalGetViewDataBinding1(DataBindingComponent component,
       View view, int internalId, Object tag) {
     switch(internalId) {
+      case  LAYOUT_ITEMCHECKOUTCONFIRM: {
+        if ("layout/item_check_out_confirm_0".equals(tag)) {
+          return new ItemCheckOutConfirmBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_check_out_confirm is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMCHOOSEADDRESS: {
         if ("layout/item_choose_address_0".equals(tag)) {
           return new ItemChooseAddressBindingImpl(component, view);
@@ -892,13 +902,14 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(76);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(77);
 
     static {
       sKeys.put("layout/activity_about_us_0", com.example.aposs_buyer.R.layout.activity_about_us);
       sKeys.put("layout/activity_cart_0", com.example.aposs_buyer.R.layout.activity_cart);
       sKeys.put("layout/activity_categories_0", com.example.aposs_buyer.R.layout.activity_categories);
       sKeys.put("layout/activity_category_0", com.example.aposs_buyer.R.layout.activity_category);
+      sKeys.put("layout/activity_check_compatibility_0", com.example.aposs_buyer.R.layout.activity_check_compatibility);
       sKeys.put("layout/activity_check_out_0", com.example.aposs_buyer.R.layout.activity_check_out);
       sKeys.put("layout/activity_detail_product_0", com.example.aposs_buyer.R.layout.activity_detail_product);
       sKeys.put("layout/activity_main_0", com.example.aposs_buyer.R.layout.activity_main);

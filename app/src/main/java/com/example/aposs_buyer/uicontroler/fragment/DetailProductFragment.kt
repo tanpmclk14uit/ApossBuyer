@@ -17,6 +17,7 @@ import com.example.aposs_buyer.databinding.FragmentDetailProductBinding
 import com.example.aposs_buyer.model.PropertyValue
 import com.example.aposs_buyer.responsitory.database.AccountDatabase
 import com.example.aposs_buyer.uicontroler.activity.CartActivity
+import com.example.aposs_buyer.uicontroler.activity.CheckCompatibilityActivity
 import com.example.aposs_buyer.uicontroler.activity.LoginActivity
 import com.example.aposs_buyer.uicontroler.adapter.*
 import com.example.aposs_buyer.uicontroler.animation.ZoomOutPageTransformer
@@ -52,9 +53,18 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpBottomSheetDialog()
         onDetailProductChange()
         onRatingProductChange()
+        setUpCheckCompatibilityButton()
         return binding.root
     }
-
+    private fun setUpCheckCompatibilityButton(){
+        binding.compatibility.setOnClickListener {
+            val intent = Intent(this.requireContext(), CheckCompatibilityActivity::class.java)
+            intent.putExtra("ProductName", viewModel.selectedProduct.value?.name)
+            intent.putExtra("ProductImage", viewModel.selectedProductImages.value?.get(0))
+            intent.putExtra("ProductNature", viewModel.productNature)
+            startActivity(intent)
+        }
+    }
     private fun setUpAppBar() {
         // set up back button
         binding.back.setOnClickListener {
@@ -192,7 +202,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
                         binding.ratingModule.visibility = View.GONE
                         binding.ratingExtraModule.visibility = View.VISIBLE
                         binding.ratingLoadingProgress.visibility = View.GONE
-                        binding.ratingMessage.text = "Be the first person rate this setId!!"
+                        binding.ratingMessage.text = "Hãy trở thành người đầu tiên đánh giá sản phẩm !!"
                     }
                 } else {
                     binding.ratingModule.visibility = View.GONE

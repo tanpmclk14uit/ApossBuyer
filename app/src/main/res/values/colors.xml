@@ -23,4 +23,10 @@
     <color name="person_color">#272422</color>
     <color name="edit_user_detail_color">#9D9EA3</color>
     <color name="dark_blue">#022C43</color>
+
+    <color name="kim">#F9D607</color>
+    <color name="moc">#179647</color>
+    <color name="thuy">#318BC3</color>
+    <color name="hoa">#E64125</color>
+    <color name="tho">#B76B29</color>
 </resources>

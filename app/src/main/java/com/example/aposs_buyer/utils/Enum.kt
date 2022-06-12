@@ -23,7 +23,7 @@ enum class Hanh(val value: Int) {
     Kim(2), Moc(4), Thuy(1), Hoa(3), Tho(0);
 
     override fun toString(): String {
-        return when(this){
+        return when (this) {
             Kim -> "Kim"
             Moc -> "Mộc"
             Thuy -> "Thủy"

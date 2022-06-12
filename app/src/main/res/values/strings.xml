@@ -147,5 +147,12 @@
     <string name="are_you_sure_that_you_ve_already_received_this_order">Bạn có chắc chắn đã nhận được đơn hàng này?</string>
     <string name="top_purchased">Top lượt mua</string>
     <string name="choose_address">Chọn địa chỉ</string>
+    <string name="xem_t_ng_h_p_ngay">Xem độ tương hợp ngay</string>
+    <string name="xem_t_ng_h_p">Xem độ tương hợp</string>
+    <string name="h_nh">Hành:</string>
+    <string name="nh_p_ng_y_th_ng_n_m_sinh_c_a_b_n">Chọn ngày tháng năm sinh của bạn</string>
+    <string name="date">dd/mm/yyyy</string>
+    <string name="xem_ngay">Xem ngay</string>
+
 
 </resources>

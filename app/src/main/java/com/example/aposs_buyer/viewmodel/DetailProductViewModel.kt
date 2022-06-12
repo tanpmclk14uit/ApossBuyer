@@ -71,6 +71,7 @@ class DetailProductViewModel @Inject constructor(
     private var currentAdditionalPrice = 0
 
     val addToCartStatus = MutableLiveData<LoadingStatus>()
+    var productNature: String = ""
 
 
     fun setSelectedProductId(id: Long) {
@@ -492,6 +493,8 @@ class DetailProductViewModel @Inject constructor(
                         .filter { productPropertyDTO -> productPropertyDTO.id != 0L }.stream().map {
                             mapToProperty(it!!, productQuantity)
                         }.collect(Collectors.toList()).toCollection(ArrayList())
+                val productPropertyDTO = productStringResponseDTO.body()!!.find { productPropertyDTO -> productPropertyDTO.id == 0L }
+                productNature = productPropertyDTO!!.valueDTOS[0].name
             }
         }
     }

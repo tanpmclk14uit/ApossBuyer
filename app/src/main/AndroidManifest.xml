@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Apossbuyer"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".uicontroler.activity.CheckCompatibilityActivity"
+            android:exported="false" />
+        <activity
             android:name=".uicontroler.activity.CheckOutActivity"
             android:exported="false" />
         <activity
