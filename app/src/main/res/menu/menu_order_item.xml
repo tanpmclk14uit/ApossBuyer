@@ -4,5 +4,5 @@
     <item android:title="@string/confirmed" android:id="@+id/confirmed" android:icon="@drawable/ic_order_confirm" />
     <item android:title="@string/delivering" android:id="@+id/delivering" android:icon="@drawable/ic_order_delivering" />
     <item android:title="@string/pass_order" android:id="@+id/success" android:icon="@drawable/ic_order_pass" />
-    <item android:title="@string/cancel" android:id="@+id/cancel" android:icon="@drawable/ic_order_cancel"/>
+    <item android:title="@string/canceled" android:id="@+id/cancel" android:icon="@drawable/ic_order_cancel"/>
 </menu>

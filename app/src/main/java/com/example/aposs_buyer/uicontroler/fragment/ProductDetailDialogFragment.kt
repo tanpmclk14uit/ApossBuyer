@@ -3,6 +3,7 @@ package com.example.aposs_buyer.uicontroler.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,6 +89,7 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     private fun dialogTypeButton() {
         binding.dialogButton.setOnClickListener {
             if (checkValidPropertyProduct() && checkValidAmount()) {
+
                 loadingDialog.startLoading()
                 if (dialogType == DialogType.CheckOutDialog) {
                     val order: Order?
@@ -144,9 +146,9 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     @SuppressLint("SetTextI18n")
     private fun setUpDialogButton() {
         if (dialogType == DialogType.CheckOutDialog) {
-            binding.dialogButton.text = "Check out"
+            binding.dialogButton.text = "Thanh toán"
         } else {
-            binding.dialogButton.text = "Add to cart"
+            binding.dialogButton.text = "Thêm vào giỏ hàng"
         }
     }
 

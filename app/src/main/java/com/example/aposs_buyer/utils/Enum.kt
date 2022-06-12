@@ -17,7 +17,7 @@ enum class OrderStatus{
 }
 
 enum class LoadingStatus{
-    Loading, Success, Fail
+    Loading, Success, Fail, Init
 }
 enum class Hanh(val value: Int) {
     Kim(2), Moc(4), Thuy(1), Hoa(3), Tho(0);
@@ -29,6 +29,22 @@ enum class Hanh(val value: Int) {
             Thuy -> "Thủy"
             Hoa -> "Hỏa"
             Tho -> "Thổ"
+        }
+    }
+}
+enum class Destiny{
+    Can, Doai, Can1, Khon, Chan, Ton, Kham, Ly;
+
+    override fun toString(): String {
+        return when (this) {
+            Can -> "Càn Kim"
+            Doai -> "Đoài Kim"
+            Can1 -> "Cấn Thổ"
+            Khon -> "Khôn Thổ "
+            Chan -> "Chấn Mộc"
+            Ton -> "Tốn Mộc"
+            Kham -> "Khảm Thủy"
+            Ly -> "Ly Hỏa"
         }
     }
 }

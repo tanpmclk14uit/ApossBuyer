@@ -235,6 +235,7 @@
         <entry key="app/src/main/res/layout/activity_check_compatibility.xml" value="0.21081081081081082" />
         <entry key="app/src/main/res/layout/activity_check_out.xml" value="0.21081081081081082" />
         <entry key="app/src/main/res/layout/activity_detail_product.xml" value="0.208" />
+        <entry key="app/src/main/res/layout/activity_order.xml" value="0.2099099099099099" />
         <entry key="app/src/main/res/layout/activity_rating.xml" value="0.21081081081081082" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.21081081081081082" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.268018018018018" />
@@ -253,6 +254,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kind.xml" value="0.25495495495495496" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.21081081081081082" />
+        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.2099099099099099" />
         <entry key="app/src/main/res/layout/fragment_person.xml" value="0.1111111111111111" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25495495495495496" />
         <entry key="app/src/main/res/layout/fragment_success.xml" value="0.1" />
@@ -263,6 +265,7 @@
         <entry key="app/src/main/res/layout/item_order.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/item_order_biling.xml" value="0.268018018018018" />
         <entry key="app/src/main/res/layout/item_rated.xml" value="0.10277777777777777" />
+        <entry key="app/src/main/res/menu/menu_order_item.xml" value="0.2099099099099099" />
       </map>
     </option>
   </component>

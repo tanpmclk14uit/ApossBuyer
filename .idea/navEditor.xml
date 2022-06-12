@@ -760,13 +760,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="chooseAddressFragment2">
+                  <entry key="chooseAddressFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="735" />
-                            <option name="y" value="-346" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -788,7 +788,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_detailOrderFragment_to_chooseAddressFragment2">
+                            <entry key="action_detailOrderFragment_to_chooseAddressFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

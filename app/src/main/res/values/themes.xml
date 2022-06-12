@@ -15,7 +15,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:screenOrientation">locked</item>
         <item name="android:statusBarColor">@color/light_green</item>
-        <item name="colorAccent">@color/yellow</item>
+        <item name="colorAccent">@color/light_green</item>
         <item name="android:colorPrimaryDark">@color/light_green</item>
     </style>
 

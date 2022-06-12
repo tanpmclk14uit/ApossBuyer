@@ -72,6 +72,7 @@ class DetailProductViewModel @Inject constructor(
 
     val addToCartStatus = MutableLiveData<LoadingStatus>()
     var productNature: String = ""
+    var productDefaultId: Long = -1L
 
 
     fun setSelectedProductId(id: Long) {
@@ -202,9 +203,15 @@ class DetailProductViewModel @Inject constructor(
     }
 
     private suspend fun loadSetIdByByProductIdAndListProperty(): Long {
+        val currentSelectedValueId: List<Long> =
+            if (selectedProductStringProperty.value!!.isEmpty()) {
+                listOf(productDefaultId)
+            } else {
+                currentSelectedValues.stream().map { it.id }.toList()
+            }
         val setResponse = productRepository.getSetIdByByProductIdAndListProperty(
             selectedProductId,
-            currentSelectedValues.stream().map { it.id }.toList()
+            currentSelectedValueId
         )
         return if (setResponse.isSuccessful) {
             setResponse.body() ?: -1L
@@ -493,8 +500,10 @@ class DetailProductViewModel @Inject constructor(
                         .filter { productPropertyDTO -> productPropertyDTO.id != 0L }.stream().map {
                             mapToProperty(it!!, productQuantity)
                         }.collect(Collectors.toList()).toCollection(ArrayList())
-                val productPropertyDTO = productStringResponseDTO.body()!!.find { productPropertyDTO -> productPropertyDTO.id == 0L }
+                val productPropertyDTO = productStringResponseDTO.body()!!
+                    .find { productPropertyDTO -> productPropertyDTO.id == 0L }
                 productNature = productPropertyDTO!!.valueDTOS[0].name
+                productDefaultId = productPropertyDTO!!.valueDTOS[0].id
             }
         }
     }

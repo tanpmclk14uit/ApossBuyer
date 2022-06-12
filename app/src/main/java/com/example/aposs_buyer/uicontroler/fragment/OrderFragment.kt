@@ -87,19 +87,19 @@ class OrderFragment : Fragment(), OrderAdapter.OrderInterface {
     private fun setBottomBar() {
         binding.bottomBar.setOnItemSelectedListener {
             when (it.title.toString()) {
-                "Pending" -> {
+                "Đang chờ" -> {
                     viewModel.getAllOrderByStatus(OrderStatus.Pending)
                 }
-                "Confirmed" -> {
+                "Xác nhận" -> {
                     viewModel.getAllOrderByStatus(OrderStatus.Confirmed)
                 }
-                "Delivering" -> {
+                "Đang giao" -> {
                     viewModel.getAllOrderByStatus(OrderStatus.Delivering)
                 }
-                "Success" -> {
+                "Thành công" -> {
                     viewModel.getAllOrderByStatus(OrderStatus.Success)
                 }
-                "Cancel" -> {
+                "Đã hủy" -> {
                     viewModel.getAllOrderByStatus(OrderStatus.Cancel)
                 }
                 else -> {

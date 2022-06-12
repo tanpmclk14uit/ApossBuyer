@@ -34,7 +34,7 @@
     <string name="the_same_kind">SẢN PHẨM THÊM LOẠI</string>
     <string name="time_sample">13:12</string>
     <string name="all">Tất cả</string>
-    <string name="cancel">Hủy</string>
+    <string name="cancel">Thoát</string>
     <string name="amount">Tổng:</string>
     <string name="categories">Các danh mục</string>
     <string name="search">Tìm kiếm</string>
@@ -96,13 +96,13 @@
     <string name="order_detail">Chi tiết đơn hàng</string>
     <string name="your_order_is_empty">Đơn hàng đang trống</string>
     <string name="go_to_buy_now">đi đến mua ngay!</string>
-    <string name="items">Items</string>
+    <string name="items">Chi tiết đơn hàng</string>
     <string name="you_want_to">Bạn muốn</string>
     <string name="order">đơn hàng :(</string>
     <string name="order_cancel_text">Hãy cho chúng tôi biết lý do\nđể cải thiện dịch vụ mua sắm\ntốt hơn cho bạn!.</string>
     <string name="your_reason_here">Điền lý do của bạn</string>
     <string name="your_order_cancel_successfully">Bạn đã hủy đơn hàng thành công</string>
-    <string name="order_confirm_text">Chúng tôi thành thật xin lỗi\ncho những trãi nghiệm không\ntốt của bạn</string>
+    <string name="order_confirm_text">Chúng tôi thành thật xin lỗi\ncho những trải nghiệm không\ntốt của bạn</string>
     <string name="continue_shopping">Tiếp tục mua sắm</string>
     <string name="check_out_policy">By placing your order you agree to our terms and conditions, privacy and returns policies and consent to some of your data being stored by Aposs which may be used to make future shopping experiences better for you.</string>
     <string name="total">Tổng:</string>
@@ -151,8 +151,14 @@
     <string name="xem_t_ng_h_p">Xem độ tương hợp</string>
     <string name="h_nh">Hành:</string>
     <string name="nh_p_ng_y_th_ng_n_m_sinh_c_a_b_n">Chọn ngày tháng năm sinh của bạn</string>
-    <string name="date">dd/mm/yyyy</string>
+    <string name="date">d/m/yyyy</string>
     <string name="xem_ngay">Xem ngay</string>
+    <string name="customer_date_picker_error_guild">Vui lòng nhập ngày sinh theo định dạng d/m/yyyy</string>
+    <string name="nature_loading_message">Đang tính toán độ tương hợp</string>
+    <string name="ch_n_gi_i_t_nh_c_a_b_n">Chọn giới tính của bạn</string>
+    <string name="canceled">Đã hủy</string>
+    <string name="your_destiny">Cung mệnh của bạn:</string>
+    <string name="your_suitable">Sự tương hợp của bạn với sản phẩm</string>
 
 
 </resources>
