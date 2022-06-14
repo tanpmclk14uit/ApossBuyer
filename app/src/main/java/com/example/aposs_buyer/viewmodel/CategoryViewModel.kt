@@ -22,8 +22,8 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
 
     private val selectedCategoryId = MutableLiveData<Long>()
 
-    private val _listKind = MutableLiveData<MutableList<Kind>>()
-    val listKind: LiveData<MutableList<Kind>> get() = _listKind
+    private val _listKind = MutableLiveData<List<Kind>>()
+    val listKind: LiveData<List<Kind>> get() = _listKind
 
     val selectedCategoryName = MutableLiveData<String>()
 
