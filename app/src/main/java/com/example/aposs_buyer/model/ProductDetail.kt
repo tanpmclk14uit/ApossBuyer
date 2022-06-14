@@ -20,9 +20,9 @@ data class ProductDetail(
         return "$formattedNumber VNĐ"
     }
     fun totalPurchaseToString(): String{
-        return "$purchase lượt mua"
+        return "$purchase purchased"
     }
     fun toTalReviewToString(): String{
-        return "($totalReview đánh gía)"
+        return "($totalReview ratings)"
     }
 }

@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:text="@string/xem_t_ng_h_p"
+                            android:text="@string/app_name"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="25sp"
@@ -116,7 +116,7 @@
                             <TextView
                                 android:textSize="18sp"
                                 android:textColor="@color/black"
-                                android:text="@string/h_nh"
+                                android:text="@string/app_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                             <TextView
@@ -134,7 +134,7 @@
                         android:layout_marginVertical="5dp"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="@string/nh_p_ng_y_th_ng_n_m_sinh_c_a_b_n"
+                        android:text="@string/app_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <EditText
@@ -145,7 +145,7 @@
                         android:inputType="date"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:hint="@string/date"
+                        android:hint="@string/app_name"
                         android:layout_height="45dp"
                         android:drawableEnd="@drawable/ic_expand_more"
                         android:background="@drawable/bg_edit_user_detail"
@@ -165,7 +165,7 @@
                             android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ch_n_gi_i_t_nh_c_a_b_n"
+                            android:text="@string/app_name"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
                         <com.google.android.material.textfield.TextInputLayout
@@ -205,7 +205,7 @@
                                 android:id="@+id/destinyLabel"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
-                                android:text="@string/your_destiny"
+                                android:text="@string/app_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                             <TextView
@@ -222,7 +222,7 @@
                         </RelativeLayout>
                         <TextView
                             android:layout_marginVertical="5dp"
-                            android:text="@string/your_suitable"
+                            android:text="@string/app_name"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                         android:id="@+id/seeNow"
                         android:visibility="@{viewModel.status == status.Init? view.VISIBLE: view.GONE}"
                         android:layout_marginVertical="5dp"
-                        android:text="@string/xem_ngay"
+                        android:text="@string/app_name"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         android:background="@drawable/bg_light_screen"
@@ -265,7 +265,7 @@
                             android:textColor="@color/gray"
                             android:layout_marginVertical="5dp"
                             android:gravity="center"
-                            android:text="@string/nature_loading_message"
+                            android:text="@string/app_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>

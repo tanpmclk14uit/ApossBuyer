@@ -89,7 +89,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         } else {
             //create new address
             //set up gender first box
-            binding.actvGender.setText("Nam", false)
+            binding.actvGender.setText("Male", false)
             // set up submit button
             binding.submitButton.setOnClickListener {
                 viewModel.addNewAddress()
@@ -119,7 +119,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setUpGenderAutomationText() {
-        val genderList = listOf("Nam", "Nữ")
+        val genderList = listOf("Male", "Female")
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
         binding.actvGender.setAdapter(genderAdapter)
         binding.actvGender.addTextChangedListener {
@@ -215,7 +215,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         // address edit text
         binding.etAddressLane.doAfterTextChanged {
             if (it.toString().isBlank()) {
-                binding.etAddressLane.error = "Hãy cung cấp chi tiết địa chỉ!"
+                binding.etAddressLane.error = "Please provide address!"
             } else {
                 binding.etAddressLane.error = null
             }
@@ -253,7 +253,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         btnDelete.isEnabled = true
         btnDelete.setOnClickListener {
             viewModel.deleteDeliveryAddress()
-            Toast.makeText(this.context, "Xóa địa chỉ thành công", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this.context, "Delete product success", Toast.LENGTH_SHORT).show()
             dialogDelete.dismiss()
             requireActivity().onBackPressed()
         }

@@ -182,7 +182,7 @@
                         android:drawableEnd="@drawable/ic_back"
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
-                        android:text="   Quản lý địa chỉ"
+                        android:text="   Manage address"
                         android:textSize="16sp"
                         android:textColor="@color/person_color"/>
                     <LinearLayout
@@ -199,7 +199,7 @@
                         android:drawableEnd="@drawable/ic_back"
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
-                        android:text="   Quản lý đơn hàng"
+                        android:text="   Manage order"
                         android:textSize="16dp"
                         android:textColor="@color/person_color"/>
                     <LinearLayout
@@ -216,7 +216,7 @@
                         android:textAllCaps="false"
                         android:drawableEnd="@drawable/ic_back"
                         android:textAlignment="textStart"
-                        android:text="   Đánh giá"
+                        android:text="   Rating"
                         android:textSize="16dp"
                         android:textColor="@color/person_color"/>
                     <LinearLayout
@@ -232,7 +232,7 @@
                         android:drawableStart="@drawable/ic_baseline_settings_24"
                         android:drawableEnd="@drawable/ic_back"
                         android:textAlignment="textStart"
-                        android:text="   Cài đặt"
+                        android:text="   Setting"
                         android:textSize="16dp"
                         android:textColor="@color/person_color"/>
                     <LinearLayout
@@ -248,7 +248,7 @@
                         android:drawableStart="@drawable/ic_sign_out"
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
-                        android:text="   Đăng xuất"
+                        android:text="   Logout"
                         android:textSize="16dp"
                         android:textColor="@color/person_color" />
                 </LinearLayout>
@@ -283,7 +283,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bạn chưa đăng nhập."
+                            android:text="You are not login yet"
                             android:textSize="16sp"
                             android:layout_marginTop="10dp"
                             android:textStyle="bold"
@@ -298,7 +298,7 @@
                             android:drawableStart="@drawable/ic_sign_out"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:text="   Đăng nhập hoặc đăng kí ngay"
+                            android:text="   Login or register now"
                             android:textSize="16sp"
                             android:textColor="@color/person_color" />
                     </LinearLayout>

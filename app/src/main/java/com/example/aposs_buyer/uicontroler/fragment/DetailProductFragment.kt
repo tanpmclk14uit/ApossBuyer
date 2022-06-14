@@ -53,18 +53,10 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpBottomSheetDialog()
         onDetailProductChange()
         onRatingProductChange()
-        setUpCheckCompatibilityButton()
+
         return binding.root
     }
-    private fun setUpCheckCompatibilityButton(){
-        binding.compatibility.setOnClickListener {
-            val intent = Intent(this.requireContext(), CheckCompatibilityActivity::class.java)
-            intent.putExtra("ProductName", viewModel.selectedProduct.value?.name)
-            intent.putExtra("ProductImage", viewModel.selectedProductImages.value?.get(0))
-            intent.putExtra("ProductNature", viewModel.productNature)
-            startActivity(intent)
-        }
-    }
+
     private fun setUpAppBar() {
         // set up back button
         binding.back.setOnClickListener {
@@ -202,7 +194,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
                         binding.ratingModule.visibility = View.GONE
                         binding.ratingExtraModule.visibility = View.VISIBLE
                         binding.ratingLoadingProgress.visibility = View.GONE
-                        binding.ratingMessage.text = "Hãy trở thành người đầu tiên đánh giá sản phẩm !!"
+                        binding.ratingMessage.text = "Be the first person rate this product !!"
                     }
                 } else {
                     binding.ratingModule.visibility = View.GONE

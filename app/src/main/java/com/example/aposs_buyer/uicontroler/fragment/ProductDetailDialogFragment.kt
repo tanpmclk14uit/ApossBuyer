@@ -146,9 +146,9 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
     @SuppressLint("SetTextI18n")
     private fun setUpDialogButton() {
         if (dialogType == DialogType.CheckOutDialog) {
-            binding.dialogButton.text = "Thanh toán"
+            binding.dialogButton.text = "Check out"
         } else {
-            binding.dialogButton.text = "Thêm vào giỏ hàng"
+            binding.dialogButton.text = "Add to cart"
         }
     }
 

@@ -13,25 +13,25 @@ data class Address(
     var isDefaultAddress: Boolean = false
 ) {
     fun setGenderFromString(genderString: String) {
-        this.gender = genderString == "Nam"
+        this.gender = genderString == "Male"
     }
 
     fun getNameString(): String {
-        return "Họ và tên: $name"
+        return "Name: $name"
     }
 
     fun getGenderString(): String {
-        if (gender) return "Giới tính: Nam"
-        return "Giới tính: Nữ"
+        if (gender) return "Gender: Male"
+        return "Gender: Female"
     }
 
     fun getGenderSmallString(): String {
-        if (gender) return "Nam"
-        return "Nữ"
+        if (gender) return "Male"
+        return "Female"
     }
 
     fun getPhoneNumberString(): String {
-        return "Số điện thoại: $phoneNumber"
+        return "Phone: $phoneNumber"
     }
 
     fun getCityString(): String {
@@ -47,16 +47,16 @@ data class Address(
     }
 
     fun getAddressLaneString(): String {
-        return "Chi tiết: $addressLane"
+        return "Address lane: $addressLane"
     }
 
     fun getFullAddress(): String {
         val genderCall: String = if (gender) {
-            "Anh"
+            "Mr"
         } else {
-            "Chị"
+            "Mrs"
         }
-        return "$genderCall $name, sđt: $phoneNumber, $addressLane, ${ward.name}, ${district.name}, ${city.name}"
+        return "$genderCall $name, phone: $phoneNumber, $addressLane, ${ward.name}, ${district.name}, ${city.name}"
     }
 
     fun equal(address: Address): Boolean {
