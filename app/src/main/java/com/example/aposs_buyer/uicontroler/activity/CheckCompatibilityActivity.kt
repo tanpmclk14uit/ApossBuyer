@@ -16,6 +16,7 @@ import com.example.aposs_buyer.databinding.ActivityCheckCompatibilityBinding
 import com.example.aposs_buyer.model.Image
 import com.example.aposs_buyer.utils.Destiny
 import com.example.aposs_buyer.utils.LoadingStatus
+import com.example.aposs_buyer.utils.Nature
 import com.example.aposs_buyer.viewmodel.CheckCompatibilityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -102,19 +103,19 @@ class CheckCompatibilityActivity : AppCompatActivity() {
         viewModel.productNature.observe(this) {
             var natureColor = ContextCompat.getColor(this, R.color.black)
             when (it) {
-                "Kim" -> {
+                Nature.Kim -> {
                     natureColor = ContextCompat.getColor(this, R.color.kim)
                 }
-                "Mộc" -> {
+                Nature.Moc -> {
                     natureColor = ContextCompat.getColor(this, R.color.moc)
                 }
-                "Thủy" -> {
+                Nature.Thuy -> {
                     natureColor = ContextCompat.getColor(this, R.color.thuy)
                 }
-                "Hỏa" -> {
+                Nature.Hoa -> {
                     natureColor = ContextCompat.getColor(this, R.color.hoa)
                 }
-                "Thổ" -> {
+                Nature.Tho -> {
                     natureColor = ContextCompat.getColor(this, R.color.tho)
                 }
             }
@@ -123,7 +124,7 @@ class CheckCompatibilityActivity : AppCompatActivity() {
     }
     @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
     private fun setCustomerNatureColor() {
-        viewModel.customerNature.observe(this) {
+        viewModel.customerDestiny.observe(this) {
             var natureColor = ContextCompat.getColor(this, R.color.black)
             when (it) {
                 Destiny.Can, Destiny.Doai -> {

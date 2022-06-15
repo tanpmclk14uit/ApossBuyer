@@ -159,6 +159,8 @@
     <string name="canceled">Đã hủy</string>
     <string name="your_destiny">Cung mệnh của bạn:</string>
     <string name="your_suitable">Sự tương hợp của bạn với sản phẩm</string>
+    <string name="gi_i_th_ch">Giải thích</string>
+    <string name="th_m_l_i_khuy_n_cho_ng_i_m_nh">Thêm lời khuyên cho người mệnh</string>
 
 
 </resources>

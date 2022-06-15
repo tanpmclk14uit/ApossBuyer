@@ -124,7 +124,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
-                                android:text="@{viewModel.productNature}"
+                                android:text="@{viewModel.productNature.toString()}"
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
@@ -201,19 +201,20 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/destinyLabel"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:text="@string/your_destiny"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:text="@string/your_destiny"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
                             <TextView
                                 android:id="@+id/customerNature"
                                 android:layout_toEndOf="@id/destinyLabel"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginStart="5dp"
-                                android:text="@{viewModel.customerNature.toString()}"
+                                android:text="@{viewModel.customerDestiny.toString()}"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:gravity="end"
@@ -227,7 +228,82 @@
                             android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:layout_marginVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@{viewModel.suitableRecommend.suitableLever.toString()}"
+                                android:textSize="18sp"
+                                android:textStyle="normal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_marginStart="5dp"
+                                android:text="@{viewModel.suitableRecommend.suitableLever.stringValue}"
+                                android:textSize="18sp"
+                                android:textStyle="normal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <TextView
+                            android:text="@{viewModel.suitableRecommend.suitableLever.recommendMessage}"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/light_green"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:text="@string/gi_i_th_ch"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="@{viewModel.suitableRecommend.explain.toString()}"
+                            android:textSize="18sp"
+                            android:textStyle="normal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="@{viewModel.suitableRecommend.extraRecommend}"
+                            android:textSize="18sp"
+                            android:textStyle="normal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <RelativeLayout
+                            android:layout_marginVertical="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/moreRecommend"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/th_m_l_i_khuy_n_cho_ng_i_m_nh"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_toEndOf="@id/moreRecommend"
+                                android:layout_marginStart="5dp"
+                                android:text="@{viewModel.customerDestiny.toString()}"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </RelativeLayout>
+                        <TextView
+                            android:text="@{viewModel.extraRecommend}"
+                            android:textSize="18sp"
+                            android:textStyle="normal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/errorGuild"
                         android:textSize="18sp"
