@@ -209,17 +209,18 @@
                                 android:text="@string/your_destiny"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/customerNature"
-                                android:layout_toEndOf="@id/destinyLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginStart="5dp"
+                                android:layout_toEndOf="@id/destinyLabel"
+                                android:gravity="end"
                                 android:text="@{viewModel.customerDestiny.toString()}"
                                 android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:gravity="end"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:textStyle="bold" />
                         </RelativeLayout>
                         <TextView
                             android:layout_marginVertical="5dp"
@@ -228,25 +229,29 @@
                             android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_marginVertical="5dp"
                             android:layout_width="match_parent"
-                            android:orientation="horizontal"
                             android:layout_height="wrap_content">
                             <TextView
+                                android:id="@+id/suitableText"
                                 android:text="@{viewModel.suitableRecommend.suitableLever.toString()}"
-                                android:textSize="18sp"
-                                android:textStyle="normal"
+                                android:textSize="19sp"
+                                android:textStyle="bold"
+                                android:layout_alignParentStart="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                            <TextView
-                                android:layout_marginStart="5dp"
-                                android:text="@{viewModel.suitableRecommend.suitableLever.stringValue}"
-                                android:textSize="18sp"
-                                android:textStyle="normal"
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_toEndOf="@id/suitableText"
+                                android:contentDescription="@string/app_name"
+                                android:id="@+id/suitTableLevel"
+                                android:src="@drawable/tuongkhac"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                        </LinearLayout>
+
+                        </RelativeLayout>
                         <TextView
                             android:text="@{viewModel.suitableRecommend.suitableLever.recommendMessage}"
                             android:textSize="18sp"
@@ -265,12 +270,14 @@
                         <TextView
                             android:text="@{viewModel.suitableRecommend.explain.toString()}"
                             android:textSize="18sp"
+                            android:justificationMode="inter_word"
                             android:textStyle="normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                         <TextView
                             android:text="@{viewModel.suitableRecommend.extraRecommend}"
                             android:textSize="18sp"
+                            android:justificationMode="inter_word"
                             android:textStyle="normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
@@ -297,6 +304,7 @@
                                 android:layout_height="wrap_content"/>
                         </RelativeLayout>
                         <TextView
+                            android:justificationMode="inter_word"
                             android:text="@{viewModel.extraRecommend}"
                             android:textSize="18sp"
                             android:textStyle="normal"

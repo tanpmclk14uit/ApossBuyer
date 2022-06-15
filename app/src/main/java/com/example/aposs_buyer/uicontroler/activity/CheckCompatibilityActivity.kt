@@ -42,11 +42,22 @@ class CheckCompatibilityActivity : AppCompatActivity() {
         setUpGenderAutomationText()
         setUpSeeNow()
         setCustomerNatureColor()
+        setUpSuitableLevel()
     }
     private fun setUpSeeNow(){
         binding.seeNow.setOnClickListener {
             if(viewModel.isValidCustomerBirthDate()) {
                 viewModel.setCustomerNature()
+            }
+        }
+    }
+    private fun setUpSuitableLevel(){
+        viewModel.suitableRecommend.observe(this){
+            when(it.suitableLever.value){
+                1 -> binding.suitTableLevel.setImageResource(R.drawable.tuongkhac)
+                2-> binding.suitTableLevel.setImageResource(R.drawable.khonganhhuong)
+                3-> binding.suitTableLevel.setImageResource(R.drawable.chengu)
+                4 -> binding.suitTableLevel.setImageResource(R.drawable.tuonghop)
             }
         }
     }
