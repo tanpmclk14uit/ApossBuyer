@@ -502,8 +502,10 @@ class DetailProductViewModel @Inject constructor(
                         }.collect(Collectors.toList()).toCollection(ArrayList())
                 val productPropertyDTO = productStringResponseDTO.body()!!
                     .find { productPropertyDTO -> productPropertyDTO.id == 0L }
-                productNature = productPropertyDTO!!.valueDTOS[0].name
-                productDefaultId = productPropertyDTO!!.valueDTOS[0].id
+                if (productPropertyDTO != null) {
+                    productNature = productPropertyDTO.valueDTOS[0].name
+                    productDefaultId = productPropertyDTO.valueDTOS[0].id
+                }
             }
         }
     }
