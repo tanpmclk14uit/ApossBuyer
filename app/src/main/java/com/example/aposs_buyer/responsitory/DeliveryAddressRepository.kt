@@ -5,6 +5,7 @@ import com.example.aposs_buyer.model.dto.DistrictDTO
 import com.example.aposs_buyer.model.dto.ProvinceDTO
 import com.example.aposs_buyer.model.dto.WardDTO
 import com.example.aposs_buyer.responsitory.webservice.*
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import javax.inject.Inject
 

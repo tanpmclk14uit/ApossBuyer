@@ -202,20 +202,21 @@ class CartViewModel @Inject constructor(
         )
     }
 
-    fun makeNewOrder(): Order {
-        viewModelScope.launch(Dispatchers.IO) {
-            loadDefaultAddress()
-        }
+    suspend fun makeNewOrder(): Order {
+        loadDefaultAddress()
         val orderBillingItem = _choseList.value!!.stream().map {
             convertToOrderBillingItem(it)
         }.collect(Collectors.toList())
-        return Order(
-            id = -1L,
-            status = OrderStatus.Pending,
-            billingItems = orderBillingItem,
-            totalPrice = total,
-            address = defaultAddress.value!!.getFullAddress()
-        )
+        val order = defaultAddress.value?.getFullAddress()?.let {
+            Order(
+                id = -1L,
+                status = OrderStatus.Pending,
+                billingItems = orderBillingItem,
+                totalPrice = total,
+                address = it
+            )
+        }
+        return order!!
     }
 
     private suspend fun loadDefaultAddress() {
@@ -228,9 +229,10 @@ class CartViewModel @Inject constructor(
             if (defaultAddressResponse.isSuccessful) {
                 val defaultAddressDTOResponseBody = defaultAddressResponse.body()
                 defaultAddressDTO.postValue(defaultAddressDTOResponseBody!!)
-                defaultAddress.postValue(
-                    convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
-                )
+                withContext(Dispatchers.Main) {
+                    defaultAddress.value  =
+                        convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
+                }
             } else {
                 if (defaultAddressResponse.code() == 401) {
                     if (authRepository.loadNewAccessTokenSuccess()) {

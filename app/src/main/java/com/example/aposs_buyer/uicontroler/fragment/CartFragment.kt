@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
@@ -19,6 +20,9 @@ import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -114,11 +118,16 @@ class CartFragment : Fragment() {
 
     private fun setUpCheckOutBottomBar() {
         // set up button check out
+        val context = this.context
         binding?.btnGoToCheckOut?.setOnClickListener {
-            val order = viewModel.makeNewOrder()
-            val intent = Intent(this.context, CheckOutActivity::class.java)
-            intent.putExtra("order", order)
-            startActivity(intent)
+            lifecycleScope.launch(Dispatchers.IO) {
+                val order = viewModel.makeNewOrder()
+                val intent = Intent(context, CheckOutActivity::class.java)
+                intent.putExtra("order", order)
+                withContext(Dispatchers.Main) {
+                    startActivity(intent)
+                }
+            }
         }
     }
 

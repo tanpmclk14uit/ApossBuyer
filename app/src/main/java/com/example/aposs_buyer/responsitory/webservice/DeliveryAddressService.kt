@@ -2,6 +2,7 @@ package com.example.aposs_buyer.responsitory.webservice
 
 import com.example.aposs_buyer.model.dto.DeliveryAddressDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
+import kotlinx.coroutines.Deferred
 import okhttp3.Request
 import retrofit2.Response
 import retrofit2.http.*
