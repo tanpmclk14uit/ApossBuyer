@@ -190,5 +190,4 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:dagger-lint-aar:2.42@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: pl.droidsonroids.gif:android-gif-drawable:1.2.24@aar" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="aposs-buyer.app.main" />
 </module>
