@@ -306,8 +306,10 @@ class DetailProductViewModel @Inject constructor(
                 )
             if (quantityResponse.isSuccessful) {
                 selectedProductQuantities.postValue(quantityResponse.body())
-                if (selectedProductQuantities.value!! < cartAmount.value!!) {
-                    cartAmount.postValue(selectedProductQuantities.value)
+                withContext(Dispatchers.Main) {
+                    if (selectedProductQuantities.value!! < cartAmount.value!!) {
+                        cartAmount.value = selectedProductQuantities.value
+                    }
                 }
             }
         }
@@ -544,31 +546,37 @@ class DetailProductViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val productResponse = productRepository.loadProductById(id)
             if (productResponse.isSuccessful) {
-                _selectedProduct.postValue(mapToProductDetail(productResponse.body()!!, id))
-                _selectedProduct.value?.availableQuantities.let {
-                    _selectedProductQuantities.postValue(it)
-                }
-                selectedProductPrice.postValue(
-                    _selectedProduct.value?.price?.let { Converter.convertFromIntToCurrencyString(it) }
-                )
-                loadProductsByKind(productResponse.body()!!.kindId)
-                if (_selectedProduct.value?.totalReview != 0) {
-                    loadProductRatingById(selectedProductId)
-                } else {
-                    _selectedProductRating.postValue(ArrayList())
-                    productRatingLoadingState.postValue(LoadingStatus.Success)
-                }
-                _selectedProduct.value?.availableQuantities?.let {
-                    loadSelectedProductStringPropertyById(
-                        selectedProductId,
-                        it
+                withContext(Dispatchers.Main) {
+                    _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
+                    _selectedProduct.value?.availableQuantities.let {
+                        _selectedProductQuantities.value = it
+                    }
+                    selectedProductPrice.postValue(
+                        _selectedProduct.value?.price?.let {
+                            Converter.convertFromIntToCurrencyString(
+                                it
+                            )
+                        }
                     )
-                }
-                _selectedProduct.value?.availableQuantities?.let {
-                    loadSelectedProductColorPropertyById(
-                        selectedProductId,
-                        it
-                    )
+                    loadProductsByKind(productResponse.body()!!.kindId)
+                    if (_selectedProduct.value?.totalReview != 0) {
+                        loadProductRatingById(selectedProductId)
+                    } else {
+                        _selectedProductRating.value  = ArrayList()
+                        productRatingLoadingState.value = LoadingStatus.Success
+                    }
+                    _selectedProduct.value?.availableQuantities?.let {
+                        loadSelectedProductStringPropertyById(
+                            selectedProductId,
+                            it
+                        )
+                    }
+                    _selectedProduct.value?.availableQuantities?.let {
+                        loadSelectedProductColorPropertyById(
+                            selectedProductId,
+                            it
+                        )
+                    }
                 }
                 productDetailLoadingState.postValue(LoadingStatus.Success)
             } else {
