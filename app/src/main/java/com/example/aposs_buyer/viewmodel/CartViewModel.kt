@@ -51,29 +51,29 @@ class CartViewModel @Inject constructor(
     }
 
     fun loadCartList() {
-        viewModelScope.launch {
-            loadingStatus.value = LoadingStatus.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            loadingStatus.postValue(LoadingStatus.Loading)
             val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
             if (!currentAccessToken.isNullOrBlank()) {
                 val allCartItemsResponse =
                     cartRepository.getAllCart(currentAccessToken)
                 if (allCartItemsResponse.isSuccessful) {
                     cartItemsDTO = allCartItemsResponse.body()!!
-                    _lstCartItem.value = cartItemsDTO.stream().map {
+                    _lstCartItem.postValue(cartItemsDTO.stream().map {
                         toCartItem(it)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
-                    loadingStatus.value = LoadingStatus.Success
-                    _choseList.value = getChoseCartItems()
+                    }.collect(Collectors.toList()).toCollection(ArrayList()) )
+                    loadingStatus.postValue(LoadingStatus.Success)
+                    _choseList.postValue(getChoseCartItems())
                     trackingEnableCheckOutButton()
                     total = calculateTotal()
-                    totalCurrency.value = Converter.convertFromIntToCurrencyString(total)
+                    totalCurrency.postValue(Converter.convertFromIntToCurrencyString(total))
                     return@launch
                 } else {
                     if (allCartItemsResponse.code() == 401) {
                         if (authRepository.loadNewAccessTokenSuccess()) {
                             loadCartList()
                         } else {
-                            loadingStatus.value = LoadingStatus.Fail
+                            loadingStatus.postValue(LoadingStatus.Fail)
                         }
                     }
                 }
@@ -103,12 +103,15 @@ class CartViewModel @Inject constructor(
     }
 
     private fun getChoseCartItems(): ArrayList<CartItem> {
-        return _lstCartItem.value!!.stream().filter { it.isChoose }.collect(Collectors.toList())
-            .toCollection(ArrayList())
+        _lstCartItem.value?.let {
+            return it.stream().filter { it.isChoose }.collect(Collectors.toList())
+                .toCollection(ArrayList())
+        }
+        return arrayListOf()
     }
 
     fun trackingEnableCheckOutButton() {
-        checkOutEnable.value = getChoseCartItems().isNotEmpty()
+        checkOutEnable.postValue(getChoseCartItems().isNotEmpty())
     }
 
     private fun toCartItem(cartDTO: CartDTO): CartItem {
@@ -128,7 +131,7 @@ class CartViewModel @Inject constructor(
 
 
     private fun deleteCartItem(id: Long) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
             if (currentAccessToken != null) {
                 val deleteResponse =
@@ -171,9 +174,9 @@ class CartViewModel @Inject constructor(
     }
 
     fun updateCart() {
-        runBlocking {
-            withContext(NonCancellable) {
-                for (cartItem: CartItem in _lstCartItem.value!!) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _lstCartItem.value?.let {
+                for (cartItem: CartItem in it) {
                     for (cartItemDTO: CartDTO in cartItemsDTO) {
                         if (cartItemDTO.id == cartItem.id && (cartItem.isChoose != cartItemDTO.select || cartItem.amount != cartItemDTO.quantity)) {
                             cartItemDTO.select = cartItem.isChoose
@@ -200,7 +203,7 @@ class CartViewModel @Inject constructor(
     }
 
     fun makeNewOrder(): Order {
-        runBlocking {
+        viewModelScope.launch(Dispatchers.IO) {
             loadDefaultAddress()
         }
         val orderBillingItem = _choseList.value!!.stream().map {
@@ -224,9 +227,10 @@ class CartViewModel @Inject constructor(
                 )
             if (defaultAddressResponse.isSuccessful) {
                 val defaultAddressDTOResponseBody = defaultAddressResponse.body()
-                defaultAddressDTO.value = defaultAddressDTOResponseBody!!
-                defaultAddress.value =
+                defaultAddressDTO.postValue(defaultAddressDTOResponseBody!!)
+                defaultAddress.postValue(
                     convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
+                )
             } else {
                 if (defaultAddressResponse.code() == 401) {
                     if (authRepository.loadNewAccessTokenSuccess()) {

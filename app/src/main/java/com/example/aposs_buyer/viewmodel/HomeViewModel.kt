@@ -1,5 +1,6 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
 
+private const val TAG = "HomeViewModel"
 @HiltViewModel
 @RequiresApi(Build.VERSION_CODES.N)
 class HomeViewModel @Inject constructor(
@@ -57,6 +59,7 @@ class HomeViewModel @Inject constructor(
     private var _categoryStatus = MutableLiveData<LoadingStatus>()
 
     init {
+        Log.d(TAG, "Created!")
         loadAllCategories()
         if (_categoryStatus.value == LoadingStatus.Success) {
             setUpDisplayCategory(0)
