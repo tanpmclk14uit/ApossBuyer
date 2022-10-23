@@ -56,15 +56,15 @@ class SignUpViewModel @Inject constructor(
     }
     private fun signUp(signUpAccount: SignUpDTO){
         signUpState.value = SignUpState.Loading
-        coroutineScope.launch {
+        coroutineScope.launch(Dispatchers.Default) {
             val response = authRepository.signUp(signUpAccount)
             if (response.code()== 200) {
-                toastMessage.value = response.body()
-                signUpState.value = SignUpState.Verify
+                toastMessage.postValue(response.body())
+                signUpState.postValue(SignUpState.Verify)
             } else {
                 val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
-                toastMessage.value = jsonError.getString("message")
-                signUpState.value = SignUpState.Wait
+                toastMessage. postValue(jsonError.getString("message"))
+                signUpState.postValue( SignUpState.Wait)
             }
         }
     }
@@ -77,15 +77,15 @@ class SignUpViewModel @Inject constructor(
     }
     private fun resentConfirmEmail(email: String){
         signUpState.value = SignUpState.Loading
-        coroutineScope.launch {
+        coroutineScope.launch(Dispatchers.Default) {
             val response = authRepository.resentConfirmEmail(email)
             if (response.code()== 200) {
-                toastMessage.value = response.body()
-                signUpState.value = SignUpState.Wait
+                toastMessage.postValue(response.body())
+                signUpState.postValue(SignUpState.Verify)
             } else {
                 val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
-                toastMessage.value = jsonError.getString("message")
-                signUpState.value = SignUpState.Wait
+                toastMessage. postValue(jsonError.getString("message"))
+                signUpState.postValue( SignUpState.Wait)
             }
         }
     }

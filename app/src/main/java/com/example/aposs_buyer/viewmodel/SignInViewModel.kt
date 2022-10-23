@@ -47,34 +47,36 @@ class SignInViewModel @Inject constructor(
 
     private fun signIn(email: String, password: String) {
         loginState.value = LoginState.Loading
-        coroutineScope.launch {
+        coroutineScope.launch(Dispatchers.Default) {
             val response = authRepository.signIn(email, password)
             if (response.code() == 200) {
                 token = response.body()
-                loginState.value = LoginState.Success
-                toastMessage.value = "Login success"
+                loginState.postValue(LoginState.Success)
+                toastMessage.postValue("Login success")
             } else {
-                loginState.value = LoginState.Wait
+                loginState.postValue(LoginState.Wait)
                 val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
-                toastMessage.value = jsonError.getString("message")
+                toastMessage.postValue(jsonError.getString("message"))
             }
         }
     }
 
     fun signInWithSocialAccount(socialDTO: SignInWithSocialDTO) {
         loginState.value = LoginState.Loading
-        coroutineScope.launch {
+        coroutineScope.launch(Dispatchers.Default) {
             val response = authRepository.signInWithSocialAccount(socialDTO)
             if (response.code() == 200) {
                 token = response.body()
-                email.value = socialDTO.email
+                socialDTO.email?.let {
+                    email.postValue(it)
+                }
                 password.value = ""
-                loginState.value = LoginState.Success
-                toastMessage.value = "Login success"
+                loginState.postValue(LoginState.Success)
+                toastMessage.postValue("Login success")
             } else {
-                loginState.value = LoginState.Wait
+                loginState.postValue(LoginState.Wait)
                 val jsonError: JSONObject = JSONObject(response.errorBody()!!.string())
-                toastMessage.value = jsonError.getString("message")
+                toastMessage.postValue(jsonError.getString("message"))
             }
         }
     }
