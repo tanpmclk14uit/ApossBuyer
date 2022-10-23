@@ -4,9 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/aposs-buyer.iml" filepath="$PROJECT_DIR$/.idea/modules/aposs-buyer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/aposs-buyer.app.unitTest.iml" />
     </modules>
   </component>
 </project>
