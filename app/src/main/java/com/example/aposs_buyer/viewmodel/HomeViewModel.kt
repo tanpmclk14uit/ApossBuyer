@@ -1,6 +1,8 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,11 +18,13 @@ import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
 
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.N)
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val categoriesRepository: CategoriesRepository
@@ -66,7 +70,7 @@ class HomeViewModel @Inject constructor(
     fun loadProducts() {
         if (!isLastPage && _status.value != LoadingStatus.Loading) {
             _status.value = LoadingStatus.Loading
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val getProductDeferred =
                     productRepository.productService.getProductsAsync(currentPage)
                 try {
@@ -76,17 +80,16 @@ class HomeViewModel @Inject constructor(
                         .collect(
                             Collectors.toList()
                         )
-                    _products.value =
-                        Converter.concatenate(_products.value!!, productsInCurrentPage)
+                    _products.postValue(Converter.concatenate(_products.value!!, productsInCurrentPage))
                     if (productResponseDTO.last) {
                         isLastPage = true
                     } else {
                         currentPage++
                     }
-                    _status.value = LoadingStatus.Success
+                    _status.postValue(LoadingStatus.Success)
                 } catch (e: Exception) {
                     Log.d("exception", e.toString())
-                    _status.value = LoadingStatus.Fail
+                    _status.postValue(LoadingStatus.Fail)
                 }
             }
         }
@@ -94,35 +97,34 @@ class HomeViewModel @Inject constructor(
 
     private fun loadAllCategories() {
         _categoryStatus.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val allCategoriesResponse = categoriesRepository.loadALlCategories()
                 if (allCategoriesResponse.isSuccessful) {
-                    _categories.value =
+                    _categories.postValue(
                         ArrayList(allCategoriesResponse.body()!!.stream().map {
                             Converter.convertDetailCategoryDTOToCategory(it)
-                        }.collect(Collectors.toList()))
-                    _categoryStatus.value = LoadingStatus.Success
+                        }.collect(Collectors.toList())))
+                    _categoryStatus.postValue(LoadingStatus.Success)
                 } else {
-                    _categoryStatus.value = LoadingStatus.Fail
+                    _categoryStatus.postValue(LoadingStatus.Fail)
                 }
-
             } catch (e: java.lang.Exception) {
                 Log.e("exception", e.toString())
-                _categoryStatus.value = LoadingStatus.Fail
+                _categoryStatus.postValue(LoadingStatus.Fail)
             }
         }
     }
 
     private fun loadRankingData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             val rakingProductResponse = productRepository.loadRakingProduct()
             if (rakingProductResponse.isSuccessful) {
-                _rankingProducts.value = rakingProductResponse.body()!!.content.map { productDTO ->
+                _rankingProducts.postValue(rakingProductResponse.body()!!.content.map { productDTO ->
                     mapProductToRankingProduct(productDTO)
-                }.toList()
+                }.toList())
             } else {
-                _rankingProducts.value = mutableListOf()
+                _rankingProducts.postValue(mutableListOf())
             }
         }
     }

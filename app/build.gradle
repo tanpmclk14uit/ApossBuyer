@@ -110,5 +110,6 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$roomVersion")
 
-
+    // debuging memory leak
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 }

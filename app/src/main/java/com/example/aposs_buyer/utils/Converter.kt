@@ -1,5 +1,7 @@
 package com.example.aposs_buyer.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.aposs_buyer.model.Category
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.Image
@@ -10,6 +12,7 @@ import com.example.aposs_buyer.model.dto.ProductDTO
 import java.text.DecimalFormat
 import java.util.stream.Collectors
 
+@RequiresApi(Build.VERSION_CODES.N)
 object Converter {
     fun convertProductDTOtoHomeProduct(productDTO: ProductDTO): HomeProduct {
         return HomeProduct(
@@ -48,6 +51,7 @@ object Converter {
         }
         return result
     }
+
 
     fun convertFromKindDTOToKind(kindDTO: KindDTO): Kind {
         val listHomeProduct = kindDTO.products.stream().map { productDTO ->
