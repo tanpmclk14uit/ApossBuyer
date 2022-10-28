@@ -16,6 +16,7 @@ import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import java.net.SocketTimeoutException
 import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -52,6 +53,7 @@ class CartViewModel @Inject constructor(
 
     fun loadCartList() {
         viewModelScope.launch(Dispatchers.IO) {
+            try {
             loadingStatus.postValue(LoadingStatus.Loading)
             val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
             if (!currentAccessToken.isNullOrBlank()) {
@@ -61,9 +63,11 @@ class CartViewModel @Inject constructor(
                     cartItemsDTO = allCartItemsResponse.body()!!
                     _lstCartItem.postValue(cartItemsDTO.stream().map {
                         toCartItem(it)
-                    }.collect(Collectors.toList()).toCollection(ArrayList()) )
+                    }.collect(Collectors.toList()).toCollection(ArrayList()))
                     loadingStatus.postValue(LoadingStatus.Success)
-                    _choseList.postValue(getChoseCartItems())
+                    withContext(Dispatchers.Main) {
+                        _choseList.postValue(getChoseCartItems())
+                    }
                     trackingEnableCheckOutButton()
                     total = calculateTotal()
                     totalCurrency.postValue(Converter.convertFromIntToCurrencyString(total))
@@ -76,6 +80,14 @@ class CartViewModel @Inject constructor(
                             loadingStatus.postValue(LoadingStatus.Fail)
                         }
                     }
+                }
+            }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadCartList()
+                } else {
+                    Log.i("CartViewModel: ", e.stackTraceToString())
+                    loadingStatus.postValue(LoadingStatus.Fail)
                 }
             }
         }

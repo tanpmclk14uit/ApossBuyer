@@ -54,7 +54,7 @@ class AddressViewModel @Inject constructor(
 
     fun addNewAddress() {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
-        loadingStatus.value = LoadingStatus.Loading
+        loadingStatus.postValue(LoadingStatus.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -86,7 +86,7 @@ class AddressViewModel @Inject constructor(
 
     fun onUpdateAddress() {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
-        loadingStatus.value = LoadingStatus.Loading
+        loadingStatus.postValue(LoadingStatus.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -117,7 +117,7 @@ class AddressViewModel @Inject constructor(
     }
 
     fun deleteDeliveryAddress() {
-        loadingStatus.value = LoadingStatus.Loading
+        loadingStatus.postValue(LoadingStatus.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -178,9 +178,9 @@ class AddressViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val response = deliveryAddressRepository.getAllProvince()
             try {
-                listProvince.postValue(response.body()!!.stream().map {
+                listProvince.postValue(response.body()?.stream()?.map {
                     Province(it.id, it.name)
-                }.collect(Collectors.toList()))
+                }?.collect(Collectors.toList()) ?: mutableListOf())
             } catch (e: Exception) {
                 Log.e("Address", e.message!!)
             }
@@ -192,9 +192,9 @@ class AddressViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val response = deliveryAddressRepository.getAllDistrictOfProvinceById(provinceId)
             try {
-                listDistrict.postValue(response.body()!!.stream().map {
+                listDistrict.postValue(response.body()?.stream()?.map {
                     District(it.id, it.name, it.province)
-                }.collect(Collectors.toList()))
+                }?.collect(Collectors.toList()) ?: mutableListOf())
             } catch (e: Exception) {
                 Log.e("Exception", e.toString())
             }
@@ -206,9 +206,9 @@ class AddressViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val response = deliveryAddressRepository.getAllWardsOfDistrictById(districtId)
             try {
-                listWard.postValue(response.body()!!.stream().map {
+                listWard.postValue(response.body()?.stream()?.map {
                     Ward(it.id, it.name, it.district)
-                }.collect(Collectors.toList()))
+                }?.collect(Collectors.toList()) ?: mutableListOf())
             } catch (e: Exception) {
                 Log.e("Exception", e.message!!)
             }
@@ -217,8 +217,8 @@ class AddressViewModel @Inject constructor(
 
 
     fun loadUserAddress() {
-        listAddress.value = mutableListOf()
-        status.value = LoadingStatus.Loading
+        listAddress.postValue(mutableListOf())
+        status.postValue(LoadingStatus.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
@@ -229,9 +229,9 @@ class AddressViewModel @Inject constructor(
                         )
                     if (response.isSuccessful) {
                         val listDeliveryAddressDTO = response.body()
-                        listAddress.postValue(listDeliveryAddressDTO!!.stream().map {
+                        listAddress.postValue(listDeliveryAddressDTO?.stream()?.map {
                             convertDeliveryAddressDTOToAddress(it)
-                        }.collect(Collectors.toList()))
+                        }?.collect(Collectors.toList()) ?: mutableListOf())
                         status.postValue(LoadingStatus.Success)
                     } else {
                         if (response.code() == 401) {
@@ -243,7 +243,6 @@ class AddressViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 if (e is SocketTimeoutException) {
-                    delay(1000)
                     loadUserAddress()
                 } else {
                     status.postValue(LoadingStatus.Fail)

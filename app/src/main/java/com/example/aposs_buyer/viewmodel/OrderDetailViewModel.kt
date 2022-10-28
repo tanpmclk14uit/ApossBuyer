@@ -14,6 +14,7 @@ import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
@@ -72,10 +73,9 @@ class OrderDetailViewModel @Inject constructor(
     }
 
     fun changeAddress(newAddress: String) {
-        runBlocking {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val accessToken = authRepository.getCurrentAccessTokenFromRoom()
-                changeAddressStatus.value = LoadingStatus.Loading
+                changeAddressStatus.postValue(LoadingStatus.Loading)
                 if (!accessToken.isNullOrBlank()) {
                     val response = orderRepository.changeOrderAddress(
                         _detailOrder.value!!.id,
@@ -83,24 +83,23 @@ class OrderDetailViewModel @Inject constructor(
                         accessToken
                     )
                     if (response.isSuccessful) {
-                        changeAddressStatus.value = LoadingStatus.Success
+                        changeAddressStatus.postValue(LoadingStatus.Success)
                         _detailOrder.value!!.address = newAddress
                     } else {
                         if (response.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 changeAddress(newAddress)
                             } else {
-                                changeAddressStatus.value = LoadingStatus.Fail
+                                changeAddressStatus.postValue(LoadingStatus.Fail)
                             }
                         } else {
-                            changeAddressStatus.value = LoadingStatus.Fail
+                            changeAddressStatus.postValue(LoadingStatus.Fail)
                         }
                     }
                 } else {
-                    changeAddressStatus.value = LoadingStatus.Fail
+                    changeAddressStatus.postValue(LoadingStatus.Fail)
                 }
             }
-        }
     }
 
     private fun loadOrderDeliveringState(id: Long): ArrayList<OrderDeliveringState> {
@@ -114,26 +113,26 @@ class OrderDetailViewModel @Inject constructor(
 
     fun receivedOrder() {
         _loadStatus.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val token = authRepository.getCurrentAccessTokenFromRoom()
             if (!token.isNullOrBlank()) {
                 val response =
                     orderRepository.putOrderStatusToSuccess(detailOrder.value!!.id, token)
                 if (response.isSuccessful) {
-                    _loadStatus.value = LoadingStatus.Success
+                    _loadStatus.postValue(LoadingStatus.Success)
                 } else {
                     if (response.code() == 401) {
                         if (authRepository.loadNewAccessTokenSuccess()) {
                             receivedOrder()
                         } else {
-                            _loadStatus.value = LoadingStatus.Fail
+                            _loadStatus.postValue(LoadingStatus.Fail)
                         }
                     } else {
-                        _loadStatus.value = LoadingStatus.Fail
+                        _loadStatus.postValue(LoadingStatus.Fail)
                     }
                 }
             } else {
-                _loadStatus.value = LoadingStatus.Fail
+                _loadStatus.postValue(LoadingStatus.Fail)
             }
         }
     }

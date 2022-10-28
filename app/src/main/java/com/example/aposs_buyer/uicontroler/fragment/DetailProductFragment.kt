@@ -42,7 +42,7 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
             DataBindingUtil.inflate(inflater, R.layout.fragment_detail_product, container, false)
         val selectedProductId: Long = args.id
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
         if (selectedProductId != -1L) {
             viewModel.setSelectedProductId(selectedProductId)
         }

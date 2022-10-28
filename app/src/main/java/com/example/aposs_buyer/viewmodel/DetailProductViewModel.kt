@@ -17,6 +17,7 @@ import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import java.net.SocketTimeoutException
 import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -110,22 +111,30 @@ class DetailProductViewModel @Inject constructor(
     }
 
     private suspend fun loadDefaultAddress(): Address? {
-        val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
-        if (!currentAccessToken.isNullOrBlank()) {
-            val defaultAddressResponse =
-                deliveryAddressRepository.getUserDefaultAddress(
-                    currentAccessToken
-                )
-            if (defaultAddressResponse.isSuccessful) {
-                val defaultAddressDTOResponseBody = defaultAddressResponse.body()
-                val defaultAddressDTO = defaultAddressDTOResponseBody!!
-                return convertDeliveryAddressDTOToAddress(defaultAddressDTO)
-            } else {
-                if (defaultAddressResponse.code() == 401) {
-                    if (authRepository.loadNewAccessTokenSuccess()) {
-                        loadDefaultAddress()
+        try {
+            val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
+            if (!currentAccessToken.isNullOrBlank()) {
+                val defaultAddressResponse =
+                    deliveryAddressRepository.getUserDefaultAddress(
+                        currentAccessToken
+                    )
+                if (defaultAddressResponse.isSuccessful) {
+                    val defaultAddressDTOResponseBody = defaultAddressResponse.body()
+                    val defaultAddressDTO = defaultAddressDTOResponseBody!!
+                    return convertDeliveryAddressDTOToAddress(defaultAddressDTO)
+                } else {
+                    if (defaultAddressResponse.code() == 401) {
+                        if (authRepository.loadNewAccessTokenSuccess()) {
+                            loadDefaultAddress()
+                        }
                     }
                 }
+            }
+        } catch (e: Exception) {
+            if (e is SocketTimeoutException) {
+                loadDefaultAddress()
+            } else {
+                Log.d("DetailProductViewModel", e.stackTraceToString())
             }
         }
         return null
@@ -299,6 +308,7 @@ class DetailProductViewModel @Inject constructor(
         propertyIds: List<Long>
     ) {
         viewModelScope.launch(Dispatchers.IO) {
+            try {
             val quantityResponse =
                 productRepository.getQuantityOfProductByProductIdAndPropertyValues(
                     productId,
@@ -310,6 +320,13 @@ class DetailProductViewModel @Inject constructor(
                     if (selectedProductQuantities.value!! < cartAmount.value!!) {
                         cartAmount.value = selectedProductQuantities.value
                     }
+                }
+            }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadQuantityOfProductByProductIdAndListProperty(productId, propertyIds)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
                 }
             }
         }
@@ -352,16 +369,24 @@ class DetailProductViewModel @Inject constructor(
         propertyIds: List<Long>
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val additionalPriceResponse =
-                productRepository.getAdditionalPriceOfPropertyValuesAndProductId(
-                    productId,
-                    propertyIds
-                )
-            if (additionalPriceResponse.isSuccessful) {
-                currentAdditionalPrice = additionalPriceResponse.body()!!
-                selectedProductPrice.postValue(
-                    Converter.convertFromIntToCurrencyString(selectedProduct.value!!.price + currentAdditionalPrice)
-                )
+            try {
+                val additionalPriceResponse =
+                    productRepository.getAdditionalPriceOfPropertyValuesAndProductId(
+                        productId,
+                        propertyIds
+                    )
+                if (additionalPriceResponse.isSuccessful) {
+                    currentAdditionalPrice = additionalPriceResponse.body()!!
+                    selectedProductPrice.postValue(
+                        Converter.convertFromIntToCurrencyString(selectedProduct.value!!.price + currentAdditionalPrice)
+                    )
+                }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadPriceOfProductByProductIdAndListProperty(productId, propertyIds)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
+                }
             }
         }
     }
@@ -424,30 +449,46 @@ class DetailProductViewModel @Inject constructor(
     private fun loadProductRatingById(id: Long) {
         productRatingLoadingState.postValue(LoadingStatus.Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            val ratingResponseDTO = productRepository.loadProductRatingById(id)
-            if (ratingResponseDTO.isSuccessful) {
-                _selectedProductRating.postValue(
-                    ratingResponseDTO.body()!!.stream().map {
-                        mapToProductRating(it!!)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
-                )
-                productRatingLoadingState.postValue(LoadingStatus.Success)
-            } else {
-                productRatingLoadingState.postValue(LoadingStatus.Fail)
+            try {
+                val ratingResponseDTO = productRepository.loadProductRatingById(id)
+                if (ratingResponseDTO.isSuccessful) {
+                    _selectedProductRating.postValue(
+                        ratingResponseDTO.body()!!.stream().map {
+                            mapToProductRating(it!!)
+                        }.collect(Collectors.toList()).toCollection(ArrayList())
+                    )
+                    productRatingLoadingState.postValue(LoadingStatus.Success)
+                } else {
+                    productRatingLoadingState.postValue(LoadingStatus.Fail)
+                }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadProductRatingById(id)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
+                }
             }
         }
     }
 
     private fun loadProductsByKind(kindId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val productByKindIdResponseDTO = productRepository.loadProductByKindId(kindId)
-            if (productByKindIdResponseDTO.isSuccessful) {
-                if (productByKindIdResponseDTO.body() != null) {
-                    _sameKindProducts.postValue(
-                        productByKindIdResponseDTO.body()!!.content.stream().map {
-                            mapToHomeProduct(it!!)
-                        }.collect(Collectors.toList()).toCollection(ArrayList())
-                    )
+            try {
+                val productByKindIdResponseDTO = productRepository.loadProductByKindId(kindId)
+                if (productByKindIdResponseDTO.isSuccessful) {
+                    if (productByKindIdResponseDTO.body() != null) {
+                        _sameKindProducts.postValue(
+                            productByKindIdResponseDTO.body()!!.content.stream().map {
+                                mapToHomeProduct(it!!)
+                            }.collect(Collectors.toList()).toCollection(ArrayList())
+                        )
+                    }
+                }
+            } catch (e : Exception) {
+                if (e is SocketTimeoutException) {
+                    loadProductsByKind(kindId)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
                 }
             }
         }
@@ -466,13 +507,21 @@ class DetailProductViewModel @Inject constructor(
 
     private fun loadSelectedProductColorPropertyById(id: Long, productQuantity: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val productStringResponseDTO = productRepository.loadProductColorPropertyById(id)
-            if (productStringResponseDTO.isSuccessful) {
-                _selectedProductColorProperty.postValue(
-                    productStringResponseDTO.body()!!.stream().map {
-                        mapToProperty(it!!, productQuantity)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
-                )
+            try {
+                val productStringResponseDTO = productRepository.loadProductColorPropertyById(id)
+                if (productStringResponseDTO.isSuccessful) {
+                    _selectedProductColorProperty.postValue(
+                        productStringResponseDTO.body()!!.stream().map {
+                            mapToProperty(it!!, productQuantity)
+                        }.collect(Collectors.toList()).toCollection(ArrayList())
+                    )
+                }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadSelectedProductColorPropertyById(id, productQuantity)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
+                }
             }
         }
     }
@@ -508,19 +557,28 @@ class DetailProductViewModel @Inject constructor(
 
     private fun loadSelectedProductStringPropertyById(id: Long, productQuantity: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val productStringResponseDTO = productRepository.loadProductStringPropertyById(id)
-            if (productStringResponseDTO.isSuccessful) {
-                _selectedProductStringProperty.postValue(
-                    productStringResponseDTO.body()!!
-                        .filter { productPropertyDTO -> productPropertyDTO.id != 0L }.stream().map {
-                            mapToProperty(it!!, productQuantity)
-                        }.collect(Collectors.toList()).toCollection(ArrayList())
-                )
-                val productPropertyDTO = productStringResponseDTO.body()!!
-                    .find { productPropertyDTO -> productPropertyDTO.id == 0L }
-                if (productPropertyDTO != null) {
-                    productNature = productPropertyDTO.valueDTOS[0].name
-                    productDefaultId = productPropertyDTO.valueDTOS[0].id
+            try {
+                val productStringResponseDTO = productRepository.loadProductStringPropertyById(id)
+                if (productStringResponseDTO.isSuccessful) {
+                    _selectedProductStringProperty.postValue(
+                        productStringResponseDTO.body()!!
+                            .filter { productPropertyDTO -> productPropertyDTO.id != 0L }.stream()
+                            .map {
+                                mapToProperty(it!!, productQuantity)
+                            }.collect(Collectors.toList()).toCollection(ArrayList())
+                    )
+                    val productPropertyDTO = productStringResponseDTO.body()!!
+                        .find { productPropertyDTO -> productPropertyDTO.id == 0L }
+                    if (productPropertyDTO != null) {
+                        productNature = productPropertyDTO.valueDTOS[0].name
+                        productDefaultId = productPropertyDTO.valueDTOS[0].id
+                    }
+                }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadSelectedProductStringPropertyById(id, productQuantity)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
                 }
             }
         }
@@ -544,43 +602,51 @@ class DetailProductViewModel @Inject constructor(
     private fun loadSelectedProductById(id: Long) {
         productDetailLoadingState.value = LoadingStatus.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            val productResponse = productRepository.loadProductById(id)
-            if (productResponse.isSuccessful) {
-                withContext(Dispatchers.Main) {
-                    _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
-                    _selectedProduct.value?.availableQuantities.let {
-                        _selectedProductQuantities.value = it
-                    }
-                    selectedProductPrice.postValue(
-                        _selectedProduct.value?.price?.let {
-                            Converter.convertFromIntToCurrencyString(
+            try {
+                val productResponse = productRepository.loadProductById(id)
+                if (productResponse.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        _selectedProduct.value = mapToProductDetail(productResponse.body()!!, id)
+                        _selectedProduct.value?.availableQuantities.let {
+                            _selectedProductQuantities.value = it
+                        }
+                        selectedProductPrice.postValue(
+                            _selectedProduct.value?.price?.let {
+                                Converter.convertFromIntToCurrencyString(
+                                    it
+                                )
+                            }
+                        )
+                        loadProductsByKind(productResponse.body()!!.kindId)
+                        if (_selectedProduct.value?.totalReview != 0) {
+                            loadProductRatingById(selectedProductId)
+                        } else {
+                            _selectedProductRating.value = ArrayList()
+                            productRatingLoadingState.value = LoadingStatus.Success
+                        }
+                        _selectedProduct.value?.availableQuantities?.let {
+                            loadSelectedProductStringPropertyById(
+                                selectedProductId,
                                 it
                             )
                         }
-                    )
-                    loadProductsByKind(productResponse.body()!!.kindId)
-                    if (_selectedProduct.value?.totalReview != 0) {
-                        loadProductRatingById(selectedProductId)
-                    } else {
-                        _selectedProductRating.value  = ArrayList()
-                        productRatingLoadingState.value = LoadingStatus.Success
+                        _selectedProduct.value?.availableQuantities?.let {
+                            loadSelectedProductColorPropertyById(
+                                selectedProductId,
+                                it
+                            )
+                        }
                     }
-                    _selectedProduct.value?.availableQuantities?.let {
-                        loadSelectedProductStringPropertyById(
-                            selectedProductId,
-                            it
-                        )
-                    }
-                    _selectedProduct.value?.availableQuantities?.let {
-                        loadSelectedProductColorPropertyById(
-                            selectedProductId,
-                            it
-                        )
-                    }
+                    productDetailLoadingState.postValue(LoadingStatus.Success)
+                } else {
+                    productDetailLoadingState.postValue(LoadingStatus.Fail)
                 }
-                productDetailLoadingState.postValue(LoadingStatus.Success)
-            } else {
-                productDetailLoadingState.postValue(LoadingStatus.Fail)
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadSelectedProductById(id)
+                } else {
+                    Log.d("DetailProductViewModel", e.stackTraceToString())
+                }
             }
         }
     }

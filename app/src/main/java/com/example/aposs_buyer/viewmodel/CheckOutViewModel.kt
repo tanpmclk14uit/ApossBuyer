@@ -12,6 +12,7 @@ import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -33,9 +34,8 @@ class CheckOutViewModel @Inject constructor(
     }
 
     fun addNewOrder() {
-        runBlocking {
-            viewModelScope.launch {
-                checkOutStatus.value = LoadingStatus.Loading
+            viewModelScope.launch(Dispatchers.IO) {
+                checkOutStatus.postValue(LoadingStatus.Loading)
                 val accessToken = authRepository.getCurrentAccessTokenFromRoom()
                 if (!accessToken.isNullOrBlank()) {
                     val addNewOrderResponse = orderRepository.addNewOrder(
@@ -43,23 +43,22 @@ class CheckOutViewModel @Inject constructor(
                         accessToken
                     )
                     if (addNewOrderResponse.isSuccessful) {
-                        checkOutStatus.value = LoadingStatus.Success
+                        checkOutStatus.postValue(LoadingStatus.Success)
                     } else {
                         if (addNewOrderResponse.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 addNewOrder()
                             } else {
-                                checkOutStatus.value = LoadingStatus.Fail
+                                checkOutStatus.postValue(LoadingStatus.Fail)
                             }
                         } else {
-                            checkOutStatus.value = LoadingStatus.Fail
+                            checkOutStatus.postValue(LoadingStatus.Fail)
                         }
                     }
                 } else {
-                    checkOutStatus.value = LoadingStatus.Fail
+                    checkOutStatus.postValue(LoadingStatus.Fail)
                 }
             }
-        }
     }
 
     private fun convertBillingItemToOrderItemDTO(billingItem: OrderBillingItem): OrderItemDTO {

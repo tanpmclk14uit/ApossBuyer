@@ -97,9 +97,10 @@ class HomeViewModel @Inject constructor(
                     {
                         delay(1000)
                         loadProducts()
+                    } else {
+                        Log.d("exception", e.toString())
+                        _status.postValue(LoadingStatus.Fail)
                     }
-                    Log.d("exception", e.toString())
-                    _status.postValue(LoadingStatus.Fail)
                 }
             }
         }
@@ -124,9 +125,10 @@ class HomeViewModel @Inject constructor(
                 {
                     delay(1000)
                     loadAllCategories()
+                } else {
+                    Log.e("exception", e.toString())
+                    _categoryStatus.postValue(LoadingStatus.Fail)
                 }
-                Log.e("exception", e.toString())
-                _categoryStatus.postValue(LoadingStatus.Fail)
             }
         }
     }

@@ -9,6 +9,7 @@ import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -38,20 +39,20 @@ class KindViewModel @Inject constructor(
 
     private fun loadProductsByKind(kindId: Long) {
         status.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val productByKindIdResponseDTO = productRepository.loadProductByKindId(kindId)
             if (productByKindIdResponseDTO.isSuccessful) {
                 if (productByKindIdResponseDTO.body() != null) {
-                    _productsKind.value =
+                    _productsKind.postValue(
                         productByKindIdResponseDTO.body()!!.content.stream().map {
                             Converter.convertProductDTOtoHomeProduct(
                                 it
                             )
-                        }.collect(Collectors.toList()).toCollection(ArrayList())
-                    status.value = LoadingStatus.Success
+                        }.collect(Collectors.toList()).toCollection(ArrayList()))
+                    status.postValue(LoadingStatus.Success)
                 }
             } else {
-                status.value = LoadingStatus.Fail
+                status.postValue(LoadingStatus.Fail)
             }
         }
     }

@@ -3,6 +3,7 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.dto.SignUpDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
 import com.example.aposs_buyer.utils.LoginState
@@ -38,7 +39,7 @@ class SignUpViewModel @Inject constructor(
     var cellNumberErrorMessage: String? = ""
 
     private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Default)
 
 
     fun onSignUpClick() {
@@ -56,7 +57,7 @@ class SignUpViewModel @Inject constructor(
     }
     private fun signUp(signUpAccount: SignUpDTO){
         signUpState.value = SignUpState.Loading
-        coroutineScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default) {
             val response = authRepository.signUp(signUpAccount)
             if (response.code()== 200) {
                 toastMessage.postValue(response.body())

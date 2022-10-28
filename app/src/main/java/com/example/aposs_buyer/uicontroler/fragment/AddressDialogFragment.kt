@@ -151,8 +151,10 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 viewModel.loadDistrictsByProvinceId(province.id)
                 //clear old district value
                 binding?.actvDistrict?.setText("", false)
+                viewModel.listDistrict.value = mutableListOf()
                 //clear old ward value
                 binding?.actvWard?.setText("", false)
+                viewModel.listWard.value = mutableListOf()
                 // set address value
                 viewModel.newAddress.value!!.city = province
                 // tracking valid button
@@ -178,6 +180,7 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
                 viewModel.loadWardsByDistrictId(district.id)
                 //clear old ward value
                 binding?.actvWard?.setText("", false)
+                viewModel.listWard.value = mutableListOf()
                 //set address value
                 viewModel.newAddress.value!!.district = district
                 // tracking valid button

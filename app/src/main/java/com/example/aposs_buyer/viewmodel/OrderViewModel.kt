@@ -14,6 +14,7 @@ import com.example.aposs_buyer.responsitory.OrderRepository
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -37,29 +38,29 @@ class OrderViewModel @Inject constructor(
 
     fun getAllOrderByStatus(orderStatus: OrderStatus) {
         _orders.value!!.clear()
-        viewModelScope.launch {
-            _loadingStatus.value = LoadingStatus.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingStatus.postValue(LoadingStatus.Loading)
             val token = authRepository.getCurrentAccessTokenFromRoom()
             if (!token.isNullOrBlank()) {
                 val responseOrders =
                     orderRepository.getAllOrdersByStatusAndUserToken(orderStatus, token)
                 if (responseOrders.isSuccessful) {
-                    _orders.value = responseOrders.body()!!.stream().map { convertToOrder(it) }
-                        .collect(Collectors.toList())
-                    _loadingStatus.value = LoadingStatus.Success
+                    _orders.postValue(responseOrders.body()!!.stream().map { convertToOrder(it) }
+                        .collect(Collectors.toList()))
+                    _loadingStatus.postValue(LoadingStatus.Success)
                 } else {
                     if (responseOrders.code() == 401) {
                         if (authRepository.loadNewAccessTokenSuccess()) {
                             getAllOrderByStatus(orderStatus)
                         } else {
-                            _loadingStatus.value = LoadingStatus.Fail
+                            _loadingStatus.postValue(LoadingStatus.Fail)
                         }
                     } else {
-                        _loadingStatus.value = LoadingStatus.Fail
+                        _loadingStatus.postValue(LoadingStatus.Fail)
                     }
                 }
             } else {
-                _loadingStatus.value = LoadingStatus.Fail
+                _loadingStatus.postValue(LoadingStatus.Fail)
             }
         }
     }
