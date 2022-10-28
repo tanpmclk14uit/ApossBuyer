@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.HomeProduct
 import com.example.aposs_buyer.model.dto.ProductResponseDTO
 import com.example.aposs_buyer.responsitory.ProductRepository
@@ -51,18 +52,18 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         if (!isLastPage){
             setSort()
             _status.value = LoadingStatus.Loading;
-            coroutineScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val lstProductDeferred = productRepository.productService.getProductsByKeywordAsync(curentKeyWord.value!!, currentPage, sortBy, sortDir)
                 try {
                     val productResponseDTO: ProductResponseDTO = lstProductDeferred.await()
                     val lstResultCurrentPage = productResponseDTO.content.stream().map {
                         Converter.convertProductDTOtoHomeProduct(it)
                     }.collect(Collectors.toList())
-                    listForDisplay.value = mutableListOf()
-                        listForDisplay.value = Converter.concatenateMutable(
+                    listForDisplay.postValue(mutableListOf())
+                        listForDisplay.postValue(Converter.concatenateMutable(
                             listForDisplay.value!!,
-                            lstResultCurrentPage)
-                    _status.value = LoadingStatus.Success
+                            lstResultCurrentPage) )
+                    _status.postValue(LoadingStatus.Success)
                     if (productResponseDTO.last) {
                         isLastPage = true
                     } else {
@@ -72,7 +73,7 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
                 catch (e: Exception)
                 {
                     Log.e("Exception", e.toString())
-                    _status.value = LoadingStatus.Fail
+                    _status.postValue(LoadingStatus.Fail)
                 }
             }
         }

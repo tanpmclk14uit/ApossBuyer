@@ -17,7 +17,10 @@ import com.example.aposs_buyer.responsitory.DeliveryAddressRepository
 import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.StringValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import java.util.stream.Collectors
 import javax.inject.Inject
 
@@ -51,8 +54,8 @@ class AddressViewModel @Inject constructor(
 
     fun addNewAddress() {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
-        loadingStatus.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        loadingStatus.postValue(LoadingStatus.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
                 if (token != null) {
@@ -62,20 +65,20 @@ class AddressViewModel @Inject constructor(
                             deliveryAddressDTO
                         )
                     if (response.isSuccessful) {
-                        loadingStatus.value = LoadingStatus.Success
+                        loadingStatus.postValue(LoadingStatus.Success)
                         loadUserAddress()
                     } else {
                         if (response.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 addNewAddress()
                             } else {
-                                loadingStatus.value = LoadingStatus.Fail
+                                loadingStatus.postValue(LoadingStatus.Fail)
                             }
                         }
                     }
                 }
             } catch (e: Exception) {
-                loadingStatus.value = LoadingStatus.Fail
+                loadingStatus.postValue(LoadingStatus.Fail)
                 Log.e("Exception", e.toString())
             }
         }
@@ -83,8 +86,8 @@ class AddressViewModel @Inject constructor(
 
     fun onUpdateAddress() {
         val deliveryAddressDTO = convertAddressToDeliveryAddressDTO(newAddress.value!!)
-        loadingStatus.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        loadingStatus.postValue(LoadingStatus.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
                 if (token != null) {
@@ -94,28 +97,28 @@ class AddressViewModel @Inject constructor(
                             deliveryAddressDTO
                         )
                     if (response.isSuccessful) {
-                        loadingStatus.value = LoadingStatus.Success
+                        loadingStatus.postValue(LoadingStatus.Success)
                         loadUserAddress()
                     } else {
-                        if (response.code() == 401) {
+                        if (response.code() == 401 || response.code() == 502) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 onUpdateAddress()
                             } else {
-                                loadingStatus.value = LoadingStatus.Fail
+                                loadingStatus.postValue(LoadingStatus.Fail)
                             }
                         }
                     }
                 }
             } catch (e: Exception) {
-                loadingStatus.value = LoadingStatus.Fail
+                loadingStatus.postValue(LoadingStatus.Fail)
                 Log.e("Exception", e.toString())
             }
         }
     }
 
     fun deleteDeliveryAddress() {
-        loadingStatus.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        loadingStatus.postValue(LoadingStatus.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
                 if (token != null) {
@@ -125,20 +128,20 @@ class AddressViewModel @Inject constructor(
                             currentAddress.id
                         )
                     if (response.isSuccessful) {
-                        loadingStatus.value = LoadingStatus.Success
+                        loadingStatus.postValue(LoadingStatus.Success)
                         loadUserAddress()
                     } else {
-                        if (response.code() == 401) {
+                        if (response.code() == 401 || response.code() == 502) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
                                 deleteDeliveryAddress()
                             } else {
-                                loadingStatus.value = LoadingStatus.Fail
+                                loadingStatus.postValue(LoadingStatus.Fail)
                             }
                         }
                     }
                 }
             } catch (e: Exception) {
-                loadingStatus.value = LoadingStatus.Fail
+                loadingStatus.postValue(LoadingStatus.Fail)
                 Log.e("Exception", e.toString())
             }
         }
@@ -172,12 +175,12 @@ class AddressViewModel @Inject constructor(
     }
 
     private fun loadProvince() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val response = deliveryAddressRepository.getAllProvince()
             try {
-                listProvince.value = response.body()!!.stream().map {
+                listProvince.postValue(response.body()?.stream()?.map {
                     Province(it.id, it.name)
-                }.collect(Collectors.toList())
+                }?.collect(Collectors.toList()) ?: mutableListOf())
             } catch (e: Exception) {
                 Log.e("Address", e.message!!)
             }
@@ -186,12 +189,12 @@ class AddressViewModel @Inject constructor(
 
     fun loadDistrictsByProvinceId(provinceId: Long) {
         listDistrict.value!!.clear()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val response = deliveryAddressRepository.getAllDistrictOfProvinceById(provinceId)
             try {
-                listDistrict.value = response.body()!!.stream().map {
+                listDistrict.postValue(response.body()?.stream()?.map {
                     District(it.id, it.name, it.province)
-                }.collect(Collectors.toList())
+                }?.collect(Collectors.toList()) ?: mutableListOf())
             } catch (e: Exception) {
                 Log.e("Exception", e.toString())
             }
@@ -200,12 +203,12 @@ class AddressViewModel @Inject constructor(
 
     fun loadWardsByDistrictId(districtId: Long) {
         listWard.value!!.clear()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val response = deliveryAddressRepository.getAllWardsOfDistrictById(districtId)
             try {
-                listWard.value = response.body()!!.stream().map {
+                listWard.postValue(response.body()?.stream()?.map {
                     Ward(it.id, it.name, it.district)
-                }.collect(Collectors.toList())
+                }?.collect(Collectors.toList()) ?: mutableListOf())
             } catch (e: Exception) {
                 Log.e("Exception", e.message!!)
             }
@@ -214,9 +217,9 @@ class AddressViewModel @Inject constructor(
 
 
     fun loadUserAddress() {
-        listAddress.value = mutableListOf()
-        status.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        listAddress.postValue(mutableListOf())
+        status.postValue(LoadingStatus.Loading)
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = authRepository.getCurrentAccessTokenFromRoom()
                 if (token != null) {
@@ -226,10 +229,10 @@ class AddressViewModel @Inject constructor(
                         )
                     if (response.isSuccessful) {
                         val listDeliveryAddressDTO = response.body()
-                        listAddress.value = listDeliveryAddressDTO!!.stream().map {
+                        listAddress.postValue(listDeliveryAddressDTO?.stream()?.map {
                             convertDeliveryAddressDTOToAddress(it)
-                        }.collect(Collectors.toList())
-                        status.value = LoadingStatus.Success
+                        }?.collect(Collectors.toList()) ?: mutableListOf())
+                        status.postValue(LoadingStatus.Success)
                     } else {
                         if (response.code() == 401) {
                             if (authRepository.loadNewAccessTokenSuccess()) {
@@ -239,8 +242,12 @@ class AddressViewModel @Inject constructor(
                     }
                 }
             } catch (e: Exception) {
-                status.value = LoadingStatus.Fail
-                Log.e("Exception", e.toString())
+                if (e is SocketTimeoutException) {
+                    loadUserAddress()
+                } else {
+                    status.postValue(LoadingStatus.Fail)
+                    Log.e("Exception", e.toString())
+                }
             }
         }
     }

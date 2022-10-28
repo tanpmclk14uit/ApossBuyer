@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.aposs_buyer.databinding.FragmentProductDetailDialogListDialogBinding
 import com.example.aposs_buyer.model.Order
@@ -25,7 +26,10 @@ import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.viewmodel.DetailProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class ProductDetailDialogFragment : BottomSheetDialogFragment(),
@@ -91,21 +95,22 @@ class ProductDetailDialogFragment : BottomSheetDialogFragment(),
             if (checkValidPropertyProduct() && checkValidAmount()) {
 
                 loadingDialog.startLoading()
+                val context = this.context
                 if (dialogType == DialogType.CheckOutDialog) {
-                    val order: Order?
-                    runBlocking {
-                        order = viewModel.makeOrder()
-                    }
-                    loadingDialog.dismissDialog()
-                    val intent = Intent(this.context, CheckOutActivity::class.java)
-                    if (order != null) {
-                        intent.putExtra("order", order)
-                        startActivity(intent)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val order: Order? = viewModel.makeOrder()
+                        loadingDialog.dismissDialog()
+                        val intent = Intent(context, CheckOutActivity::class.java)
+                        if (order != null) {
+                            intent.putExtra("order", order)
+                            withContext(Dispatchers.Main)
+                            {
+                                startActivity(intent)
+                            }
+                        }
                     }
                 } else {
-                    runBlocking {
-                        viewModel.addNewCart()
-                    }
+                    viewModel.addNewCart()
                     loadingDialog.dismissDialog()
                     Toast.makeText(
                         requireContext(),

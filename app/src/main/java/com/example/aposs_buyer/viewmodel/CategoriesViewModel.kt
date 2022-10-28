@@ -11,7 +11,9 @@ import com.example.aposs_buyer.model.dto.DetailCategoryDTO
 import com.example.aposs_buyer.responsitory.CategoriesRepository
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import java.util.stream.Collectors
 import javax.inject.Inject
 
@@ -30,22 +32,27 @@ class CategoriesViewModel @Inject constructor(private val categoriesRepository: 
 
     private fun loadAllCategories() {
         status.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val allCategoriesResponse = categoriesRepository.loadALlCategories()
                 if (allCategoriesResponse.isSuccessful) {
-                    _lstCategory.value =
+                    _lstCategory.postValue(
                         allCategoriesResponse.body()?.stream()?.map { detailCategoryDTO ->
                             convertFromDetailCategoryDTOToDetailCategory(detailCategoryDTO)
-                        }?.collect(Collectors.toList())
-                    status.value = LoadingStatus.Success
+                        }?.collect(Collectors.toList()))
+                    status.postValue(LoadingStatus.Success)
                 } else {
-                    status.value = LoadingStatus.Fail
+                    status.postValue(LoadingStatus.Fail)
                 }
 
             } catch (e: Exception) {
-                Log.e("exception", e.toString())
-                status.value = LoadingStatus.Fail
+                if (e is SocketTimeoutException)
+                {
+                    loadAllCategories()
+                } else {
+                    Log.e("exception", e.toString())
+                    status.postValue(LoadingStatus.Fail)
+                }
             }
         }
     }

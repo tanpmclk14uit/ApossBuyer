@@ -1,6 +1,9 @@
 package com.example.aposs_buyer.viewmodel
 
+import android.content.Context
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,11 +19,16 @@ import com.example.aposs_buyer.responsitory.ProductRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import java.util.stream.Collectors
 import javax.inject.Inject
 
+private const val TAG = "HomeViewModel"
 @HiltViewModel
+@RequiresApi(Build.VERSION_CODES.N)
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository,
     private val categoriesRepository: CategoriesRepository
@@ -53,6 +61,7 @@ class HomeViewModel @Inject constructor(
     private var _categoryStatus = MutableLiveData<LoadingStatus>()
 
     init {
+        Log.d(TAG, "Created!")
         loadAllCategories()
         if (_categoryStatus.value == LoadingStatus.Success) {
             setUpDisplayCategory(0)
@@ -66,7 +75,7 @@ class HomeViewModel @Inject constructor(
     fun loadProducts() {
         if (!isLastPage && _status.value != LoadingStatus.Loading) {
             _status.value = LoadingStatus.Loading
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val getProductDeferred =
                     productRepository.productService.getProductsAsync(currentPage)
                 try {
@@ -76,17 +85,22 @@ class HomeViewModel @Inject constructor(
                         .collect(
                             Collectors.toList()
                         )
-                    _products.value =
-                        Converter.concatenate(_products.value!!, productsInCurrentPage)
+                    _products.postValue(Converter.concatenate(_products.value!!, productsInCurrentPage))
                     if (productResponseDTO.last) {
                         isLastPage = true
                     } else {
                         currentPage++
                     }
-                    _status.value = LoadingStatus.Success
+                    _status.postValue(LoadingStatus.Success)
                 } catch (e: Exception) {
-                    Log.d("exception", e.toString())
-                    _status.value = LoadingStatus.Fail
+                    if (e is SocketTimeoutException)
+                    {
+                        delay(1000)
+                        loadProducts()
+                    } else {
+                        Log.d("exception", e.toString())
+                        _status.postValue(LoadingStatus.Fail)
+                    }
                 }
             }
         }
@@ -94,35 +108,48 @@ class HomeViewModel @Inject constructor(
 
     private fun loadAllCategories() {
         _categoryStatus.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val allCategoriesResponse = categoriesRepository.loadALlCategories()
                 if (allCategoriesResponse.isSuccessful) {
-                    _categories.value =
+                    _categories.postValue(
                         ArrayList(allCategoriesResponse.body()!!.stream().map {
                             Converter.convertDetailCategoryDTOToCategory(it)
-                        }.collect(Collectors.toList()))
-                    _categoryStatus.value = LoadingStatus.Success
+                        }.collect(Collectors.toList())))
+                    _categoryStatus.postValue(LoadingStatus.Success)
                 } else {
-                    _categoryStatus.value = LoadingStatus.Fail
+                    _categoryStatus.postValue(LoadingStatus.Fail)
                 }
-
             } catch (e: java.lang.Exception) {
-                Log.e("exception", e.toString())
-                _categoryStatus.value = LoadingStatus.Fail
+                if (e is SocketTimeoutException)
+                {
+                    delay(1000)
+                    loadAllCategories()
+                } else {
+                    Log.e("exception", e.toString())
+                    _categoryStatus.postValue(LoadingStatus.Fail)
+                }
             }
         }
     }
 
     private fun loadRankingData() {
-        viewModelScope.launch {
-            val rakingProductResponse = productRepository.loadRakingProduct()
-            if (rakingProductResponse.isSuccessful) {
-                _rankingProducts.value = rakingProductResponse.body()!!.content.map { productDTO ->
-                    mapProductToRankingProduct(productDTO)
-                }.toList()
-            } else {
-                _rankingProducts.value = mutableListOf()
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val rakingProductResponse = productRepository.loadRakingProduct()
+                if (rakingProductResponse.isSuccessful) {
+                    _rankingProducts.postValue(rakingProductResponse.body()!!.content.map { productDTO ->
+                        mapProductToRankingProduct(productDTO)
+                    }.toList())
+                } else {
+                    _rankingProducts.postValue(mutableListOf())
+                }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException)
+                {
+                    delay(1000)
+                    loadRankingData()
+                }
             }
         }
     }

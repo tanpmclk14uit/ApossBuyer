@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PersonFragment : Fragment() {
 
-    private lateinit var binding: FragmentPersonBinding
+    private var binding: FragmentPersonBinding? = null
     private val viewModel: PersonViewModel by viewModels()
 
     override fun onCreateView(
@@ -30,32 +30,32 @@ class PersonFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_person, container, false)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        binding?.lifecycleOwner = this.viewLifecycleOwner
+        binding?.viewModel = viewModel
         val account = AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount()
         viewModel.isSignIn.value = account != null
         viewModel.isSignIn.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-                binding.lnNoAccount.visibility = View.GONE
-                binding.lnHavingAccount.visibility = View.VISIBLE
-                binding.userName.text = account!!.userName
+                binding?.lnNoAccount?.visibility = View.GONE
+                binding?.lnHavingAccount?.visibility = View.VISIBLE
+                binding?.userName?.text = account!!.userName
             } else {
-                binding.lnNoAccount.visibility = View.VISIBLE
-                binding.lnHavingAccount.visibility = View.GONE
+                binding?.lnNoAccount?.visibility = View.VISIBLE
+                binding?.lnHavingAccount?.visibility = View.GONE
             }
         })
-        binding.btnAddress.setOnClickListener {
+        binding?.btnAddress?.setOnClickListener {
             val intent = Intent(this.context, AddressActivity::class.java)
             startActivity(intent)
         }
-        binding.btnRating.setOnClickListener {
+        binding?.btnRating?.setOnClickListener {
             val intent = Intent(this.context, RatingActivity::class.java)
             startActivity(intent)
         }
-        binding.order.setOnClickListener {
+        binding?.order?.setOnClickListener {
             startActivity(Intent(this.context, OrderActivity::class.java))
         }
-        binding.signOut.setOnClickListener {
+        binding?.signOut?.setOnClickListener {
             val account =
                 AccountDatabase.getInstance(this.requireContext()).accountDao.getAccount()
             if (account != null) {
@@ -73,20 +73,24 @@ class PersonFragment : Fragment() {
             }
 
         }
-        binding.imgNotification.setOnClickListener {
+        binding?.imgNotification?.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)
             startActivity(intent)
         }
-        binding.lnEditInfo.setOnClickListener {
+        binding?.lnEditInfo?.setOnClickListener {
             val intent = Intent(this.context, UserDetailActivity::class.java)
             startActivity(intent)
         }
-        binding.signIn.setOnClickListener {
+        binding?.signIn?.setOnClickListener {
             startActivity(Intent(this.context, LoginActivity::class.java))
             requireActivity().finish()
         }
-        return binding.root
+        return binding?.root!!
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 
 }

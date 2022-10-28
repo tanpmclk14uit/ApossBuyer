@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
@@ -24,11 +25,11 @@ import com.example.aposs_buyer.viewmodel.AddressViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-
+private const val TAG = "AddressDialogFragment"
 @AndroidEntryPoint
 class AddressDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var binding: FragmentAddressDialogBinding
+    private var binding: FragmentAddressDialogBinding? = null
     private val viewModel: AddressViewModel by activityViewModels()
     private lateinit var provinceAdapter: ArrayAdapter<String>
     private lateinit var districtAdapter: ArrayAdapter<String>
@@ -41,8 +42,8 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_address_dialog, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding?.viewModel = viewModel
+        binding?.lifecycleOwner = this.viewLifecycleOwner
         setUpGenderAutomationText()
         setUpProvinceAutomationText()
         setUpDistrictAutomationText()
@@ -53,7 +54,12 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         doOnTextChange()
         // set up first state of dialog
         setUpFirstState()
-        return binding.root
+        return binding?.root!!
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     @SuppressLint("SetTextI18n")
@@ -63,35 +69,35 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
         if (currentAddress.id != -1L) {
             // edit address
             // set up gender check box
-            binding.actvGender.setText(
+            binding?.actvGender?.setText(
                 currentAddress.getGenderSmallString(),
                 false
             )
             //set up city automation text
-            binding.actvCity.setText(currentAddress.city.name, false)
+            binding?.actvCity?.setText(currentAddress.city.name, false)
             // set up district automation text
-            binding.actvDistrict.setText(currentAddress.district.name, false)
+            binding?.actvDistrict?.setText(currentAddress.district.name, false)
             viewModel.loadDistrictsByProvinceId(currentAddress.city.id)
             // set up ward automation text
-            binding.actvWard.setText(currentAddress.ward.name, false)
+            binding?.actvWard?.setText(currentAddress.ward.name, false)
             viewModel.loadWardsByDistrictId(currentAddress.district.id)
             //set up edit button
-            binding.buttonEdit.setOnClickListener {
+            binding?.buttonEdit?.setOnClickListener {
                 viewModel.onUpdateAddress()
                 this.dismiss()
             }
             //set up first state of "address default" check box
             viewModel.checkChange.value = currentAddress.isDefaultAddress
             // set up delete button
-            binding.btnDelete.setOnClickListener {
+            binding?.btnDelete?.setOnClickListener {
                 onOpenDeleteDialog()
             }
         } else {
             //create new address
             //set up gender first box
-            binding.actvGender.setText("Nam", false)
+            binding?.actvGender?.setText("Nam", false)
             // set up submit button
-            binding.submitButton.setOnClickListener {
+            binding?.submitButton?.setOnClickListener {
                 viewModel.addNewAddress()
                 this.dismiss()
             }
@@ -121,31 +127,34 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun setUpGenderAutomationText() {
         val genderList = listOf("Nam", "Nữ")
         val genderAdapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderList)
-        binding.actvGender.setAdapter(genderAdapter)
-        binding.actvGender.addTextChangedListener {
+        binding?.actvGender?.setAdapter(genderAdapter)
+        binding?.actvGender?.addTextChangedListener {
             viewModel.newAddress.value!!.setGenderFromString(it.toString())
             // tracking valid button
             viewModel.trackingValidInformation()
         }
+
     }
 
     private fun setUpProvinceAutomationText() {
         provinceAdapter = ArrayAdapter(requireContext(), R.layout.province_list_item, arrayListOf())
-        binding.actvCity.setAdapter(provinceAdapter)
+        binding?.actvCity?.setAdapter(provinceAdapter)
         // submit province data
         if (provinceAdapter.isEmpty) {
             provinceAdapter.addAll(viewModel.listProvince.value!!.map { province -> province.name })
         }
         // on user select province
-        binding.actvCity.doOnTextChanged { text, _, _, _ ->
+        binding?.actvCity?.doOnTextChanged { text, _, _, _ ->
             val province = viewModel.getProvinceFromName(text.toString())
             if (province.id != -1L) {
                 //load all districts of selected province
                 viewModel.loadDistrictsByProvinceId(province.id)
                 //clear old district value
-                binding.actvDistrict.setText("", false)
+                binding?.actvDistrict?.setText("", false)
+                viewModel.listDistrict.value = mutableListOf()
                 //clear old ward value
-                binding.actvWard.setText("", false)
+                binding?.actvWard?.setText("", false)
+                viewModel.listWard.value = mutableListOf()
                 // set address value
                 viewModel.newAddress.value!!.city = province
                 // tracking valid button
@@ -157,20 +166,21 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun setUpDistrictAutomationText() {
         // set up adapter
         districtAdapter = ArrayAdapter(requireContext(), R.layout.district_list_item, arrayListOf())
-        binding.actvDistrict.setAdapter(districtAdapter)
+        binding?.actvDistrict?.setAdapter(districtAdapter)
         // observe data
         viewModel.listDistrict.observe(viewLifecycleOwner) {
             districtAdapter.clear()
             districtAdapter.addAll(it.map { district -> district.name })
         }
         // on user select district
-        binding.actvDistrict.doOnTextChanged { text, _, _, _ ->
+        binding?.actvDistrict?.doOnTextChanged { text, _, _, _ ->
             val district = viewModel.getDistrictFromName(text.toString())
             if (district.id != -1L) {
                 // load all wards of selected district
                 viewModel.loadWardsByDistrictId(district.id)
                 //clear old ward value
-                binding.actvWard.setText("", false)
+                binding?.actvWard?.setText("", false)
+                viewModel.listWard.value = mutableListOf()
                 //set address value
                 viewModel.newAddress.value!!.district = district
                 // tracking valid button
@@ -182,14 +192,14 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
     private fun setUpWardAutomationText() {
         //set up adapter
         wardAdapter = ArrayAdapter(requireContext(), R.layout.ward_list_item, arrayListOf())
-        binding.actvWard.setAdapter(wardAdapter)
+        binding?.actvWard?.setAdapter(wardAdapter)
         // observe data
         viewModel.listWard.observe(viewLifecycleOwner) {
             wardAdapter.clear()
             wardAdapter.addAll(it.map { ward -> ward.name })
         }
         // on user select ward
-        binding.actvWard.doOnTextChanged { text, _, _, _ ->
+        binding?.actvWard?.doOnTextChanged { text, _, _, _ ->
             val ward = viewModel.getWardFromName(text.toString())
             if (ward.id != -1L) {
                 viewModel.newAddress.value!!.ward = ward
@@ -201,23 +211,23 @@ class AddressDialogFragment : BottomSheetDialogFragment() {
 
     private fun doOnTextChange() {
         // name edit text
-        binding.etName.doAfterTextChanged {
-            binding.etName.error = StringValidator.getNameError(it.toString())
+        binding?.etName?.doAfterTextChanged {
+            binding?.etName?.error = StringValidator.getNameError(it.toString())
             // tracking valid button
             viewModel.trackingValidInformation()
         }
         // phone edit text
-        binding.etPhone.doAfterTextChanged {
-            binding.etPhone.error = StringValidator.getPhoneNumberError(it.toString())
+        binding?.etPhone?.doAfterTextChanged {
+            binding?.etPhone?.error = StringValidator.getPhoneNumberError(it.toString())
             // tracking valid button
             viewModel.trackingValidInformation()
         }
         // address edit text
-        binding.etAddressLane.doAfterTextChanged {
+        binding?.etAddressLane?.doAfterTextChanged {
             if (it.toString().isBlank()) {
-                binding.etAddressLane.error = "Hãy cung cấp chi tiết địa chỉ!"
+                binding?.etAddressLane?.error = "Hãy cung cấp chi tiết địa chỉ!"
             } else {
-                binding.etAddressLane.error = null
+                binding?.etAddressLane?.error = null
             }
             // tracking valid button
             viewModel.trackingValidInformation()

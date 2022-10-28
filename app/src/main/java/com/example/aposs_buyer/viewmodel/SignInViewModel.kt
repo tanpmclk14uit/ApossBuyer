@@ -3,6 +3,7 @@ package com.example.aposs_buyer.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aposs_buyer.model.dto.SignInWithSocialDTO
 import com.example.aposs_buyer.model.dto.TokenDTO
 import com.example.aposs_buyer.responsitory.AuthRepository
@@ -47,7 +48,7 @@ class SignInViewModel @Inject constructor(
 
     private fun signIn(email: String, password: String) {
         loginState.value = LoginState.Loading
-        coroutineScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default) {
             val response = authRepository.signIn(email, password)
             if (response.code() == 200) {
                 token = response.body()
@@ -63,7 +64,7 @@ class SignInViewModel @Inject constructor(
 
     fun signInWithSocialAccount(socialDTO: SignInWithSocialDTO) {
         loginState.value = LoginState.Loading
-        coroutineScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default) {
             val response = authRepository.signInWithSocialAccount(socialDTO)
             if (response.code() == 200) {
                 token = response.body()

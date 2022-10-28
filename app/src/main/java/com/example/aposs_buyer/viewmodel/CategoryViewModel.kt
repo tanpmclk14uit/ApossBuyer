@@ -10,7 +10,9 @@ import com.example.aposs_buyer.responsitory.CategoryRepository
 import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import java.util.stream.Collectors
 import javax.inject.Inject
 
@@ -38,21 +40,25 @@ class CategoryViewModel @Inject constructor(private val categoryRepository: Cate
 
     private fun loadAllKindsOfSelectedCategoryById(selectedCategory: Long) {
         status.value = LoadingStatus.Loading
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val allKindsOfSelectedCategoryResponse =
                     categoryRepository.loadAllKindOfCategoryByCategoryId(selectedCategory)
                 if (allKindsOfSelectedCategoryResponse.isSuccessful) {
-                    _listKind.value = allKindsOfSelectedCategoryResponse.body()!!.stream().map {
+                    _listKind.postValue(allKindsOfSelectedCategoryResponse.body()!!.stream().map {
                         Converter.convertFromKindDTOToKind(it)
-                    }.collect(Collectors.toList())
-                    status.value = LoadingStatus.Success
+                    }.collect(Collectors.toList()))
+                    status.postValue(LoadingStatus.Success)
                 } else {
-                    status.value = LoadingStatus.Fail
+                    status.postValue(LoadingStatus.Fail)
                 }
             } catch (e: Exception) {
-                Log.e("exception", e.toString())
-                status.value = LoadingStatus.Fail
+                if (e is SocketTimeoutException) {
+                    loadAllKindsOfSelectedCategoryById(selectedCategory)
+                } else {
+                    Log.e("exception", e.toString())
+                    status.postValue(LoadingStatus.Fail)
+                }
             }
         }
     }

@@ -23,16 +23,16 @@ class MessageViewModel: ViewModel() {
     }
     fun loadMessageList()
     {
-        _lstMessageItem.value = mutableListOf(MessageItem(1, "Em tính ngày rồi, không thể có chuyện có bầu đâu!", LocalDateTime.now()),
-            MessageItem(2, "ok em, hen em tối nay 8h chỗ cũ nha. Nhưng nhớ uống thuốc em nhé", LocalDateTime.now()),
-            MessageItem(1, "Em tính ngày rồi, không thể có chuyện có bầu đâu!", LocalDateTime.now()),
-            MessageItem(2, "ok em, hen em tối nay 8h chỗ cũ nha. Nhưng nhớ uống thuốc em nhé", LocalDateTime.now()),
-            MessageItem(2, "ok em, hen em tối nay 8h chỗ cũ nha. Nhưng nhớ uống thuốc em nhé", LocalDateTime.now()),
-            MessageItem(1, "Em tính ngày rồi, không thể có chuyện có bầu đâu!", LocalDateTime.now()),
-            MessageItem(2, "ok em, hen em tối nay 8h chỗ cũ nha. Nhưng nhớ uống thuốc em nhé", LocalDateTime.now()),
-            MessageItem(2, "ok em, hen em tối nay 8h chỗ cũ nha. Nhưng nhớ uống thuốc em nhé", LocalDateTime.now()),
-            MessageItem(1, "Em tính ngày rồi, không thể có chuyện có bầu đâu!", LocalDateTime.now()),
-            MessageItem(2, "ok em, hen em tối nay 8h chỗ cũ nha. Nhưng nhớ uống thuốc em nhé", LocalDateTime.now()))
+        _lstMessageItem.value = mutableListOf(MessageItem(1, "A B C D E", LocalDateTime.now()),
+            MessageItem(2, "A B C D E A B C D E A B C D E", LocalDateTime.now()),
+            MessageItem(1, "A B C D EA B C D EA B C D EA B C D EA B C D E", LocalDateTime.now()),
+            MessageItem(2, "A B C D E", LocalDateTime.now()),
+            MessageItem(2, "A B C D EA B C D EA B C D E", LocalDateTime.now()),
+            MessageItem(1, "A B C D E", LocalDateTime.now()),
+            MessageItem(2, "oA B C D EA B C D EA B C D E", LocalDateTime.now()),
+            MessageItem(2, "A B C D EA B C D EA B C D EA B C D EA B C D E", LocalDateTime.now()),
+            MessageItem(1, "A B C D EA B C D E", LocalDateTime.now()),
+            MessageItem(2, "A B C D EA B C D EA B C D EA B C D E", LocalDateTime.now()))
     }
 
     fun addMessage() {

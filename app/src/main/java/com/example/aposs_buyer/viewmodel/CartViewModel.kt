@@ -16,6 +16,7 @@ import com.example.aposs_buyer.utils.LoadingStatus
 import com.example.aposs_buyer.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import java.net.SocketTimeoutException
 import java.util.*
 import java.util.stream.Collectors
 import javax.inject.Inject
@@ -51,31 +52,42 @@ class CartViewModel @Inject constructor(
     }
 
     fun loadCartList() {
-        viewModelScope.launch {
-            loadingStatus.value = LoadingStatus.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+            loadingStatus.postValue(LoadingStatus.Loading)
             val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
             if (!currentAccessToken.isNullOrBlank()) {
                 val allCartItemsResponse =
                     cartRepository.getAllCart(currentAccessToken)
                 if (allCartItemsResponse.isSuccessful) {
                     cartItemsDTO = allCartItemsResponse.body()!!
-                    _lstCartItem.value = cartItemsDTO.stream().map {
+                    _lstCartItem.postValue(cartItemsDTO.stream().map {
                         toCartItem(it)
-                    }.collect(Collectors.toList()).toCollection(ArrayList())
-                    loadingStatus.value = LoadingStatus.Success
-                    _choseList.value = getChoseCartItems()
+                    }.collect(Collectors.toList()).toCollection(ArrayList()))
+                    loadingStatus.postValue(LoadingStatus.Success)
+                    withContext(Dispatchers.Main) {
+                        _choseList.postValue(getChoseCartItems())
+                    }
                     trackingEnableCheckOutButton()
                     total = calculateTotal()
-                    totalCurrency.value = Converter.convertFromIntToCurrencyString(total)
+                    totalCurrency.postValue(Converter.convertFromIntToCurrencyString(total))
                     return@launch
                 } else {
                     if (allCartItemsResponse.code() == 401) {
                         if (authRepository.loadNewAccessTokenSuccess()) {
                             loadCartList()
                         } else {
-                            loadingStatus.value = LoadingStatus.Fail
+                            loadingStatus.postValue(LoadingStatus.Fail)
                         }
                     }
+                }
+            }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException) {
+                    loadCartList()
+                } else {
+                    Log.i("CartViewModel: ", e.stackTraceToString())
+                    loadingStatus.postValue(LoadingStatus.Fail)
                 }
             }
         }
@@ -103,12 +115,15 @@ class CartViewModel @Inject constructor(
     }
 
     private fun getChoseCartItems(): ArrayList<CartItem> {
-        return _lstCartItem.value!!.stream().filter { it.isChoose }.collect(Collectors.toList())
-            .toCollection(ArrayList())
+        _lstCartItem.value?.let {
+            return it.stream().filter { it.isChoose }.collect(Collectors.toList())
+                .toCollection(ArrayList())
+        }
+        return arrayListOf()
     }
 
     fun trackingEnableCheckOutButton() {
-        checkOutEnable.value = getChoseCartItems().isNotEmpty()
+        checkOutEnable.postValue(getChoseCartItems().isNotEmpty())
     }
 
     private fun toCartItem(cartDTO: CartDTO): CartItem {
@@ -128,7 +143,7 @@ class CartViewModel @Inject constructor(
 
 
     private fun deleteCartItem(id: Long) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val currentAccessToken = authRepository.getCurrentAccessTokenFromRoom()
             if (currentAccessToken != null) {
                 val deleteResponse =
@@ -171,9 +186,9 @@ class CartViewModel @Inject constructor(
     }
 
     fun updateCart() {
-        runBlocking {
-            withContext(NonCancellable) {
-                for (cartItem: CartItem in _lstCartItem.value!!) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _lstCartItem.value?.let {
+                for (cartItem: CartItem in it) {
                     for (cartItemDTO: CartDTO in cartItemsDTO) {
                         if (cartItemDTO.id == cartItem.id && (cartItem.isChoose != cartItemDTO.select || cartItem.amount != cartItemDTO.quantity)) {
                             cartItemDTO.select = cartItem.isChoose
@@ -199,20 +214,21 @@ class CartViewModel @Inject constructor(
         )
     }
 
-    fun makeNewOrder(): Order {
-        runBlocking {
-            loadDefaultAddress()
-        }
+    suspend fun makeNewOrder(): Order {
+        loadDefaultAddress()
         val orderBillingItem = _choseList.value!!.stream().map {
             convertToOrderBillingItem(it)
         }.collect(Collectors.toList())
-        return Order(
-            id = -1L,
-            status = OrderStatus.Pending,
-            billingItems = orderBillingItem,
-            totalPrice = total,
-            address = defaultAddress.value!!.getFullAddress()
-        )
+        val order = defaultAddress.value?.getFullAddress()?.let {
+            Order(
+                id = -1L,
+                status = OrderStatus.Pending,
+                billingItems = orderBillingItem,
+                totalPrice = total,
+                address = it
+            )
+        }
+        return order!!
     }
 
     private suspend fun loadDefaultAddress() {
@@ -224,9 +240,11 @@ class CartViewModel @Inject constructor(
                 )
             if (defaultAddressResponse.isSuccessful) {
                 val defaultAddressDTOResponseBody = defaultAddressResponse.body()
-                defaultAddressDTO.value = defaultAddressDTOResponseBody!!
-                defaultAddress.value =
-                    convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
+                defaultAddressDTO.postValue(defaultAddressDTOResponseBody!!)
+                withContext(Dispatchers.Main) {
+                    defaultAddress.value  =
+                        convertDeliveryAddressDTOToAddress(defaultAddressDTO.value!!)
+                }
             } else {
                 if (defaultAddressResponse.code() == 401) {
                     if (authRepository.loadNewAccessTokenSuccess()) {

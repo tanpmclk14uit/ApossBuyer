@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aposs_buyer.R
@@ -19,22 +20,25 @@ import com.example.aposs_buyer.uicontroler.activity.SearchActivity
 import com.example.aposs_buyer.uicontroler.adapter.CartAdapter
 import com.example.aposs_buyer.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
-class CartFragment : CartAdapter.ChangeAmount, Fragment() {
+class CartFragment : Fragment() {
 
-    private lateinit var cartAdapter: CartAdapter
+    private var cartAdapter: CartAdapter? = null
     private val viewModel: CartViewModel by activityViewModels()
-    private lateinit var binding: FragmentCartBinding
+    private var binding: FragmentCartBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
-        binding.lifecycleOwner = this.viewLifecycleOwner
-        binding.viewModel = viewModel
+        binding?.lifecycleOwner = this.viewLifecycleOwner
+        binding?.viewModel = viewModel
         // set up app bar: search, logo button, notification button
         setUpAppBar()
         // set up cart recycle view
@@ -42,22 +46,28 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
         // set up check out button and total bill view
         setUpCheckOutBottomBar()
 
-        return binding.root
+        return binding?.root!!
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.rcCart?.adapter = null
+        binding = null
     }
 
     private fun setUpAppBar() {
         // set up search bar
-        binding.search.setOnClickListener {
+        binding?.search?.setOnClickListener {
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }
         // set up notification
-        binding.imgNotification.setOnClickListener {
+        binding?.imgNotification?.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)
             startActivity(intent)
         }
         // set up logo button
-        binding.lnAboutUs.setOnClickListener {
+        binding?.lnAboutUs?.setOnClickListener {
             val intent = Intent(this.context, AboutUsActivity::class.java)
             startActivity(intent)
         }
@@ -65,7 +75,12 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
 
     private fun setUpCartsView() {
         //set up cart adapter
-        cartAdapter = CartAdapter(this, CartAdapter.OnClickListener {
+        val onAmountChange =  object : CartAdapter.ChangeAmount {
+            override fun onChangeAmount() {
+                viewModel.reCalculateTotal()
+            }
+        }
+        cartAdapter = CartAdapter(onAmountChange, CartAdapter.OnClickListener {
             if (it.isChoose) {
                 viewModel.choseList.value!!.add(it)
             } else {
@@ -74,7 +89,7 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
             viewModel.reCalculateTotal()
             viewModel.trackingEnableCheckOutButton()
         })
-        binding.rcCart.adapter = cartAdapter
+        binding?.rcCart?.adapter = cartAdapter
         // set up swipe cart item to delete
         val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
             ItemTouchHelper.SimpleCallback(
@@ -92,27 +107,28 @@ class CartFragment : CartAdapter.ChangeAmount, Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 //Remove swiped item from list and notify the RecyclerView
                 val position = viewHolder.layoutPosition
-                cartAdapter.notifyItemRemoved(position)
-                cartAdapter.notifyItemRangeChanged(position, viewModel.lstCartItem.value!!.size)
+                cartAdapter?.notifyItemRemoved(position)
+                cartAdapter?.notifyItemRangeChanged(position, viewModel.lstCartItem.value!!.size)
                 viewModel.removeItem(position)
             }
         }
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
-        itemTouchHelper.attachToRecyclerView(binding.rcCart)
+        itemTouchHelper.attachToRecyclerView(binding?.rcCart)
     }
 
     private fun setUpCheckOutBottomBar() {
         // set up button check out
-        binding.btnGoToCheckOut.setOnClickListener {
-            val order = viewModel.makeNewOrder()
-            val intent = Intent(this.context, CheckOutActivity::class.java)
-            intent.putExtra("order", order)
-            startActivity(intent)
+        val context = this.context
+        binding?.btnGoToCheckOut?.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val order = viewModel.makeNewOrder()
+                val intent = Intent(context, CheckOutActivity::class.java)
+                intent.putExtra("order", order)
+                withContext(Dispatchers.Main) {
+                    startActivity(intent)
+                }
+            }
         }
-    }
-
-    override fun onChangeAmount() {
-        viewModel.reCalculateTotal()
     }
 
     override fun onResume() {

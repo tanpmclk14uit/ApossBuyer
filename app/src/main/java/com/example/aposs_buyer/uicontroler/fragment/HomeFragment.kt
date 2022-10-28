@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment(),
     ViewTreeObserver.OnScrollChangedListener {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var binding: FragmentHomeBinding? = null
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -36,8 +36,8 @@ class HomeFragment : Fragment(),
     ): View {
         // set up binding inflater
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding?.viewModel = viewModel
+        binding?.lifecycleOwner = this.viewLifecycleOwner
         // set up app bar: search, notification, logo button
         setUpAppBarSection()
         // set up categories, show all button
@@ -46,34 +46,39 @@ class HomeFragment : Fragment(),
         setUpRankingSection()
         // set up more setId
         setUpViewMoreProductSection()
-        return binding.root
+        return binding!!.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     private fun setUpViewMoreProductSection() {
         // set up setId adapter
-        binding.products.adapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
+        binding?.products?.adapter = HomeProductAdapter(HomeProductAdapter.OnClickListener {
             val intent = Intent(this.context, DetailProductActivity::class.java)
             intent.putExtra("productID", it)
             startActivity(intent)
         })
         // set up scroll view to implement lazy loading
-        binding.scrollView.viewTreeObserver.addOnScrollChangedListener(this)
+        binding?.scrollView?.viewTreeObserver?.addOnScrollChangedListener(this)
 
     }
 
     private fun setUpAppBarSection() {
         // set up search bar
-        binding.search.setOnClickListener {
+        binding?.search?.setOnClickListener {
             val intent = Intent(this.context, SearchActivity::class.java)
             startActivity(intent)
         }
         // set up notification button
-        binding.notification.setOnClickListener {
+        binding?.notification?.setOnClickListener {
             val intent = Intent(this.context, NotificationActivity::class.java)
             startActivity(intent)
         }
         // set up logo button
-        binding.lnAboutUs.setOnClickListener {
+        binding?.lnAboutUs?.setOnClickListener {
             val intent = Intent(this.context, AboutUsActivity::class.java)
             startActivity(intent)
         }
@@ -84,9 +89,13 @@ class HomeFragment : Fragment(),
     private val categoriesRunnable: Runnable = Runnable {
         kotlin.run {
             if (categoriesLeftToRight) {
-                binding.categoriesViewPager.currentItem += 1
+                binding?.categoriesViewPager?.currentItem = binding?.categoriesViewPager?.currentItem?.plus(
+                    1
+                )!!
             } else {
-                binding.categoriesViewPager.currentItem -= 1
+                binding?.categoriesViewPager?.currentItem = binding?.categoriesViewPager?.currentItem?.minus(
+                    1
+                )!!
             }
 
         }
@@ -94,7 +103,7 @@ class HomeFragment : Fragment(),
 
     private fun setUpCategoriesSection() {
         //set up categories adapter
-        binding.categoriesViewPager.adapter =
+        binding?.categoriesViewPager?.adapter =
             CategoriesViewPagerAdapter(CategoriesViewPagerAdapter.OnClickListener {
                 // on category click
                 val intent = Intent(this.context, CategoryActivity::class.java)
@@ -102,29 +111,29 @@ class HomeFragment : Fragment(),
                 startActivity(intent)
             })
         // set up categories indicator
-        binding.indicator.setViewPager(binding.categoriesViewPager)
+        binding?.indicator?.setViewPager(binding?.categoriesViewPager)
         // set up show all categories button
-        binding.tvShowAllCategory.setOnClickListener {
+        binding?.tvShowAllCategory?.setOnClickListener {
             val intent = Intent(this.context, CategoriesActivity::class.java)
             startActivity(intent)
         }
         // set up categories transform animation
-        binding.categoriesViewPager.setPageTransformer(DepthPageTransformer())
+        binding?.categoriesViewPager?.setPageTransformer(DepthPageTransformer())
         // set up automation slide
-        binding.categoriesViewPager.registerOnPageChangeCallback(object :
+        binding?.categoriesViewPager?.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 view?.handler?.removeCallbacks(categoriesRunnable)
-                if (binding.categoriesViewPager.currentItem == viewModel.categories.value!!.size - 1) {
+                if (binding?.categoriesViewPager?.currentItem == viewModel.categories.value!!.size - 1) {
                     categoriesLeftToRight = false
                 } else {
-                    if (binding.categoriesViewPager.currentItem == 0) {
+                    if (binding?.categoriesViewPager?.currentItem == 0) {
                         categoriesLeftToRight = true
                     }
                 }
                 view?.handler?.postDelayed(categoriesRunnable, 4000)
-                viewModel.setUpDisplayCategory(binding.categoriesViewPager.currentItem)
+                viewModel.setUpDisplayCategory(binding?.categoriesViewPager?.currentItem!!)
             }
         })
     }
@@ -134,9 +143,13 @@ class HomeFragment : Fragment(),
     private val rankingRunnable: Runnable = Runnable {
         kotlin.run {
             if (rankingLeftToRight) {
-                binding.rankingViewPager.currentItem += 1
+                binding?.rankingViewPager?.currentItem = binding?.rankingViewPager?.currentItem?.plus(
+                    1
+                )!!
             } else {
-                binding.rankingViewPager.currentItem -= 1
+                binding?.rankingViewPager?.currentItem = binding?.rankingViewPager?.currentItem?.minus(
+                    1
+                )!!
 
             }
         }
@@ -144,24 +157,24 @@ class HomeFragment : Fragment(),
 
     private fun setUpRankingSection() {
         // set up raking adapter
-        binding.rankingViewPager.adapter =
+        binding?.rankingViewPager?.adapter =
             RankingViewPagerAdapter(RankingViewPagerAdapter.OnClickListener {
                 val intent = Intent(this.context, DetailProductActivity::class.java)
                 intent.putExtra("productID", it)
                 startActivity(intent)
             })
         // set up raking indicator
-        binding.rankingIndicator.setViewPager(binding.rankingViewPager)
+        binding?.rankingIndicator?.setViewPager(binding?.rankingViewPager)
         // set up raking auto slide
-        binding.rankingViewPager.registerOnPageChangeCallback(object :
+        binding?.rankingViewPager?.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 view?.handler?.removeCallbacks(rankingRunnable)
-                if (binding.rankingViewPager.currentItem == viewModel.rankingProducts.value!!.size - 1) {
+                if (binding?.rankingViewPager?.currentItem == viewModel.rankingProducts.value!!.size - 1) {
                     rankingLeftToRight = false
                 } else {
-                    if (binding.rankingViewPager.currentItem == 0) {
+                    if (binding?.rankingViewPager?.currentItem == 0) {
                         rankingLeftToRight = true
                     }
                 }
@@ -169,7 +182,7 @@ class HomeFragment : Fragment(),
             }
         })
         // set up raking animation
-        binding.rankingViewPager.setPageTransformer(ZoomOutPageTransformer())
+        binding?.rankingViewPager?.setPageTransformer(ZoomOutPageTransformer())
     }
 
     override fun onPause() {
@@ -186,10 +199,13 @@ class HomeFragment : Fragment(),
 
     override fun onScrollChanged() {
         // lazy load implementation
-        val view: View = binding.scrollView.getChildAt(binding.scrollView.childCount - 1)
-        val bottomDetector = view.bottom - (binding.scrollView.height + binding.scrollView.scrollY)
-        if (bottomDetector <= 0) {
-            viewModel.loadProducts()
+        val view: View? = binding?.scrollView?.childCount?.minus(1)
+            ?.let { binding?.scrollView?.getChildAt(it) }
+        val bottomDetector = view?.bottom?.minus((binding!!.scrollView.height + binding!!.scrollView.scrollY))
+        if (bottomDetector != null) {
+            if (bottomDetector <= 0) {
+                viewModel.loadProducts()
+            }
         }
     }
 
