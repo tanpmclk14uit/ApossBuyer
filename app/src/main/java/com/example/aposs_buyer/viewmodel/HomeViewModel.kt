@@ -20,7 +20,9 @@ import com.example.aposs_buyer.utils.Converter
 import com.example.aposs_buyer.utils.LoadingStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 import java.util.stream.Collectors
 import javax.inject.Inject
 
@@ -91,6 +93,11 @@ class HomeViewModel @Inject constructor(
                     }
                     _status.postValue(LoadingStatus.Success)
                 } catch (e: Exception) {
+                    if (e is SocketTimeoutException)
+                    {
+                        delay(1000)
+                        loadProducts()
+                    }
                     Log.d("exception", e.toString())
                     _status.postValue(LoadingStatus.Fail)
                 }
@@ -113,6 +120,11 @@ class HomeViewModel @Inject constructor(
                     _categoryStatus.postValue(LoadingStatus.Fail)
                 }
             } catch (e: java.lang.Exception) {
+                if (e is SocketTimeoutException)
+                {
+                    delay(1000)
+                    loadAllCategories()
+                }
                 Log.e("exception", e.toString())
                 _categoryStatus.postValue(LoadingStatus.Fail)
             }
@@ -121,13 +133,21 @@ class HomeViewModel @Inject constructor(
 
     private fun loadRankingData() {
         viewModelScope.launch(Dispatchers.Default) {
-            val rakingProductResponse = productRepository.loadRakingProduct()
-            if (rakingProductResponse.isSuccessful) {
-                _rankingProducts.postValue(rakingProductResponse.body()!!.content.map { productDTO ->
-                    mapProductToRankingProduct(productDTO)
-                }.toList())
-            } else {
-                _rankingProducts.postValue(mutableListOf())
+            try {
+                val rakingProductResponse = productRepository.loadRakingProduct()
+                if (rakingProductResponse.isSuccessful) {
+                    _rankingProducts.postValue(rakingProductResponse.body()!!.content.map { productDTO ->
+                        mapProductToRankingProduct(productDTO)
+                    }.toList())
+                } else {
+                    _rankingProducts.postValue(mutableListOf())
+                }
+            } catch (e: Exception) {
+                if (e is SocketTimeoutException)
+                {
+                    delay(1000)
+                    loadRankingData()
+                }
             }
         }
     }
