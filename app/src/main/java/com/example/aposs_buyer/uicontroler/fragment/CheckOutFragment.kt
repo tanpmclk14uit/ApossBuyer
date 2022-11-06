@@ -59,7 +59,12 @@ class CheckOutFragment : Fragment() {
     private fun setUpConfirmButton() {
         // set up onclick button
         binding.btnConfirm.setOnClickListener {
-            viewModel.addNewOrder()
+            if (viewModel.isValidAddress.value == true){
+                viewModel.addNewOrder()
+            }else{
+                Toast.makeText(this.requireContext(), "Địa chỉ không hợp lệ", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
@@ -75,7 +80,7 @@ class CheckOutFragment : Fragment() {
                 if (it == LoadingStatus.Success) {
                     findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToCheckOutSuccessFragment())
                 } else {
-                    Toast.makeText(this.requireContext(), "Check out fail", Toast.LENGTH_SHORT)
+                    Toast.makeText(this.requireContext(), "THanh toán thất bại", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

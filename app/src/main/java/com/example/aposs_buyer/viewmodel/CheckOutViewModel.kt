@@ -25,12 +25,14 @@ class CheckOutViewModel @Inject constructor(
 ) : ViewModel() {
     val currentOrder = MutableLiveData<Order>()
     val checkOutStatus = MutableLiveData<LoadingStatus>()
+    var isValidAddress = MutableLiveData<Boolean>()
     fun setCurrentOrder(order: Order) {
         currentOrder.value = order
     }
 
     fun setNewAddress(address: Address){
         currentOrder.value!!.address = address.getFullAddress()
+        isValidAddress.postValue(address.isValid)
     }
 
     fun addNewOrder() {

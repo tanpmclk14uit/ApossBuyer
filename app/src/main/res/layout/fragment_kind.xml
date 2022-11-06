@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:orientation="horizontal"
-                    android:paddingVertical="20dp">
+                    android:paddingVertical="15dp">
 
                     <ImageView
                         android:id="@+id/img_back"
@@ -78,8 +78,8 @@
 
                     <androidx.coordinatorlayout.widget.CoordinatorLayout
                         android:id="@+id/cartLayout"
-                        android:layout_width="33dp"
-                        android:layout_height="30dp"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true">
 
@@ -93,16 +93,6 @@
                             app:tint="@color/white"
                             tools:ignore="RtlHardcoded" />
 
-                        <TextView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="end|top"
-                            android:background="@drawable/bg_quantity_in_cart"
-                            android:text="@string/defaultCartNumber"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="RtlCompat,SmallSp" />
                     </androidx.coordinatorlayout.widget.CoordinatorLayout>
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>

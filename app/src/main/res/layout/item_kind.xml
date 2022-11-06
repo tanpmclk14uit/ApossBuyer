@@ -28,7 +28,6 @@
             android:layout_marginHorizontal="20dp"
             android:textSize="14sp"
             android:text="@{kind.name}"
-            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textStyle="bold"/>
     </LinearLayout>

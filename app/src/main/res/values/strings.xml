@@ -92,7 +92,7 @@
     <string name="status">Trạng thái:</string>
     <string name="address">Địa chỉ</string>
     <string name="billing_items">Chi tiết đơn</string>
-    <string name="rating_now">Đánh giá ngay</string>
+    <string name="pay_now">Thanh toán ngay</string>
     <string name="order_detail">Chi tiết đơn hàng</string>
     <string name="your_order_is_empty">Đơn hàng đang trống</string>
     <string name="go_to_buy_now">đi đến mua ngay!</string>

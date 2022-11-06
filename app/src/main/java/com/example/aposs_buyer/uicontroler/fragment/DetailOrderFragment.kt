@@ -175,7 +175,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
     }
 
     private fun setStatusValue(orderStatus: OrderStatus) {
-        binding.statusString.text = orderStatus.toString()
+        binding.statusString.text = orderStatus.toShowString()
         when (orderStatus) {
             OrderStatus.Pending -> {
                 binding.statusIcon.setImageResource(R.drawable.ic_order_pending)

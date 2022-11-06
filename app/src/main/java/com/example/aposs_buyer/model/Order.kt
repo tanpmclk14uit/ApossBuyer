@@ -32,6 +32,6 @@ data class Order(
     }
 
     fun getStatusString(): String {
-        return status.toString()
+        return status.toShowString()
     }
 }

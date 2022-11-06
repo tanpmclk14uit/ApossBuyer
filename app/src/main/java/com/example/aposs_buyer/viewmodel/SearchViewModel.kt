@@ -32,20 +32,17 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    var isSortByPurchased = MutableLiveData<Boolean>()
+    var isSortByPrice = MutableLiveData<Boolean>()
 
     init {
         curentKeyWord.value = "";
         listForDisplay.value = mutableListOf();
+        isSortByPrice.value = false
+        isSortByPurchased.value = false
         loadListForDisplay();
     }
 
-    fun addToFavorite(product: HomeProduct) {
-        // add to favorite in db
-    }
-
-    fun removeFromFavorite(product: HomeProduct) {
-        //remove from favorite in db
-    }
 
     fun loadListForDisplay()
     {
@@ -89,17 +86,13 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
     private fun setSort()
     {
         when {
-            isSortByPurchased -> {
+            isSortByPurchased.value!! -> {
                sortBy = "purchased"
                 sortDir = "desc"
             }
-            isSortByPrice -> {
+            isSortByPrice.value!! -> {
                 sortBy = "price"
                 sortDir = "asc"
-            }
-            isSortByRating -> {
-                sortBy = "rating"
-                sortDir = "desc"
             }
             else ->{
                 sortBy = "id"
@@ -115,37 +108,17 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         loadListForDisplay()
     }
 
-    private var isSortByRating =false;
-    fun sortByRating (){
-        if (!isSortByRating) {
-            isSortByRating = true
-            isSortByPrice = false
-            isSortByPurchased = false
-            isLastPage = false
-            currentPage = 1
-            listForDisplay.value = mutableListOf()
-            loadListForDisplay()
-        } else {
-            isSortByRating = false
-            isLastPage = false
-            currentPage = 1
-            listForDisplay.value = mutableListOf()
-            loadListForDisplay()
-        }
-    }
 
-    private var isSortByPrice =false
+
     fun sortByPrice(){
-        if (!isSortByPrice) {
-            isSortByPrice = true
-            isSortByPurchased = false
-            isSortByRating = false
+        isSortByPrice.value = !isSortByPrice.value!!
+        if (isSortByPrice.value!!) {
+            isSortByPurchased.value = false
             isLastPage = false
             currentPage = 1
             listForDisplay.value = mutableListOf()
             loadListForDisplay()
         } else {
-            isSortByPrice = false
             isLastPage = false
             currentPage = 1
             listForDisplay.value = mutableListOf()
@@ -153,19 +126,17 @@ class SearchViewModel @Inject constructor(private val productRepository: Product
         }
     }
 
-    private var isSortByPurchased =false
+
     fun sortByPurchased(){
-        if (!isSortByPurchased) {
-            isSortByPurchased = true
-            isSortByRating = false
-            isSortByPrice = false
+        isSortByPurchased.value = !isSortByPurchased.value!!
+        if (isSortByPurchased.value!!) {
+            isSortByPrice.value = false
             isLastPage = false
             currentPage = 1
             listForDisplay.value = mutableListOf()
             loadListForDisplay()
         } else
         {
-            isSortByPurchased = false
             isLastPage = false
             currentPage = 1
             listForDisplay.value = mutableListOf()

@@ -73,7 +73,7 @@
                             android:text="@string/my_orders"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout

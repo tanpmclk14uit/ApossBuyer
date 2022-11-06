@@ -95,7 +95,6 @@ class HomeViewModel @Inject constructor(
                 } catch (e: Exception) {
                     if (e is SocketTimeoutException)
                     {
-                        delay(1000)
                         loadProducts()
                     } else {
                         Log.d("exception", e.toString())
@@ -123,7 +122,6 @@ class HomeViewModel @Inject constructor(
             } catch (e: java.lang.Exception) {
                 if (e is SocketTimeoutException)
                 {
-                    delay(1000)
                     loadAllCategories()
                 } else {
                     Log.e("exception", e.toString())
@@ -147,7 +145,6 @@ class HomeViewModel @Inject constructor(
             } catch (e: Exception) {
                 if (e is SocketTimeoutException)
                 {
-                    delay(1000)
                     loadRankingData()
                 }
             }

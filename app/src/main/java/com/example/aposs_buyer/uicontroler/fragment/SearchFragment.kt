@@ -67,10 +67,6 @@ class SearchFragment : Fragment(), ViewTreeObserver.OnScrollChangedListener {
             viewModel.sortByPurchased()
 
         }
-        binding.btnSortByRating.setOnClickListener {
-            viewModel.sortByRating()
-
-        }
     }
 
     fun onSearchTextChange() {

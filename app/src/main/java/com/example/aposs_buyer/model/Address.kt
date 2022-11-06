@@ -10,7 +10,8 @@ data class Address(
     var district: District = District(),
     var ward: Ward = Ward(),
     var addressLane: String = "",
-    var isDefaultAddress: Boolean = false
+    var isDefaultAddress: Boolean = false,
+    var isValid: Boolean = true
 ) {
     fun setGenderFromString(genderString: String) {
         this.gender = genderString == "Nam"
@@ -51,16 +52,18 @@ data class Address(
     }
 
     fun getFullAddress(): String {
-
-        if(name.isEmpty()){
-            return "Không có địa chỉ mặc định, tạo mới ngay thôi!"
+        return if(name.isEmpty()){
+            isValid = false
+            "Không có địa chỉ mặc định, tạo mới ngay thôi!"
+        }else{
+            isValid = true
+            val genderCall: String = if (gender) {
+                "Anh"
+            } else {
+                "Chị"
+            }
+            "$genderCall $name, sđt: $phoneNumber, $addressLane, ${ward.name}, ${district.name}, ${city.name}"
         }
-        val genderCall: String = if (gender) {
-            "Anh"
-        } else {
-            "Chị"
-        }
-        return "$genderCall $name, sđt: $phoneNumber, $addressLane, ${ward.name}, ${district.name}, ${city.name}"
     }
 
     fun equal(address: Address): Boolean {

@@ -13,7 +13,17 @@ enum class SignUpState{
 }
 
 enum class OrderStatus{
-    Pending, Confirmed, Delivering, Success, Cancel
+    Pending, Confirmed, Delivering, Success, Cancel;
+
+    fun toShowString(): String{
+        return when(this){
+            Pending -> "Đang chờ"
+            Confirmed -> "Xác nhận"
+            Delivering -> "Đang giao"
+            Success -> "Thành công"
+            Cancel -> "Đã hủy"
+        }
+    }
 }
 
 enum class LoadingStatus{

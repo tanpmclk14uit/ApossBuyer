@@ -170,9 +170,9 @@
                     android:layout_below="@+id/TotalText"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_rating_now_button"
-                    android:text="@string/rating_now"
+                    android:text="@string/pay_now"
                     android:textAllCaps="false"
-                    android:textColor="@color/active_button"
+                    android:textColor="@color/primary_green"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </RelativeLayout>
