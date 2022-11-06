@@ -39,10 +39,6 @@ class CartActivity : CartAdapter.ChangeAmount, AppCompatActivity() {
 
     private fun setUpAppBar() {
         // set up notification
-        binding.imgNotification.setOnClickListener {
-            val intent = Intent(this, NotificationActivity::class.java)
-            startActivity(intent)
-        }
         // set on back pressed
         binding.back.setOnClickListener {
             onBackPressed()

@@ -48,10 +48,10 @@ class PersonFragment : Fragment() {
             val intent = Intent(this.context, AddressActivity::class.java)
             startActivity(intent)
         }
-        binding?.btnRating?.setOnClickListener {
-            val intent = Intent(this.context, RatingActivity::class.java)
-            startActivity(intent)
-        }
+//        binding?.btnRating?.setOnClickListener {
+//            val intent = Intent(this.context, RatingActivity::class.java)
+//            startActivity(intent)
+//        }
         binding?.order?.setOnClickListener {
             startActivity(Intent(this.context, OrderActivity::class.java))
         }
@@ -73,10 +73,10 @@ class PersonFragment : Fragment() {
             }
 
         }
-        binding?.imgNotification?.setOnClickListener {
-            val intent = Intent(this.context, NotificationActivity::class.java)
-            startActivity(intent)
-        }
+//        binding?.imgNotification?.setOnClickListener {
+//            val intent = Intent(this.context, NotificationActivity::class.java)
+//            startActivity(intent)
+//        }
         binding?.lnEditInfo?.setOnClickListener {
             val intent = Intent(this.context, UserDetailActivity::class.java)
             startActivity(intent)

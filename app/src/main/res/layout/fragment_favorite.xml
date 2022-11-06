@@ -26,7 +26,7 @@
 
                 <RelativeLayout
                     android:paddingVertical="10dp"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_green"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

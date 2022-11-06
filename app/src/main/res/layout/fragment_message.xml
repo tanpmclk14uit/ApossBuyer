@@ -28,7 +28,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingVertical="10dp"
-                        android:background="@color/light_green"
+                        android:background="@color/primary_green"
                         app:layout_collapseMode="pin">
 
                         <RelativeLayout
@@ -162,7 +162,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="0dp"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_green"
                     android:orientation="horizontal">
 
                     <ImageView

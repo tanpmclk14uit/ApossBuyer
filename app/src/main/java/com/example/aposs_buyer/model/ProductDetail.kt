@@ -7,12 +7,10 @@ data class ProductDetail(
     val name: String,
     val price: Int,
     val purchase: Int,
-    val rating: Float,
     var isFavorite: Boolean,
     val description: String,
     val availableQuantities: Int,
-    val kind: String,
-    val totalReview: Int
+    val kind: String
 ){
     fun priceToString(): String{
         val formatter = DecimalFormat("#,###")
@@ -21,8 +19,5 @@ data class ProductDetail(
     }
     fun totalPurchaseToString(): String{
         return "$purchase lượt mua"
-    }
-    fun toTalReviewToString(): String{
-        return "($totalReview đánh gía)"
     }
 }

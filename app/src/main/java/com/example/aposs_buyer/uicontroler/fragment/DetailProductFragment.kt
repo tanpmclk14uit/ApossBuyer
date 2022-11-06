@@ -49,10 +49,8 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         setUpAppBar()
         setUpProductProperty()
         setUpSameKindProduct()
-        setUpRatingSession()
         setUpBottomSheetDialog()
         onDetailProductChange()
-        onRatingProductChange()
 
         return binding.root
     }
@@ -108,15 +106,6 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         }
     }
 
-
-    private fun setUpRatingSession() {
-        val ratingAdapter = RatingAdapter()
-        binding.ratings.adapter = ratingAdapter
-        binding.showAllRating.setOnClickListener {
-            this.findNavController()
-                .navigate(DetailProductFragmentDirections.actionDetailProductFragmentToProductRatingFragment())
-        }
-    }
 
     private fun setUpProductProperty() {
         setShowAll()
@@ -177,34 +166,6 @@ class DetailProductFragment : Fragment(), StringDetailPropertyAdapter.PropertySt
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun onRatingProductChange() {
-        viewModel.productRatingLoadingState.observe(viewLifecycleOwner) {
-            if (it == LoadingStatus.Loading) {
-                binding.ratingExtraModule.visibility = View.VISIBLE
-                binding.ratingLoadingProgress.visibility = View.VISIBLE
-                binding.ratingModule.visibility = View.GONE
-                binding.ratingMessage.text = "Loading..."
-            } else {
-                if (it == LoadingStatus.Success) {
-                    if (viewModel.selectedProductRating.value != null && viewModel.selectedProductRating.value!!.isNotEmpty()) {
-                        binding.ratingModule.visibility = View.VISIBLE
-                        binding.ratingExtraModule.visibility = View.GONE
-                    } else {
-                        binding.ratingModule.visibility = View.GONE
-                        binding.ratingExtraModule.visibility = View.VISIBLE
-                        binding.ratingLoadingProgress.visibility = View.GONE
-                        binding.ratingMessage.text = "Hãy trở thành người đầu tiên đánh giá sản phẩm !!"
-                    }
-                } else {
-                    binding.ratingModule.visibility = View.GONE
-                    binding.ratingExtraModule.visibility = View.VISIBLE
-                    binding.ratingLoadingProgress.visibility = View.GONE
-                    binding.ratingMessage.text = "Loading error!!"
-                }
-            }
-        }
-    }
 
     override fun notifySelectedColorValueChange(propertyValue: PropertyValue) {
         viewModel.notifySelectedPropertyChange(propertyValue)

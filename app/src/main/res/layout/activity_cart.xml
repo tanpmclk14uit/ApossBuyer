@@ -45,7 +45,7 @@
                 <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_green"
                     app:layout_collapseMode="pin">
 
 
@@ -74,17 +74,9 @@
                             android:text="@string/cart"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:textSize="30sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
-                        <ImageView
-                            android:id="@+id/img_notification"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="10dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/ic__notifications" />
                     </RelativeLayout>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
@@ -172,7 +164,7 @@
                     android:background="@drawable/bg_button_checkout"
                     android:enabled="@{viewModel.checkOutEnable}"
                     android:text="@string/check_out"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
             </LinearLayout>
         </RelativeLayout>
 

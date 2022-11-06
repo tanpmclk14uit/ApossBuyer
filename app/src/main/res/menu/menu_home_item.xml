@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/home" android:title="@string/home" android:icon="@drawable/ic_home" />
-    <item android:id="@+id/favorite" android:title="@string/favorite" android:icon="@drawable/ic_favorite_disable" />
-    <item android:id="@+id/message" android:title="@string/message" android:icon="@drawable/ic_message"/>
+<!--    <item android:id="@+id/favorite" android:title="@string/favorite" android:icon="@drawable/ic_favorite_disable" />-->
+<!--    <item android:id="@+id/message" android:title="@string/message" android:icon="@drawable/ic_message"/>-->
     <item android:id="@+id/cart" android:title="@string/cart" android:icon="@drawable/ic_cart" />
     <item android:id="@+id/person" android:title="@string/person" android:icon="@drawable/ic_person" />
 </menu>

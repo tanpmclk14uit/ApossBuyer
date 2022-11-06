@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Apossbuyer" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_green</item>
+        <item name="colorPrimary">@color/primary_green</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/disable_pray</item>
@@ -14,9 +14,9 @@
         <!--     default text style-->
         <item name="android:textSize">14sp</item>
         <item name="android:screenOrientation">locked</item>
-        <item name="android:statusBarColor">@color/light_green</item>
-        <item name="colorAccent">@color/light_green</item>
-        <item name="android:colorPrimaryDark">@color/light_green</item>
+        <item name="android:statusBarColor">@color/primary_green</item>
+        <item name="colorAccent">@color/primary_green</item>
+        <item name="android:colorPrimaryDark">@color/primary_green</item>
     </style>
 
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">

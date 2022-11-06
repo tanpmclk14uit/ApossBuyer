@@ -18,10 +18,8 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
         sViewsWithIds.put(R.id.toolBox, 7);
         sViewsWithIds.put(R.id.search_bar, 8);
         sViewsWithIds.put(R.id.search, 9);
-        sViewsWithIds.put(R.id.img_notification, 10);
-        sViewsWithIds.put(R.id.title, 11);
-        sViewsWithIds.put(R.id.lnAboutUs, 12);
-        sViewsWithIds.put(R.id.checkout_layout, 13);
+        sViewsWithIds.put(R.id.title, 10);
+        sViewsWithIds.put(R.id.checkout_layout, 11);
     }
     // views
     @NonNull
@@ -32,21 +30,19 @@ public class FragmentCartBindingImpl extends FragmentCartBinding  {
     // Inverse Binding Event Handlers
 
     public FragmentCartBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 14, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 12, sIncludes, sViewsWithIds));
     }
     private FragmentCartBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 4
             , (com.google.android.material.appbar.AppBarLayout) bindings[6]
             , (android.widget.Button) bindings[5]
-            , (android.widget.LinearLayout) bindings[13]
-            , (android.widget.ImageView) bindings[10]
-            , (android.widget.ImageView) bindings[12]
+            , (android.widget.LinearLayout) bindings[11]
             , (android.widget.TextView) bindings[1]
             , (android.widget.ProgressBar) bindings[2]
             , (androidx.recyclerview.widget.RecyclerView) bindings[3]
             , (com.google.android.material.textfield.TextInputEditText) bindings[9]
             , (com.google.android.material.textfield.TextInputLayout) bindings[8]
-            , (android.widget.TextView) bindings[11]
+            , (android.widget.TextView) bindings[10]
             , (android.widget.RelativeLayout) bindings[7]
             , (android.widget.TextView) bindings[4]
             );

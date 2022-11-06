@@ -55,16 +55,9 @@ class ProductRatingFragment : Fragment() {
             statusValue
         )
         binding.filter.setAdapter(arrayAdapter)
-        filter()
         binding.filter.setText(statusValue[0], false)
     }
 
-    private fun filter() {
-       binding.filter.doOnTextChanged { text, _, _, _ ->
-           viewModel.loadFilterProductRating(text.toString())
-           viewModel.loadFilterProductTotalReviews(text.toString())
-       }
-    }
 
     private fun setBackButton() {
         binding.back.setOnClickListener {

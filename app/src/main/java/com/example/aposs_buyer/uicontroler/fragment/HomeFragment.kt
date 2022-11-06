@@ -73,15 +73,15 @@ class HomeFragment : Fragment(),
             startActivity(intent)
         }
         // set up notification button
-        binding?.notification?.setOnClickListener {
-            val intent = Intent(this.context, NotificationActivity::class.java)
-            startActivity(intent)
-        }
+//        binding?.notification?.setOnClickListener {
+//            val intent = Intent(this.context, NotificationActivity::class.java)
+//            startActivity(intent)
+//        }
         // set up logo button
-        binding?.lnAboutUs?.setOnClickListener {
-            val intent = Intent(this.context, AboutUsActivity::class.java)
-            startActivity(intent)
-        }
+//        binding?.lnAboutUs?.setOnClickListener {
+//            val intent = Intent(this.context, AboutUsActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     //set up auto slide category view pager

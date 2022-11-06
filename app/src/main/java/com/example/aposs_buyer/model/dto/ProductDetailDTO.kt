@@ -7,7 +7,5 @@ data class ProductDetailDTO(
     val name: String,
     val price: Int,
     val purchase: Int,
-    val quantity: Int,
-    val rating: Float,
-    val totalReview: Int
+    val quantity: Int
 )

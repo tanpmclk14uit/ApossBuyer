@@ -100,7 +100,6 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
         setStatusValue(viewModel.detailOrder.value!!.status)
         // set up state tracking adapter
         orderDeliveringStateAdapter = OrderDeliveringStateAdapter()
-        binding.deliveringState.adapter = orderDeliveringStateAdapter
     }
 
     private fun setUpBottomBar() {

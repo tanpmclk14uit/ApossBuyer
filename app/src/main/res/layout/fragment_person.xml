@@ -35,14 +35,14 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_green"
                     android:gravity="bottom"
                     android:orientation="vertical"/>
 
                 <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/light_green"
+                    android:background="@color/primary_green"
                     app:layout_collapseMode="pin">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -66,16 +66,16 @@
                                 android:layout_centerHorizontal="true"
                                 android:text="@string/account"
                                 android:textColor="@color/white"
-                                android:textSize="30sp"
+                                android:textSize="25sp"
                                 android:textStyle="bold" />
 
-                            <ImageView
-                                android:id="@+id/img_notification"
-                                android:layout_width="38dp"
-                                android:layout_height="38dp"
-                                android:layout_alignParentEnd="true"
-                                android:contentDescription="@string/image"
-                                android:src="@drawable/ic__notifications" />
+<!--                            <ImageView-->
+<!--                                android:id="@+id/img_notification"-->
+<!--                                android:layout_width="38dp"-->
+<!--                                android:layout_height="38dp"-->
+<!--                                android:layout_alignParentEnd="true"-->
+<!--                                android:contentDescription="@string/image"-->
+<!--                                android:src="@drawable/ic__notifications" />-->
                         </RelativeLayout>
                     </LinearLayout>
                 </androidx.appcompat.widget.Toolbar>
@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="@string/slogan"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,9 +136,9 @@
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:src="@drawable/ic_app"
-                            android:scaleType="centerCrop"
+                            android:scaleType="fitCenter"
                             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                            android:background="@color/light_green"
+                            android:background="@color/white"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -166,7 +166,7 @@
                     android:elevation="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="10dp"
                     android:paddingBottom="20dp"
                     android:paddingHorizontal="20dp"
                     android:paddingTop="30dp"
@@ -174,7 +174,7 @@
                     android:background="@drawable/bg_account_box">
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_Address"
-                        android:drawableTint="@color/light_green"
+                        android:drawableTint="@color/primary_green"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_person_button"
@@ -190,7 +190,7 @@
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"/>
                     <androidx.appcompat.widget.AppCompatButton
-                        android:drawableTint="@color/light_green"
+                        android:drawableTint="@color/primary_green"
                         android:id="@+id/order"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -206,41 +206,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="20dp"/>
+
                     <androidx.appcompat.widget.AppCompatButton
-                        android:drawableTint="@color/light_green"
-                        android:id="@+id/btn_rating"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_person_button"
-                        android:drawableStart="@drawable/ic_rate"
-                        android:textAllCaps="false"
-                        android:drawableEnd="@drawable/ic_back"
-                        android:textAlignment="textStart"
-                        android:text="   Đánh giá"
-                        android:textSize="16dp"
-                        android:textColor="@color/person_color"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:drawableTint="@color/light_green"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="false"
-                        android:background="@drawable/bg_person_button"
-                        android:drawableStart="@drawable/ic_baseline_settings_24"
-                        android:drawableEnd="@drawable/ic_back"
-                        android:textAlignment="textStart"
-                        android:text="   Cài đặt"
-                        android:textSize="16dp"
-                        android:textColor="@color/person_color"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="20dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:drawableTint="@color/light_green"
+                        android:drawableTint="@color/primary_green"
                         android:id="@+id/signOut"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -28,7 +28,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
+                android:background="@color/primary_green"
                 app:layout_collapseMode="pin">
 
 
@@ -116,7 +116,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(viewModel.selectedProduct.rating)}"
                             android:textColor="@color/dark_pray" />
 
                         <ImageView
@@ -130,7 +129,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:text="@{viewModel.selectedProduct.toTalReviewToString()}"
                             android:textColor="@color/dark_pray" />
                     </LinearLayout>
 
@@ -181,7 +179,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="140dp"
-            android:background="@color/light_green"
+            android:background="@color/primary_green"
             android:elevation="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">

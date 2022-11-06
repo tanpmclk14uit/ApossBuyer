@@ -41,13 +41,15 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_arrow_back_24" />
 
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:contentDescription="@string/image"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_logo_green" />
+                        android:layout_marginHorizontal="20dp"
+                        android:gravity="center"
+                        android:layout_toEndOf="@id/back"
+                        android:layout_toStartOf="@+id/cl_cart"
+                        android:text="Chi tiết sản phẩm"
+                        android:textSize="20sp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_cart"
@@ -68,27 +70,6 @@
                             android:src="@drawable/ic_cart"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:background="@color/red"
-                            android:backgroundTint="@color/red"
-                            app:cardCornerRadius="10dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:autoSizeMinTextSize="7sp"
-                                android:gravity="center"
-                                android:text="@string/defaultCartNumber"
-                                android:textColor="@color/white"
-                                android:textSize="7sp"
-                                tools:ignore="SmallSp,SpUsage" />
-
-                        </androidx.cardview.widget.CardView>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </RelativeLayout>
@@ -153,18 +134,6 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                            <androidx.appcompat.widget.AppCompatToggleButton
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_margin="25dp"
-                                android:background="@drawable/favorite_toggle_selector"
-                                android:checked="@{viewModel.selectedProduct.favorite}"
-                                android:contentDescription="@string/image"
-                                android:textOff=""
-                                android:textOn=""
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
                         </androidx.constraintlayout.widget.ConstraintLayout>
                         <ProgressBar
                             android:visibility="gone"
@@ -173,48 +142,6 @@
                             android:layout_gravity="center"
                             android:layout_width="40dp"
                             android:layout_height="40dp"/>
-                        <LinearLayout
-                            android:layout_marginTop="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <RatingBar
-                                android:id="@+id/rating"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:foregroundGravity="center"
-                                android:isIndicator="true"
-                                android:numStars="5"
-                                android:progressTint="@color/yellow"
-                                android:rating="@{viewModel.selectedProduct.rating}"
-                                android:secondaryProgressTint="@color/yellow"
-                                android:stepSize="0.5" />
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginHorizontal="10dp"
-                                android:background="@color/black" />
-
-                            <TextView
-                                android:id="@+id/purchase"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="0dp"
-                                android:padding="0dp"
-                                android:text="@{viewModel.selectedProduct.totalPurchaseToString()}"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                android:textStyle="normal" />
-
-                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/name"
@@ -230,16 +157,28 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_marginBottom="10dp"
+
                             android:id="@+id/price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:gravity="center"
                             android:text="@{viewModel.selectedProductPrice.toString()}"
-                            android:textColor="@color/active_button"
+                            android:textColor="@color/secondary_orange"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/purchase"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="0dp"
+                            android:text="@{viewModel.selectedProduct.totalPurchaseToString()}"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <LinearLayout
@@ -337,45 +276,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/light_green"
-                        android:elevation="2dp"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/rating"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@{String.valueOf(viewModel.selectedProduct.rating)}"
-                            android:textColor="@color/dark_pray" />
-
-                        <ImageView
-                            android:layout_width="16sp"
-                            android:layout_height="16sp"
-                            android:layout_marginStart="4dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/ic_yellow_rate" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginEnd="20dp"
-                            android:text="@{viewModel.selectedProduct.toTalReviewToString()}"
-                            android:textColor="@color/dark_pray" />
-                    </LinearLayout>
-                    <LinearLayout
                         android:visibility="gone"
                         android:id="@+id/ratingExtraModule"
                         android:padding="20dp"
@@ -397,52 +297,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ratingModule"
-                        android:layout_width="match_parent"
-                        android:layout_height="360dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_detail_component"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/ratings"
-                            ratings="@{viewModel.selectedProductRating}"
-                            android:layout_width="match_parent"
-                            android:layout_height="290dp"
-                            android:layout_marginHorizontal="10dp"
-                            android:layout_marginTop="20dp"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:itemCount="3"
-                            tools:listitem="@layout/item_rating" />
-
-                        <LinearLayout
-                            android:id="@+id/showAllRating"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="1dp"
-                                android:text="@string/show_all"
-                                android:textColor="@color/red" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_red_right" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/light_green"
+                        android:background="@color/primary_green"
                         android:elevation="2dp"
                         android:gravity="center_vertical">
 
@@ -512,7 +370,7 @@
                         android:background="@drawable/bg_active_button"
                         android:text="@string/buy_now"
                         android:textColor="@color/white"
-                        android:textStyle="bold" />
+                        android:textStyle="normal" />
                 </GridLayout>
             </LinearLayout>
         </RelativeLayout>

@@ -415,13 +415,6 @@ class DetailProductViewModel @Inject constructor(
         Log.d("ViewModel", "Filter case $filter")
     }
 
-    fun loadFilterProductTotalReviews(filter: String) {
-        //fake load case "All" to see data
-        selectedProductTotalReviewFilter.value =
-            "Total: " + selectedProduct.value!!.totalReview + " reviews"
-        Log.d("ViewModel", "Filter total case $filter")
-    }
-
 
     @SuppressLint("SimpleDateFormat")
     private fun mapToProductRating(productRatingDTO: ProductRatingDTO): ProductRating {
@@ -590,12 +583,10 @@ class DetailProductViewModel @Inject constructor(
             productDetailDTO.name,
             productDetailDTO.price,
             productDetailDTO.purchase,
-            productDetailDTO.rating,
             true,
             productDetailDTO.description,
             productDetailDTO.quantity,
-            productDetailDTO.kindName,
-            productDetailDTO.totalReview
+            productDetailDTO.kindName
         )
     }
 
@@ -618,12 +609,6 @@ class DetailProductViewModel @Inject constructor(
                             }
                         )
                         loadProductsByKind(productResponse.body()!!.kindId)
-                        if (_selectedProduct.value?.totalReview != 0) {
-                            loadProductRatingById(selectedProductId)
-                        } else {
-                            _selectedProductRating.value = ArrayList()
-                            productRatingLoadingState.value = LoadingStatus.Success
-                        }
                         _selectedProduct.value?.availableQuantities?.let {
                             loadSelectedProductStringPropertyById(
                                 selectedProductId,

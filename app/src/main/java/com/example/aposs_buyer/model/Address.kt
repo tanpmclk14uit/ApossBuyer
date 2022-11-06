@@ -51,6 +51,10 @@ data class Address(
     }
 
     fun getFullAddress(): String {
+
+        if(name.isEmpty()){
+            return "Không có địa chỉ mặc định, tạo mới ngay thôi!"
+        }
         val genderCall: String = if (gender) {
             "Anh"
         } else {

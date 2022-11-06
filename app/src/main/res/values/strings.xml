@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Feng Shui House</string>
+    <string name="app_name">Food Store</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Trang chủ</string>
     <string name="favorite">Yêu thích</string>
@@ -31,12 +31,12 @@
     <string name="rating">Đánh giá</string>
     <string name="rating_sample">4.2</string>
     <string name="reviews">1084 đánh giá</string>
-    <string name="the_same_kind">SẢN PHẨM THÊM LOẠI</string>
+    <string name="the_same_kind">SẢN PHẨM CÙNG LOẠI</string>
     <string name="time_sample">13:12</string>
     <string name="all">Tất cả</string>
     <string name="cancel">Thoát</string>
     <string name="amount">Tổng:</string>
-    <string name="categories">Các danh mục</string>
+    <string name="categories">Danh mục</string>
     <string name="search">Tìm kiếm</string>
 
     <string-array name="filter">
@@ -49,7 +49,7 @@
         <item>1 sao</item>
     </string-array>
     <string name="my_details">My details</string>
-    <string name="slogan">Nắm bắt vận mệnh, khai phá thiên cơ</string>
+    <string name="slogan">Tươi mới mỗi ngày</string>
     <string name="do_not_have_account">Chưa có tài khoản?</string>
     <string name="sign_up">Đăng kí</string>
     <string name="sign_in">Đăng nhập</string>
@@ -161,6 +161,7 @@
     <string name="your_suitable">Sự tương hợp của bạn với sản phẩm</string>
     <string name="gi_i_th_ch">Giải thích</string>
     <string name="th_m_l_i_khuy_n_cho_ng_i_m_nh">Thêm lời khuyên cho người mệnh</string>
+    <string name="empty_address">Hiện không có địa chỉ, tạo mới ngay!</string>
 
 
 </resources>

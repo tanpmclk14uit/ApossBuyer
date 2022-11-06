@@ -31,10 +31,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="[ Mặc định ]"
-                android:textColor="@color/light_green"
+                android:textColor="@color/primary_green"
                 android:textStyle="bold" />
             <ImageView
-                app:tint="@color/light_green"
+                app:tint="@color/primary_green"
                 android:id="@+id/editAddress"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

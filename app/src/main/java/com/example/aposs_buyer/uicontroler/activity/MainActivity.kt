@@ -38,14 +38,14 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.favorite -> {
-                    navController.navigate(R.id.favoriteFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.message -> {
-                    navController.navigate(R.id.messageFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
+//                R.id.favorite -> {
+//                    navController.navigate(R.id.favoriteFragment)
+//                    return@OnNavigationItemSelectedListener true
+//                }
+//                R.id.message -> {
+//                    navController.navigate(R.id.messageFragment)
+//                    return@OnNavigationItemSelectedListener true
+//                }
                 R.id.cart -> {
                     if (isUserLoggedIn()) {
                         navController.navigate(R.id.cartFragment)

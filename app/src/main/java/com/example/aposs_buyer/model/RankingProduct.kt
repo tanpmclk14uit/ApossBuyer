@@ -17,6 +17,6 @@ data class RankingProduct(
         return "$formattedNumber VNĐ"
     }
     fun totalPurchaseToString(): String{
-        return "$totalPurchase purchased"
+        return "$totalPurchase lượt mua"
     }
 }

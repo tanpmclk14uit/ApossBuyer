@@ -62,15 +62,15 @@ class CartFragment : Fragment() {
             startActivity(intent)
         }
         // set up notification
-        binding?.imgNotification?.setOnClickListener {
-            val intent = Intent(this.context, NotificationActivity::class.java)
-            startActivity(intent)
-        }
+//        binding?.imgNotification?.setOnClickListener {
+//            val intent = Intent(this.context, NotificationActivity::class.java)
+//            startActivity(intent)
+//        }
         // set up logo button
-        binding?.lnAboutUs?.setOnClickListener {
-            val intent = Intent(this.context, AboutUsActivity::class.java)
-            startActivity(intent)
-        }
+//        binding?.lnAboutUs?.setOnClickListener {
+//            val intent = Intent(this.context, AboutUsActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun setUpCartsView() {

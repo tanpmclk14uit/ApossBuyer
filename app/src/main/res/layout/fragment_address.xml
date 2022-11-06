@@ -29,7 +29,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_green"
+            android:backgroundTint="@color/primary_green"
             android:text="@string/app_name"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:elevation="0dp"
@@ -38,7 +38,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
+                android:background="@color/primary_green"
                 app:layout_collapseMode="pin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,16 +47,17 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="15dp"
                     android:orientation="horizontal"
-                    android:padding="15dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/img_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="10dp"
+                        android:layout_centerVertical="true"
                         android:contentDescription="@string/image"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_back_white" />
@@ -65,21 +66,22 @@
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="50dp"
                         android:gravity="center"
                         android:text="@string/my_address"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <androidx.coordinatorlayout.widget.CoordinatorLayout
                         android:id="@+id/cl_cart"
-                        android:layout_width="33dp"
-                        android:layout_height="30dp"
+                        android:layout_width="26sp"
+                        android:layout_height="26sp"
+                        android:layout_marginTop="3dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp">
+                        >
 
                         <ImageView
                             android:id="@+id/img_cart"
@@ -91,16 +93,6 @@
                             app:tint="@color/white"
                             tools:ignore="RtlHardcoded" />
 
-                        <TextView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="end|top"
-                            android:background="@drawable/bg_quantity_in_cart"
-                            android:text="@string/default_cart_number"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            tools:ignore="RtlCompat,SmallSp" />
                     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                 </RelativeLayout>
@@ -135,10 +127,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textColor="@color/black"
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:text="@string/loading_failed_x_x"
-                android:textSize="20sp"
+                android:textSize="15sp"
+                app:drawableTopCompat="@drawable/ic_empty" />
+
+            <TextView
+                android:visibility="@{(viewModel.status == status.Success &amp;&amp; viewModel.listAddress.size() == 0) ? view.VISIBLE: view.GONE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/empty_address"
+                android:textSize="15sp"
                 app:drawableTopCompat="@drawable/ic_empty" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -165,7 +174,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
     </RelativeLayout>
 </layout>

@@ -4,36 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/light_green"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".uicontroler.activity.SplashActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:drawablePadding="20dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:drawableTopCompat="@drawable/ic_app"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:contentDescription="@string/slogan"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_app"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/slogan"
+        android:drawablePadding="5dp"
+        android:gravity="center"
         android:text="@string/slogan"
-        android:textSize="15sp"
+        android:textColor="@color/primary_green"
+        android:textSize="30sp"
         android:textStyle="normal"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

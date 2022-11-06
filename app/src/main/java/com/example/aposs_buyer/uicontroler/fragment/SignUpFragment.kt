@@ -49,7 +49,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun setOnStateChange(){
-        viewModel.signUpState.observe(this.viewLifecycleOwner,{
+        viewModel.signUpState.observe(this.viewLifecycleOwner) {
             if (it == SignUpState.Wait) {
                 dialog.dismissDialog()
             } else {
@@ -57,46 +57,46 @@ class SignUpFragment : Fragment() {
                     dialog.startLoading()
                 } else {
                     dialog.dismissDialog()
-                    if(it == SignUpState.Verify){
-                        findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToVerifyFragment())
+                    if (it == SignUpState.Verify) {
+                        findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment())
                     }
                 }
             }
-        })
+        }
     }
 
     private fun setCheckingEmail(){
-        viewModel.email.observe(this.viewLifecycleOwner,{
+        viewModel.email.observe(this.viewLifecycleOwner) {
             viewModel.isValidEmail()
             binding.emailLayout.error = viewModel.emailErrorMessage;
-        })
+        }
     }
     private fun setCheckingPassword(){
-        viewModel.password.observe(this.viewLifecycleOwner,{
+        viewModel.password.observe(this.viewLifecycleOwner) {
             viewModel.isValidPassword()
             binding.passwordLayout.error = viewModel.passwordErrorMessage
-        })
+        }
     }
 
     private fun setCheckingName(){
-        viewModel.name.observe(this.viewLifecycleOwner,{
+        viewModel.name.observe(this.viewLifecycleOwner) {
             viewModel.isValidName()
             binding.nameLayout.error = viewModel.nameErrorMessage
-        })
+        }
     }
 
     private fun setCheckingConfirmPassword(){
-        viewModel.confirmPassword.observe(this.viewLifecycleOwner,{
+        viewModel.confirmPassword.observe(this.viewLifecycleOwner) {
             viewModel.isValidConfirmPassword()
             binding.confirmPasswordLayout.error = viewModel.confirmErrorMessage
-        })
+        }
     }
 
     private fun setCheckingCellPhone(){
-        viewModel.cellNumber.observe(this.viewLifecycleOwner,{
+        viewModel.cellNumber.observe(this.viewLifecycleOwner) {
             viewModel.isValidPhoneNumber()
             binding.cellPhoneLayout.error = viewModel.cellNumberErrorMessage
-        })
+        }
     }
     private fun setUpSignInButton(){
         binding.signIn.setOnClickListener {
@@ -104,9 +104,9 @@ class SignUpFragment : Fragment() {
         }
     }
     private fun toastMessageChange() {
-        viewModel.toastMessage.observe(this.viewLifecycleOwner, {
+        viewModel.toastMessage.observe(this.viewLifecycleOwner) {
             Toast.makeText(this.requireContext(), it, Toast.LENGTH_SHORT).show()
-        })
+        }
     }
 
 }

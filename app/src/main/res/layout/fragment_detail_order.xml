@@ -29,7 +29,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
+                android:background="@color/primary_green"
                 app:layout_collapseMode="pin">
 
 
@@ -37,8 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingBottom="15dp">
+                    android:layout_marginTop="10dp">
 
                     <ImageView
                         android:id="@+id/back"
@@ -57,7 +56,7 @@
                         android:text="@string/order_detail"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:textStyle="bold" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,28 +77,6 @@
                             android:src="@drawable/ic_cart_white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:background="@color/red"
-                            android:backgroundTint="@color/red"
-                            app:cardCornerRadius="10dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:autoSizeMinTextSize="7sp"
-                                android:gravity="center"
-                                android:text="@string/defaultCartNumber"
-                                android:textColor="@color/white"
-                                android:textSize="7sp"
-                                tools:ignore="SmallSp,SpUsage" />
-
-                        </androidx.cardview.widget.CardView>
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
@@ -297,27 +274,6 @@
                             android:contentDescription="@string/image"
                             android:src="@drawable/ic_order_pending" />
 
-                        <View
-                            android:id="@+id/dividerStatus"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/status"
-                            android:background="#F2F2F2"
-                            android:elevation="1dp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/deliveringState"
-                            deliveringStateData="@{viewModel.orderDeliveringState}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/dividerStatus"
-                            android:layout_marginHorizontal="20dp"
-                            android:layout_marginTop="30dp"
-                            android:layout_marginBottom="30dp"
-                            android:orientation="vertical"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:itemCount="4"
-                            tools:listitem="@layout/item_order_delivering_state" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -340,9 +296,9 @@
                 android:background="@drawable/bg_btn_received"
                 android:text="@string/received"
                 android:textAllCaps="true"
-                android:textColor="@color/light_green"
+                android:textColor="@color/primary_green"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -354,9 +310,9 @@
                 android:background="@drawable/bg_btn_received"
                 android:text="@string/rating_now"
                 android:textAllCaps="true"
-                android:textColor="@color/light_green"
+                android:textColor="@color/primary_green"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -370,7 +326,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/disable_pray"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 
