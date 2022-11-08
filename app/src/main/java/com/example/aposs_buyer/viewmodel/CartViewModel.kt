@@ -225,7 +225,8 @@ class CartViewModel @Inject constructor(
                 status = OrderStatus.Pending,
                 billingItems = orderBillingItem,
                 totalPrice = total,
-                address = it
+                address = it,
+                isValidAddress = defaultAddress.value!!.isValid
             )
         }
         return order!!

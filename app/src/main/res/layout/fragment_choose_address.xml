@@ -165,6 +165,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
     </RelativeLayout>
 </layout>

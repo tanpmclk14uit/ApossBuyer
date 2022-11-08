@@ -16,7 +16,8 @@ data class Order(
     var address: String = "",
     var billingItems: List<OrderBillingItem> = mutableListOf(),
     val totalPrice: Int = 0,
-    var cancelReason: String? = null
+    var cancelReason: String? = null,
+    var isValidAddress: Boolean = false
 ) : Parcelable {
 
     fun totalPriceToString(): String {

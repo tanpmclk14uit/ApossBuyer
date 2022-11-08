@@ -104,7 +104,8 @@ class DetailProductViewModel @Inject constructor(
             newOrder = Order(
                 billingItems = orderBillingItem,
                 address = address.getFullAddress(),
-                totalPrice = (selectedProduct.value!!.price + currentAdditionalPrice) * cartAmount.value!!
+                totalPrice = (selectedProduct.value!!.price + currentAdditionalPrice) * cartAmount.value!!,
+                isValidAddress = address.isValid
             )
         }
         return newOrder

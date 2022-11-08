@@ -28,11 +28,13 @@ class CheckOutViewModel @Inject constructor(
     var isValidAddress = MutableLiveData<Boolean>()
     fun setCurrentOrder(order: Order) {
         currentOrder.value = order
+        isValidAddress.value = order.isValidAddress
     }
 
     fun setNewAddress(address: Address){
         currentOrder.value!!.address = address.getFullAddress()
-        isValidAddress.postValue(address.isValid)
+        currentOrder.value!!.isValidAddress = true
+        isValidAddress.value = true
     }
 
     fun addNewOrder() {
