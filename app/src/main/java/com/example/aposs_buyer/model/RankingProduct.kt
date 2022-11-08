@@ -8,7 +8,6 @@ data class RankingProduct(
     val image: Image,
     val name: String,
     val price: Int,
-    val rating: Float,
     val totalPurchase: Int,
 ){
     fun priceToString(): String{

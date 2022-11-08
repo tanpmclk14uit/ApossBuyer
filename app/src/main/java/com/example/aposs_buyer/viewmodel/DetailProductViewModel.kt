@@ -493,7 +493,6 @@ class DetailProductViewModel @Inject constructor(
             image = Image(productDTO.image),
             name = productDTO.name,
             price = productDTO.price,
-            rating = productDTO.rating.toFloat(),
             purchased = productDTO.purchased
         )
     }

@@ -10,7 +10,6 @@ data class HomeProduct(
     val image: Image,
     val name: String,
     val price: Int,
-    val rating: Float,
     val purchased: Int,
 ) : Parcelable {
     fun priceToString(): String {
