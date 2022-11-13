@@ -79,8 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Administrator\Downloads\Group 484.png" />
-                                                <entry key="scalingPercent" value="116" />
+                                                <entry key="imagePath" value="C:\Users\Administrator\Downloads\Group 265 (1).png" />
+                                                <entry key="scalingPercent" value="118" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -114,7 +114,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="33a48f" />
+                                      <entry key="backgroundColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -76,9 +76,9 @@ class HomeViewModel @Inject constructor(
         if (!isLastPage && _status.value != LoadingStatus.Loading) {
             _status.value = LoadingStatus.Loading
             viewModelScope.launch(Dispatchers.IO) {
+                try {
                 val getProductDeferred =
                     productRepository.productService.getProductsAsync(currentPage)
-                try {
                     val productResponseDTO: ProductResponseDTO = getProductDeferred.await()
                     val productsInCurrentPage = productResponseDTO.content.stream()
                         .map { productDTO -> Converter.convertProductDTOtoHomeProduct(productDTO) }

@@ -73,14 +73,7 @@ class PersonFragment : Fragment() {
             }
 
         }
-//        binding?.imgNotification?.setOnClickListener {
-//            val intent = Intent(this.context, NotificationActivity::class.java)
-//            startActivity(intent)
-//        }
-        binding?.lnEditInfo?.setOnClickListener {
-            val intent = Intent(this.context, UserDetailActivity::class.java)
-            startActivity(intent)
-        }
+
         binding?.signIn?.setOnClickListener {
             startActivity(Intent(this.context, LoginActivity::class.java))
             requireActivity().finish()

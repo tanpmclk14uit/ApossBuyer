@@ -89,7 +89,7 @@
     <string name="tap_to_view_detail">Chọn để xem chi tiết</string>
     <string name="cancel_order">Hủy đơn hàng</string>
     <string name="order_time">Thời gian đặt:</string>
-    <string name="status">Trạng thái:</string>
+    <string name="status">Trạng thái đơn hàng:</string>
     <string name="address">Địa chỉ</string>
     <string name="billing_items">Chi tiết đơn</string>
     <string name="pay_now">Thanh toán ngay</string>
@@ -142,7 +142,7 @@
     <string name="product">Sản phẩm</string>
     <string name="confirm">Xác nhận</string>
     <string name="your_order_placed">Đặt hàng thành công</string>
-    <string name="check_out_success_message">Đặt hàng thành công.\nBạn có thể đi đến đơn hàng để kiếm tra tình trạng giao hàng</string>
+    <string name="check_out_success_message">Đặt hàng thành công.\nBạn có thể đi đến đơn hàng để kiếm tra\ntình trạng giao hàng hoặc\nthanh toán trực tuyến (nếu có)</string>
     <string name="received">Đã nhận</string>
     <string name="are_you_sure_that_you_ve_already_received_this_order">Bạn có chắc chắn đã nhận được đơn hàng này?</string>
     <string name="top_purchased">Top lượt mua</string>
@@ -162,6 +162,15 @@
     <string name="gi_i_th_ch">Giải thích</string>
     <string name="th_m_l_i_khuy_n_cho_ng_i_m_nh">Thêm lời khuyên cho người mệnh</string>
     <string name="empty_address">Hiện không có địa chỉ, tạo mới ngay!</string>
+    <string name="paymentMethod">Phương thức thanh toán:</string>
+    <string name="paymentStatus">Trạng thái thanh toán:</string>
+    <string name="confirm_check_out_success">Xác nhận đã thanh toán</string>
+    <string name="check_out_information">Thông tin thanh toán</string>
+    <string name="check_order">Kiểm tra đơn hàng</string>
+    <string name="bank_name">Tên ngân hàng:</string>
+    <string name="branch_name">Chi nhánh:</string>
+    <string name="accountNumber">Số tài khoản</string>
+    <string name="receiverName">Tên người nhận:</string>
 
 
 </resources>

@@ -111,8 +111,8 @@ class OrderFragment : Fragment(), OrderAdapter.OrderInterface {
         binding.bottomBar.selectedItemId = binding.bottomBar.menu.getItem(0).itemId
     }
 
-    override fun onRatingNowClick() {
-        startActivity(Intent(this.context, RatingActivity::class.java))
+    override fun onCheckOutClick(orderId: Long) {
+        findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToOnlineCheckOutInformationFragment(orderId))
     }
 
 }

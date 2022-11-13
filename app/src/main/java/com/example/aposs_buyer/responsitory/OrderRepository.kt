@@ -26,6 +26,10 @@ class OrderRepository @Inject constructor() {
         return orderService.getAllOrderByStatus(status, accessToken)
     }
 
+    suspend fun updatePaymentStatus(orderId: Long, accessToken: String): Response<Unit>{
+        return orderService.updatePaymentStatus(orderId, accessToken)
+    }
+
     suspend fun putOrderStatusToSuccess(orderId: Long, accessToken: String): Response<Unit> {
         return orderService.putOrderStatusToSuccess(orderId, accessToken)
     }

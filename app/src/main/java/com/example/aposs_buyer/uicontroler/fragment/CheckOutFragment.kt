@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -39,12 +41,23 @@ class CheckOutFragment : Fragment() {
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
         setUpFirstState()
+        setPaymentMethod()
         setUpAppBar()
         setUpAddress()
         setUpBillings()
         setUpConfirmButton()
         setUpLoadingDialog()
         return binding.root
+    }
+
+    private fun setPaymentMethod(){
+        val data = listOf("Tiền mặt", "Trực tuyến")
+        val adapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, data)
+        binding.paymentMethodSelectionView.setText("Tiền mặt", false)
+        binding.paymentMethodSelectionView.setAdapter(adapter)
+        binding.paymentMethodSelectionView.addTextChangedListener {
+            viewModel.setNewPaymentMethod(it.toString())
+        }
     }
 
     private fun setUpAddress() {
@@ -78,6 +91,7 @@ class CheckOutFragment : Fragment() {
             } else {
                 loadingDialog.dismissDialog()
                 if (it == LoadingStatus.Success) {
+
                     findNavController().navigate(CheckOutFragmentDirections.actionCheckOutFragmentToCheckOutSuccessFragment())
                 } else {
                     Toast.makeText(this.requireContext(), "THanh toán thất bại", Toast.LENGTH_SHORT)

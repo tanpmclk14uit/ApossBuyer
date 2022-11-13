@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_orderFragment_to_detailOrderFragment"
             app:destination="@id/detailOrderFragment" />
+        <action
+            android:id="@+id/action_orderFragment_to_onlineCheckOutInformationFragment"
+            app:destination="@id/onlineCheckOutInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailOrderFragment"
@@ -30,6 +33,9 @@
         <action
             android:id="@+id/action_detailOrderFragment_to_chooseAddressFragment"
             app:destination="@id/chooseAddressFragment" />
+        <action
+            android:id="@+id/action_detailOrderFragment_to_onlineCheckOutInformationFragment"
+            app:destination="@id/onlineCheckOutInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/cancelOrderFragment"
@@ -61,5 +67,15 @@
         <argument
             android:name="context"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/onlineCheckOutInformationFragment"
+        tools:layout="@layout/fragment_online_check_out_information"
+        android:name="com.example.aposs_buyer.uicontroler.fragment.OnlineCheckOutInformationFragment"
+        android:label="OnlineCheckOutInformationFragment" >
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
 </navigation>

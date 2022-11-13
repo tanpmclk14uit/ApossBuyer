@@ -744,8 +744,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-4" />
-                            <option name="y" value="30" />
+                            <option name="x" value="866" />
+                            <option name="y" value="67" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -765,8 +765,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="878" />
+                            <option name="y" value="-223" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -777,8 +777,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="696" />
-                            <option name="y" value="20" />
+                            <option name="x" value="681" />
+                            <option name="y" value="-80" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -793,7 +793,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_detailOrderFragment_to_onlineCheckOutInformationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="onlineCheckOutInformationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="734" />
+                            <option name="y" value="374" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -810,6 +827,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_orderFragment_to_detailOrderFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_orderFragment_to_onlineCheckOutInformationFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

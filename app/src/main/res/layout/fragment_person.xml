@@ -128,13 +128,15 @@
 
                     <LinearLayout
                         android:id="@+id/ln_edit_info"
+                        android:elevation="5dp"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
+                        android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:background="@drawable/bg_edit_info">
                         <com.google.android.material.imageview.ShapeableImageView
                             android:layout_width="120dp"
-                            android:layout_height="120dp"
+                            android:layout_height="65dp"
                             android:src="@drawable/ic_app"
                             android:scaleType="fitCenter"
                             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"

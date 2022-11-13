@@ -9,6 +9,17 @@
             name="viewModel"
             type="com.example.aposs_buyer.viewmodel.OrderDetailViewModel" />
 
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="paymentStatus"
+            type="com.example.aposs_buyer.utils.PaymentStatus" />
+
+        <variable
+            name="orderStatus"
+            type="com.example.aposs_buyer.utils.OrderStatus" />
     </data>
 
     <RelativeLayout
@@ -87,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/bottomButton"
-            android:layout_marginTop="70dp">
+            android:layout_marginTop="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,6 +175,145 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="@string/status"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/statusString"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toStartOf="@+id/statusIcon"
+                            android:layout_toEndOf="@+id/status"
+                            android:gravity="end"
+                            android:textColor="@color/dark_pray"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/statusIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="15dp"
+                            android:contentDescription="@string/image"
+                            android:src="@drawable/ic_order_pending" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/paymentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingVertical="15dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="5dp">
+
+                    <RelativeLayout
+                        android:paddingVertical="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/paymentMethod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15dp"
+                            android:text="@string/paymentMethod"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/paymentMethodString"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="@{viewModel.detailOrder.paymentMethodString}"
+                            android:layout_marginEnd="15dp"
+                            android:layout_toEndOf="@+id/paymentMethod"
+                            android:gravity="end"
+                            android:textColor="@color/dark_pray"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:id="@+id/paymentStatusLayout"
+                            android:layout_width="match_parent"
+                            android:visibility="@{viewModel.detailOrder.onlinePayment ? view.VISIBLE: view.GONE}"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_below="@id/paymentMethod"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/paymentStatusText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/paymentStatus"
+                                android:textSize="16sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:layout_marginStart="15dp"
+                                android:layout_width="match_parent"
+                                android:text="@{viewModel.detailOrder.paymentStatusString}"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:textColor="@color/secondary_orange"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/checkout"
+                            android:layout_marginEnd="15dp"
+                            android:visibility="@{(viewModel.detailOrder.paymentStatus == paymentStatus.Waiting &amp;&amp; viewModel.detailOrder.onlinePayment &amp;&amp; viewModel.detailOrder.status != orderStatus.Cancel) ? view.VISIBLE: view.GONE}"
+                            android:textColor="@color/primary_green"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_alignParentEnd="true"
+                            android:text="@string/pay_now"
+                            android:layout_below="@id/paymentStatusLayout"
+                            android:textSize="16sp"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            android:layout_below="@id/checkout"
+                            android:visibility="@{(viewModel.detailOrder.paymentStatus == paymentStatus.Waiting &amp;&amp; viewModel.detailOrder.onlinePayment &amp;&amp; viewModel.detailOrder.status != orderStatus.Cancel) ? view.VISIBLE: view.GONE}"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@color/primary_green"
+                            android:layout_width="115dp"
+                            android:layout_height="1dp"/>
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
                             android:id="@+id/allItems"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -228,54 +378,7 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="5dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="15dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:text="@string/status"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/statusString"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_toStartOf="@+id/statusIcon"
-                            android:layout_toEndOf="@+id/status"
-                            android:gravity="end"
-                            android:textColor="@color/dark_pray"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:id="@+id/statusIcon"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="15dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/ic_order_pending" />
-
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
@@ -295,20 +398,6 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/bg_btn_received"
                 android:text="@string/received"
-                android:textAllCaps="true"
-                android:textColor="@color/primary_green"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/ratingNow"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/bg_btn_received"
-                android:text="@string/pay_now"
                 android:textAllCaps="true"
                 android:textColor="@color/primary_green"
                 android:textSize="16sp"

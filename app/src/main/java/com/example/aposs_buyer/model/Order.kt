@@ -3,6 +3,7 @@ package com.example.aposs_buyer.model
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.example.aposs_buyer.utils.OrderStatus
+import com.example.aposs_buyer.utils.PaymentStatus
 import kotlinx.parcelize.Parcelize
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -17,6 +18,8 @@ data class Order(
     var billingItems: List<OrderBillingItem> = mutableListOf(),
     val totalPrice: Int = 0,
     var cancelReason: String? = null,
+    var paymentStatus: PaymentStatus = PaymentStatus.Waiting,
+    var isOnlinePayment: Boolean = false,
     var isValidAddress: Boolean = false
 ) : Parcelable {
 
@@ -34,5 +37,17 @@ data class Order(
 
     fun getStatusString(): String {
         return status.toShowString()
+    }
+
+    fun getPaymentStatusString(): String{
+        return  paymentStatus.toShowString()
+    }
+
+    fun getPaymentMethodString(): String{
+        return if (isOnlinePayment){
+            "Trực tuyến"
+        }else{
+            "Tiền mặt"
+        }
     }
 }

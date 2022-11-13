@@ -8,6 +8,17 @@
         <variable
             name="order"
             type="com.example.aposs_buyer.model.Order" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="paymentStatus"
+            type="com.example.aposs_buyer.utils.PaymentStatus" />
+        <variable
+            name="orderStatus"
+            type="com.example.aposs_buyer.utils.OrderStatus" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +28,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="7dp"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginBottom="15dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -140,6 +152,57 @@
                     android:layout_marginTop="5dp"
                     android:background="#F2F2F2" />
 
+                <LinearLayout
+                    android:id="@+id/paymentMethodLayout"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/TotalText"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/paymentMethodText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/paymentMethod"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:text="@{order.paymentMethodString}"
+                        android:textColor="@color/dark_pray"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/paymentStatusLayout"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/paymentMethodLayout"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{order.onlinePayment ? view.VISIBLE: view.GONE}"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/paymentStatusText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/paymentStatus"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:text="@{order.paymentStatusString}"
+                        android:textColor="@color/secondary_orange"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/TotalText"
                     android:layout_width="wrap_content"
@@ -164,10 +227,11 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/ratingNow"
+                    android:id="@+id/checkOutNow"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_below="@+id/TotalText"
+                    android:visibility="@{(order.paymentStatus == paymentStatus.Waiting &amp;&amp; order.onlinePayment &amp;&amp; order.status != orderStatus.Cancel) ? view.VISIBLE: view.GONE}"
+                    android:layout_below="@+id/paymentStatusLayout"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_rating_now_button"
                     android:text="@string/pay_now"

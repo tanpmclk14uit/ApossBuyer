@@ -170,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="7dp"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="95dp"
             android:layout_marginBottom="60dp"
             android:orientation="vertical"
             android:visibility="@{viewModel.loadingStatus == status.Success?view.VISIBLE:view.GONE}"

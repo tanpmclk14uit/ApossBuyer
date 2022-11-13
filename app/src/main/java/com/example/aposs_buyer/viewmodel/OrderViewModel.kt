@@ -87,6 +87,8 @@ class OrderViewModel @Inject constructor(
             }.collect(Collectors.toList())),
             totalPrice = orderDTO.totalPrice,
             status = orderDTO.orderStatus,
+            isOnlinePayment = orderDTO.isOnlinePayment,
+            paymentStatus = orderDTO.paymentStatus,
             address = orderDTO.address
         )
     }

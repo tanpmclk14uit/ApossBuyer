@@ -26,6 +26,18 @@ enum class OrderStatus{
     }
 }
 
+enum class PaymentStatus{
+    Waiting,Pending, Completed;
+
+    fun toShowString(): String{
+        return when(this){
+            Waiting -> "Chờ thanh toán"
+            Pending -> "Chờ xác nhận"
+            Completed -> "Thành công"
+        }
+    }
+}
+
 enum class LoadingStatus{
     Loading, Success, Fail, Init
 }

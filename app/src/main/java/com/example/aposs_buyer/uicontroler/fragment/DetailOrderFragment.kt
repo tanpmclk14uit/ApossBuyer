@@ -59,6 +59,9 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
         // set up dialog confirm received order
         dialog = YesNoOrderSuccessStatusDialog(requireActivity(), this)
         loadingDialog = LoadingDialog(requireActivity())
+        binding.checkout.setOnClickListener {
+            findNavController().navigate(DetailOrderFragmentDirections.actionDetailOrderFragmentToOnlineCheckOutInformationFragment(args.currentOrder!!.id))
+        }
         setUpAppBar()
         setUpAddress()
         setUpBillingItems()
@@ -67,11 +70,13 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
         return binding.root
     }
 
+
     private fun setUpBillingItems() {
         // set up adapter
         orderDetailBillingItem = BillingItemsAdapter()
         binding.billingItems.adapter = orderDetailBillingItem
     }
+
 
     private fun setUpAppBar() {
         // set back button
@@ -113,10 +118,6 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
                 )
             )
         }
-        // set rating order button
-        binding.ratingNow.setOnClickListener {
-            startActivity(Intent(this.context, RatingActivity::class.java))
-        }
         // set delivered order button
         binding.received.setOnClickListener {
             // open confirm dialog for user
@@ -153,11 +154,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
 
 
     private fun setShowButtonByStatus(status: OrderStatus) {
-        if (status == OrderStatus.Success) {
-            binding.ratingNow.visibility = View.VISIBLE
-        } else {
-            binding.ratingNow.visibility = View.GONE
-        }
+
         if (status == OrderStatus.Pending || status == OrderStatus.Confirmed) {
             binding.cancel.visibility = View.VISIBLE
             binding.editAddress.visibility = View.VISIBLE

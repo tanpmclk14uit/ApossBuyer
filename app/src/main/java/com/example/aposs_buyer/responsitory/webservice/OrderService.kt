@@ -33,6 +33,12 @@ interface OrderService {
         @Header("Authorization") accessToken: String,
     ): Response<Unit>
 
+    @PUT("order/update-payment-status/{id}?status=Pending")
+    suspend fun updatePaymentStatus(
+        @Path(value = "id") id: Long,
+        @Header("Authorization") accessToken: String
+    ):Response<Unit>
+
     @PUT("order/success-order-customer/{id}")
     suspend fun putOrderStatusToSuccess(
         @Path(value = "id") id: Long,

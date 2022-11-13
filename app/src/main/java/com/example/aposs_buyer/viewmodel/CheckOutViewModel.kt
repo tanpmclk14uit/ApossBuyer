@@ -37,6 +37,15 @@ class CheckOutViewModel @Inject constructor(
         isValidAddress.value = true
     }
 
+    fun setNewPaymentMethod(onlinePayment: String){
+        if (onlinePayment == "Tiền mặt"){
+            currentOrder.value!!.isOnlinePayment = false
+        }
+        if (onlinePayment == "Trực tuyến"){
+            currentOrder.value!!.isOnlinePayment = true
+        }
+    }
+
     fun addNewOrder() {
             viewModelScope.launch(Dispatchers.IO) {
                 checkOutStatus.postValue(LoadingStatus.Loading)
@@ -77,6 +86,8 @@ class CheckOutViewModel @Inject constructor(
         val orderItemDTOs =
             order.billingItems.stream().map { convertBillingItemToOrderItemDTO(it) }.toList()
         return OrderDTO(
+            paymentStatus = order.paymentStatus,
+            isOnlinePayment = order.isOnlinePayment,
             address = order.address,
             orderItemDTOList = orderItemDTOs
         )

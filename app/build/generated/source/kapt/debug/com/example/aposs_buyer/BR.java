@@ -35,23 +35,27 @@ public class BR {
 
   public static final int orderDeliveringState = 16;
 
-  public static final int product = 17;
+  public static final int orderStatus = 17;
 
-  public static final int property = 18;
+  public static final int paymentStatus = 18;
 
-  public static final int rankingProduct = 19;
+  public static final int product = 19;
 
-  public static final int rateImage = 20;
+  public static final int property = 20;
 
-  public static final int rateNowItem = 21;
+  public static final int rankingProduct = 21;
 
-  public static final int ratedItem = 22;
+  public static final int rateImage = 22;
 
-  public static final int rating = 23;
+  public static final int rateNowItem = 23;
 
-  public static final int status = 24;
+  public static final int ratedItem = 24;
 
-  public static final int view = 25;
+  public static final int rating = 25;
 
-  public static final int viewModel = 26;
+  public static final int status = 26;
+
+  public static final int view = 27;
+
+  public static final int viewModel = 28;
 }
