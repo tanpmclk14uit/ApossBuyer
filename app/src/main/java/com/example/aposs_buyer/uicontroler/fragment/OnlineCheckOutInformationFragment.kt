@@ -41,6 +41,7 @@ class OnlineCheckOutInformationFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_online_check_out_information, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = viewModel
+        binding.bankingContent.text = args.id.toString()
         binding.imgBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -75,6 +76,10 @@ class OnlineCheckOutInformationFragment : Fragment() {
     }
 
     private fun setCopy(){
+        binding.bankingContentCopy.setOnClickListener {
+            copyToClipBoard(args.id.toString())
+        }
+
         binding.bankNameCopy.setOnClickListener {
             copyToClipBoard(viewModel.bankingInformationDTO.value!!.bankName)
         }
@@ -84,7 +89,7 @@ class OnlineCheckOutInformationFragment : Fragment() {
         binding.accountNumberCopy.setOnClickListener {
             copyToClipBoard(viewModel.bankingInformationDTO.value!!.accountNumber)
         }
-        binding.accountNumberCopy.setOnClickListener {
+        binding.receiverCopy.setOnClickListener {
             copyToClipBoard(viewModel.bankingInformationDTO.value!!.accountNumber)
         }
     }

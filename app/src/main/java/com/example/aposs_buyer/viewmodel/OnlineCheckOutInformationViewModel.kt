@@ -14,9 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.net.SocketTimeoutException
-import java.util.stream.Collectors
 import javax.inject.Inject
-
 
 
 @HiltViewModel

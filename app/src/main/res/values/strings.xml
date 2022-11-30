@@ -171,6 +171,7 @@
     <string name="branch_name">Chi nhánh:</string>
     <string name="accountNumber">Số tài khoản</string>
     <string name="receiverName">Tên người nhận:</string>
+    <string name="bankingContent">Nội dung chuyển khoản:</string>
 
 
 </resources>
