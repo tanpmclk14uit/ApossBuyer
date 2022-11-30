@@ -43,12 +43,12 @@
                 android:layout_margin="15dp">
 
                 <TextView
-                    android:id="@+id/orderText"
+                    android:id="@+id/idText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:text="@string/order_time"
+                    android:text="ID: "
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -56,6 +56,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/idText"
+                    android:gravity="end"
+                    android:text="@{Long.toString(order.id)}"
+                    android:textColor="@color/dark_pray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/orderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/idText"
+                    android:text="@string/order_time"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/idText"
                     android:layout_toEndOf="@+id/orderText"
                     android:gravity="end"
                     android:text="@{order.timeString}"
