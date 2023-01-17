@@ -53,7 +53,6 @@ class CheckOutFragment : Fragment() {
     private fun setPaymentMethod(){
         val data = listOf("Tiền mặt", "Trực tuyến")
         val adapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, data)
-        binding.paymentMethodSelectionView.setText("Tiền mặt", false)
         binding.paymentMethodSelectionView.setAdapter(adapter)
         binding.paymentMethodSelectionView.addTextChangedListener {
             viewModel.setNewPaymentMethod(it.toString())

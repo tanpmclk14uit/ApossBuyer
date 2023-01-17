@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.aposs_buyer.R
 import com.example.aposs_buyer.databinding.FragmentFinishCheckOutBinding
 import com.example.aposs_buyer.uicontroler.activity.MainActivity
@@ -38,7 +39,7 @@ class CheckOutSuccessFragment : Fragment() {
         binding.btnContinue.setOnClickListener {
             goToMainActivity()
         }
-        CoroutineScope(Dispatchers.Main).launch {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             var i = 5
             while (i > 0) {
                 binding.btnContinue.text =
@@ -63,7 +64,7 @@ class CheckOutSuccessFragment : Fragment() {
 
     private fun goToMainActivity(){
         isGoToOrderActivity = true
-        val intent = Intent(this.context, MainActivity::class.java)
+        val intent = Intent(requireContext(), MainActivity::class.java)
         startActivity(intent)
         this.requireActivity().finish()
     }
