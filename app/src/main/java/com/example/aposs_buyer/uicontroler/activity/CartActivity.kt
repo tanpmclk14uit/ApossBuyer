@@ -36,6 +36,11 @@ class CartActivity : CartAdapter.ChangeAmount, AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadCartList()
+    }
+
 
     private fun setUpAppBar() {
         // set up notification

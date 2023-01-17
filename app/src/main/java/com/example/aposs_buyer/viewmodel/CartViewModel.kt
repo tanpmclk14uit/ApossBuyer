@@ -114,7 +114,7 @@ class CartViewModel @Inject constructor(
         deleteCartItem(cartItem.id)
     }
 
-    private fun getChoseCartItems(): ArrayList<CartItem> {
+    fun getChoseCartItems(): ArrayList<CartItem> {
         _lstCartItem.value?.let {
             return it.stream().filter { it.isChoose }.collect(Collectors.toList())
                 .toCollection(ArrayList())
