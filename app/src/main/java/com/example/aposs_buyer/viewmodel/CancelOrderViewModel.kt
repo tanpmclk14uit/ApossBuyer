@@ -37,7 +37,6 @@ class CancelOrderViewModel @Inject constructor(
                 loadStatus.value = LoadingStatus.Loading
                 val accessToken = authRepository.getCurrentAccessTokenFromRoom()
                 if (!accessToken.isNullOrBlank()) {
-                    Log.i("iiiiiiiiiiiiii", cancelReason.value.toString())
                     val response =
                         orderRepository.cancelOrder(orderId, cancelReason.value!!, accessToken)
                     if (response.isSuccessful) {
