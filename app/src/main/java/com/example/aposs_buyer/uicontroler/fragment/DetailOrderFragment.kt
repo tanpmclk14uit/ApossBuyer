@@ -67,6 +67,7 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
         setUpBillingItems()
         setUpTrackingOrder()
         setUpBottomBar()
+        setVisibilities()
         return binding.root
     }
 
@@ -194,5 +195,15 @@ class DetailOrderFragment : Fragment(), YesNoOrderSuccessStatusDialog.SuccessCli
 
     override fun onSuccessClick() {
         viewModel.receivedOrder()
+    }
+
+    private fun setVisibilities() {
+        if (viewModel.detailOrder.value?.status != OrderStatus.Cancel) {
+            binding.reason.visibility = View.GONE
+            binding.reasonText.visibility = View.GONE
+            return
+        }
+        binding.reason.visibility = View.VISIBLE
+        binding.reasonText.visibility = View.VISIBLE
     }
 }

@@ -250,6 +250,30 @@
                             android:contentDescription="@string/image"
                             android:src="@drawable/ic_order_pending" />
 
+                        <TextView
+                            android:id="@+id/reason_text"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_below="@id/status"
+                            android:text="Lý do hủy: "
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/reason"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:maxLines="2"
+                            android:layout_alignRight="@id/reason_text"
+                            android:layout_below="@id/status"
+                            android:text="@{viewModel.detailOrder.cancelReason}"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
