@@ -68,7 +68,8 @@ class OrderDetailViewModel @Inject constructor(
             }.collect(Collectors.toList())),
             totalPrice = orderDTO.totalPrice,
             status = orderDTO.orderStatus,
-            address = orderDTO.address
+            address = orderDTO.address,
+            cancelReason = orderDTO.cancelReason
         )
     }
 

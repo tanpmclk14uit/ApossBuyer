@@ -89,7 +89,8 @@ class OrderViewModel @Inject constructor(
             status = orderDTO.orderStatus,
             isOnlinePayment = orderDTO.isOnlinePayment,
             paymentStatus = orderDTO.paymentStatus,
-            address = orderDTO.address
+            address = orderDTO.address,
+            cancelReason = orderDTO.cancelReason
         )
     }
 }

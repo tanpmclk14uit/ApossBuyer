@@ -252,7 +252,6 @@
 
                         <TextView
                             android:id="@+id/reason_text"
-                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="15dp"
@@ -264,12 +263,13 @@
 
                         <TextView
                             android:id="@+id/reason"
-                            android:visibility="gone"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
+                            android:layout_marginRight="15dp"
                             android:maxLines="2"
-                            android:layout_alignRight="@id/reason_text"
+                            android:layout_toEndOf="@id/reason_text"
+                            android:gravity="end"
                             android:layout_below="@id/status"
                             android:text="@{viewModel.detailOrder.cancelReason}"
                             android:textSize="16sp"
